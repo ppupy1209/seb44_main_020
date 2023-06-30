@@ -1,7 +1,7 @@
 ---
 name: Task Template
 about: Task Template
-title: ''
+title: "[FE/BE] 제목"
 labels: ''
 assignees: ''
 
