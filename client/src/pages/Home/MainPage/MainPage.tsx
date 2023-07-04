@@ -1,6 +1,7 @@
 import React from "react";
 import * as S from './MainPage.styled'; 
 import { MainPoster } from "../../../components/MainPoster/MainPoster";
+import MainCarousel from "../../../components/MainCarousel/MainCarousel";
 
 
 export function MainPage() {
@@ -15,7 +16,8 @@ const posters=data.map((poster,index)=>(
   <MainPoster data={poster} key={index} />
 ));
   return(
-  <S.Posters>{posters}</S.Posters>
+  // <S.Posters>{posters}</S.Posters>
+  <MainCarousel props={posters} />
   );
 }
 
