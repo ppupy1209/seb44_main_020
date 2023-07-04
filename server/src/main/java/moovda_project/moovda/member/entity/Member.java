@@ -24,9 +24,6 @@ public class Member {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false, updatable = false,unique = true)
-    private String email;
-
 //    @OneToMany(mappedBy = "member")
 //    private List<Question> questionList = new ArrayList<>();
 }
