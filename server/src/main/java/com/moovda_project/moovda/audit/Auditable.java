@@ -17,8 +17,7 @@ import java.time.LocalDateTime;
 @Setter
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class) // 엔티티의 변경 이벤트를 감지하고 처리하는 리스너를 등록
-public class Auditable {
-
+public abstract class Auditable {
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
