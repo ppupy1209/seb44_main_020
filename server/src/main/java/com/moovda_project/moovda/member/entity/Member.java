@@ -1,4 +1,4 @@
-package moovda_project.moovda.member.entity;
+package com.moovda_project.moovda.member.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
