@@ -1,4 +1,4 @@
-package com.moovdaproject.audit;
+package com.moovda_project.moovda.audit;
 
 import lombok.Getter;
 import lombok.Setter;
