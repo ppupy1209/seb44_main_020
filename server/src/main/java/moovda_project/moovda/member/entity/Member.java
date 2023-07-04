@@ -24,11 +24,6 @@ public class Member {
     @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
-    private String towatch;
-
-    @Column(nullable = false)
-    private  String watched;
     @Column(nullable = false, updatable = false,unique = true)
     private String email;
 
