@@ -17,6 +17,7 @@ public class MovieGenre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_genre_id")
     private Long movieGenreId;
 
     @ManyToOne(fetch = FetchType.LAZY)
