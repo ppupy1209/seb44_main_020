@@ -1,4 +1,6 @@
 import React from 'react';
+import GlobalStyle from './Globalstyle';
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { MainPage } from './pages/Home/MainPage/MainPage';
 import { MyPage } from './pages/Membership/MyPage/MyPage';
@@ -9,8 +11,11 @@ import { QuestionCreatePage } from './pages/Question/QuestionCreatePage/Question
 import { QuestionDetailPage } from './pages/Question/QuestionDetailPage/QuestionDetailPage';
 import { QuestionListPage } from './pages/Question/QuestionListPage/QuestionListPage';
 import { MovieDetailPage } from './pages/Detail/MovieDetailPage/MovieDetailPage';
+
 function App() {
   return (
+    <>
+    <GlobalStyle />
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainPage />} />
@@ -24,6 +29,7 @@ function App() {
         <Route path="/movies" element={<MovieDetailPage />} />
       </Routes>
     </BrowserRouter>
+    </>
   );
 }
 
