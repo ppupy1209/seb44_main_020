@@ -19,11 +19,11 @@ const router = createBrowserRouter([
     errorElement: <MainPage />,
     children: [
       { index: true, element: <MainPage /> },
-      { path: 'members/mypage', element: <MyPage /> },
+      { path: 'members/:memberId', element: <MyPage /> },
       { path: 'members/login', element: <LoginPage /> },
       { path: 'members/signup', element: <SignupPage /> },
       { path: 'moives/search', element: <SearchPage /> },
-      { path: 'questions/ask', element: <QuestionCreatePage /> },
+      { path: 'questions/:memberId', element: <QuestionCreatePage /> },
       { path: 'questions/detail', element: <QuestionDetailPage /> },
       { path: 'questions/list', element: <QuestionListPage /> },
       { path: 'movies', element: <MovieDetailPage /> },
