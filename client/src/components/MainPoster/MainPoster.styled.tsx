@@ -5,7 +5,7 @@ export const Container=styled.div<{height?:string}>`
   flex-direction: column;
   width: ${(props)=>props.height||'250px'};
   height: auto;
-    
+  gap:5px;
 `;
 
 
@@ -25,4 +25,13 @@ overflow: hidden;
 white-space: nowrap;
 text-overflow: ellipsis;
 max-width: 230px;
+`;
+export const Star=styled.div`
+display:flex;
+justify-content:center`;
+
+export const Delete=styled.div`
+position:absolute;
+left:220px;
+top:10px;
 `;

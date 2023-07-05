@@ -10,9 +10,9 @@ export default function MainCarousel({props}:CarouselProps){
     const settings = {
         className: "center",
         centerMode: true,
-        centerPadding: "100px",
+        centerPadding: "0",
         fade:true,
-        dots: true,
+        // dots: true,
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
