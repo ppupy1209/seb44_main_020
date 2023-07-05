@@ -2,18 +2,14 @@
 .slick-slider 
 {
     position: relative;
-
-    width: 500px;
-    height: auto;
-
+    height: 100%;
+    width: 100%;
     display: block;
     box-sizing: border-box;
-
     -webkit-user-select: none;
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none;
-
     -webkit-touch-callout: none;
     -khtml-user-select: none;
     -ms-touch-action: pan-y;
@@ -24,12 +20,9 @@
 .slick-list
 {
     position: relative;
-
     display: block;
-    overflow: hidden;
-
-    margin: 0;
-    padding: 0;
+    margin-left: 85px;
+    padding: 0px;
 }
 .slick-list:focus
 {
@@ -56,7 +49,6 @@
     position: relative;
     top: 0;
     left: 0;
-
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -65,7 +57,6 @@
 .slick-track:after
 {
     display: table;
-
     content: '';
 }
 .slick-track:after
@@ -81,9 +72,9 @@
 {
     display: none;
     float: left;
-
     height: 100%;
     min-height: 1px;
+    
 }
 [dir='rtl'] .slick-slide
 {
@@ -112,11 +103,12 @@
 .slick-vertical .slick-slide
 {
     display: block;
-
     height: auto;
-
     border: 1px solid transparent;
 }
 .slick-arrow.slick-hidden {
     display: none;
+}
+.slick-slide.slick-center img {
+    transform: scale(1.1);
 }

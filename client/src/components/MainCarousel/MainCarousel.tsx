@@ -9,16 +9,16 @@ interface CarouselProps{
 export default function MainCarousel({props}:CarouselProps){
     const settings = {
         className: "center",
-        centerMode: true,
-        centerPadding: "0",
-        fade:true,
-        // dots: true,
+        centerMode:true,
+        centerPadding:'80px',
         infinite: true,
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
-        autoplaySpeed: 2000,
-        pauseOnHover:true
+        autoplaySpeed: 3000,
+        pauseOnHover:true,
+        // fade:true,
+        arrows:false,
     };
     return(
 <Slider {...settings}>{props}</Slider>

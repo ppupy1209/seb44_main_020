@@ -7,7 +7,9 @@ interface Props{
 url:string;
 }
 
+//삭제
 export const handleDelete = useCallback(({url}:Props) => {
+  if(window.confirm('삭제하시겠습니까?')) //삭제 확인 경고창
           axios
             .delete(
               url,
