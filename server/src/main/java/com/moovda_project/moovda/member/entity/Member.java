@@ -34,4 +34,5 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member")
     private  List<Watched> watchedList = new ArrayList<>();
 
+
 }

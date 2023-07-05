@@ -26,6 +26,7 @@ public class JwtTokenizer {
     @Value("${jwt.key.secret}")
     private String secretKey;
 
+
     //액세스 토큰 정보
     @Getter
     @Value("${jwt.access-token-expiration-minutes}")

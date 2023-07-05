@@ -27,6 +27,7 @@ spring:
 #             scope:
 #               - email
 #               - profile
+
 logging:
   level:
     org:
