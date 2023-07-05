@@ -6,7 +6,6 @@ background-color:#01123D;
 
 export const Left=styled.div`
 background-color:#01123D;
-z-index: 1;
 width:50%;
 display:flex;
 justify-content:center;
