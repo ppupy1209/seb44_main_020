@@ -5,9 +5,9 @@ export const Container=styled.div<{width?:string}>`
   flex-direction: column;
   width: ${(props)=>props.width||'250px'};
   height: auto;
-  gap:5px
+  gap:5px;
+  cursor: pointer;
 `;
-
 
 export const PosterImg=styled.img`
     border-radius: 20px;
@@ -31,7 +31,7 @@ font-size: 20px;
 `;
 export const Star=styled.div`
 display:flex;
-justify-content:center`;
+justify-content:center;`;
 
 export const Delete=styled.div`
 position:absolute;
