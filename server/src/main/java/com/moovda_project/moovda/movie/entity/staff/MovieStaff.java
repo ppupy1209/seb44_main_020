@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Getter
 @Setter
 @Table(name = "movie_staffs")
@@ -35,4 +35,11 @@ public class MovieStaff {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+        if(!movie.getMovieStaffs().contains(this)) {
+            movie.getMovieStaffs().add(this);
+        }
+    }
 }

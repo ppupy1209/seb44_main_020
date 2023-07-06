@@ -9,7 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Getter
 @Setter
 @Table(name = "movie_genre")
@@ -28,4 +28,10 @@ public class MovieGenre {
     @JoinColumn(name = "genre_id")
     private Genre genre;
 
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+        if(!movie.getMovieGenres().contains(this)) {
+            movie.getMovieGenres().add(this);
+        }
+    }
 }

@@ -1,7 +1,14 @@
 package com.moovda_project.moovda.movie.service;
 
 import com.moovda_project.moovda.movie.entity.Movie;
+import com.moovda_project.moovda.movie.entity.genre.Genre;
+import com.moovda_project.moovda.movie.entity.genre.GenreRepository;
+import com.moovda_project.moovda.movie.entity.genre.MovieGenre;
+import com.moovda_project.moovda.movie.entity.staff.MovieStaff;
+import com.moovda_project.moovda.movie.entity.staff.Staff;
+import com.moovda_project.moovda.movie.entity.staff.StaffRepository;
 import com.moovda_project.moovda.movie.repository.MovieRepository;
+import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -9,15 +16,18 @@ import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ApiService {
 
     private final MovieRepository movieRepository;
+    private final GenreRepository genreRepository;
+    private final StaffRepository staffRepository;
 
-    public ApiService(MovieRepository movieRepository) {
-        this.movieRepository = movieRepository;
-    }
+
 
     public void init(String jsonData) {
         try {
@@ -51,6 +61,52 @@ public class ApiService {
 
                 movie.setRunningTime(Integer.parseInt(movieObj.get("runtime").toString()));
 
+                String[] genres = movieObj.get("genre").toString().split(",");
+                for(String genre : genres) {
+                   MovieGenre movieGenre = new MovieGenre();
+
+                   Genre existingGenre = genreRepository.findByName(genre);
+                   if (existingGenre == null) {
+                       existingGenre = new Genre();
+                       existingGenre.setName(genre);
+                       genreRepository.save(existingGenre);
+                   }
+
+                   movieGenre.setGenre(existingGenre);
+                   movieGenre.setMovie(movie);
+               }
+
+                JSONObject actorsObj = (JSONObject) movieObj.get("staffs");
+                JSONArray actorArray = (JSONArray) actorsObj.get("staff");
+                int directorCnt = 0;
+                int actorCnt = 0;
+                for(Object actorObj : actorArray) {
+                    JSONObject ao = (JSONObject) actorObj;
+
+                    MovieStaff movieStaff = new MovieStaff();
+
+                    String position = ao.get("staffRoleGroup").toString();
+                    if(!position.equals("감독") && !position.equals("출연")) {
+                        continue;
+                    }
+                    if(position.equals("감독")) directorCnt++;
+                    if(position.equals("출연")) actorCnt++;
+
+                    movieStaff.setPosition(position);
+                    movieStaff.setRole(ao.get("staffRole").toString());
+
+                    String staffName = ao.get("staffNm").toString();
+                    Staff existingStaff = staffRepository.findByName(staffName);
+                    if(existingStaff==null) {
+                        existingStaff = new Staff();
+                        existingStaff.setName(staffName);
+                        staffRepository.save(existingStaff);
+                    }
+                    movieStaff.setStaff(existingStaff);
+                    movieStaff.setMovie(movie);
+
+                    if(directorCnt+actorCnt==8) break;
+                }
 
                 movieRepository.save(movie);
             }

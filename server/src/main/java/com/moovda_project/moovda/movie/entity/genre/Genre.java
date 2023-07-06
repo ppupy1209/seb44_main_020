@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Getter
 @Setter
 @Table(name = "genres")
