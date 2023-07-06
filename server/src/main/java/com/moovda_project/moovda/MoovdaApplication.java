@@ -1,4 +1,4 @@
-package moovda_project.moovda;
+package com.moovda_project.moovda;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,6 +1,8 @@
 package com.moovda_project.moovda.question.dto;
 
 
+import com.moovda_project.moovda.member.entity.Member;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;

@@ -7,8 +7,8 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
-    @Mapping(source = "member_id", target = "member.memberId")
-    Question QuestionPostDtoToQuestion(QuestionDto.Post post);
+//    @Mapping(source = "member_id", target = "member.memberId")
+//    Question QuestionPostDtoToQuestion(QuestionDto.Post post);
 
     Question QuestionPatchDtoToQuestion(QuestionDto.Patch patch);
 }

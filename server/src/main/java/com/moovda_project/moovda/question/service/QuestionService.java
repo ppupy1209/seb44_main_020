@@ -17,7 +17,7 @@ import java.util.Optional;
 @Transactional
 public class QuestionService {
     private final QuestionRepository questionRepository;
-    private final CustomBeanUtils<Question> beanUtils;
+//    private final CustomBeanUtils<Question> beanUtils;
 
     /** 질문 등록 **/
     public Question createQuestion(Question question) {
