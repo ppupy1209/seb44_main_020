@@ -1,8 +1,8 @@
 import React from 'react';
+// import { useNavigate } from 'react-router-dom';
+import {faTrash } from "@fortawesome/free-solid-svg-icons";
 import * as S from './MainPoster.styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {faTrash } from "@fortawesome/free-solid-svg-icons";
-// import { useNavigate } from 'react-router-dom';
 import { StarrateShow } from '../Starrate/StarrateShow';
 // import { handleDelete } from '../../axiosHandler';
 

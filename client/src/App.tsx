@@ -26,7 +26,7 @@ const router = createBrowserRouter([
       { path: 'questions/:memberId', element: <QuestionCreatePage /> },
       { path: 'questions/detail', element: <QuestionDetailPage /> },
       { path: 'questions/list', element: <QuestionListPage /> },
-      { path: 'movies', element: <MovieDetailPage /> },
+      { path: 'movies/:movieId', element: <MovieDetailPage /> },
     ],
   },
 ]);
