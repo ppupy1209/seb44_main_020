@@ -32,7 +32,7 @@ const Header = () => {
           icon={faMagnifyingGlass}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => router.push('/moives/search')}
+          onClick={() => router.push('/search')}
         />
       </StyledIconSearch>
       <StyledIconAsk>
@@ -40,7 +40,7 @@ const Header = () => {
           icon={faPen}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => router.push('questions/ask')}
+          onClick={() => router.push('/questions')}
         />
       </StyledIconAsk>
       <StyledIconMyPage>
@@ -48,7 +48,7 @@ const Header = () => {
           icon={faUser}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => router.push('members/mypage')}
+          onClick={() => router.push('/mypage')}
         />
       </StyledIconMyPage>
       <StyledLog>
@@ -56,7 +56,7 @@ const Header = () => {
           icon={faRightToBracket}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => router.push('members/login')}
+          onClick={() => router.push('/login')}
         />
       </StyledLog>
     </StyledHeader>
