@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.movie.entity;
 
+import com.moovda_project.moovda.comment.entity.Comment;
 import com.moovda_project.moovda.movie.entity.genre.MovieGenre;
 import com.moovda_project.moovda.movie.entity.staff.MovieStaff;
 import lombok.*;
@@ -49,5 +50,9 @@ public class Movie {
 
     @OneToMany(mappedBy = "movie",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<MovieStaff> movieStaffs = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "movie",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<Comment> comments = new ArrayList<>();
 
 }
