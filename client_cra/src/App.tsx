@@ -1,7 +1,7 @@
 import React from 'react';
 import GlobalStyle from './Globalstyle';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { MainPage } from './pages/Home/MainPage/MainPage';
+import { MainPage } from '../../client/src/app/page';
 import { MyPage } from './pages/Membership/MyPage/MyPage';
 import { LoginPage } from './pages/Membership/LoginPage/LoginPage';
 import { SignupPage } from './pages/Membership/SignupPage/SignupPage';

@@ -20,6 +20,12 @@
     "src",
     "../client/src/styles",
     "../client/src/components/Header",
-    "../client/src/components/Footer"
+    "../client/src/components/Footer",
+    "../client/src/app/MainPage",
+    "../client/src/app/MainPage.styled.ts",
+    "../client/src/app/page.tsx",
+    "../client/src/components/MainPoster",
+    "../client/src/components/Starrate",
+    "../client/src/components/MainCarousel"
   ]
 }

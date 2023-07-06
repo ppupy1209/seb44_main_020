@@ -1,95 +1,88 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+// import { useState, useEffect } from 'react';
+// import axios from 'axios';
+import * as S from './page.styled';
+import MoovDa from '@/assets/moovdaLogo.svg';
+import MainCarousel from '@/components/MainCarousel/MainCarousel';
+import { MainPoster } from '@/components/MainPoster/MainPoster';
+import Image from 'next/image';
 
-export default function Home() {
+export default function MainPage() {
+  // const [data, setData] = useState([]);
+
+  //더미데이터. 추후 삭제 예정
+  const data = [
+    {
+      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
+      title: '엘리멘탈',
+      star: 5,
+    },
+    {
+      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230609_126%2F1686293895296CKL3o_JPEG%2Fmovie_image.jpg',
+      title: '스파이더맨: 어크로스 더 유니버스 포토',
+      star: 3,
+    },
+    {
+      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230508_234%2F1683510751767I8t1j_JPEG%2Fmovie_image.jpg',
+      title: '범죄도시3',
+      star: 4.5,
+    },
+    {
+      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
+      title: '엘리멘탈',
+      star: 5,
+    },
+    {
+      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230609_126%2F1686293895296CKL3o_JPEG%2Fmovie_image.jpg',
+      title: '스파이더맨: 어크로스 더 유니버스 포토',
+      star: 3,
+    },
+    {
+      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230508_234%2F1683510751767I8t1j_JPEG%2Fmovie_image.jpg',
+      title: '범죄도시3',
+      star: 4.5,
+    },
+  ];
+
+  // useEffect(()=>{
+  //   axios.get('주소')
+  //   .then((res)=>{
+  //     setData(res.data);
+  //   })
+  //   .catch((error)=>{
+  //     console.log( error.message);
+  //   });
+  // },[]);
+
+  const posters = data.map((poster, index) => (
+    <MainPoster key={index} data={poster} isWatched={false} isToWatch={false} /> //key는 movie-id로 변경
+  ));
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing!?&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <S.Container>
+      <S.Left>
+        <S.TextContainer>
+          <S.SmallText>
+            <S.TextBox>아직도 해리포터가 인생영화인가요?</S.TextBox>
+            <S.TextBox>새로운 인생 영화를 찾고 계신가요?</S.TextBox>
+            <S.TextBox>
+              많은 사람들과 공유하고픈 영화 이야기가 있나요?
+            </S.TextBox>
+          </S.SmallText>
+          <S.MidText>
+            세상의 영화가 다 있는 <span>뭅다</span>에서 <span>묻다</span>
+          </S.MidText>
+          <S.LargeText>
+            <div>
+              <Image src={MoovDa} alt="Logo" /> 에서 새로운
+            </div>
+            <div>영화 세상을 경험하세요</div>
+          </S.LargeText>
+        </S.TextContainer>
+      </S.Left>
+      <S.Right>
+        <S.Poster>
+          <MainCarousel props={posters} />
+        </S.Poster>
+      </S.Right>
+    </S.Container>
   );
 }
