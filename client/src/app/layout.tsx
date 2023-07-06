@@ -1,6 +1,6 @@
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
-import { StyledRoot } from "@/styles/style";
+// import { StyledRoot } from "@/styles/style";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -19,11 +19,11 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <StyledRoot>
-          <Header />
-          {children}
-          <Footer />
-        </StyledRoot>
+        {/* <StyledRoot> */}
+        <Header />
+        {children}
+        <Footer />
+        {/* </StyledRoot> */}
       </body>
     </html>
   );

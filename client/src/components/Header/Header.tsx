@@ -1,63 +1,62 @@
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+"use client";
+
+import MoovDa from "@/assets/moovdaLogo.svg";
 import {
   faMagnifyingGlass,
-  faUser,
   faPen,
   faRightToBracket,
-  faRightFromBracket,
-} from '@fortawesome/free-solid-svg-icons';
-import { ReactComponent as Logo } from '../../assets/logo-moovda.svg';
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   StyledHeader,
-  StyledLogo,
-  StyledLog,
-  StyledIconSearch,
   StyledIconAsk,
   StyledIconMyPage,
-} from './Header.styled';
+  StyledIconSearch,
+  StyledLog,
+  StyledLogo,
+} from "./Header.styled";
 
 const Header = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const handleNavigate = (path: string) => {
-    navigate(path);
-  };
   return (
     <StyledHeader>
       <StyledLogo>
-        <Logo onClick={() => handleNavigate('/')} />
+        <Image src={MoovDa} alt="Logo" />
       </StyledLogo>
       <StyledIconSearch>
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
-          style={{ color: 'white' }}
+          style={{ color: "white" }}
           size="xl"
-          onClick={() => handleNavigate('/moives/search')}
+          onClick={() => router.push("/moives/search")}
         />
       </StyledIconSearch>
       <StyledIconAsk>
         <FontAwesomeIcon
           icon={faPen}
-          style={{ color: 'white' }}
+          style={{ color: "white" }}
           size="xl"
-          onClick={() => handleNavigate('questions/ask')}
+          onClick={() => router.push("questions/ask")}
         />
       </StyledIconAsk>
       <StyledIconMyPage>
         <FontAwesomeIcon
           icon={faUser}
-          style={{ color: 'white' }}
+          style={{ color: "white" }}
           size="xl"
-          onClick={() => handleNavigate('members/mypage')}
+          onClick={() => router.push("members/mypage")}
         />
       </StyledIconMyPage>
       <StyledLog>
         <FontAwesomeIcon
           icon={faRightToBracket}
-          style={{ color: 'white' }}
+          style={{ color: "white" }}
           size="xl"
-          onClick={() => handleNavigate('members/login')}
+          onClick={() => router.push("members/login")}
         />
       </StyledLog>
     </StyledHeader>
