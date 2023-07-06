@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.movie.entity;
 
 import com.moovda_project.moovda.audit.Auditable;
+import com.moovda_project.moovda.member.entity.Member;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Table(name = "watched")
 public class Watched extends Auditable {
 
@@ -23,4 +24,8 @@ public class Watched extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 }
