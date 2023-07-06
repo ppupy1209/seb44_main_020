@@ -1,11 +1,15 @@
 import React from "react";
-import * as S from './MainPage.styled'; 
+// import { useState, useEffect } from 'react';
+// import axios from 'axios';
+import * as S from './MainPage.styled';
 import { MainPoster } from "../../../components/MainPoster/MainPoster";
 import MainCarousel from "../../../components/MainCarousel/MainCarousel";
 import {ReactComponent as Logo} from "../../../assets/logo-moovda.svg";
 
 export function MainPage() {
-  
+  // const [data, setData] = useState([]);
+
+//더미데이터. 추후 삭제 예정
 const data=[{img:'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
 title:'엘리멘탈',
 star:5},
@@ -24,8 +28,18 @@ star:3},
 title:'범죄도시3',
 star:4.5}];
 
+// useEffect(()=>{
+//   axios.get('주소')
+//   .then((res)=>{
+//     setData(res.data);
+//   })
+//   .catch((error)=>{
+//     console.log( error.message);
+//   });
+// },[]);
+
 const posters=data.map((poster,index)=>(
-  <MainPoster key={index} data={poster} isWatched={false} isToWatch={false}/>
+  <MainPoster key={index} data={poster} isWatched={false} isToWatch={false}/> //key는 movie-id로 변경
 ));
   return(
     <S.Container>

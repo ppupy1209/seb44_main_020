@@ -16,6 +16,9 @@ isWatched:boolean;
 isToWatch:boolean;
 }
 
+//조건부 노출을 위해서 isWatched isToWatch 프롭스도 항상 함께 전달해주어야 합니다.
+//예시: <MainPoster key={id값} data={data} isWatched={false} isToWatch={false}/>
+
 export function MainPoster({data,isWatched,isToWatch}:Props) {
 // const navigate=useNavigate();
 
@@ -30,7 +33,7 @@ export function MainPoster({data,isWatched,isToWatch}:Props) {
 //             {handleDelete(`/movies/toWatch/${movie-id}`)}
 // };
 
-    return (<S.Container> {/*onClick시 goToMovieDetail */}
+    return (<S.Container> {/*onClick시 goToMovieDetail, width props 전달하여 크기 조정 가능, styled-components는 처음 상태 그대로 유지해주세요. */}
             <S.PosterImg src={data.img} alt="영화포스터" />
             <S.Title><S.TitleText>{data.title}</S.TitleText></S.Title>
             {isWatched?(<S.Star><StarrateShow rate={data.star?data.star:0}/></S.Star>):''} {/*본영화 리스트 목록일때 별점 노출 */}

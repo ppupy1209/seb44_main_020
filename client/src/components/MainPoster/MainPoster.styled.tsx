@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+//조정해야할 사이즈나 여백이 있을 때에는 다음과 형식으로 props를 전달하여 주세요.
+//속성: ${(props)=>props.속성||'처음 적혀있던 기본값'};
 
 export const Container=styled.div<{width?:string}>`
   display: flex;
@@ -21,13 +23,13 @@ margin-top: 10px;
 margin-top: 30px;
 
 `;
-export const TitleText=styled.div`
+export const TitleText=styled.div<{'font-size'?:string}>`
 overflow: hidden;
 white-space: nowrap;
 text-overflow: ellipsis;
 max-width: 230px;
 color: #e2e2e2;
-font-size: 20px;
+font-size: ${(props)=>props['font-size']||'20px'};
 `;
 export const Star=styled.div`
 display:flex;

@@ -25,3 +25,4 @@ export const handleDelete = useCallback(({url}:Props) => {
               console.log('Error:', error.message);
             });
         } , [url]);
+
