@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+"use client";
+
+import styled from "styled-components";
 
 export const StyledHeader = styled.header`
   width: 100%;
@@ -20,7 +22,7 @@ export const StyledLogo = styled.div`
 export const StyledIconSearch = styled.div`
   margin-right: 40px;
   padding-top: 15px;
-  cursor:pointer
+  cursor: pointer;
 `;
 export const StyledIconAsk = styled.div`
   margin-right: auto;
