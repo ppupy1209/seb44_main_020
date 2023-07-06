@@ -22,20 +22,20 @@ import java.security.Key;
 public class JwtTokenizer {
 
     //jwt secretKey 정보
-    @Getter
-    @Value("${jwt.key.secret}")
-    private String secretKey;
-
-
-    //액세스 토큰 정보
-    @Getter
-    @Value("${jwt.access-token-expiration-minutes}")
-    private int accessTokenExpirationMinutes;
-
-    //리프레쉬 토큰 정보
-    @Getter
-    @Value("${jwt.refresh-token-expiration-minutes}")
-    private int refreshTokenExpirationMinutes;
+//    @Getter
+//    @Value("${jwt.key.secret}")
+//    private String secretKey;
+//
+//
+//    //액세스 토큰 정보
+//    @Getter
+//    @Value("${jwt.access-token-expiration-minutes}")
+//    private int accessTokenExpirationMinutes;
+//
+//    //리프레쉬 토큰 정보
+//    @Getter
+//    @Value("${jwt.refresh-token-expiration-minutes}")
+//    private int refreshTokenExpirationMinutes;
 
     //Plain Text 형태의 secretKey의 byte를 Base64형식의 문자열로 인코딩해주는 메서드
     public String encodeBase64SecretKey(String secretKey) {

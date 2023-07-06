@@ -29,14 +29,14 @@ public class QuestionController {
     }
 
     /** 질문 등록 **/
-    @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post post) {
-        Question createdQuestion = questionService.createQuestion(questionMapper.QuestionPostDtoToQuestion(post));
-
-        URI location = UriCreator.createUri("/questions", createdQuestion.getQuestionId());
-
-        return ResponseEntity.created(location).build();
-    }
+//    @PostMapping
+//    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post post) {
+//        Question createdQuestion = questionService.createQuestion(questionMapper.QuestionPostDtoToQuestion(post));
+//
+//        URI location = UriCreator.createUri("/questions", createdQuestion.getQuestionId());
+//
+//        return ResponseEntity.created(location).build();
+//    }
 
     /** 질문 수정 **/
     @PatchMapping("/{question-id}")

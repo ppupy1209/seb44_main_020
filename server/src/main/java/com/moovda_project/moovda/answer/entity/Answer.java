@@ -1,6 +1,8 @@
 package com.moovda_project.moovda.answer.entity;
 
 import com.moovda_project.moovda.audit.Auditable;
+import com.moovda_project.moovda.member.entity.Member;
+import com.moovda_project.moovda.movie.entity.Movie;
 import com.moovda_project.moovda.question.entity.Question;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Entity
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

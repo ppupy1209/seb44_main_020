@@ -28,11 +28,11 @@ public class Member extends Auditable {
     @Column(nullable = false)
     private String nickname;
 
-    @OneToMany(mappedBy = "member")
-    private List<ToWatch> toWatchList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private  List<Watched> watchedList = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<ToWatch> toWatchList = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private  List<Watched> watchedList = new ArrayList<>();
 
 
 }
