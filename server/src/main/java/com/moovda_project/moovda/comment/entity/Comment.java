@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.comment.entity;
 
 import com.moovda_project.moovda.audit.Auditable;
+import com.moovda_project.moovda.member.entity.Member;
 import com.moovda_project.moovda.movie.entity.Movie;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -30,4 +31,15 @@ public class Comment extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
+        if(!this.movie.getComments().contains(this)) {
+            this.movie.getComments().add(this);
+        }
+    }
 }
