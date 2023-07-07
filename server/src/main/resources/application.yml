@@ -14,19 +14,19 @@ spring:
       hibernate:
         format_sql: true  # (3) SQL pretty print
 
-#  sql:
-#    init:
-#      data-locations: classpath*:db/h2/data.sql
-#  security:
-#     oauth2:
-#       client:
-#         registration:
-#           google:
-#             clientId : ${G_CLIENT_ID}
-#             clientSecret : ${G_CLIENT_SECRET}
-#             scope:
-#               - email
-#               - profile
+  sql:
+    init:
+      data-locations: classpath*:db/h2/data.sql
+  security:
+     oauth2:
+       client:
+         registration:
+           google:
+             clientId :
+             clientSecret :
+             scope:
+               - email
+               - profile
 
 logging:
   level:
@@ -34,10 +34,10 @@ logging:
       springframework:
         orm:
           jpa: DEBUG
-#server:
-#  servlet:
-#    encoding:
-#      force-response: true
+server:
+  servlet:
+    encoding:
+      force-response: true
 mail:
   address:
     admin: admin@gmail.com    # jwt 사용할때 필요
