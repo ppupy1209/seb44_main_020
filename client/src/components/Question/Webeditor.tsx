@@ -1,7 +1,12 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export const WebEditor = () => {
+interface WebEditorProps {
+  value: string;
+  setValue: (value: string) => void;
+}
+
+export const WebEditor = ({ value, setValue }: WebEditorProps) => {
   const toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'],
     ['blockquote'],
@@ -63,6 +68,8 @@ export const WebEditor = () => {
       modules={module}
       theme="snow"
       placeholder="예: 너무 슬프지 않으면서 유쾌한 영화였으면 좋겠어요. 애니메이션이나 해외영화 말고 국내영화로 추천해주세요!"
+      value={value}
+      onChange={setValue}
     />
   );
 };
