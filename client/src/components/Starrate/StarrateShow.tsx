@@ -1,8 +1,8 @@
 'use client';
 
-import Starfull from '@/static/fullStar.svg';
-import Starhalf from '@/static/halfStar.svg';
-import Starempty from '@/static/emptyStar.svg';
+import Starfull from '@/static/fullStar.svg'
+import Starhalf from '@/static/halfStar.svg'
+import Starempty from '@/static/emptyStar.svg'
 import Image from 'next/image';
 import * as S from './StarrateShow.styled';
 

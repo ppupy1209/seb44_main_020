@@ -25,7 +25,7 @@ const Header = () => {
   return (
     <StyledHeader>
       <StyledLogo>
-        <Image src={MoovDa} alt="Logo" />
+      <MoovDa />
       </StyledLogo>
       <StyledIconSearch>
         <FontAwesomeIcon
