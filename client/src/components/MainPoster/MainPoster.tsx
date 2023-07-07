@@ -8,7 +8,7 @@ import { StarrateShow } from '../Starrate/StarrateShow';
 
 interface Props {
   data: {
-    img: string;
+    poster: string;
     title: string;
     star: number;
   };
@@ -37,7 +37,7 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
     <S.Container>
       {' '}
       {/*onClick시 goToMovieDetail, width props 전달하여 크기 조정 가능, styled-components는 처음 상태 그대로 유지해주세요. */}
-      <S.PosterImg src={data.img} alt="영화포스터" />
+      <S.PosterImg src={data.poster} alt="영화포스터" />
       <S.Title>
         <S.TitleText>{data.title}</S.TitleText>
       </S.Title>
