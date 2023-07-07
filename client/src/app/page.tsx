@@ -1,3 +1,4 @@
+'use client'
 // import { useState, useEffect } from 'react';
 // import axios from 'axios';
 import * as S from './page.styled';
@@ -72,7 +73,7 @@ export default function MainPage() {
           </S.MidText>
           <S.LargeText>
             <div>
-              <Image src={MoovDa} alt="Logo" /> 에서 새로운
+              <MoovDa /> 에서 새로운
             </div>
             <div>영화 세상을 경험하세요</div>
           </S.LargeText>
