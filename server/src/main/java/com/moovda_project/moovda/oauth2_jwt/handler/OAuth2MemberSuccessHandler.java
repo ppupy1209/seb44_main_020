@@ -4,7 +4,6 @@ package com.moovda_project.moovda.oauth2_jwt.handler;
 import com.moovda_project.moovda.member.entity.Member;
 import com.moovda_project.moovda.member.service.MemberService;
 import com.moovda_project.moovda.oauth2_jwt.jwt.JwtTokenizer;
-import com.moovda_project.moovda.utils.CustomAuthorityUtils;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -24,15 +23,12 @@ import java.util.Map;
 
 public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
     private final MemberService memberService;
 
 
     public OAuth2MemberSuccessHandler(JwtTokenizer jwtTokenizer,
-                                      CustomAuthorityUtils authorityUtils,
                                       MemberService memberService) {
         this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
         this.memberService = memberService;
     }
 
@@ -40,10 +36,9 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         var oAuth2User = (OAuth2User)authentication.getPrincipal();
         String nickname = String.valueOf(oAuth2User.getAttributes().get("nickname"));
-        List<String> authorities = authorityUtils.createRoles(nickname);
 
         saveMember(nickname);
-        redirect(request, response, nickname, authorities);
+        redirect(request, response, nickname);
     }
 
     private void saveMember(String nickname) {
@@ -51,18 +46,17 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         memberService.createMember(member);
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String username, List<String> authorities) throws IOException {
-        String accessToken = delegateAccessToken(username, authorities);
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String username) throws IOException {
+        String accessToken = delegateAccessToken(username);
         String refreshToken = delegateRefreshToken(username);
 
         String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
-    private String delegateAccessToken(String username, List<String> authorities) {
+    private String delegateAccessToken(String username) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
-        claims.put("roles", authorities);
 
         String subject = username;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());

@@ -1,7 +1,6 @@
 package com.moovda_project.moovda.oauth2_jwt.filter;
 
 import com.moovda_project.moovda.oauth2_jwt.jwt.JwtTokenizer;
-import com.moovda_project.moovda.utils.CustomAuthorityUtils;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,12 +20,10 @@ import java.util.Map;
 //OncePerRequestFilter 확장을 통해 request 당 한번만 실행되는 Security Filter 구현
 public class JwtVerificationFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
 
     //jwtTokenizer는 JWT를 검증하고 Claims를 얻는데 사용, authorityUtils는 JWT 검증 성공 후 Authentication 객체에 채울 사용자의 권한을 생성하는 데 사용
-    public JwtVerificationFilter(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+    public JwtVerificationFilter(JwtTokenizer jwtTokenizer) {
         this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
     }
 
     //ver
@@ -64,8 +61,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
 
     private void setAuthenticationToContext(Map<String, Object> claims) {
         String username = (String) claims.get("username");
-        List<GrantedAuthority> authorities = authorityUtils.createAuthorities((List)claims.get("roles"));
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
+        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

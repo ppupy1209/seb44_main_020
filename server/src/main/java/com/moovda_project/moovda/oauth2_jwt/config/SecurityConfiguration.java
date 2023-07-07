@@ -6,7 +6,6 @@ import com.moovda_project.moovda.oauth2_jwt.handler.MemberAccessDeniedHandler;
 import com.moovda_project.moovda.oauth2_jwt.handler.MemberAuthenticationEntryPoint;
 import com.moovda_project.moovda.oauth2_jwt.handler.OAuth2MemberSuccessHandler;
 import com.moovda_project.moovda.oauth2_jwt.jwt.JwtTokenizer;
-import com.moovda_project.moovda.utils.CustomAuthorityUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,14 +24,12 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfiguration {
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
+
     private final MemberService memberService;
 
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils,
                                  MemberService memberService) {
         this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
         this.memberService = memberService;
     }
 
@@ -57,7 +54,7 @@ public class SecurityConfiguration {
                                 .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                       .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
+                       .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer,  memberService))
 
                 );
 
@@ -79,7 +76,7 @@ public class SecurityConfiguration {
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer);
 
             builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
