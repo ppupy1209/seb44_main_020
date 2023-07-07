@@ -37,7 +37,7 @@ public class Question extends Auditable {
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
     private List<Answer> answers = new ArrayList<>();
 
-    public void addview(int view) {
+    public void addView(int view) {
         this.views = view + 1;
     }
 
