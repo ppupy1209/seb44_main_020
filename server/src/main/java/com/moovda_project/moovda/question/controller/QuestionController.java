@@ -44,8 +44,8 @@ public class QuestionController {
     }
 
     /** 질문 수정 **/
-    @PatchMapping("/{question-id}")
-    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive long questionId,
+    @PatchMapping("/{question_id}")
+    public ResponseEntity patchQuestion(@PathVariable("question_id") @Positive long questionId,
                                         @RequestBody QuestionDto.Patch patch) {
         // TODO : token으로 어떤 회원인지 알아야 함
         patch.addQuestionId(questionId);
@@ -56,8 +56,8 @@ public class QuestionController {
     }
 
     /** 개별 질문 조회 **/
-    @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@Positive @PathVariable("question-id") long questionId){
+    @GetMapping("/{question_id}")
+    public ResponseEntity getQuestion(@Positive @PathVariable("question_id") long questionId){
 
         Question findQuestion = questionService.findQuestion(questionId);
 
@@ -77,8 +77,8 @@ public class QuestionController {
     }
 
     /** 질문 삭제 **/
-    @DeleteMapping("/{question-id}")
-    public ResponseEntity deleteQuestion(@PathVariable("question-id") @Positive long questionId) {
+    @DeleteMapping("/{question_id}")
+    public ResponseEntity deleteQuestion(@PathVariable("question_id") @Positive long questionId) {
         questionService.deleteQuestion(questionId);
 
         return ResponseEntity.noContent().build();
