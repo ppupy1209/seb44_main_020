@@ -57,7 +57,7 @@ const toWatchlist =data.toWatch.map((list)=>(
     my page
   </S.PageTitle>
   <S.Container>
-    <S.Nickname>{data.nickname} 님</S.Nickname>
+    <S.Nickname>{data.nickname} 님의 리스트</S.Nickname>
     <S.SectionWrapper>
     <S.Section>
     <S.SectionTitle>볼 영화</S.SectionTitle>

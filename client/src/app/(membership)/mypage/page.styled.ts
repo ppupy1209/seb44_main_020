@@ -69,6 +69,6 @@ cursor: pointer;
 `;
 
 export const MovieList=styled.div`
-height:200px;
+height:250px;
 display:flex;
 gap: 30px`;

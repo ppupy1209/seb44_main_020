@@ -7,7 +7,7 @@ const theme={
         maxWidth:'200px',
     },
     myPage:{
-        width:'150px',
+        width:'180px',
         titleFontSize:'12px',
         posterTitleGap:'10px',
         maxWidth:'130px',
