@@ -5,6 +5,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   background-color: #01123d;
+  height: 100vh;
 `;
 
 export const Left = styled.div`
@@ -13,6 +14,7 @@ export const Left = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 1;
 `;
 
 export const Right = styled.div`
@@ -20,7 +22,6 @@ export const Right = styled.div`
   width: 50%;
   display: flex;
   justify-content: flex-end;
-  height: 1em;
 `;
 
 export const Poster = styled.div`

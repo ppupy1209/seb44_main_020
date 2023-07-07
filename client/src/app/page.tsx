@@ -1,10 +1,10 @@
+'use client'
 // import { useState, useEffect } from 'react';
 // import axios from 'axios';
 import * as S from './page.styled';
 import MoovDa from '@/assets/moovdaLogo.svg';
 import MainCarousel from '@/components/MainCarousel/MainCarousel';
 import { MainPoster } from '@/components/MainPoster/MainPoster';
-import Image from 'next/image';
 
 export default function MainPage() {
   // const [data, setData] = useState([]);
@@ -12,32 +12,32 @@ export default function MainPage() {
   //더미데이터. 추후 삭제 예정
   const data = [
     {
-      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
+      poster: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
       title: '엘리멘탈',
       star: 5,
     },
     {
-      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230609_126%2F1686293895296CKL3o_JPEG%2Fmovie_image.jpg',
+      poster: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230609_126%2F1686293895296CKL3o_JPEG%2Fmovie_image.jpg',
       title: '스파이더맨: 어크로스 더 유니버스 포토',
       star: 3,
     },
     {
-      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230508_234%2F1683510751767I8t1j_JPEG%2Fmovie_image.jpg',
+      poster: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230508_234%2F1683510751767I8t1j_JPEG%2Fmovie_image.jpg',
       title: '범죄도시3',
       star: 4.5,
     },
     {
-      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
+      poster: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
       title: '엘리멘탈',
       star: 5,
     },
     {
-      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230609_126%2F1686293895296CKL3o_JPEG%2Fmovie_image.jpg',
+      poster: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230609_126%2F1686293895296CKL3o_JPEG%2Fmovie_image.jpg',
       title: '스파이더맨: 어크로스 더 유니버스 포토',
       star: 3,
     },
     {
-      img: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230508_234%2F1683510751767I8t1j_JPEG%2Fmovie_image.jpg',
+      poster: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230508_234%2F1683510751767I8t1j_JPEG%2Fmovie_image.jpg',
       title: '범죄도시3',
       star: 4.5,
     },
@@ -72,7 +72,7 @@ export default function MainPage() {
           </S.MidText>
           <S.LargeText>
             <div>
-              <Image src={MoovDa} alt="Logo" /> 에서 새로운
+              <MoovDa /> 에서 새로운
             </div>
             <div>영화 세상을 경험하세요</div>
           </S.LargeText>
