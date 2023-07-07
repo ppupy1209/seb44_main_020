@@ -55,4 +55,24 @@ public class Movie {
     @OneToMany(mappedBy = "movie",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Comment> comments = new ArrayList<>();
 
+    public void addMovieGenres(MovieGenre movieGenre) {
+        this.movieGenres.add(movieGenre);
+        if(movieGenre.getMovie()!=this) {
+            movieGenre.setMovie(this);
+        }
+    }
+
+    public void addMovieStaffs(MovieStaff movieStaff) {
+        this.movieStaffs.add(movieStaff);
+        if(movieStaff.getMovie()!=this) {
+            movieStaff.setMovie(this);
+        }
+    }
+
+    public void addComments(Comment comment) {
+        this.comments.add(comment);
+        if(comment.getMovie()!=this) {
+            comment.setMovie(this);
+        }
+    }
 }

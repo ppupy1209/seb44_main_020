@@ -3,7 +3,6 @@ package com.moovda_project.moovda.member.entity;
 import com.moovda_project.moovda.audit.Auditable;
 import com.moovda_project.moovda.movie.entity.ToWatch;
 import com.moovda_project.moovda.movie.entity.Watched;
-import com.moovda_project.moovda.question.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,10 +28,23 @@ public class Member extends Auditable {
     private String nickname;
 
     @OneToMany(mappedBy = "member")
-    private List<ToWatch> toWatches = new ArrayList<>();
+    private List<ToWatch> toWatchList = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private  List<Watched> watcheds = new ArrayList<>();
+    private List<Watched> watchedList = new ArrayList<>();
 
 
+    public void addToWatchList(ToWatch toWatch) {
+        this.toWatchList.add(toWatch);
+        if(toWatch.getMember()!=this) {
+            toWatch.setMember(this);
+        }
+    }
+
+    public void addWatchedList(Watched watched) {
+        this.watchedList.add(watched);
+        if(watched.getMember()!=this) {
+            watched.setMember(this);
+        }
+    }
 }
