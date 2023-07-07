@@ -2,9 +2,11 @@
 // import { useState, useEffect } from 'react';
 // import axios from 'axios';
 import * as S from './page.styled';
+import { ThemeProvider } from 'styled-components';
 import MoovDa from '@/assets/moovdaLogo.svg';
 import MainCarousel from '@/components/MainCarousel/MainCarousel';
 import { MainPoster } from '@/components/MainPoster/MainPoster';
+import theme from '@/components/MainPoster/theme';
 
 export default function MainPage() {
   // const [data, setData] = useState([]);
@@ -54,7 +56,9 @@ export default function MainPage() {
   // },[]);
 
   const posters = data.map((poster, index) => (
-    <MainPoster key={index} data={poster} isWatched={false} isToWatch={false} /> //key는 movie-id로 변경
+    <ThemeProvider theme={theme.mainPage}>
+    <MainPoster key={index} data={poster} isWatched={false} isToWatch={false} />
+    </ThemeProvider>
   ));
   return (
     <S.Container>
