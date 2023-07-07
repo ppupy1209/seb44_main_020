@@ -1,5 +1,10 @@
 'use client'
 import styled from 'styled-components';
+
+interface MovieListProps {
+    hasContent?: boolean;
+  }
+  
 export const Wrapper=styled.div`
 margin:20px 90px;`;
 
@@ -30,7 +35,7 @@ justify-content:center;
 margin: 0 auto;`;
 
 export const Section=styled.div`
-margin-bottom:50px ;
+margin-bottom:30px ;
 `;
 
 export const SectionTitle=styled.div`
@@ -42,7 +47,7 @@ font-weight: bold;
 `;
 
 export const SectionContent=styled.div`
-margin-top:30px;`;
+margin-top:40px;`;
 
 export const DeleteContainter=styled.div`
 display:flex;
@@ -68,7 +73,7 @@ cursor: pointer;
 }
 `;
 
-export const MovieList=styled.div`
-height:250px;
+export const MovieList=styled.div<MovieListProps>`
+min-height: ${(props) => (props.hasContent ? 'auto' : '200px')};
 display:flex;
-gap: 30px`;
+gap: 30px;`;

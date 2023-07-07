@@ -9,6 +9,8 @@ import * as S from './page.styled';
 import theme from '@/components/MainPoster/theme';
 import { ThemeProvider } from 'styled-components';
 
+  
+
 export default function MyPage() {
     //const navigate=useNavigate();
     // const [data, setData]=useState([]);
@@ -52,6 +54,12 @@ const toWatchlist =data.toWatch.map((list)=>(
 </ThemeProvider>
 ));
 
+const watchedList=data.watched.map((list)=>(
+    <ThemeProvider theme={theme.myPage}>
+    <MainPoster key={list.movie_id} data={list} isWatched={true} isToWatch={false}/> 
+    </ThemeProvider>
+))
+
   return <S.Wrapper>
   <S.PageTitle>
     my page
@@ -62,13 +70,13 @@ const toWatchlist =data.toWatch.map((list)=>(
     <S.Section>
     <S.SectionTitle>볼 영화</S.SectionTitle>
     <S.SectionContent>
-      <S.MovieList>{toWatchlist}</S.MovieList>
+      <S.MovieList hasContent={toWatchlist.length > 0}>{toWatchlist}</S.MovieList>
     </S.SectionContent>
     </S.Section>
     <S.Section>
     <S.SectionTitle>본 영화</S.SectionTitle>
     <S.SectionContent>
-      <S.MovieList></S.MovieList>
+      <S.MovieList hasContent={toWatchlist.length > 0}>{watchedList}</S.MovieList>
     </S.SectionContent>
     </S.Section>
     <S.Section>

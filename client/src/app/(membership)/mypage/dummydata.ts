@@ -31,12 +31,12 @@ export const data={
     "watched":[{
         "movie_id":4,
         "title":"슈퍼 마리오 브라더스",
-        "poster":"https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/movie_poster_images/movie_115800_1681697605.jpeg",
+        "poster":"https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20150121_287%2F1421805119454HRN3A_JPEG%2Fmovie_image.jpg",
         "star":2
     },{
         "movie_id":5,
         "title":"가디언즈 오브 갤럭시: Volume 3",
-        "poster":"https://nujhrcqkiwag1408085.cdn.ntruss.com/static/upload/movie_poster_images/movie_115800_1681697605.jpeg",
+        "poster":"https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230503_20%2F1683109578216k8TUH_JPEG%2Fmovie_image.jpg",
         "star":4.5 
     }]
 };

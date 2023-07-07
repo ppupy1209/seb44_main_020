@@ -37,6 +37,6 @@ export const Star = styled.div`
 
 export const Delete = styled.div`
 position: absolute;
-margin-left:120px;
+margin-left:150px;
 margin-top:10px;
 `;
