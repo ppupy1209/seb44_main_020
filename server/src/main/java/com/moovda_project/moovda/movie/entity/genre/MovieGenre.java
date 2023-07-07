@@ -30,8 +30,8 @@ public class MovieGenre {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
-        if(!movie.getMovieGenres().contains(this)) {
-            movie.getMovieGenres().add(this);
+        if(!this.movie.getMovieGenres().contains(this)) {
+            this.movie.addMovieGenres(this);
         }
     }
 }

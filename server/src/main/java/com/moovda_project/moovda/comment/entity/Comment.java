@@ -10,7 +10,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor()
 @Getter
 @Setter
 @Entity
@@ -39,7 +39,8 @@ public class Comment extends Auditable {
     public void setMovie(Movie movie) {
         this.movie = movie;
         if(!this.movie.getComments().contains(this)) {
-            this.movie.getComments().add(this);
+            this.movie.addComments(this);
         }
     }
+
 }
