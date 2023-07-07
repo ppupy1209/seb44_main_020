@@ -5,7 +5,6 @@ import * as S from './MainPoster.styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { StarrateShow } from '../Starrate/StarrateShow';
 // import { handleDelete } from '../../axiosHandler';
-
 interface Props {
   data: {
     poster: string;
