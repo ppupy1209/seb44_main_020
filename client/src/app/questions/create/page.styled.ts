@@ -33,12 +33,19 @@ export const Title = styled.h1`
   font-size: 40px;
   color: white;
   text-shadow: -5px 0 0 black;
+  margin-bottom: 48px;
 `;
 
 export const TitleMessageBox = styled.div`
   color: lightgrey;
   text-shadow: -2px 0 0 black;
 `;
+
+export const TitleFirstMsg = styled.p`
+  margin-bottom: 12px;
+`;
+
+export const TitleSecondMsg = styled.p``;
 
 export const PageBody = styled.div`
   padding: 3rem auto;

@@ -49,10 +49,12 @@ const Title = () => {
         <S.Image />
         <S.Title>인생 영화를 찾고 싶으신가요?</S.Title>
         <S.TitleMessageBox>
-          <p>
+          <S.TitleFirstMsg>
             회원님의 취향에 꼭 맞는 영화를 MoovDa 회원들에게 추천받아보세요!
-          </p>
-          <p>몇 가지 정보만 입력하시면 인생 영화를 찾을 수 있어요.</p>
+          </S.TitleFirstMsg>
+          <S.TitleSecondMsg>
+            몇 가지 정보만 입력하시면 인생 영화를 찾을 수 있어요.
+          </S.TitleSecondMsg>
         </S.TitleMessageBox>
       </S.PageTitleBox>
     </S.Header>
