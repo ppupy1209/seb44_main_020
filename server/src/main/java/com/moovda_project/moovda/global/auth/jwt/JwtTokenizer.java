@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.global.oauth2_jwt.jwt;
+package com.moovda_project.moovda.global.auth.jwt;
 
 import lombok.Getter;
 import io.jsonwebtoken.Claims;

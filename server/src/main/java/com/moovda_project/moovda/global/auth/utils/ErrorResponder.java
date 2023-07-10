@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.global.oauth2_jwt.utils;
+package com.moovda_project.moovda.global.auth.utils;
 
 import com.google.gson.Gson;
 
