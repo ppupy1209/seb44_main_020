@@ -1,8 +1,10 @@
 package com.moovda_project.moovda.answer.controller;
 
 import com.moovda_project.moovda.answer.dto.AnswerDto;
+import com.moovda_project.moovda.answer.entity.Answer;
 import com.moovda_project.moovda.answer.mapper.AnswerMapper;
 import com.moovda_project.moovda.answer.service.AnswerService;
+import com.moovda_project.moovda.utils.UriCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,13 +32,10 @@ public class AnswerController {
     public ResponseEntity postAnswer(@Valid @RequestBody AnswerDto.Post request,
                                      @Positive @PathVariable("question-id") long questionId) {
         request.setQuestionId(questionId);
-        answerService.createAnswer(answerMapper.answerPostToAnswer(request));
+        Answer createdAnswer = answerService.createAnswer(answerMapper.answerPostToAnswer(request));
 
-        URI location = UriComponentsBuilder
-                .newInstance()
-                .path(ANSWER_DEFAULT_URL)
-                .buildAndExpand(questionId)
-                .toUri();
+        URI location = UriCreator.createUri("/answers", createdAnswer.getAnswerId());
+
         return ResponseEntity.created(location).build();
     }
 
