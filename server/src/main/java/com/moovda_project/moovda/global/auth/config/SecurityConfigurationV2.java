@@ -1,7 +1,7 @@
-package com.moovda_project.moovda.global.oauth2_jwt.config;
+package com.moovda_project.moovda.global.auth.config;
 
-import com.moovda_project.moovda.global.oauth2_jwt.jwt.JwtTokenizer;
-import com.moovda_project.moovda.global.oauth2_jwt.userdetails.JwtAuthenticationFilter;
+import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
+import com.moovda_project.moovda.global.auth.userdetails.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

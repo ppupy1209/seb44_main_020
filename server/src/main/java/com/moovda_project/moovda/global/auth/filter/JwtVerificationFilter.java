@@ -1,6 +1,6 @@
-package com.moovda_project.moovda.global.oauth2_jwt.filter;
+package com.moovda_project.moovda.global.auth.filter;
 
-import com.moovda_project.moovda.global.oauth2_jwt.jwt.JwtTokenizer;
+import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
