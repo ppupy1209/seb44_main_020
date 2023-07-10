@@ -15,6 +15,10 @@ export const QuestionBox = styled.div`
   gap: 4px;
   margin: 0.75rem 1rem;
   cursor: pointer;
+  &:hover {
+    border: 1px solid white;
+    background-color: rgba(66, 99, 235, 0.5);
+  }
 `;
 
 export const BoxTop = styled.div`
@@ -24,7 +28,7 @@ export const BoxTop = styled.div`
 
 export const Name = styled.span`
   font-size: 0.75rem;
-  color: #616c7f;
+  color: gray;
 `;
 
 export const BoxMiddle = styled.div`
@@ -48,10 +52,10 @@ export const Comment = styled.div``;
 export const CommentCount = styled.span`
   font-size: 0.75rem;
   margin-left: 4px;
-  color: #616c7f;
+  color: gray;
 `;
 
 export const Time = styled.div`
   font-size: 0.75rem;
-  color: #616c7f;
+  color: gray;
 `;
