@@ -20,9 +20,7 @@ public class AnswerDto {
 
         private String content;
 
-        private String title;
-
-        private String poster;
+        private String movie;
     }
 
     public static class Patch {
@@ -32,9 +30,7 @@ public class AnswerDto {
 
         private String content;
 
-        private String title;
-
-        private String poster;
+        private String movie;
     }
 
     public static class Response {
@@ -46,9 +42,7 @@ public class AnswerDto {
 
         private String content;
 
-        private String title;
-
-        private String poster;
+        private String movie;
 
         private long memberId;
 
