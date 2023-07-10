@@ -78,6 +78,9 @@ const AnswerCreateGroup = () => {
 
   return (
     <S.PageBottom>
+      <S.MovieSelector>
+        <S.MoviePickButton>+ 추천할 영화 고르기</S.MoviePickButton>
+      </S.MovieSelector>
       <S.AnswerCreateBox>
         <WebEditor value={contentValue} setValue={setContentValue} />
       </S.AnswerCreateBox>
