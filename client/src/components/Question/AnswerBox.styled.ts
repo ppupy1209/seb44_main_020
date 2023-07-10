@@ -26,12 +26,12 @@ export const Nickname = styled.p`
   align-items: center;
   cursor: pointer;
   color: white;
-  font-size: small;
+  font-size: 0.75rem;
 `;
 
 export const Time = styled.p`
   color: #8a97ab;
-  font-size: small;
+  font-size: 0.75rem;
   display: flex;
   align-items: center;
 `;
@@ -48,7 +48,7 @@ export const EditBtn = styled.button`
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0);
   color: white;
-  font-size: small;
+  font-size: 0.75rem;
 `;
 
 export const DeleteBtn = styled.button`
@@ -57,14 +57,16 @@ export const DeleteBtn = styled.button`
   background-color: rgba(255, 255, 255, 0);
   border-color: rgba(255, 255, 255, 0);
   color: white;
-  font-size: small;
+  font-size: 0.75rem;
 `;
 
 export const AnswerBoxMid = styled.div`
   margin: 12px 8px 0px 8px;
 `;
 
-export const ContentBox = styled.div``;
+export const ContentBox = styled.div`
+  font-weight: bold;
+`;
 
 export const BoxBottom = styled.div`
   margin: 16px 8px 0px 8px;
@@ -83,7 +85,7 @@ export const SelectedMovieBox = styled.div`
 export const Poster = styled.div``;
 
 export const MovieInfo = styled.div`
-  font-size: small;
+  font-size: 0.75rem;
   margin-top: 2px;
   display: flex;
   flex-direction: column;
