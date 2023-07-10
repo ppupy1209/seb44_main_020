@@ -38,8 +38,8 @@ public class MovieStaff {
 
     public void setMovie(Movie movie) {
         this.movie = movie;
-        if(!movie.getMovieStaffs().contains(this)) {
-            movie.getMovieStaffs().add(this);
+        if(!this.movie.getMovieStaffs().contains(this)) {
+            this.movie.addMovieStaffs(this);
         }
     }
 }

@@ -2,9 +2,10 @@ package com.moovda_project.moovda.movie.controller;
 
 
 import com.moovda_project.moovda.movie.service.ApiService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Component;
 
+
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.io.InputStreamReader;
@@ -12,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.BufferedReader;
 
-@RestController
+@Component
 public class ApiController {
 
     private final ApiService apiService;
@@ -21,8 +22,9 @@ public class ApiController {
         this.apiService = apiService;
     }
 
-    @GetMapping("/api")
-    public String callApi() throws IOException {
+
+    @PostConstruct
+    public void callApi() throws IOException {
         StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey="); /*URL*/
         urlBuilder.append("&" + URLEncoder.encode("listCount","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("nation","UTF-8") + "=" + URLEncoder.encode("대한민국", "UTF-8"));
@@ -53,7 +55,6 @@ public class ApiController {
         rd.close();
         conn.disconnect();
         apiService.init(sb.toString());
-        return sb.toString();
     }
 
 }

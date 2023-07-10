@@ -1,39 +1,38 @@
-import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+'use client';
+
+import MoovDa from '@/assets/moovdaLogo.svg';
 import {
   faMagnifyingGlass,
-  faUser,
   faPen,
   faRightToBracket,
-  faRightFromBracket,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import { ReactComponent as Logo } from '../../assets/logo-moovda.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import {
   StyledHeader,
-  StyledLogo,
-  StyledLog,
-  StyledIconSearch,
   StyledIconAsk,
   StyledIconMyPage,
+  StyledIconSearch,
+  StyledLog,
+  StyledLogo,
 } from './Header.styled';
 
 const Header = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
-  const handleNavigate = (path: string) => {
-    navigate(path);
-  };
   return (
     <StyledHeader>
       <StyledLogo>
-        <Logo onClick={() => handleNavigate('/')} />
+      <MoovDa />
       </StyledLogo>
       <StyledIconSearch>
         <FontAwesomeIcon
           icon={faMagnifyingGlass}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => handleNavigate('/moives/search')}
+          onClick={() => router.push('/search')}
         />
       </StyledIconSearch>
       <StyledIconAsk>
@@ -41,7 +40,7 @@ const Header = () => {
           icon={faPen}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => handleNavigate('questions/ask')}
+          onClick={() => router.push('/questions')}
         />
       </StyledIconAsk>
       <StyledIconMyPage>
@@ -49,7 +48,7 @@ const Header = () => {
           icon={faUser}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => handleNavigate('members/mypage')}
+          onClick={() => router.push('/mypage')}
         />
       </StyledIconMyPage>
       <StyledLog>
@@ -57,7 +56,7 @@ const Header = () => {
           icon={faRightToBracket}
           style={{ color: 'white' }}
           size="xl"
-          onClick={() => handleNavigate('members/login')}
+          onClick={() => router.push('/login')}
         />
       </StyledLog>
     </StyledHeader>

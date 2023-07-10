@@ -28,4 +28,11 @@ public class Watched extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public void setMember(Member member) {
+        this.member = member;
+        if(!this.member.getWatchedList().contains(this)) {
+            this.member.addWatchedList(this);
+        }
+    }
 }
