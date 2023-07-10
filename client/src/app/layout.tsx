@@ -4,6 +4,7 @@ import StyledComponentsRegistry from '@/lib/registry';
 import GlobalStyle from '@/styles/Globalstyle';
 import { StyledRoot } from '@/styles/style';
 import { Inter } from 'next/font/google';
+import {Providers} from '@/redux/provider'
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
+        <Providers>
         <StyledComponentsRegistry>
           <StyledRoot>
             <GlobalStyle />
@@ -28,6 +30,7 @@ export default function RootLayout({
             <Footer />
           </StyledRoot>
         </StyledComponentsRegistry>
+        </Providers>
       </body>
     </html>
   );

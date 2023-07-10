@@ -39,20 +39,36 @@ margin-bottom:30px ;
 `;
 
 export const SectionTitle=styled.div`
-color:#5E7AEA;
 border-bottom:1px solid #5E7AEA;
 padding-bottom:10px;
-font-size:16px;
+display: flex;
+gap: 90%;
+`;
+
+export const ShowDelete=styled.div`
+cursor: pointer;
+font-size:14px;
+color:#D2D2D2;
+font-weight: 400;
+`;
+
+export const Title=styled.div`
+color:#5E7AEA;
 font-weight: bold;
+font-size:16px;
 `;
 
 export const SectionContent=styled.div`
-margin-top:40px;`;
+margin-top:40px;
+display:flex;
+align-items:center;
+position: relative;`;
 
 export const DeleteContainter=styled.div`
 display:flex;
 gap: 87%;
 align-items: center;
+margin-top:40px;
 `;
 
 export const Text=styled.div`
@@ -76,4 +92,8 @@ cursor: pointer;
 export const MovieList=styled.div<MovieListProps>`
 min-height: ${(props) => (props.hasContent ? 'auto' : '200px')};
 display:flex;
-gap: 30px;`;
+gap: 30px;
+overflow-x:scroll;
+white-space:nowrap;
+`;
+

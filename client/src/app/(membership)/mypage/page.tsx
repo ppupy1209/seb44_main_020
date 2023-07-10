@@ -1,5 +1,6 @@
 'use client'
-// import { useState, useEffect } from 'react';
+import {click} from '@/redux/features/deleteSlice'
+import { useDispatch, useSelector } from 'react-redux';
 // import { useState, useEffect,useCallback } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
@@ -8,12 +9,18 @@ import {data} from './dummydata'
 import * as S from './page.styled';
 import theme from '@/components/MainPoster/theme';
 import { ThemeProvider } from 'styled-components';
-
-  
+import { useCallback } from 'react';
+import { RootState } from '@/redux/store';
 
 export default function MyPage() {
     //const navigate=useNavigate();
     // const [data, setData]=useState([]);
+    const showDelete =useSelector((state: RootState)=> state.showDelete.value);
+    const dispatch=useDispatch();
+    const handleShowDelete=()=>{
+      dispatch(click());
+      console.log(showDelete)
+    }
 
   // useEffect(()=>{
   //   axios.get('주소/members/${member_id}')
@@ -61,32 +68,32 @@ const watchedList=data.watched.map((list)=>(
 ))
 
   return <S.Wrapper>
-  <S.PageTitle>
+  <S.PageTitle>     {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
     my page
   </S.PageTitle>
   <S.Container>
     <S.Nickname>{data.nickname} 님의 리스트</S.Nickname>
     <S.SectionWrapper>
     <S.Section>
-    <S.SectionTitle>볼 영화</S.SectionTitle>
+    <S.SectionTitle>
+      <S.Title>볼 영화</S.Title>   
+      <S.ShowDelete onClick={handleShowDelete}>삭제</S.ShowDelete></S.SectionTitle>  {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
     <S.SectionContent>
       <S.MovieList hasContent={toWatchlist.length > 0}>{toWatchlist}</S.MovieList>
     </S.SectionContent>
     </S.Section>
     <S.Section>
-    <S.SectionTitle>본 영화</S.SectionTitle>
+    <S.SectionTitle><S.Title>본 영화</S.Title> </S.SectionTitle>
     <S.SectionContent>
       <S.MovieList hasContent={toWatchlist.length > 0}>{watchedList}</S.MovieList>
     </S.SectionContent>
     </S.Section>
-    <S.Section>
+    <S.Section> {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
     <S.SectionTitle>계정 관리</S.SectionTitle>
-    <S.SectionContent>
     <S.DeleteContainter>
       <S.Text>회원 삭제</S.Text>
       <S.DeleteBtn>삭제하기</S.DeleteBtn>  {/*onClick시 handleDelete*/}
       </S.DeleteContainter>
-      </S.SectionContent>
     </S.Section>
     </S.SectionWrapper>
   </S.Container>
