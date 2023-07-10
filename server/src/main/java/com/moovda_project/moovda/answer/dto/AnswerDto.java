@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.answer.dto;
 
+import com.moovda_project.moovda.movie.entity.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class AnswerDto {
 
         private String content;
 
-        private String movie;
+        private Movie movie;
     }
 
     @Getter
@@ -34,7 +35,7 @@ public class AnswerDto {
 
         private String content;
 
-        private String movie;
+        private Movie movie;
     }
 
     @Getter
@@ -50,7 +51,7 @@ public class AnswerDto {
 
         private String content;
 
-        private String movie;
+        private Movie movie;
 
         private long memberId;
 
