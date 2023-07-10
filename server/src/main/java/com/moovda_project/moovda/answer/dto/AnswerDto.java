@@ -23,6 +23,10 @@ public class AnswerDto {
         private String movie;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch {
         private long answerId;
 
@@ -33,6 +37,10 @@ public class AnswerDto {
         private String movie;
     }
 
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Response {
         private long answerId;
 
