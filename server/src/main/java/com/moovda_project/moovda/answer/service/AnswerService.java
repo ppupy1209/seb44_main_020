@@ -26,7 +26,8 @@ public class AnswerService {
     public Answer createAnswer(Answer answer) {
         Question findQuestion = questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId());
         answer.addQuestion(findQuestion);
-        // answer.addMember(answer.getMember());
+        // TODO : 영화를 넣는 메서드 새로 추가
+        // answer.addMember(answer.getMember()); TODO : MemberIdExtractor에서 memberId 받아서 하는 것으로 수정
         // answer.addMovie(answer.getMovie());
         return answerRepository.save(answer);
     }
@@ -37,7 +38,7 @@ public class AnswerService {
         Optional.ofNullable(answer.getContent()).ifPresent(content -> foundAnswer.setContent(content));
         Optional.ofNullable(answer.getMovie()).ifPresent(movie -> foundAnswer.setMovie(movie));
         Optional.ofNullable(answer.getModifiedAt()).ifPresent(modifiedAt -> foundAnswer.setModifiedAt(modifiedAt));
-
+        return answerRepository.save(foundAnswer);
     }
 
 
@@ -50,7 +51,9 @@ public class AnswerService {
         return optionalAnswer.orElseThrow( () -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
 
+
     public List<Answer> findAnswers(long questionId) {
         return answerRepository.findAll(questionId);
     }
+    // TODO : 페이징 기능 추가
 }
