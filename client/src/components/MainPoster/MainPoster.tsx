@@ -10,7 +10,7 @@ interface Props {
   data: {
     poster: string;
     title: string;
-    star: number;
+    star?: number;
   };
   isWatched: boolean;
   isToWatch: boolean;

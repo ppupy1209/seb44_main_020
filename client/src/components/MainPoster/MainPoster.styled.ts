@@ -7,7 +7,7 @@ import styled from 'styled-components';
 export const Container = styled.div<{ width?: string }>`
   display: flex;
   flex-direction: column;
-  width: ${(props) => props.width || '250px'};
+  width: ${(props) => props.theme.width};
   height: auto;
   gap: 5px;
   cursor: pointer;
@@ -17,20 +17,18 @@ export const PosterImg = styled.img`
   border-radius: 20px;
 `;
 
-export const Title = styled.div`
+export const Title = styled.div<{posterTitleGap?:string}>`
   display: flex;
   justify-content: center;
-  font-size: 20px;
-  margin-top: 10px;
-  margin-top: 30px;
+  margin-top: ${(props) => props.theme.posterTitleGap};
 `;
-export const TitleText = styled.div<{ 'font-size'?: string }>`
+export const TitleText = styled.div<{ titleFonSize?: string, maxWidth?:string }>`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  max-width: 230px;
+  max-width: ${(props) => props.theme.maxWidth};
   color: #e2e2e2;
-  font-size: ${(props) => props['font-size'] || '20px'};
+  font-size: ${(props) => props.theme.titleFontSize};
 `;
 export const Star = styled.div`
   display: flex;
@@ -38,7 +36,7 @@ export const Star = styled.div`
 `;
 
 export const Delete = styled.div`
-  position: absolute;
-  left: 220px;
-  top: 10px;
+position: absolute;
+margin-left:120px;
+margin-top:10px;
 `;
