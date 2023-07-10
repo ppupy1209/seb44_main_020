@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.global.oauth2_jwt.utils;
+package com.moovda_project.moovda.global.auth.utils;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

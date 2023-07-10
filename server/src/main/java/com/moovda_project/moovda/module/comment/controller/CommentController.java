@@ -5,7 +5,7 @@ import com.moovda_project.moovda.module.comment.dto.CommentPostDto;
 import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.comment.mapper.CommentMapper;
 import com.moovda_project.moovda.module.comment.service.CommentService;
-import com.moovda_project.moovda.global.oauth2_jwt.utils.MemberIdExtractor;
+import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
 import com.moovda_project.moovda.global.utils.UriCreator;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

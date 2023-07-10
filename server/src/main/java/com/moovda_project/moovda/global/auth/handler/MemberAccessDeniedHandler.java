@@ -1,6 +1,6 @@
-package com.moovda_project.moovda.global.oauth2_jwt.handler;
+package com.moovda_project.moovda.global.auth.handler;
 
-import com.moovda_project.moovda.global.oauth2_jwt.utils.ErrorResponder;
+import com.moovda_project.moovda.global.auth.utils.ErrorResponder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;

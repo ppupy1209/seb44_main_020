@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.global.oauth2_jwt.userdetails;
+package com.moovda_project.moovda.global.auth.userdetails;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;

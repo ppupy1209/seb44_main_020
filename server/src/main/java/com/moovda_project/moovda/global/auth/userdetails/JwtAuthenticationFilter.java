@@ -1,7 +1,7 @@
-package com.moovda_project.moovda.global.oauth2_jwt.userdetails;
+package com.moovda_project.moovda.global.auth.userdetails;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.moovda_project.moovda.global.oauth2_jwt.jwt.JwtTokenizer;
+import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import com.moovda_project.moovda.module.member.entity.Member;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;

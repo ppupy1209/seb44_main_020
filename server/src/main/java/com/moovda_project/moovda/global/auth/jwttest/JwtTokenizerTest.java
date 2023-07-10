@@ -1,6 +1,6 @@
-package com.moovda_project.moovda.global.oauth2_jwt.jwttest;
+package com.moovda_project.moovda.global.auth.jwttest;
 
-import com.moovda_project.moovda.global.oauth2_jwt.jwt.JwtTokenizer;
+import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.io.Decoders;
 import org.junit.jupiter.api.BeforeAll;
