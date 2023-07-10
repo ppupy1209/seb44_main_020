@@ -90,6 +90,17 @@ export const PageBottom = styled.div`
   padding: 1rem;
 `;
 
+export const MovieSelector = styled.div``;
+
+export const MoviePickButton = styled.button`
+  width: 100%;
+  height: 50px;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: medium;
+  cursor: pointer;
+`;
+
 export const AnswerCreateBox = styled.div`
   height: 310px;
 `;
