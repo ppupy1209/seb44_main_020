@@ -4,7 +4,9 @@ import { styled } from 'styled-components';
 
 export const TalkPage = styled.div`
   background-color: #111321;
-  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const TalkPageBox = styled.div`
@@ -17,6 +19,7 @@ export const Header = styled.div`
   justify-content: space-between;
   margin: 0.5rem;
   padding: 0.5rem;
+  max-width: 1024px;
 `;
 
 export const Title = styled.h1`
@@ -39,4 +42,6 @@ export const Button = styled.button`
   color: white;
 `;
 
-export const QuestionBox = styled.div``;
+export const QuestionBox = styled.div`
+  width: 1024px;
+`;
