@@ -3,6 +3,12 @@ package com.moovda_project.moovda.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
+
+    // 401
+    MEMBER_UNAUTHORIZED(401,"Member unauthorized"),
+
+
+
     // 403
     QUESTION_EXIST_ANSWER(403, "Question has answer"),
 

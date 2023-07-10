@@ -4,6 +4,7 @@ import com.moovda_project.moovda.comment.entity.Comment;
 import com.moovda_project.moovda.comment.repository.CommentRepository;
 import com.moovda_project.moovda.exception.BusinessLogicException;
 import com.moovda_project.moovda.exception.ExceptionCode;
+import com.moovda_project.moovda.member.entity.Member;
 import com.moovda_project.moovda.movie.entity.Movie;
 import com.moovda_project.moovda.movie.entity.Watched;
 import com.moovda_project.moovda.movie.service.MovieService;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,39 +23,40 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final MovieService movieService;
     private final WatchedService watchedService;
-    public Comment createComment(Comment comment) {
-        updateStarAvg(comment);
+    public Comment createComment(Comment comment,long movieId,long memberId) {
+        updateStarAvg(comment,movieId);
 
-        addWatched(comment);
+        addWatched(comment,movieId,memberId);
 
         return commentRepository.save(comment);
     }
 
-    public Comment updateComment(Comment comment) {
+    public Comment updateComment(Comment comment,long memberId,long movieId) {
        Comment findComment = findVerifiedComment(comment.getCommentId());
+
+       checkValidatedMember(memberId,findComment);
 
        Optional.ofNullable(comment.getContent())
                .ifPresent(content -> findComment.setContent(content));
        Optional.ofNullable(comment.getStar())
                .ifPresent(star -> findComment.setStar(star));
 
-       updateStarAvg(findComment);
+       updateStarAvg(findComment,movieId);
 
        return commentRepository.save(findComment);
     }
 
 
-//    public Page<Comment> findComments {
-//
-//    }
+    public void deleteComment(long commentId,long memberId) {
 
-     public void deleteComment(long commentId) {
         Comment comment = findVerifiedComment(commentId);
 
-        deleteWatched(comment);
+        checkValidatedMember(memberId,comment);
+
+        deleteWatched(commentId);
 
         commentRepository.delete(comment);
-     }
+    }
 
 
     private Comment findVerifiedComment(long commentId) {
@@ -63,34 +66,57 @@ public class CommentService {
         return findComment;
     }
 
-    private void updateStarAvg(Comment comment) {
-        Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
+    private void updateStarAvg(Comment comment, long movieId) {
+        Movie movie = movieService.findMovie(movieId);
 
         float newStar = comment.getStar();
-        float totalStar = movie.getStarAvg() * movie.getComments().size();
+        float totalStar = calculateTotalStar(movie);
 
         totalStar += newStar;
+
         float averageStar = totalStar / (movie.getComments().size()+1);
 
         float roundedStar = Math.round(averageStar * 10) / 10.0f;
 
         movie.setStarAvg(roundedStar);
 
+        comment.setMovie(movie);
+
         movieService.updateMovie(movie);
     }
 
-    private void addWatched(Comment comment) {
+    private float calculateTotalStar(Movie movie) {
+        List<Comment> comments = movie.getComments();
+        float sum = 0.0f;
+        for(Comment comment : comments) {
+            sum += comment.getStar();
+        }
+        return sum;
+    }
+
+    private void addWatched(Comment comment,long movieId, long memberId) {
+        Movie movie = movieService.findMovie(movieId);
+
+        Member member = new Member();      // TODO: findMember로 바꾸기
+        member.setMemberId(memberId);
+
+        comment.setMember(member);
+
         Watched watched = new Watched();
-        watched.setMovie(comment.getMovie());
-        watched.setMember(comment.getMember());
+        watched.setMovie(movie);
+        watched.setMember(member);
 
         watchedService.createWatched(watched);
     }
 
-    private void deleteWatched(Comment comment) {
-        Watched watched = new Watched();
-        watched.setMember(comment.getMember());
-
-        watchedService.deleteWatched(watched.getWatchedId());
+    private void deleteWatched(long watchedId) {
+        watchedService.deleteWatched(watchedId);
     }
+
+    private void checkValidatedMember(long memberId, Comment findComment) {
+        if(findComment.getMember().getMemberId()!= memberId) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
+    }
+
 }
