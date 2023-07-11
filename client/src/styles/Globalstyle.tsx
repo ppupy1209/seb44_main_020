@@ -12,6 +12,9 @@ body{
     color: white;
     background-color: #01123d;
 }
+a {
+    text-decoration: none;
+}
 `;
 
 export default GlobalStyle;
