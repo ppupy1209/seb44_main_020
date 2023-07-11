@@ -10,5 +10,5 @@ public class CommentPatchDto {
     private long commentId;
 
     private String content;
-    private float star;
+    private double star;
 }

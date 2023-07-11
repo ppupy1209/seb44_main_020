@@ -27,7 +27,7 @@ public class Comment extends Auditable {
     private String content;
 
     @Column(name = "star", nullable = false)
-    private float star;
+    private double star;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
@@ -37,8 +37,8 @@ public class Comment extends Auditable {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
-    Set<Like> likes = new HashSet<>();
+//    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
+//    Set<Like> likes = new HashSet<>();
 
     public void setMovie(Movie movie) {
         this.movie = movie;
