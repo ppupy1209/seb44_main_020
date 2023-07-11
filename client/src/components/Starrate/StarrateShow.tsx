@@ -1,9 +1,8 @@
 'use client';
 
-import Starfull from '@/static/fullStar.svg'
-import Starhalf from '@/static/halfStar.svg'
-import Starempty from '@/static/emptyStar.svg'
-import Image from 'next/image';
+import Starfull from '@/assets/fullStar.svg'
+import Starhalf from '@/assets/halfStar.svg'
+import Starempty from '@/assets/emptyStar.svg'
 import * as S from './StarrateShow.styled';
 
 interface proptype {
