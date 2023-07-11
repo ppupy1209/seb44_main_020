@@ -17,9 +17,9 @@ export default function MyPage() {
     // const [data, setData]=useState([]);
     const showDelete =useSelector((state: RootState)=> state.showDelete.value);
     const dispatch=useDispatch();
+
     const handleShowDelete=()=>{
       dispatch(click());
-      console.log(showDelete)
     }
 
   // useEffect(()=>{
