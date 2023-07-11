@@ -2,6 +2,12 @@
 
 import styled from 'styled-components';
 
+export const AnswerBoxGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const AnswerBox = styled.div`
   background-color: #162135;
   width: 1024px;
