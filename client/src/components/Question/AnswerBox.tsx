@@ -1,6 +1,9 @@
+// TODO: api 경로 필요
+
 'use client';
+
 import * as S from '@/components/Question/AnswerBox.styled';
-import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const AnswerBox = () => {
   return (
@@ -17,19 +20,13 @@ const AnswerBox = () => {
 };
 
 const AnswerBoxTop = () => {
-  const router = useRouter();
-
   return (
     <S.BoxTop>
       <S.LeftBox>
-        <S.Nickname
-          onClick={() =>
-            // TODO: 회원 === 글작성자 => 본인 mypage || 회원 != 글작성자 => 글작성자 mypage
-            router.push('/mypage')
-          }
-        >
-          닉네임
-        </S.Nickname>
+        {/* // TODO: 회원 === 글작성자 -> 본인 mypage || 회원 != 글작성자 -> 글작성자 mypage */}
+        <Link href={'/mypage'}>
+          <S.Nickname>닉네임</S.Nickname>
+        </Link>
         <S.Time>{AnswerDate(new Date())}</S.Time>
       </S.LeftBox>
       <S.RightBox>
@@ -72,22 +69,19 @@ const AnswerDate = (createdAt: Date): string => {
 };
 
 const AnswerBoxBottom = () => {
-  const router = useRouter();
   return (
-    <S.BoxBottom>
-      <S.SelectedMovieBox
-        onClick={() =>
-          //TODO: movie 클릭시 해당 movie홈페이지로 이동
-          router.push('/movie')
-        }
-      >
-        <S.Poster>포스터</S.Poster>
-        <S.MovieInfo>
-          <S.MovieTitle>제목</S.MovieTitle>
-          <S.MovieReleaseDate>개봉년도</S.MovieReleaseDate>
-        </S.MovieInfo>
-      </S.SelectedMovieBox>
-    </S.BoxBottom>
+    <Link href={'/movie/:movieId'}>
+      {/* //TODO: movie 클릭시 해당 movie홈페이지로 이동 */}
+      <S.BoxBottom>
+        <S.SelectedMovieBox>
+          <S.Poster>포스터</S.Poster>
+          <S.MovieInfo>
+            <S.MovieTitle>제목</S.MovieTitle>
+            <S.MovieReleaseDate>개봉년도</S.MovieReleaseDate>
+          </S.MovieInfo>
+        </S.SelectedMovieBox>
+      </S.BoxBottom>
+    </Link>
   );
 };
 
