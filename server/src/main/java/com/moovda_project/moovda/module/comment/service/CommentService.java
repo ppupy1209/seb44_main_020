@@ -27,24 +27,31 @@ public class CommentService {
 
     private  final MemberService memberService;
     public Comment createComment(Comment comment, long movieId, long memberId) {
-        updateStarAvg(comment,movieId);
 
-        addWatched(movieId,memberId);
+        Member member = memberService.findMember(memberId);
+        Movie movie = movieService.findMovie(movieId);
 
-        return commentRepository.save(comment);
+        existsCommentByMemberAndMovie(movie,member);
+
+        updateStarAvg(comment,movie);
+
+        addWatched(movie,member);
+
+        Comment createdComment = commentRepository.save(comment);
+
+        return createdComment;
     }
 
     public Comment updateComment(Comment comment,long memberId,long movieId) {
        Comment findComment = findVerifiedComment(comment.getCommentId());
 
+       Movie movie = movieService.findMovie(movieId);
+
        checkValidatedMember(memberId,findComment);
 
-       Optional.ofNullable(comment.getContent())
-               .ifPresent(content -> findComment.setContent(content));
-       Optional.ofNullable(comment.getStar())
-               .ifPresent(star -> findComment.setStar(star));
-
-       updateStarAvg(findComment,movieId);
+       findComment.setContent(comment.getContent());
+       findComment.setStar(comment.getStar());
+       updateStarAvg(findComment,movie);
 
        return commentRepository.save(findComment);
     }
@@ -69,41 +76,31 @@ public class CommentService {
         return findComment;
     }
 
-    private void updateStarAvg(Comment comment, long movieId) {
-        Movie movie = movieService.findMovie(movieId);
-
-        float newStar = comment.getStar();
-        float totalStar = calculateTotalStar(movie);
+    private void updateStarAvg(Comment comment, Movie movie) {
+        double newStar = comment.getStar();
+        double totalStar = calculateTotalStar(movie);
 
         totalStar += newStar;
 
-        float averageStar = totalStar / (movie.getComments().size()+1);
+        double averageStar = totalStar / (movie.getComments().size()+1);
 
-        float roundedStar = Math.round(averageStar * 10) / 10.0f;
+        double roundedStar = Double.parseDouble(String.format("%.1f", averageStar));
 
         movie.setStarAvg(roundedStar);
-
-//        comment.setMovie(movie);
 
         movieService.updateMovie(movie);
     }
 
-    private float calculateTotalStar(Movie movie) {
+    private double calculateTotalStar(Movie movie) {
         List<Comment> comments = movie.getComments();
-        float sum = 0.0f;
+        double sum = 0.0;
         for(Comment comment : comments) {
             sum += comment.getStar();
         }
         return sum;
     }
 
-    private void addWatched(long movieId, long memberId) {
-        Movie movie = movieService.findMovie(movieId);
-
-        Member member = memberService.findMember(memberId);
-
-//        comment.setMember(member);
-
+    private void addWatched(Movie movie, Member member) {
         Watched watched = new Watched();
         watched.setMovie(movie);
         watched.setMember(member);
@@ -118,6 +115,12 @@ public class CommentService {
     private void checkValidatedMember(long memberId, Comment findComment) {
         if(findComment.getMember().getMemberId()!= memberId) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
+    }
+
+    private void existsCommentByMemberAndMovie(Movie movie, Member member) {
+        if(commentRepository.existsByMemberAndMovie(member,movie)) {
+            throw new BusinessLogicException(ExceptionCode.COMMENT_EXISTS);
         }
     }
 

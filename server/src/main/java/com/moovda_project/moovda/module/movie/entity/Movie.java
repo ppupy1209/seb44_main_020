@@ -36,7 +36,7 @@ public class Movie {
     private Integer runningTime;
 
     @Column(name = "star_avg")
-    private Float starAvg = 0F;
+    private Double starAvg = 0.0;
 
     @Column(name = "opening_date")
     private String openingDate;
