@@ -24,36 +24,40 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final MovieService movieService;
     private final WatchedService watchedService;
-
     private  final MemberService memberService;
-    public Comment createComment(Comment comment, long movieId, long memberId) {
 
-        Member member = memberService.findMember(memberId);
-        Movie movie = movieService.findMovie(movieId);
+    public Comment createComment(Comment comment) {
+
+        Member member = memberService.findMember(comment.getMember().getMemberId());
+        Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
 
         existsCommentByMemberAndMovie(movie,member);
 
-        updateStarAvg(comment,movie);
-
-        addWatched(movie,member);
+        movie.addComments(comment);
 
         Comment createdComment = commentRepository.save(comment);
+
+        updateStarAvg(movie);
+
+        addWatched(movie,member);
 
         return createdComment;
     }
 
-    public Comment updateComment(Comment comment,long memberId,long movieId) {
+    public Comment updateComment(Comment comment,long memberId) {
        Comment findComment = findVerifiedComment(comment.getCommentId());
-
-       Movie movie = movieService.findMovie(movieId);
 
        checkValidatedMember(memberId,findComment);
 
        findComment.setContent(comment.getContent());
        findComment.setStar(comment.getStar());
-       updateStarAvg(findComment,movie);
 
-       return commentRepository.save(findComment);
+       Comment updatedComment = commentRepository.save(findComment);
+
+       Movie movie = movieService.findMovie(findComment.getMovie().getMovieId());
+       updateStarAvg(movie);
+
+       return updatedComment;
     }
 
 
@@ -76,13 +80,10 @@ public class CommentService {
         return findComment;
     }
 
-    private void updateStarAvg(Comment comment, Movie movie) {
-        double newStar = comment.getStar();
+    private void updateStarAvg(Movie movie) {
         double totalStar = calculateTotalStar(movie);
 
-        totalStar += newStar;
-
-        double averageStar = totalStar / (movie.getComments().size()+1);
+        double averageStar = totalStar / movie.getComments().size();
 
         double roundedStar = Double.parseDouble(String.format("%.1f", averageStar));
 

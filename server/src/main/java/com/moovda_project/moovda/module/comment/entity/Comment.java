@@ -40,11 +40,4 @@ public class Comment extends Auditable {
 //    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
 //    Set<Like> likes = new HashSet<>();
 
-    public void setMovie(Movie movie) {
-        this.movie = movie;
-        if(!this.movie.getComments().contains(this)) {
-            this.movie.addComments(this);
-        }
-    }
-
 }

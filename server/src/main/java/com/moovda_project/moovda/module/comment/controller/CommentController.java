@@ -7,6 +7,7 @@ import com.moovda_project.moovda.module.comment.mapper.CommentMapper;
 import com.moovda_project.moovda.module.comment.service.CommentService;
 import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
 import com.moovda_project.moovda.global.utils.UriCreator;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -19,15 +20,11 @@ import java.net.URI;
 @RestController
 @RequestMapping("/comments")
 @Validated
+@RequiredArgsConstructor
 public class CommentController {
     private final static String COMMENT_DEFAULT_URL = "/comments";
     private final CommentService commentService;
     private final CommentMapper mapper;
-
-    public CommentController(CommentService commentService, CommentMapper mapper) {
-        this.commentService = commentService;
-        this.mapper = mapper;
-    }
 
     @PostMapping("/{movie_id}")
     public ResponseEntity postComment(@PathVariable("movie_id") @Positive long movieId,
@@ -36,7 +33,7 @@ public class CommentController {
 
         Comment comment = mapper.commentPostDtoToComment(commentPostDto,movieId,memberId);
 
-        commentService.createComment(comment,movieId,memberId);
+        commentService.createComment(comment);
 
         URI location = UriCreator.createUri(COMMENT_DEFAULT_URL,comment.getCommentId());
 
@@ -51,7 +48,7 @@ public class CommentController {
         long memberId = MemberIdExtractor.extractMemberId();
         commentPatchDto.setCommentId(commentId);
 
-        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto),memberId,movieId);
+        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto),memberId); // TODO: API 명세서에 movie_id 필요 없을수도?
 
         return ResponseEntity.ok().build();
     }
