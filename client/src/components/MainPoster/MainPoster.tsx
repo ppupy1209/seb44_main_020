@@ -1,12 +1,12 @@
-import React from 'react';
+import { useCallback } from 'react';
 import Link from 'next/link';
 import { faSquareMinus } from '@fortawesome/free-solid-svg-icons';
 import * as S from './MainPoster.styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { StarrateShow } from '../Starrate/StarrateShow';
-import { handleDelete } from '@/api/axiosHandler';
 import {useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import { handleDelete } from '@/api/axiosHandler';
 
 interface Props {
   data: {
@@ -28,8 +28,7 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
       const showDelete =useSelector((state: RootState)=> state.showDelete.value);
 
       const handleDeleteMovie=(e: React.MouseEvent<HTMLDivElement>)=>{
-        const url = `/movies/toWatch/${movieId}`;
-        handleDelete({ url });
+        handleDelete(`/movies/toWatch/${movieId}`);
         e.preventDefault();
     };
 
