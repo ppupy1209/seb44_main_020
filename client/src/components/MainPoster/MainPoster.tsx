@@ -28,7 +28,7 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
       const showDelete =useSelector((state: RootState)=> state.showDelete.value);
 
       const handleDeleteMovie=(e: React.MouseEvent<HTMLDivElement>)=>{
-        handleDelete(`/movies/toWatch/${movieId}`);
+        handleDelete(`/movies/toWatch/${movieId}`); {/*서버 URL 추가 필요 */}
         e.preventDefault();
     };
 
