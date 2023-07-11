@@ -7,15 +7,17 @@ import Link from 'next/link';
 
 const AnswerBox = () => {
   return (
-    <S.AnswerBox>
-      <AnswerBoxTop />
-      <S.AnswerBoxMid>
-        <S.ContentBox>
-          <div>내용</div>
-        </S.ContentBox>
-      </S.AnswerBoxMid>
-      <AnswerBoxBottom />
-    </S.AnswerBox>
+    <S.AnswerBoxGroup>
+      <S.AnswerBox>
+        <AnswerBoxTop />
+        <S.AnswerBoxMid>
+          <S.ContentBox>
+            <div>내용</div>
+          </S.ContentBox>
+        </S.AnswerBoxMid>
+        <AnswerBoxBottom />
+      </S.AnswerBox>
+    </S.AnswerBoxGroup>
   );
 };
 
