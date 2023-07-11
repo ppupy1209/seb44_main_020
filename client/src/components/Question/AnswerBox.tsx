@@ -33,8 +33,20 @@ const AnswerBoxTop = () => {
         <S.Time>{AnswerDate(new Date())}</S.Time>
       </S.LeftBox>
       <S.RightBox>
-        <S.EditBtn>수정</S.EditBtn>
-        <S.DeleteBtn>삭제</S.DeleteBtn>
+        <S.EditBtn
+          onClick={() => {
+            // TODO: if(작성자 === 수정하려는 사람){수정가능}else 수정 불가능
+          }}
+        >
+          수정
+        </S.EditBtn>
+        <S.DeleteBtn
+          onClick={() => {
+            // TODO: if(작성자 === 삭제하려는 사람){삭제가능}else 삭제 불가능
+          }}
+        >
+          삭제
+        </S.DeleteBtn>
       </S.RightBox>
     </S.BoxTop>
   );
