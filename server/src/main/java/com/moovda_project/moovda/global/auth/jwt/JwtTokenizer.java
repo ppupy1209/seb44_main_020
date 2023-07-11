@@ -23,7 +23,7 @@ public class JwtTokenizer {
 
     //jwt secretKey 정보
     @Getter
-    @Value("${JWT_SECRET_KEY}")
+    @Value("${jwt.key}")
     private String secretKey;
 
     //액세스 토큰 정보

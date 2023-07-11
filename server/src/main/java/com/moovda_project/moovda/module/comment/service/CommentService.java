@@ -5,6 +5,7 @@ import com.moovda_project.moovda.module.comment.repository.CommentRepository;
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
 import com.moovda_project.moovda.module.member.entity.Member;
+import com.moovda_project.moovda.module.member.service.MemberService;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.entity.watch.Watched;
 import com.moovda_project.moovda.module.movie.service.MovieService;
@@ -23,6 +24,8 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final MovieService movieService;
     private final WatchedService watchedService;
+
+    private  final MemberService memberService;
     public Comment createComment(Comment comment, long movieId, long memberId) {
         updateStarAvg(comment,movieId);
 
@@ -97,8 +100,7 @@ public class CommentService {
     private void addWatched(Comment comment,long movieId, long memberId) {
         Movie movie = movieService.findMovie(movieId);
 
-        Member member = new Member();      // TODO: findMember로 바꾸기
-        member.setMemberId(memberId);
+        Member member = memberService.findMember(memberId);
 
         comment.setMember(member);
 
