@@ -67,7 +67,6 @@ export const WebEditor = ({ value, setValue }: WebEditorProps) => {
       style={{ height: '250px' }}
       modules={module}
       theme="snow"
-      placeholder="예: 너무 슬프지 않으면서 유쾌한 영화였으면 좋겠어요. 애니메이션이나 해외영화 말고 국내영화로 추천해주세요!"
       value={value}
       onChange={setValue}
     />
