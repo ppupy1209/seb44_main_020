@@ -29,7 +29,7 @@ public class CommentService {
     public Comment createComment(Comment comment, long movieId, long memberId) {
         updateStarAvg(comment,movieId);
 
-        addWatched(comment,movieId,memberId);
+        addWatched(movieId,memberId);
 
         return commentRepository.save(comment);
     }
@@ -83,7 +83,7 @@ public class CommentService {
 
         movie.setStarAvg(roundedStar);
 
-        comment.setMovie(movie);
+//        comment.setMovie(movie);
 
         movieService.updateMovie(movie);
     }
@@ -97,12 +97,12 @@ public class CommentService {
         return sum;
     }
 
-    private void addWatched(Comment comment,long movieId, long memberId) {
+    private void addWatched(long movieId, long memberId) {
         Movie movie = movieService.findMovie(movieId);
 
         Member member = memberService.findMember(memberId);
 
-        comment.setMember(member);
+//        comment.setMember(member);
 
         Watched watched = new Watched();
         watched.setMovie(movie);

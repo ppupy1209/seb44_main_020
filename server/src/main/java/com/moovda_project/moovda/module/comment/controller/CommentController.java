@@ -34,7 +34,9 @@ public class CommentController {
                                       @Valid @RequestBody CommentPostDto commentPostDto) {
         long memberId = MemberIdExtractor.extractMemberId();
 
-        Comment comment = commentService.createComment(mapper.commentPostDtoToComment(commentPostDto),movieId,memberId);
+        Comment comment = mapper.commentPostDtoToComment(commentPostDto,movieId,memberId);
+
+        commentService.createComment(comment,movieId,memberId);
 
         URI location = UriCreator.createUri(COMMENT_DEFAULT_URL,comment.getCommentId());
 
