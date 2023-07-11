@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map;
+
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {  // (1)
     private final AuthenticationManager authenticationManager;
@@ -58,7 +58,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     // (5)
     private String delegateAccessToken(Member member) {
-        Map<String, Object> claims = new HashMap<>();
+        HashMap<String, Object> claims = new HashMap<>();
+        claims.put("memberId", member.getMemberId());
         claims.put("username", member.getEmail());
 
         String subject = member.getEmail();

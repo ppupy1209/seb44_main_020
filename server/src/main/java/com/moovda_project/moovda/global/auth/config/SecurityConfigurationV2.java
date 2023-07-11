@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.global.auth.config;
 
+import com.moovda_project.moovda.global.auth.filter.JwtVerificationFilter;
 import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import com.moovda_project.moovda.global.auth.userdetails.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
@@ -70,7 +71,9 @@ public class SecurityConfigurationV2 {
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);
             jwtAuthenticationFilter.setFilterProcessesUrl("/v11/auth/login");
 
-            builder.addFilter(jwtAuthenticationFilter);
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer);
+            builder.addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
         }
     }
 }
