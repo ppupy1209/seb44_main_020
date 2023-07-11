@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 //OncePerRequestFilter 확장을 통해 request 당 한번만 실행되는 Security Filter 구현
@@ -58,8 +59,10 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
     }
 
     private void setAuthenticationToContext(Map<String, Object> claims) {
-        String username = (String) claims.get("username");
-        Authentication authentication = new UsernamePasswordAuthenticationToken(username, null);
+        HashMap<String, Object> principal = new HashMap<>();
+        principal.put("username",claims.get("username"));
+        principal.put("memberId",claims.get("memberId"));
+        Authentication authentication = new UsernamePasswordAuthenticationToken(principal, null);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }
