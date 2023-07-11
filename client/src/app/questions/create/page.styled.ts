@@ -4,12 +4,12 @@ import { styled } from 'styled-components';
 import HeaderLogo from '@/assets/questionsvg.svg';
 
 export const PageGroup = styled.div`
-  background-color: #111321;
+  background-color: #01123d;
   /* height: 120vh; */
 `;
 
 export const Header = styled.div`
-  background-color: #111321;
+  background-color: #01123d;
 `;
 
 export const PageTitleBox = styled.div`
@@ -48,7 +48,7 @@ export const TitleFirstMsg = styled.p`
 export const TitleSecondMsg = styled.p``;
 
 export const PageBody = styled.div`
-  padding: 3rem auto;
+  padding-bottom: 3rem;
 `;
 
 export const PageBodyContent = styled.div`
@@ -100,7 +100,7 @@ export const Button = styled.button`
   padding: 12px 24px;
   border-radius: 8px;
   width: 100px;
-  background-color: #111321;
+  background-color: #01123d;
   &:hover {
     background-color: #6c63ff;
   }
