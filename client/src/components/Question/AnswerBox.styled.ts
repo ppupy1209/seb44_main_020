@@ -3,10 +3,12 @@
 import styled from 'styled-components';
 
 export const AnswerBox = styled.div`
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #162135;
+  width: 1024px;
   border-radius: 12px;
   margin: 1rem;
   padding: 1rem;
+  border: 0.5px solid #8a97ab;
 `;
 
 export const BoxTop = styled.div`
@@ -76,7 +78,7 @@ export const SelectedMovieBox = styled.div`
   display: flex;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 8px;
-  width: 65%;
+  width: 50%;
   padding: 0.5rem;
   gap: 12px;
   cursor: pointer;
