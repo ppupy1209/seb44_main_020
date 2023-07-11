@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.global.auth.utils;
 
+import io.jsonwebtoken.Claims;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -12,3 +13,9 @@ public class MemberIdExtractor {
         return Long.valueOf((Integer) principal.get("memberId"));
     }
 }
+
+
+
+
+
+

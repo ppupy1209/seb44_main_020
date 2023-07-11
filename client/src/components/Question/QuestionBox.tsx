@@ -4,11 +4,12 @@ import * as S from '@/components/Question/QuestionBox.styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCommentDots } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export const QuestionBox = () => {
   const router = useRouter();
 
-  function AnswerDate(createdAt: Date): string {
+  const AnswerDate = (createdAt: Date): string => {
     const milliSeconds: number = new Date().getTime() - createdAt.getTime();
     const seconds: number = milliSeconds / 1000;
 
@@ -25,27 +26,30 @@ export const QuestionBox = () => {
     if (months < 12) return `${Math.floor(months)}개월 전`;
     const years: number = days / 365;
     return `${Math.floor(years)}년 전`;
-  }
+  };
 
   return (
-    <S.QuestionBox
-      onClick={() => {
-        router.push('/questions/:questionId');
-      }}
-    >
-      <S.BoxTop>
-        <S.Name>닉네임</S.Name>
-      </S.BoxTop>
-      <S.BoxMiddle>
-        <S.Title>질문 제목</S.Title>
-      </S.BoxMiddle>
-      <S.BoxBottom>
-        <S.Comment>
-          <FontAwesomeIcon icon={faCommentDots} color="white" width={'14px'} />
-          <S.CommentCount>질문 답변 수</S.CommentCount>
-        </S.Comment>
-        <S.Time>{AnswerDate(new Date())}</S.Time>
-      </S.BoxBottom>
-    </S.QuestionBox>
+    // TODO: 해당 questionId값 페이지로 이동
+    <Link href={'/questions/:questionId'}>
+      <S.QuestionBox>
+        <S.BoxTop>
+          <S.Name>닉네임</S.Name>
+        </S.BoxTop>
+        <S.BoxMiddle>
+          <S.Title>질문 제목</S.Title>
+        </S.BoxMiddle>
+        <S.BoxBottom>
+          <S.Comment>
+            <FontAwesomeIcon
+              icon={faCommentDots}
+              color="white"
+              width={'14px'}
+            />
+            <S.CommentCount>질문 답변 수</S.CommentCount>
+          </S.Comment>
+          <S.Time>{AnswerDate(new Date())}</S.Time>
+        </S.BoxBottom>
+      </S.QuestionBox>
+    </Link>
   );
 };
