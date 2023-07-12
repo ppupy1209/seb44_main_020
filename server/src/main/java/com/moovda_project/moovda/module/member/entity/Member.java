@@ -34,10 +34,10 @@ public class Member extends Auditable {
 //    @Column(nullable = false)
 //    private String nickname;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<ToWatch> toWatchList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Watched> watchedList = new ArrayList<>();
 
 //    public Member(String nickname) {
