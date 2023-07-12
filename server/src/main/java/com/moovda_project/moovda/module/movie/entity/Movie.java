@@ -75,4 +75,8 @@ public class Movie {
             comment.setMovie(this);
         }
     }
+
+    public void removeComments(Comment comment) {
+        this.comments.remove(comment);
+    }
 }
