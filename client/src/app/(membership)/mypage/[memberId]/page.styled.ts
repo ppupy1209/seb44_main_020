@@ -1,10 +1,6 @@
 'use client'
 import styled from 'styled-components';
 
-interface MovieListProps {
-    hasContent?: boolean;
-  }
-  
 export const Wrapper=styled.div`
 margin:20px 90px;`;
 
@@ -89,7 +85,7 @@ cursor: pointer;
 }
 `;
 
-export const MovieList=styled.div<MovieListProps>`
+export const MovieList=styled.div`
 min-height: '200px';
 display:flex;
 gap: 30px;
