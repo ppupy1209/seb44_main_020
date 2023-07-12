@@ -8,7 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor()
+@NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "movie_genre")
