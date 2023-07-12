@@ -37,7 +37,15 @@ public class Comment extends Auditable {
     @JoinColumn(name = "member_id")
     private Member member;
 
-//    @OneToMany(mappedBy = "comment",cascade = CascadeType.ALL)
-//    Set<Like> likes = new HashSet<>();
+    @OneToMany(mappedBy = "comment",cascade = CascadeType.REMOVE)
+    Set<Like> likes = new HashSet<>();
 
+    public void addLikes(Like like) {
+        this.likes.add(like);
+        like.setComment(this);
+    }
+
+    public void removeLikes(Like like) {
+        this.likes.remove(like);
+    }
 }
