@@ -20,6 +20,8 @@ public enum ExceptionCode {
     MOVIE_NOT_FOUND(404,"Movie not found"),
     WATCHED_NOT_FOUND(404,"Watched not found"),
 
+    TOWATCH_NOT_FOUND(404,"ToWatch not found"),
+
 
     // 409
     MEMBER_EXISTS(409, "Member exists"),
