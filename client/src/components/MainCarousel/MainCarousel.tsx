@@ -19,7 +19,6 @@ export default function MainCarousel({ props }: CarouselProps) {
     autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
-    // fade:true,
     arrows: false,
   };
   return <Slider {...settings}>{props}</Slider>;

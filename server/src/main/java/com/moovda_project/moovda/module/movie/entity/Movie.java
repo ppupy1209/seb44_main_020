@@ -36,7 +36,7 @@ public class Movie {
     private Integer runningTime;
 
     @Column(name = "star_avg")
-    private Float starAvg = 0F;
+    private Double starAvg = 0.0;
 
     @Column(name = "opening_date")
     private String openingDate;
@@ -74,5 +74,9 @@ public class Movie {
         if(comment.getMovie()!=this) {
             comment.setMovie(this);
         }
+    }
+
+    public void removeComments(Comment comment) {
+        this.comments.remove(comment);
     }
 }

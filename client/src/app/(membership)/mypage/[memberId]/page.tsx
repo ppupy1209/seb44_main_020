@@ -17,9 +17,9 @@ export default function MyPage() {
     // const [data, setData]=useState([]);
     const showDelete =useSelector((state: RootState)=> state.showDelete.value);
     const dispatch=useDispatch();
+
     const handleShowDelete=()=>{
       dispatch(click());
-      console.log(showDelete)
     }
 
   // useEffect(()=>{
@@ -89,7 +89,7 @@ const watchedList=data.watched.map((list)=>(
     </S.SectionContent>
     </S.Section>
     <S.Section> {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
-    <S.SectionTitle>계정 관리</S.SectionTitle>
+    <S.SectionTitle><S.Title>계정 관리</S.Title></S.SectionTitle>
     <S.DeleteContainter>
       <S.Text>회원 삭제</S.Text>
       <S.DeleteBtn>삭제하기</S.DeleteBtn>  {/*onClick시 handleDelete*/}

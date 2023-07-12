@@ -2,12 +2,18 @@
 
 import { styled } from 'styled-components';
 
+export const QuestionBoxGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 export const QuestionBox = styled.div`
-  max-width: 1056px;
+  width: 1024px;
   background-color: #162135;
   /* 페이지에서 설정 */
   /* margin: 50px auto; */
-  padding: 0.5rem;
+  padding: 1rem;
   border-radius: 12px;
   border: 1px solid #616c7f;
   display: flex;

@@ -19,9 +19,9 @@ public class LikeController {
     @PostMapping("/comments/{comment_id}/likes")
     public ResponseEntity addLike(@PathVariable("comment_id") @Positive long commentId) {
         Long memberId = MemberIdExtractor.extractMemberId();
-        boolean result = false;
-        result = likeService.addLike(memberId,commentId);
 
-        return result==true ? new ResponseEntity<>(HttpStatus.OK) : new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        likeService.addLike(memberId,commentId);
+
+        return ResponseEntity.ok().build();
     }
 }

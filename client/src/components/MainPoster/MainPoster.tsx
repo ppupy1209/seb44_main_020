@@ -1,12 +1,12 @@
-import React from 'react';
+import { useCallback } from 'react';
 import Link from 'next/link';
 import { faSquareMinus } from '@fortawesome/free-solid-svg-icons';
 import * as S from './MainPoster.styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { StarrateShow } from '../Starrate/StarrateShow';
-// import { handleDelete } from '../../axiosHandler';
 import {useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
+import { handleDelete } from '@/api/axiosHandler';
 
 interface Props {
   data: {
@@ -27,10 +27,10 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
   const movieId=data.movie_id
       const showDelete =useSelector((state: RootState)=> state.showDelete.value);
 
-  const handleDelete=(e: React.MouseEvent<HTMLDivElement>)=>{
-              // {handleDelete(`/movies/toWatch/${movie_id}`)}
-              e.preventDefault();
-  };
+      const handleDeleteMovie=(e: React.MouseEvent<HTMLDivElement>)=>{
+        handleDelete(`/movies/toWatch/${movieId}`); {/*서버 URL 추가 필요 */}
+        e.preventDefault();
+    };
 
   return (
     <S.Wrapper>
@@ -48,12 +48,14 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
         ''
       )}{' '}
       {/*본영화 리스트 목록일때 별점 노출 */}
-      {isToWatch? (showDelete?(<S.Delete onClick={handleDelete}>
+
+      {isToWatch? (showDelete?(<S.Delete onClick={handleDeleteMovie}>
           <FontAwesomeIcon icon={faSquareMinus} color="rgb(255, 255, 255,0.75)" />
         </S.Delete>):''):
         ''
       }
       {/*볼영화일때 삭제 버튼 노출 onClick시 handleDelete*/}
+      
     </S.Container>
     </Link>
     </S.Wrapper>

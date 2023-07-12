@@ -31,25 +31,27 @@ export const QuestionBox = () => {
   return (
     // TODO: 해당 questionId값 페이지로 이동
     <Link href={'/questions/:questionId'}>
-      <S.QuestionBox>
-        <S.BoxTop>
-          <S.Name>닉네임</S.Name>
-        </S.BoxTop>
-        <S.BoxMiddle>
-          <S.Title>질문 제목</S.Title>
-        </S.BoxMiddle>
-        <S.BoxBottom>
-          <S.Comment>
-            <FontAwesomeIcon
-              icon={faCommentDots}
-              color="white"
-              width={'14px'}
-            />
-            <S.CommentCount>질문 답변 수</S.CommentCount>
-          </S.Comment>
-          <S.Time>{AnswerDate(new Date())}</S.Time>
-        </S.BoxBottom>
-      </S.QuestionBox>
+      <S.QuestionBoxGroup>
+        <S.QuestionBox>
+          <S.BoxTop>
+            <S.Name>닉네임</S.Name>
+          </S.BoxTop>
+          <S.BoxMiddle>
+            <S.Title>질문 제목</S.Title>
+          </S.BoxMiddle>
+          <S.BoxBottom>
+            <S.Comment>
+              <FontAwesomeIcon
+                icon={faCommentDots}
+                color="white"
+                width={'14px'}
+              />
+              <S.CommentCount>질문 답변 수</S.CommentCount>
+            </S.Comment>
+            <S.Time>{AnswerDate(new Date())}</S.Time>
+          </S.BoxBottom>
+        </S.QuestionBox>
+      </S.QuestionBoxGroup>
     </Link>
   );
 };
