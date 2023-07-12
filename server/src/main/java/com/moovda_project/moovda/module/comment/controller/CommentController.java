@@ -41,9 +41,8 @@ public class CommentController {
     }
 
 
-    @PatchMapping("/{comment_id}/{movie_id}")
+    @PatchMapping("/{comment_id}")
     public ResponseEntity patchComment(@PathVariable("comment_id") @Positive long commentId,
-                                       @PathVariable("movie_id") @Positive long movieId,
                                        @Valid @RequestBody CommentPatchDto commentPatchDto) {
         long memberId = MemberIdExtractor.extractMemberId();
         commentPatchDto.setCommentId(commentId);

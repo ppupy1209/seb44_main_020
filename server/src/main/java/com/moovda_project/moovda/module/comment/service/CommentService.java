@@ -11,6 +11,7 @@ import com.moovda_project.moovda.module.movie.entity.watch.Watched;
 import com.moovda_project.moovda.module.movie.service.MovieService;
 import com.moovda_project.moovda.module.movie.service.watch.WatchedService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +34,7 @@ public class CommentService {
 
         existsCommentByMemberAndMovie(movie,member);
 
-        movie.addComments(comment);
+ //       movie.addComments(comment);
 
         Comment createdComment = commentRepository.save(comment);
 
@@ -70,6 +71,10 @@ public class CommentService {
         deleteWatched(commentId);
 
         commentRepository.delete(comment);
+
+        Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
+        movie.removeComments(comment);
+        updateStarAvg(movie);
     }
 
 

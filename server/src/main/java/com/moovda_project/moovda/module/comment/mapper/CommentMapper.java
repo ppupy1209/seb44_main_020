@@ -3,9 +3,14 @@ package com.moovda_project.moovda.module.comment.mapper;
 import com.moovda_project.moovda.module.comment.dto.CommentPatchDto;
 import com.moovda_project.moovda.module.comment.dto.CommentPostDto;
 import com.moovda_project.moovda.module.comment.entity.Comment;
+import com.moovda_project.moovda.module.comment.entity.Like;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import org.mapstruct.Mapper;
+
+import javax.persistence.SecondaryTable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
@@ -22,8 +27,12 @@ public interface CommentMapper {
         Member member = new Member();
         member.setMemberId(memberId);
 
+        Set<Like> likes = new HashSet<>();
+
+
         comment.setMovie(movie);
         comment.setMember(member);
+        comment.setLikes(likes);
 
         return comment;
     }
