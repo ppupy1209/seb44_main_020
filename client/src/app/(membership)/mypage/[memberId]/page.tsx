@@ -11,10 +11,12 @@ import theme from '@/components/MainPoster/theme';
 import { ThemeProvider } from 'styled-components';
 import { useCallback } from 'react';
 import { RootState } from '@/redux/store';
+import MyCarousel from '@/components/MyCarousel/MyCarousel';
+import { useRouter } from 'next/navigation';
 
 export default function MyPage() {
-    //const navigate=useNavigate();
-    // const [data, setData]=useState([]);
+  // const router=useRouter();
+  // const [data, setData]=useState([]);
     const showDelete =useSelector((state: RootState)=> state.showDelete.value);
     const dispatch=useDispatch();
 
@@ -47,7 +49,7 @@ export default function MyPage() {
   //       .then(() => {
   //       //로그아웃
   //       alert('회원 정보가 삭제되었습니다.');
-  //       navigate('/');
+  //       router.push('/');
   //       })
   //       .catch((error) => {
   //         console.log( error.message);
@@ -79,13 +81,13 @@ const watchedList=data.watched.map((list)=>(
       <S.Title>볼 영화</S.Title>   
       <S.ShowDelete onClick={handleShowDelete}>삭제</S.ShowDelete></S.SectionTitle>  {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
     <S.SectionContent>
-      <S.MovieList hasContent={toWatchlist.length > 0}>{toWatchlist}</S.MovieList>
+    <S.MovieList><MyCarousel props={toWatchlist} /></S.MovieList>
     </S.SectionContent>
     </S.Section>
     <S.Section>
     <S.SectionTitle><S.Title>본 영화</S.Title> </S.SectionTitle>
     <S.SectionContent>
-      <S.MovieList hasContent={toWatchlist.length > 0}>{watchedList}</S.MovieList>
+    <S.MovieList><MyCarousel props={watchedList} /></S.MovieList>
     </S.SectionContent>
     </S.Section>
     <S.Section> {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}

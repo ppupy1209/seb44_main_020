@@ -7,6 +7,7 @@ import { StarrateShow } from '../Starrate/StarrateShow';
 import {useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { handleDelete } from '@/api/axiosHandler';
+import { useRouter } from 'next/navigation';
 
 interface Props {
   data: {
@@ -23,9 +24,18 @@ interface Props {
 //예시: <MainPoster key={id값} data={data} isWatched={false} isToWatch={false}/>
 
 export function MainPoster({ data, isWatched, isToWatch }: Props) {
+  const router=useRouter();
+
+  const dragState=useSelector((state:RootState)=>state.drag.value);
+
+  const goToMovieDetail=()=>{
+  if(dragState===false){
+    router.push(`/movies/${movieId}`);
+  }
+}
 
   const movieId=data.movie_id
-      const showDelete =useSelector((state: RootState)=> state.showDelete.value);
+  const showDelete =useSelector((state: RootState)=> state.showDelete.value);
 
       const handleDeleteMovie=(e: React.MouseEvent<HTMLDivElement>)=>{
         handleDelete(`/movies/toWatch/${movieId}`); {/*서버 URL 추가 필요 */}
@@ -33,9 +43,7 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
     };
 
   return (
-    <S.Wrapper>
-    <Link href={`/movies/${movieId}`}>
-    <S.Container>
+    <S.Container onClick={goToMovieDetail}>
       <S.PosterImg src={data.poster} alt="영화포스터" />
       <S.Title>
         <S.TitleText>{data.title}</S.TitleText>
@@ -57,7 +65,5 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
       {/*볼영화일때 삭제 버튼 노출 onClick시 handleDelete*/}
       
     </S.Container>
-    </Link>
-    </S.Wrapper>
   );
 }
