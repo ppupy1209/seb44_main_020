@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Table(name = "to_watch")
 public class ToWatch extends Auditable {
 
