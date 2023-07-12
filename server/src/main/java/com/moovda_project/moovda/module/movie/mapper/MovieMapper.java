@@ -1,10 +1,7 @@
 package com.moovda_project.moovda.module.movie.mapper;
 
 import com.moovda_project.moovda.module.comment.entity.Comment;
-import com.moovda_project.moovda.module.movie.dto.CommentResponseDto;
-import com.moovda_project.moovda.module.movie.dto.GenreResponseDto;
-import com.moovda_project.moovda.module.movie.dto.MovieResponseDto;
-import com.moovda_project.moovda.module.movie.dto.StaffResponseDto;
+import com.moovda_project.moovda.module.movie.dto.*;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.entity.genre.Genre;
 import com.moovda_project.moovda.module.movie.entity.genre.MovieGenre;
@@ -13,6 +10,7 @@ import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
@@ -33,6 +31,18 @@ public interface MovieMapper {
           movieResponseDto.setOpeningDate(movie.getOpeningDate());
 
           return movieResponseDto;
+      }
+
+      default List<MovieFilterResponseDto> moviesToMovieFilterResponseDtos(List<Movie> movies) {
+          return movies.stream()
+                  .map(movie -> {
+                      MovieFilterResponseDto movieFilterResponseDto = new MovieFilterResponseDto();
+                      movieFilterResponseDto.setMovieId(movie.getMovieId());
+                      movieFilterResponseDto.setTitle(movie.getTitle());
+                      movieFilterResponseDto.setPoster(movie.getPoster());
+
+                      return movieFilterResponseDto;
+                  }).collect(Collectors.toList());
       }
 
       default List<GenreResponseDto> movieGenresToGenreResponseDto(List<MovieGenre> movieGenres) {
