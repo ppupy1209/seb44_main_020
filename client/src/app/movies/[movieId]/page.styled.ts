@@ -7,9 +7,7 @@ margin: 50px 90px 0 90px;
 /* border:1px solid white; */
 `;
 
-
 export const MovieInfoWrapper=styled.div`
-/* border: 1px solid red; */
 display:flex;
 justify-content:center;
 gap:100px;`;
@@ -112,10 +110,16 @@ display:flex;
 gap:20px;
 `;
 
-export const StaffListWrapper=styled.div`
+export const SectionWrapper=styled.div`
 margin-top: 40px;
 border-top: 1px solid #466093;
 padding-top: 40px;
-height:500px;`;
+height:500px;
+color: #466093;`;
 
-export const StaffList=styled.div``;
+export const SectionTitle=styled.h2``;
+
+export const StaffList=styled.div`
+margin-top: 50px;`;
+
+export const CommentList=styled.div``;

@@ -1,10 +1,9 @@
 'use client'
 import * as S from './page.styled';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
 import Pen from '@/assets/penIcon.svg'
 import Plus from '@/assets/plus.svg'
+import { StaffBox } from '@/components/StaffBox/StaffBox';
+import { Comment } from '@/components/CommentBox/Comment';
 
 
 export default function MyPage() {
@@ -41,7 +40,12 @@ export default function MyPage() {
                 </S.MovieInfo>
             </S.MovieInfoWrapper>
             <S.SectionWrapper>
-                <S.StaffList></S.StaffList>
+                <S.SectionTitle>출연/제작</S.SectionTitle>
+                <S.StaffList><StaffBox /></S.StaffList>
+            </S.SectionWrapper>
+            <S.SectionWrapper>
+                <S.SectionTitle>코멘트</S.SectionTitle>
+                <S.CommentList><Comment /></S.CommentList>
             </S.SectionWrapper>
         </S.Wrapper>
     )
