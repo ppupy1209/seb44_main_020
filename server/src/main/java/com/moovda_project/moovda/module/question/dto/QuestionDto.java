@@ -10,6 +10,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
+
 public class QuestionDto {
     @Getter
     @NoArgsConstructor
@@ -25,11 +26,11 @@ public class QuestionDto {
         @NotBlank
         private String content;
 
-        public Member getMember() {
-            Member member = new Member();
-            member.setMemberId(memberId);
-            return member;
+
+        public void addMemberId(long memberId) {
+            this.memberId = memberId;
         }
+
     }
 
     @Getter
@@ -38,6 +39,7 @@ public class QuestionDto {
 
         @Positive
         private long questionId;
+        private long authenticatedMemberId;
 
         private String title;
 
@@ -45,6 +47,10 @@ public class QuestionDto {
 
         public void addQuestionId(long questionId) {
             this.questionId = questionId;
+        }
+
+        public void addAuthenticatedMemberId(long authenticatedMemberId) {
+            this.authenticatedMemberId = authenticatedMemberId;
         }
 
         public Patch(String title, String content) {
@@ -76,7 +82,7 @@ public class QuestionDto {
 
         private int answerCount;
 
-//        private int views;
+        private int views;
 
 
 //        private List<AnswerDto.Response> answers;

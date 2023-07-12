@@ -42,4 +42,5 @@ export const Delete = styled.div`
 position: absolute;
 margin-left:150px;
 margin-top:10px;
+z-index: 10;
 `;

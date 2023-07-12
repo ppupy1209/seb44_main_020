@@ -90,10 +90,11 @@ cursor: pointer;
 `;
 
 export const MovieList=styled.div<MovieListProps>`
-min-height: ${(props) => (props.hasContent ? 'auto' : '200px')};
+min-height: '200px';
 display:flex;
 gap: 30px;
-overflow-x:scroll;
+overflow:hidden;
 white-space:nowrap;
+width: 100%;
 `;
 
