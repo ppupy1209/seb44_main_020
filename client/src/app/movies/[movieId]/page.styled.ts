@@ -114,12 +114,18 @@ export const SectionWrapper=styled.div`
 margin-top: 40px;
 border-top: 1px solid #466093;
 padding-top: 40px;
-height:500px;
 color: #466093;`;
+
+export const SectionContainer=styled.div`
+margin:0 50px;`;
 
 export const SectionTitle=styled.h2``;
 
 export const StaffList=styled.div`
-margin-top: 50px;`;
+margin: 50px ;`;
 
-export const CommentList=styled.div``;
+export const CommentList=styled(StaffList)`
+display:grid;
+grid-template-columns: repeat(3, 1fr);
+place-items:center;
+grid-gap:60px`;

@@ -40,12 +40,16 @@ export default function MyPage() {
                 </S.MovieInfo>
             </S.MovieInfoWrapper>
             <S.SectionWrapper>
+                <S.SectionContainer>
                 <S.SectionTitle>출연/제작</S.SectionTitle>
                 <S.StaffList><StaffBox /></S.StaffList>
+                </S.SectionContainer>
             </S.SectionWrapper>
             <S.SectionWrapper>
+            <S.SectionContainer>
                 <S.SectionTitle>코멘트</S.SectionTitle>
-                <S.CommentList><Comment /></S.CommentList>
+                <S.CommentList><Comment /><Comment /><Comment /><Comment /></S.CommentList>
+                </S.SectionContainer>
             </S.SectionWrapper>
         </S.Wrapper>
     )

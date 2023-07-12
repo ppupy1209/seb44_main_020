@@ -3,23 +3,27 @@
 import styled from 'styled-components';
 
 export const Container=styled.div`
-width:500px;
+width:400px;
 height: 300px;
-background-color:white;`;
+background-color:white;
+padding:30px;
+border-radius:10px;
+`;
 
 export const Wrapper=styled.div`
-padding:30px;
 position: relative;
-border: 1px solid black;
+/* border: 1px solid black; */
 height: 100%;
+display:flex;
+flex-direction: column;
+justify-content: space-between;
 `;
 
 export const Top=styled.div`
 display:flex;
 padding-bottom: 20px;
 border-bottom: 1px solid black;
-position: relative;
-border: 1px solid black;
+/* border: 1px solid black; */
 `;
 
 export const Left=styled.div``;
@@ -35,18 +39,16 @@ right:0;`;
 export const starrate=styled.div``;
 
 export const Content=styled.div`
-margin-top:20px;`;
+margin:20px 0;
+/* border: 1px solid black; */
+flex:1;`;
 
 export const Bottom=styled.div`
-position: relative;
+/* border: 1px solid black; */
 display:flex;
-bottom: 0;
-margin-bottom: 30px;
-gap:10px;
+position:relative;
+align-items: center;
 `;
-// export const BottomWrapper=styled.div`
-// position:relative;
-// `;
 
 export const LikeBtn=styled.div``;
 
