@@ -3,8 +3,10 @@
 import { WebEditor } from '@/components/Question/Webeditor';
 import * as S from '@/app/questions/create/page.styled';
 import { useId, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const QuestionCreatePage = () => {
+  const router = useRouter();
   const [titleValue, setTitleValue] = useState<string>('');
   const [contentValue, setContentValue] = useState<string>('');
 
@@ -17,6 +19,7 @@ const QuestionCreatePage = () => {
       alert('내용은 10자 이상 입력해주세요.');
       return;
     }
+    router.push('/questions/:questionId');
   };
 
   return (
