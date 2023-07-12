@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.module.question.mapper;
 
+import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.question.dto.QuestionDto;
 import com.moovda_project.moovda.module.question.entity.Question;
 import org.mapstruct.Mapper;
@@ -10,13 +11,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface QuestionMapper {
     @Mapping(source = "memberId", target = "member.memberId")
-    Question QuestionPostDtoToQuestion(QuestionDto.Post post);
+    Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto);
+    @Mapping(source = "authenticatedMemberId", target = "member.memberId")
+    Question questionPatchDtoToQuestion(QuestionDto.Patch questionPatchDto);
 
-    Question QuestionPatchDtoToQuestion(QuestionDto.Patch patch);
+    List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions);
 
-    List<QuestionDto.Response> QuestionsToQuestionResponseDtos(List<Question> questions);
-
-    default QuestionDto.Response QuestionToQuestionResponseDto(Question question) {
+    default QuestionDto.Response questionToQuestionResponseDto(Question question) {
 
         QuestionDto.Response questionResponseDto =
                 QuestionDto.Response.builder()
@@ -31,4 +32,6 @@ public interface QuestionMapper {
                         .build();
         return questionResponseDto;
     }
+
+
 }
