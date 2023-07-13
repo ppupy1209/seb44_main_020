@@ -1,6 +1,8 @@
 package com.moovda_project.moovda.module.movie.api;
 
 
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 
@@ -17,6 +19,10 @@ public class MovieDataInitializer {
 
     private final ApiService apiService;
 
+    @Getter
+    @Value("${api.key}")
+    private String apiKey;
+
     public MovieDataInitializer(ApiService apiService) {
         this.apiService = apiService;
     }
@@ -24,7 +30,7 @@ public class MovieDataInitializer {
 
     @PostConstruct
     public void callApi() throws IOException {
-        StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey="); /*URL*/
+        StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=" + apiKey); /*URL*/
         urlBuilder.append("&" + URLEncoder.encode("listCount","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*Service Key*/
         urlBuilder.append("&" + URLEncoder.encode("nation","UTF-8") + "=" + URLEncoder.encode("대한민국", "UTF-8"));
         urlBuilder.append("&" + URLEncoder.encode("director","UTF-8") + "=" + URLEncoder.encode("박찬욱", "UTF-8"));
