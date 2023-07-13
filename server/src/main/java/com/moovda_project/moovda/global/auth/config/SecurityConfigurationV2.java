@@ -40,7 +40,7 @@ public class SecurityConfigurationV2 {
                 .httpBasic().disable()
                 .apply(new CustomFilterConfigurer())  // 추가
                 .and()
-                .authorizeHttpRequests(authorize -> authorize
+                .authorizeRequests(authorize -> authorize
                         .anyRequest().permitAll()
                 );
         return http.build();
