@@ -64,6 +64,9 @@ dependencies {
 	// QueryDsl
 	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
+	// Parameter Store
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
 }
 
 dependencyManagement { // 블록 추가
