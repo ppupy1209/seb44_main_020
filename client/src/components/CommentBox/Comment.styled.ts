@@ -5,9 +5,14 @@ import styled from 'styled-components';
 export const Container=styled.div`
 width:400px;
 height: 300px;
-background-color:white;
+background-color:rgba(239,239,239,0.6);
+border: 1.5px solid #ffffff;
 padding:30px;
 border-radius:10px;
+color: #01123D;
+&:hover{
+    background-color: #ffffff;
+}
 `;
 
 export const Wrapper=styled.div`
@@ -21,16 +26,23 @@ justify-content: space-between;
 
 export const Top=styled.div`
 display:flex;
-padding-bottom: 20px;
+padding-bottom: 15px;
 border-bottom: 1px solid black;
 /* border: 1px solid black; */
 `;
 
-export const Left=styled.div``;
+export const Left=styled.div`
+display:flex;
+flex-direction:column;
+gap:10px;`;
 
-export const Nickname=styled.div``;
+export const Nickname=styled.div`
+font-weight: bold;
+cursor: pointer;
+`;
 
-export const CreatedAt=styled.div``;
+export const CreatedAt=styled.div`
+font-size:14px;`;
 
 export const Right=styled.div`
 position:absolute;
@@ -49,8 +61,16 @@ display:flex;
 position:relative;
 align-items: center;
 `;
+export const LikeWrapper=styled.div`
+display:flex;
+gap: 10px;
+`;
 
-export const LikeBtn=styled.div``;
+export const LikeBtn=styled.div`
+cursor: pointer;`;
+
+export const LikeCount=styled.div`
+font-size:14px`;
 
 export const BtnWrapper=styled.div`
 display: flex;
@@ -60,6 +80,9 @@ right: 0;
 `;
 
 export const EditBtn=styled.button`
-width:100px`;
+width:50px;
+border:none;
+background-color:transparent;
+cursor: pointer;`;
 
 export const DeleteBtn=styled(EditBtn)``;

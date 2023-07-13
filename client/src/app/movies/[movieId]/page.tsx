@@ -4,25 +4,43 @@ import Pen from '@/assets/penIcon.svg'
 import Plus from '@/assets/plus.svg'
 import { StaffBox } from '@/components/StaffBox/StaffBox';
 import { Comment } from '@/components/CommentBox/Comment';
+import {data} from './dummydata';
+import { StarrateShow } from '@/components/Starrate/StarrateShow';
 
 
 export default function MyPage() {
+    
+    const member_id=1;
+    const found= data.comments.find(e=>e.member_id===member_id);
+
+    const starAvg= data.starAvg.toFixed(1);
+
+    function changeDateFormat(date:number){
+        const dateString=date.toString();
+        const year =dateString.slice(0,2);
+        const month =dateString.slice(2,4);
+        const day =dateString.slice(4,6);
+
+        const formattedDate=`20${year}.${month}.${day}`
+
+        return formattedDate;
+    }
+
     return(
         <S.Wrapper>
             <S.MovieInfoWrapper>
                 <S.PosterStar>
-                    <S.PosterImg src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000087/87034/87034_320.jpg" alt="영화 포스터" />
-                    <S.MyStar>별점</S.MyStar>
+                    <S.PosterImg src={data.poster} alt="영화 포스터" />
+                    <S.MyStar><StarrateShow rate={found?found.star:0} /></S.MyStar>
                 </S.PosterStar>
                 <S.MovieInfo>
                     <S.StarAvg>
-                        <S.avNum>5.0</S.avNum>
+                        <S.avNum>{starAvg}</S.avNum>
                         <S.avText>평균 별점</S.avText>
                     </S.StarAvg>
-                    <S.Title>엘리멘탈</S.Title>
+                    <S.Title>{data.title}</S.Title>
                     <S.DetailWrapper>
-                    <S.DateAndCountry>2023 • 미국</S.DateAndCountry>
-                    {/* <S.Country>미국</S.Country> */}
+                    <S.DateAndCountry>{changeDateFormat(data.openingDate)} • {data.country}</S.DateAndCountry>
                     <S.Genre>애니메이션 / 모험 / 판타지 / SF / 로맨스</S.Genre>
                     <S.RunningTime>93분</S.RunningTime>
                     </S.DetailWrapper>
@@ -32,10 +50,7 @@ export default function MyPage() {
                     </S.BtnWrapper>
 
                     <S.Summary>
-                        불, 물, 공기, 흙 4개의 원소들이 살고 있는 ‘엘리멘트 시티’
-                        재치 있고 불처럼 열정 넘치는 ‘앰버'는 어느 날 우연히
-                        유쾌하고 감성적이며 물 흐르듯 사는 '웨이드'를 만나 특별한 우정을 쌓으며,
-                        지금껏 믿어온 모든 것들이 흔들리는 새로운 경험을 하게 되는데...
+                        {data.summary}
                     </S.Summary>
                 </S.MovieInfo>
             </S.MovieInfoWrapper>

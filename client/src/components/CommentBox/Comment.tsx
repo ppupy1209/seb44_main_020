@@ -18,7 +18,10 @@ export function Comment() {
                     내용입니다.내용입니다.내용입니다.내용입니다.내용입니다.
                 </S.Content>
                 <S.Bottom>
-                    <S.LikeBtn><Heart /></S.LikeBtn>
+                    <S.LikeWrapper>
+                    <S.LikeBtn><Heart width="20" height="20" fill="#E7E7E7"/></S.LikeBtn>
+                    <S.LikeCount>1</S.LikeCount>
+                    </S.LikeWrapper>
                     <S.BtnWrapper>
                     <S.EditBtn>수정</S.EditBtn>
                     <S.DeleteBtn>삭제</S.DeleteBtn>
