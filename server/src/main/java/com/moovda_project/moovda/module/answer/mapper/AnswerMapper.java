@@ -10,6 +10,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AnswerMapper {
+    /*
     default Answer answerPostToAnswer(long questionId, QuestionService questionService, AnswerDto.Post requesBody) {
         Answer answer = new Answer();
         answer.setContent(requesBody.getContent());
@@ -18,11 +19,14 @@ public interface AnswerMapper {
         return answer;
     }
 
+
+     */
     @Mapping(source = "memberId", target = "member.memberId")
     @Mapping(source = "questionId", target = "question.questionId")
-    Answer answerPostToAnswer(AnswerDto.Post requestBody);
+    Answer answerPostToAnswer(AnswerDto.Post answerPostDto);
 
-    Answer answerPatchToAnswer(AnswerDto.Patch requestBody);
+    @Mapping(source = "authenticatedMemberId", target = "member.memberId")
+    Answer answerPatchToAnswer(AnswerDto.Patch answerPatchDto);
 
     AnswerDto.Response answerToAnswerResponse(Answer answer);
 
