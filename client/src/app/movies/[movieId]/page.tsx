@@ -15,6 +15,11 @@ export default function MyPage() {
 
     const starAvg= data.starAvg.toFixed(1);
 
+    const genre=data.genre.map((item)=>(
+        item.name
+    ))
+    // console.log(genre.join('/'))
+
     function changeDateFormat(date:number){
         const dateString=date.toString();
         const year =dateString.slice(0,2);
@@ -26,12 +31,22 @@ export default function MyPage() {
         return formattedDate;
     }
 
+    const staffList= data.staff.map((list,index)=>(
+        <StaffBox key={index} data={list} />
+    ))
+
+    const commentList=data.comments.map((list)=>(
+    <Comment key={list.comment_id} data={list} />
+    ))
+
     return(
         <S.Wrapper>
             <S.MovieInfoWrapper>
                 <S.PosterStar>
                     <S.PosterImg src={data.poster} alt="영화 포스터" />
-                    <S.MyStar><StarrateShow rate={found?found.star:0} /></S.MyStar>
+                    <S.MyStar>
+                        <S.MystarIcon><StarrateShow rate={found?found.star:0} /></S.MystarIcon> 
+                        <S.MyStarNum>{found?found.star.toFixed(1):0.0}</S.MyStarNum></S.MyStar>
                 </S.PosterStar>
                 <S.MovieInfo>
                     <S.StarAvg>
@@ -41,8 +56,8 @@ export default function MyPage() {
                     <S.Title>{data.title}</S.Title>
                     <S.DetailWrapper>
                     <S.DateAndCountry>{changeDateFormat(data.openingDate)} • {data.country}</S.DateAndCountry>
-                    <S.Genre>애니메이션 / 모험 / 판타지 / SF / 로맨스</S.Genre>
-                    <S.RunningTime>93분</S.RunningTime>
+                    <S.Genre>{genre.join(' / ')}</S.Genre>
+                    <S.RunningTime>{data.runningTime}분</S.RunningTime>
                     </S.DetailWrapper>
                     <S.BtnWrapper>
                         <S.ToWatchBtn><span><Pen fill="#ffffff"/></span><span>별점・코멘트</span> </S.ToWatchBtn>
@@ -57,13 +72,13 @@ export default function MyPage() {
             <S.SectionWrapper>
                 <S.SectionContainer>
                 <S.SectionTitle>출연/제작</S.SectionTitle>
-                <S.StaffList><StaffBox /></S.StaffList>
+                <S.StaffList>{staffList}</S.StaffList>
                 </S.SectionContainer>
             </S.SectionWrapper>
             <S.SectionWrapper>
             <S.SectionContainer>
                 <S.SectionTitle>코멘트</S.SectionTitle>
-                <S.CommentList><Comment /><Comment /><Comment /><Comment /></S.CommentList>
+                <S.CommentList>{commentList}</S.CommentList>
                 </S.SectionContainer>
             </S.SectionWrapper>
         </S.Wrapper>

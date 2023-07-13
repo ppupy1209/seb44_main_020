@@ -1,10 +1,19 @@
 'use client'
 import * as S from './StaffBox.styled'
-export function StaffBox() {
+
+interface Props {
+    data: {
+      position?:string;
+      role?: string;
+      name?: string;
+    };
+  }
+
+export function StaffBox({data}:Props) {
     return(
         <S.Container>
-            <S.Name>이름</S.Name>
-            <S.Role>역할</S.Role>
+            <S.Name>{data.name}</S.Name>
+            <S.Role>{data.role?(`${data.position} | ${data.role}`):(`${data.position}`)}</S.Role>
         </S.Container>
     )
 }

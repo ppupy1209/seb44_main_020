@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 export const Container=styled.div`
-width:400px;
+width:350px;
 height: 300px;
 background-color:rgba(239,239,239,0.6);
 border: 1.5px solid #ffffff;
@@ -17,7 +17,6 @@ color: #01123D;
 
 export const Wrapper=styled.div`
 position: relative;
-/* border: 1px solid black; */
 height: 100%;
 display:flex;
 flex-direction: column;
@@ -28,7 +27,6 @@ export const Top=styled.div`
 display:flex;
 padding-bottom: 15px;
 border-bottom: 1px solid black;
-/* border: 1px solid black; */
 `;
 
 export const Left=styled.div`
@@ -46,17 +44,20 @@ font-size:14px;`;
 
 export const Right=styled.div`
 position:absolute;
-right:0;`;
+right:0;
+display:flex;
+align-items:center;
+gap:10px;`;
+
+export const StarIcon=styled.div``
 
 export const starrate=styled.div``;
 
 export const Content=styled.div`
 margin:20px 0;
-/* border: 1px solid black; */
 flex:1;`;
 
 export const Bottom=styled.div`
-/* border: 1px solid black; */
 display:flex;
 position:relative;
 align-items: center;

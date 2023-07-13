@@ -14,9 +14,10 @@ align-items:center;
 gap:10px;`;
 
 export const Name=styled.div`
-font-size: 20px;
+font-size: 16px;
 color: #ffffff;
 `;
 
 export const Role=styled.div`
-color: #9EA9D8;`;
+color: #9EA9D8;
+font-size:14px`;

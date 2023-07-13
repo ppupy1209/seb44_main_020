@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 export const Wrapper=styled.div`
 margin: 50px 90px 0 90px;
-/* height: 100vh; */
-/* border:1px solid white; */
 `;
 
 export const MovieInfoWrapper=styled.div`
@@ -16,7 +14,6 @@ export const PosterStar=styled.div`
 width: fit-content;
 display:flex;
 flex-direction: column;
-/* border:1px solid white; */
 text-align:center;
 gap:40px;`;
 
@@ -25,16 +22,24 @@ width:350px;
 height:auto;
 border-radius:20px;`
 
-export const MyStar=styled.div``;
+export const MyStar=styled.div`
+display:flex;
+align-items:center;
+justify-content:center;
+gap:20px;`;
+
+export const MystarIcon=styled.div``;
+export const MyStarNum=styled.div`
+color:#00FFD1;`;
 
 export const MovieInfo=styled.div`
-/* border: 1px solid white; */
 position: relative;
 `;
 
 export const Title=styled.h1`
 letter-spacing:2px;
 font-size:40px ;
+max-width: 400px;
 `;
 
 export const DetailWrapper=styled.div`
@@ -104,9 +109,7 @@ export const WatchedBtn=styled(ToWatchBtn)``;
 
 export const BtnWrapper=styled.div`
 margin-top: 50px;
-/* border:1px solid red; */
 display:flex;
-/* justify-content:center; */
 gap:20px;
 `;
 
@@ -122,7 +125,11 @@ margin:0 50px;`;
 export const SectionTitle=styled.h2``;
 
 export const StaffList=styled.div`
-margin: 50px ;`;
+margin: 50px ;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+place-items:center;
+grid-gap:60px;`;
 
 export const CommentList=styled(StaffList)`
 display:grid;
