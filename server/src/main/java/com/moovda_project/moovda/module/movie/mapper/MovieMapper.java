@@ -79,11 +79,12 @@ public interface MovieMapper {
             for(Comment comment : comments) {
                 CommentResponseDto commentResponseDto = new CommentResponseDto();
 
+                commentResponseDto.setMemberId(comment.getMember().getMemberId());
+                commentResponseDto.setCommentId(comment.getCommentId());
                 commentResponseDto.setContent(comment.getContent());
                 commentResponseDto.setStar(comment.getStar());
 //                commentResponseDto.setNickname(comment.getMember().getNickname);
                 commentResponseDto.setLikeCount(comment.getLikes().size());
-
                 commentResponseDtos.add(commentResponseDto);
             }
 
