@@ -19,7 +19,7 @@ export function StarrateShow({ rate }: proptype) {
         } else if (rate === starRating - 0.5) {
           return <Starhalf />;
         } else {
-          return <Starempty />;
+          return <Starempty width="24" height="24" fill="#1F305F" />;
         }
       })}
     </S.Container>
