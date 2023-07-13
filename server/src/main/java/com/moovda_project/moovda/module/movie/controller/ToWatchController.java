@@ -33,11 +33,11 @@ public class ToWatchController {
         return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/{towatch_id}")
-    public ResponseEntity deleteToWatch(@PathVariable("towatch_id") @Positive long toWatchId) {
+    @DeleteMapping("/{movie_id}")
+    public ResponseEntity deleteToWatch(@PathVariable("movie_id") @Positive long movieId) {
         long memberId = MemberIdExtractor.extractMemberId();
 
-        toWatchService.deleteToWatch(toWatchId,memberId);
+        toWatchService.deleteToWatch(movieId,memberId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
