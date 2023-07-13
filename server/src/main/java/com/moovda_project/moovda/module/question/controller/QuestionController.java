@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.module.question.controller;
 
+import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.question.dto.MultiResponseDto;
 import com.moovda_project.moovda.module.question.dto.QuestionDto;
 import com.moovda_project.moovda.module.question.entity.Question;
@@ -35,8 +36,9 @@ public class QuestionController {
     /** 질문 등록 **/
 
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post post) {
-        Question createdQuestion = questionService.createQuestion(questionMapper.QuestionPostDtoToQuestion(post));
+    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {
+
+        Question createdQuestion = questionMapper.questionPostDtoToQuestion(requestBody);
 
         URI location = UriCreator.createUri("/questions", createdQuestion.getQuestionId());
 
@@ -46,11 +48,14 @@ public class QuestionController {
     /** 질문 수정 **/
     @PatchMapping("/{question_id}")
     public ResponseEntity patchQuestion(@PathVariable("question_id") @Positive long questionId,
-                                        @RequestBody QuestionDto.Patch patch) {
+                                        @RequestBody QuestionDto.Patch requestBody) {
         // TODO : token으로 어떤 회원인지 알아야 함
-        patch.addQuestionId(questionId);
+        long authenticatedMemberId = MemberIdExtractor.extractMemberId();
 
-        Question question = questionService.updateQuestion(questionMapper.QuestionPatchDtoToQuestion(patch));
+        requestBody.addQuestionId(questionId);
+        requestBody.addAuthenticatedMemberId(authenticatedMemberId);
+
+        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(requestBody),authenticatedMemberId);
 
         return ResponseEntity.ok().build();
     }
@@ -61,7 +66,7 @@ public class QuestionController {
 
         Question findQuestion = questionService.findQuestion(questionId);
 
-        return new ResponseEntity<>(questionMapper.QuestionToQuestionResponseDto(findQuestion),HttpStatus.OK);
+        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(findQuestion),HttpStatus.OK);
     }
 
 
@@ -72,14 +77,16 @@ public class QuestionController {
         Page<Question> pageQuestions = questionService.findQuestions(page-1);
         List<Question> questions = pageQuestions.getContent();
 
-        return new ResponseEntity<>(new MultiResponseDto<>(questionMapper.QuestionsToQuestionResponseDtos(questions),pageQuestions),
+        return new ResponseEntity<>(new MultiResponseDto<>(questionMapper.questionsToQuestionResponseDtos(questions),pageQuestions),
                 HttpStatus.OK);
     }
 
     /** 질문 삭제 **/
     @DeleteMapping("/{question_id}")
     public ResponseEntity deleteQuestion(@PathVariable("question_id") @Positive long questionId) {
-        questionService.deleteQuestion(questionId);
+        long authenticatedMemberId = MemberIdExtractor.extractMemberId();
+
+        questionService.deleteQuestion(questionId,authenticatedMemberId);
 
         return ResponseEntity.noContent().build();
     }

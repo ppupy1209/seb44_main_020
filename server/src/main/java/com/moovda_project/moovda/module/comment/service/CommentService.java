@@ -7,7 +7,9 @@ import com.moovda_project.moovda.global.exception.ExceptionCode;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.service.MemberService;
 import com.moovda_project.moovda.module.movie.entity.Movie;
+import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
 import com.moovda_project.moovda.module.movie.entity.watch.Watched;
+import com.moovda_project.moovda.module.movie.repository.watch.ToWatchRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
 import com.moovda_project.moovda.module.movie.service.watch.WatchedService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +28,7 @@ public class CommentService {
     private final MovieService movieService;
     private final WatchedService watchedService;
     private  final MemberService memberService;
+    private final ToWatchRepository toWatchRepository;
 
     public Comment createComment(Comment comment) {
 
@@ -34,7 +37,7 @@ public class CommentService {
 
         existsCommentByMemberAndMovie(movie,member);
 
- //       movie.addComments(comment);
+        if(isSavedToWatch(member,movie)) toWatchRepository.deleteByMemberAndMovie(member,movie);
 
         Comment createdComment = commentRepository.save(comment);
 
@@ -128,6 +131,10 @@ public class CommentService {
         if(commentRepository.existsByMemberAndMovie(member,movie)) {
             throw new BusinessLogicException(ExceptionCode.COMMENT_EXISTS);
         }
+    }
+
+    private boolean isSavedToWatch(Member member, Movie movie) {
+        return  toWatchRepository.findByMemberAndMovie(member,movie).isPresent();
     }
 
 }
