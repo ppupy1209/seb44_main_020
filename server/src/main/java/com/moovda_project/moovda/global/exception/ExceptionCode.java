@@ -25,7 +25,9 @@ public enum ExceptionCode {
 
     // 409
     MEMBER_EXISTS(409, "Member exists"),
-    COMMENT_EXISTS(409,"Comment exists");
+    COMMENT_EXISTS(409,"Comment exists"),
+
+    TOWATCH_EXISTS(409,"ToWatch exists");
 
     @Getter
     private int status;

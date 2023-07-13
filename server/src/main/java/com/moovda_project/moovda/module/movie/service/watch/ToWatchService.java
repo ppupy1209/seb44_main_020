@@ -30,27 +30,41 @@ public class ToWatchService {
         Movie movie = movieService.findMovie(movieId);
         Member member = memberService.findMember(memberId);
 
+        if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.TOWATCH_EXISTS);
+        }
+
         toWatch.setMovie(movie);
         toWatch.setMember(member);
 
         return toWatchRepository.save(toWatch);
     }
 
-    public void deleteToWatch(long toWatchId,long memberId) {
-        ToWatch toWatch = findVerifiedToWatch(toWatchId);
+    public void deleteToWatch(long movieId,long memberId) {
+
+        Movie movie = movieService.findMovie(movieId);
+        Member member = memberService.findMember(memberId);
+
+        ToWatch toWatch = isSavedToWatch(movie, member);
 
         checkValidatedMember(memberId,toWatch);
 
         toWatchRepository.delete(toWatch);
     }
 
-    private ToWatch findVerifiedToWatch(long toWatchId) {
-        Optional<ToWatch> optionalToWatch = toWatchRepository.findById(toWatchId);
-
+    private ToWatch isSavedToWatch(Movie movie, Member member) {
+        Optional<ToWatch> optionalToWatch = toWatchRepository.findByMemberAndMovie(member, movie);
         ToWatch toWatch = optionalToWatch.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TOWATCH_NOT_FOUND));
-
         return toWatch;
     }
+
+//    private ToWatch findVerifiedToWatch(long toWatchId) {
+//        Optional<ToWatch> optionalToWatch = toWatchRepository.findById(toWatchId);
+//
+//        ToWatch toWatch = optionalToWatch.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TOWATCH_NOT_FOUND));
+//
+//        return toWatch;
+//    }
 
     private void checkValidatedMember(long memberId, ToWatch toWatch) {
         if(toWatch.getMember().getMemberId()!= memberId) {
