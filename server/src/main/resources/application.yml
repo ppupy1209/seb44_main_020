@@ -1,6 +1,4 @@
 spring:
-  config:
-    import: 'aws-parameterstore:'
   #  h2:
   #    console:
   #      enabled: true
@@ -75,9 +73,3 @@ jwt:
 api:
   key: ${api.key}
 
-aws:
-  paramstore:
-    enabled: true
-    prefix: /spring-boot-aws
-    name: MoovDa # 리소스 이름을 작성합니다.
-    profileSeparator: _
