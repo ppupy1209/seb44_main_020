@@ -9,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -24,7 +26,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
-public class SecurityConfigurationV2 {
+@EnableWebSecurity(debug = true)
+public class SecurityConfigurationV2 extends WebSecurityConfigurerAdapter {
     private final JwtTokenizer jwtTokenizer;
 
 
@@ -32,8 +35,8 @@ public class SecurityConfigurationV2 {
         this.jwtTokenizer = jwtTokenizer;
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http
                 .headers().frameOptions().sameOrigin() // 동일 출처로부터 들어오는 요청만 허용, H2 사용 위함
                 .and()
@@ -54,7 +57,6 @@ public class SecurityConfigurationV2 {
                         .anyRequest().permitAll()
                 );
 
-        return http.build();
     }
 
     // 구현한 filter 등록 역할
