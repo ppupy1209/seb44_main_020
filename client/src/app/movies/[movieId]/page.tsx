@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react';
 import * as S from './page.styled';
 import Pen from '@/assets/penIcon.svg'
 import Plus from '@/assets/plus.svg'
@@ -6,9 +7,20 @@ import { StaffBox } from '@/components/StaffBox/StaffBox';
 import { Comment } from '@/components/CommentBox/Comment';
 import {data} from './dummydata';
 import { StarrateShow } from '@/components/Starrate/StarrateShow';
+import { CommentModal } from '@/components/CommentModal/Modal';
+import {useSelector,useDispatch } from 'react-redux';
+import { RootState } from '@/redux/store';
+import {open} from '@/redux/features/commentSlice'
+
 
 
 export default function MyPage() {
+const dispatch=useDispatch();
+const openState=useSelector((state:RootState)=>state.comment.isOpen);
+
+const handleOpen=()=>{
+    dispatch(open())
+}
     
     const member_id=1;
     const found= data.comments.find(e=>e.member_id===member_id);
@@ -41,6 +53,7 @@ export default function MyPage() {
 
     return(
         <S.Wrapper>
+            {openState? <CommentModal />:''}
             <S.MovieInfoWrapper>
                 <S.PosterStar>
                     <S.PosterImg src={data.poster} alt="영화 포스터" />
@@ -60,7 +73,7 @@ export default function MyPage() {
                     <S.RunningTime>{data.runningTime}분</S.RunningTime>
                     </S.DetailWrapper>
                     <S.BtnWrapper>
-                        <S.ToWatchBtn><span><Pen fill="#ffffff"/></span><span>별점・코멘트</span> </S.ToWatchBtn>
+                        <S.ToWatchBtn onClick={handleOpen} ><span><Pen fill="#ffffff"/></span><span>별점・코멘트</span> </S.ToWatchBtn>
                         <S.WatchedBtn><span><Plus fill="#ffffff"/></span><span>보고싶어요</span></S.WatchedBtn>
                     </S.BtnWrapper>
 
