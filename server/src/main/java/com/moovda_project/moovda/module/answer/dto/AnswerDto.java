@@ -31,11 +31,21 @@ public class AnswerDto {
     public static class Patch {
         private long answerId;
 
+        private long authenticatedMemberId;
+
         private long questionId;
 
         private String content;
 
         private Movie movie;
+
+        public void addAnswerId(long answerId) {
+            this.answerId = answerId;
+        }
+
+        public void addAuthenticatedMemberId(long authenticatedMemberId) {
+            this.authenticatedMemberId = authenticatedMemberId;
+        }
     }
 
     @Getter
