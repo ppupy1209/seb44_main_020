@@ -2,6 +2,7 @@ package com.moovda_project.moovda.global.auth.userdetails;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
+import com.moovda_project.moovda.global.utils.CustomAuthorityUtils;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.repository.MemberRepository;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,9 +17,11 @@ import java.util.Optional;
 @Component
 public class MemberDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
+    private final CustomAuthorityUtils authorityUtils;
 
-    public MemberDetailsService(MemberRepository memberRepository) {
+    public MemberDetailsService(MemberRepository memberRepository, CustomAuthorityUtils authorityUtils) {
         this.memberRepository = memberRepository;
+        this.authorityUtils = authorityUtils;
     }
 
     @Override
@@ -30,16 +33,17 @@ public class MemberDetailsService implements UserDetailsService {
     }
 
     private final class MemberDetails extends Member implements UserDetails {
-        // (1)
+
         MemberDetails(Member member) {
             setMemberId(member.getMemberId());
             setEmail(member.getEmail());
             setPassword(member.getPassword());
+            setRoles(member.getRoles());
         }
 
         @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return null;
+            return authorityUtils.createAuthorities(this.getRoles());
         }
 
         @Override
@@ -68,3 +72,4 @@ public class MemberDetailsService implements UserDetailsService {
         }
     }
 }
+
