@@ -56,16 +56,18 @@ color: #ffffff;
      border: 2px solid #283A6D; 
      }
 `
+export const StarratingWrapper=styled.form`
+width:100%;
+`
 export const Starrating=styled.div`
 display:flex;
 justify-content: center;
 align-items: center;
-width: 100%;
 position: relative;
 `
 
 export const Text=styled.div`
-position:absolute;
+position: absolute;
 left: 0;
 margin-left:10px;`;
 
@@ -80,23 +82,30 @@ export const Star=styled.div`
 export const StarArr=styled.div`
 display:flex;
 flex-direction: row-reverse;
+>label:hover{
+>svg{
+>path{fill:#00FFD1;}
+}
+}
+>label:hover~label{
+>svg{
+>path{fill:#00FFD1}
+}
+}
 `
 
 export const LeftStar=styled.svg`
   width: 15px;
   height: 30px;
-  &:hover{
-    >path{
-      fill: aliceblue;
-    }
-    & ~svg{
-      >path{
-      fill: aliceblue;
-    }
-    }
-  };
 `
 export const RightStar=styled(LeftStar)`
-/* border: 1px solid wheat; */
 margin-right: 10px;
 `
+
+export const Input =styled.input`
+display:none;
+&:checked~label{
+  >svg{
+>path{fill:#00FFD1;}
+}
+}`

@@ -59,7 +59,7 @@ export const data={
     {
         "member_id":2,
         "comment_id":2,
-        "nickname":"lightone",
+        "nickname":"hj",
         "content":"어떤 불은 물로는 끌 수 없어어떤 불은 물로는 끌 수 없어12345678",
         "star":4.5,
         "likeCount":10,

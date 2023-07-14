@@ -30,7 +30,6 @@ const handleOpen=()=>{
     const genre=data.genre.map((item)=>(
         item.name
     ))
-    // console.log(genre.join('/'))
 
     function changeDateFormat(date:number){
         const dateString=date.toString();
