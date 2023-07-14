@@ -1,9 +1,9 @@
-package com.moovda_project.moovda.module.movie.service.watch;
+package com.moovda_project.moovda.module.watch.service;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
-import com.moovda_project.moovda.module.movie.entity.watch.Watched;
-import com.moovda_project.moovda.module.movie.repository.watch.WatchedRepository;
+import com.moovda_project.moovda.module.watch.entity.Watched;
+import com.moovda_project.moovda.module.watch.repository.WatchedRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +27,7 @@ public class WatchedService {
          watchedRepository.delete(watched);
     }
 
+    @Transactional(readOnly = true)
     private Watched findVerifiedWatched(long watchedId) {
         Optional<Watched> watched = watchedRepository.findById(watchedId);
 

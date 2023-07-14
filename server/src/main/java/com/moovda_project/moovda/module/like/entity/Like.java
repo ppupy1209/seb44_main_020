@@ -1,5 +1,6 @@
-package com.moovda_project.moovda.module.comment.entity;
+package com.moovda_project.moovda.module.like.entity;
 
+import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

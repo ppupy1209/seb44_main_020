@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.module.search;
+package com.moovda_project.moovda.module.movie.dto;
 
 import com.moovda_project.moovda.module.movie.entity.genre.Genre;
 import lombok.AllArgsConstructor;

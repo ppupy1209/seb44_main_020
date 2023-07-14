@@ -19,12 +19,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class ApiService {
+public class MovieApiService {
 
     private final MovieRepository movieRepository;
     private final GenreRepository genreRepository;
     private final StaffRepository staffRepository;
 
+
+    @Transactional(readOnly = true)
     public void init(String jsonData) {
         try {
             JSONParser jsonParser = new JSONParser();
@@ -39,6 +41,11 @@ public class ApiService {
                 JSONObject movieObj = (JSONObject) item;
 
                 Movie movie = new Movie();
+
+                String posterUrl = movieObj.get("posters").toString().split("\\|")[0];
+                if(posterUrl.equals("")) continue;
+                movie.setPoster(posterUrl);
+
                 movie.setTitle(movieObj.get("title").toString());
                 movie.setCountry(movieObj.get("nation").toString());
 
@@ -47,10 +54,6 @@ public class ApiService {
                 JSONObject plotObj = (JSONObject) plotArray.get(0);
                 String plotText = plotObj.get("plotText").toString();
                 movie.setSummary(plotText);
-
-
-                String posterUrl = movieObj.get("posters").toString().split("\\|")[0];
-                movie.setPoster(posterUrl);
 
                 movie.setRating(movieObj.get("rating").toString());
                 movie.setOpeningDate(movieObj.get("repRlsDate").toString());

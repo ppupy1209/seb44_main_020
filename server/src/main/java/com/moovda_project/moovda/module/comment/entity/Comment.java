@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.module.comment.entity;
 
 import com.moovda_project.moovda.global.audit.Auditable;
+import com.moovda_project.moovda.module.like.entity.Like;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import lombok.Getter;
