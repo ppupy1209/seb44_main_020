@@ -1,9 +1,12 @@
 package com.moovda_project.moovda.module.movie.mapper;
 
+import com.moovda_project.moovda.module.comment.dto.CommentResponseDto;
 import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.movie.dto.*;
+import com.moovda_project.moovda.module.movie.dto.genre.GenreResponseDto;
+import com.moovda_project.moovda.module.movie.dto.staff.StaffResponseDto;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.genre.Genre;
+
 import com.moovda_project.moovda.module.movie.entity.genre.MovieGenre;
 import com.moovda_project.moovda.module.movie.entity.staff.MovieStaff;
 import org.mapstruct.Mapper;
@@ -40,6 +43,7 @@ public interface MovieMapper {
                       movieFilterResponseDto.setMovieId(movie.getMovieId());
                       movieFilterResponseDto.setTitle(movie.getTitle());
                       movieFilterResponseDto.setPoster(movie.getPoster());
+                      movieFilterResponseDto.setStarAvg(movie.getStarAvg());
 
                       return movieFilterResponseDto;
                   }).collect(Collectors.toList());
@@ -85,6 +89,7 @@ public interface MovieMapper {
                 commentResponseDto.setStar(comment.getStar());
 //                commentResponseDto.setNickname(comment.getMember().getNickname);
                 commentResponseDto.setLikeCount(comment.getLikes().size());
+                commentResponseDto.setCreatedAt(comment.getCreatedAt());
                 commentResponseDtos.add(commentResponseDto);
             }
 

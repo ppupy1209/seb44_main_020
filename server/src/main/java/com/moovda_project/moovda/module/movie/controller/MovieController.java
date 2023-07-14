@@ -2,14 +2,11 @@ package com.moovda_project.moovda.module.movie.controller;
 
 import com.moovda_project.moovda.global.dto.SingleResponseDto;
 import com.moovda_project.moovda.module.movie.dto.MovieFilterResponseDto;
-import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.QMovie;
 import com.moovda_project.moovda.module.movie.mapper.MovieMapper;
 import com.moovda_project.moovda.module.movie.repository.MovieRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
-import com.moovda_project.moovda.module.search.MovieSearchCondition;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

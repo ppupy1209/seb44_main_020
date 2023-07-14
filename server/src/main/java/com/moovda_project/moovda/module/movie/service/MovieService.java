@@ -3,18 +3,16 @@ package com.moovda_project.moovda.module.movie.service;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
 import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.repository.MovieRepository;
-import com.moovda_project.moovda.module.search.MovieSearchCondition;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
