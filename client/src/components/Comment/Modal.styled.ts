@@ -79,12 +79,9 @@ export const Star=styled.div`
 
 export const StarArr=styled.div`
 display:flex;
-gap:5px;`
-export const OneStar=styled.div`
-display:flex;
-border:1px solid white;
-flex-direction:row-reverse
+flex-direction: row-reverse;
 `
+
 export const LeftStar=styled.svg`
   width: 15px;
   height: 30px;
@@ -98,7 +95,7 @@ export const LeftStar=styled.svg`
     }
     }
     
-  }
+  };
 `
 export const RightStar=styled(LeftStar)`
 `
