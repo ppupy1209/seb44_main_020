@@ -94,8 +94,9 @@ export const LeftStar=styled.svg`
       fill: aliceblue;
     }
     }
-    
   };
 `
 export const RightStar=styled(LeftStar)`
+/* border: 1px solid wheat; */
+margin-right: 10px;
 `
