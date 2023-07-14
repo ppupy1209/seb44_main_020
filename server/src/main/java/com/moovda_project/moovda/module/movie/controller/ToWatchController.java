@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.module.movie.controller;
 
-import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
+
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.global.utils.UriCreator;
 import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
 import com.moovda_project.moovda.module.movie.service.watch.ToWatchService;

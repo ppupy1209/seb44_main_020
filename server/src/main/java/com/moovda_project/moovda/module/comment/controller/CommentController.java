@@ -1,11 +1,11 @@
 package com.moovda_project.moovda.module.comment.controller;
 
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.comment.dto.CommentPatchDto;
 import com.moovda_project.moovda.module.comment.dto.CommentPostDto;
 import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.comment.mapper.CommentMapper;
 import com.moovda_project.moovda.module.comment.service.CommentService;
-import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
 import com.moovda_project.moovda.global.utils.UriCreator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

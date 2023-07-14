@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.module.question.controller;
 
-import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
+
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.question.dto.MultiResponseDto;
 import com.moovda_project.moovda.module.question.dto.QuestionDto;
 import com.moovda_project.moovda.module.question.entity.Question;
