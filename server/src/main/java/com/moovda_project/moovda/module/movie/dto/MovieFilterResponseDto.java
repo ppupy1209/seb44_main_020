@@ -12,5 +12,6 @@ public class MovieFilterResponseDto {
     long movieId;
     String title;
     String poster;
+    Double starAvg;
 
 }

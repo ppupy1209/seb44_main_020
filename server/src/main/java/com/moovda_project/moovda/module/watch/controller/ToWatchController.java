@@ -1,10 +1,10 @@
-package com.moovda_project.moovda.module.movie.controller;
+package com.moovda_project.moovda.module.watch.controller;
 
 
 import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.global.utils.UriCreator;
-import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
-import com.moovda_project.moovda.module.movie.service.watch.ToWatchService;
+import com.moovda_project.moovda.module.watch.entity.ToWatch;
+import com.moovda_project.moovda.module.watch.service.ToWatchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

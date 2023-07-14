@@ -1,16 +1,15 @@
-package com.moovda_project.moovda.module.comment.service;
+package com.moovda_project.moovda.module.like.service;
 
 import com.moovda_project.moovda.module.comment.entity.Comment;
-import com.moovda_project.moovda.module.comment.entity.Like;
+import com.moovda_project.moovda.module.comment.service.CommentService;
+import com.moovda_project.moovda.module.like.entity.Like;
 import com.moovda_project.moovda.module.comment.repository.CommentRepository;
-import com.moovda_project.moovda.module.comment.repository.LikeRepository;
+import com.moovda_project.moovda.module.like.repository.LikeRepository;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.HashSet;
 
 @Transactional
 @RequiredArgsConstructor

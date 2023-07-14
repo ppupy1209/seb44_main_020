@@ -1,21 +1,16 @@
 package com.moovda_project.moovda.module.movie.repository;
 
-import com.moovda_project.moovda.module.movie.dto.MovieFilterResponseDto;
 import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
 import com.moovda_project.moovda.module.movie.dto.QMovieSearchDto;
-import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.entity.QMovie;
 import com.moovda_project.moovda.module.movie.entity.genre.QGenre;
-import com.moovda_project.moovda.module.movie.mapper.MovieMapper;
-import com.moovda_project.moovda.module.movie.service.MovieService;
-import com.moovda_project.moovda.module.search.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.moovda_project.moovda.module.movie.entity.QMovie.*;
 import static com.moovda_project.moovda.module.movie.entity.genre.QGenre.*;
@@ -25,8 +20,6 @@ import static org.thymeleaf.util.StringUtils.*;
 public class MovieRepositoryImpl implements MovieRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-
-
 
     public MovieRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);

@@ -17,14 +17,14 @@ import java.io.BufferedReader;
 @Component
 public class MovieDataInitializer {
 
-    private final ApiService apiService;
+    private final MovieApiService movieApiService;
 
     @Getter
     @Value("${api.key}")
     private String apiKey;
 
-    public MovieDataInitializer(ApiService apiService) {
-        this.apiService = apiService;
+    public MovieDataInitializer(MovieApiService movieApiService) {
+        this.movieApiService = movieApiService;
     }
 
 
@@ -59,7 +59,7 @@ public class MovieDataInitializer {
 
         rd.close();
         conn.disconnect();
-        apiService.init(sb.toString());
+        movieApiService.init(sb.toString());
     }
 
 }

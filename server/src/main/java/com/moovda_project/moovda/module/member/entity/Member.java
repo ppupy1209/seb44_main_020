@@ -2,8 +2,8 @@ package com.moovda_project.moovda.module.member.entity;
 
 import com.moovda_project.moovda.global.audit.Auditable;
 
-import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
-import com.moovda_project.moovda.module.movie.entity.watch.Watched;
+import com.moovda_project.moovda.module.watch.entity.ToWatch;
+import com.moovda_project.moovda.module.watch.entity.Watched;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
