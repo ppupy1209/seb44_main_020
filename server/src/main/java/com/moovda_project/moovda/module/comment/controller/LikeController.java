@@ -1,9 +1,8 @@
 package com.moovda_project.moovda.module.comment.controller;
 
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.comment.service.LikeService;
-import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

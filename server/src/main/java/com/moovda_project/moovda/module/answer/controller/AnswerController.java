@@ -1,6 +1,6 @@
 package com.moovda_project.moovda.module.answer.controller;
 
-import com.moovda_project.moovda.global.auth.utils.MemberIdExtractor;
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.answer.dto.AnswerDto;
 import com.moovda_project.moovda.module.answer.entity.Answer;
 import com.moovda_project.moovda.module.answer.mapper.AnswerMapper;

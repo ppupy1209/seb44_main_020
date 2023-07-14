@@ -1,20 +1,23 @@
-package com.moovda_project.moovda.global.auth.userdetails;
+package com.moovda_project.moovda.global.auth.filter;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.moovda_project.moovda.global.auth.dto.LoginDto;
 import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import com.moovda_project.moovda.module.member.entity.Member;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
-import java.util.HashMap;
-
+import java.io.IOException;
+import java.util.*;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {  // (1)
     private final AuthenticationManager authenticationManager;
@@ -46,7 +49,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request,
                                             HttpServletResponse response,
                                             FilterChain chain,
-                                            Authentication authResult) {
+                                            Authentication authResult) throws ServletException, IOException {
         Member member = (Member) authResult.getPrincipal();  // (4-1)
 
         String accessToken = delegateAccessToken(member);   // (4-2)
@@ -54,13 +57,16 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         response.setHeader("Authorization", "Bearer " + accessToken);  // (4-4)
         response.setHeader("Refresh", refreshToken);                   // (4-5)
+
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
     // (5)
     private String delegateAccessToken(Member member) {
-        HashMap<String, Object> claims = new HashMap<>();
-        claims.put("memberId", member.getMemberId());
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("memberId", member.getMemberId()); // 식별자 추가
         claims.put("username", member.getEmail());
+        claims.put("roles",member.getRoles());
 
         String subject = member.getEmail();
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
