@@ -26,7 +26,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity
 public class SecurityConfigurationV2 extends WebSecurityConfigurerAdapter {
     private final JwtTokenizer jwtTokenizer;
 
