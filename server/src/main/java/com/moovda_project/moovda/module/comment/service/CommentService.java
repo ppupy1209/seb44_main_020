@@ -7,13 +7,11 @@ import com.moovda_project.moovda.global.exception.ExceptionCode;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.service.MemberService;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
-import com.moovda_project.moovda.module.movie.entity.watch.Watched;
-import com.moovda_project.moovda.module.movie.repository.watch.ToWatchRepository;
+import com.moovda_project.moovda.module.watch.entity.Watched;
+import com.moovda_project.moovda.module.watch.repository.ToWatchRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
-import com.moovda_project.moovda.module.movie.service.watch.WatchedService;
+import com.moovda_project.moovda.module.watch.service.WatchedService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

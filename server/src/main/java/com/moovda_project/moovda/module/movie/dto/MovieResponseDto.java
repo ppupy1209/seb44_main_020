@@ -1,5 +1,8 @@
 package com.moovda_project.moovda.module.movie.dto;
 
+import com.moovda_project.moovda.module.comment.dto.CommentResponseDto;
+import com.moovda_project.moovda.module.movie.dto.genre.GenreResponseDto;
+import com.moovda_project.moovda.module.movie.dto.staff.StaffResponseDto;
 import com.moovda_project.moovda.module.movie.entity.genre.Genre;
 import lombok.Getter;
 import lombok.Setter;

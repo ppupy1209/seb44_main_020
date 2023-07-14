@@ -1,8 +1,8 @@
-package com.moovda_project.moovda.module.movie.repository.watch;
+package com.moovda_project.moovda.module.watch.repository;
 
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
+import com.moovda_project.moovda.module.watch.entity.ToWatch;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

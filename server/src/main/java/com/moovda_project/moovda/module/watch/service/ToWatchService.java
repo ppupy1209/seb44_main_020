@@ -1,13 +1,12 @@
-package com.moovda_project.moovda.module.movie.service.watch;
+package com.moovda_project.moovda.module.watch.service;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
-import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.service.MemberService;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
-import com.moovda_project.moovda.module.movie.repository.watch.ToWatchRepository;
+import com.moovda_project.moovda.module.watch.entity.ToWatch;
+import com.moovda_project.moovda.module.watch.repository.ToWatchRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
