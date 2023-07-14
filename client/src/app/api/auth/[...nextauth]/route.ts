@@ -18,6 +18,21 @@ const handler = NextAuth({
       },
     }),
   ],
+  // callbacks: {
+  //   async jwt({ token, account, profile, member }) {
+  //     if (account) {
+  //       token.accessToken = account.access_token;
+  //       token.id = profile.id;
+  //     }
+  //     return token;
+  //   },
+  //   async session({ session, token }: any) {
+  //     if (session) {
+  //       session.accessToken = token.accessToken;
+  //     }
+  //     return session;
+  //   },
+  // },
 });
 
 export { handler as GET, handler as POST };
