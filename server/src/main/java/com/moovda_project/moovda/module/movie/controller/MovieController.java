@@ -28,17 +28,19 @@ public class MovieController {
      private final MovieRepository movieRepository;
 
     @GetMapping("{movie_id}")
-    public ResponseEntity getMovie(@PathVariable("movie_id") @Positive long movieId) {
+    public ResponseEntity getMovie(@PathVariable("movie_id") @Positive long movieId,
+                                   @Positive @RequestParam int page) {
         Movie movie = movieService.findMovie(movieId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie,page,1)), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public List<MovieFilterResponseDto> searchMovie(MovieSearchCondition condition) {
+    public ResponseEntity searchMovie(MovieSearchCondition condition,
+                                      @Positive @RequestParam int page) {
           List<Movie> movies = movieService.filterMovie(condition);
 
+          return new ResponseEntity<>(mapper.moviesToMovieFilterResponseDtosV2(movies,page,5), HttpStatus.OK);
 
-          return mapper.moviesToMovieFilterResponseDtos(movies);
     }
 }

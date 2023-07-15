@@ -6,9 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentPatchDto {
-
     private long commentId;
-
     private String content;
     private double star;
 }

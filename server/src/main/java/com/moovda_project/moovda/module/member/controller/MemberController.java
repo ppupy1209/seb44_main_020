@@ -43,9 +43,11 @@ public class MemberController {
     }
 
     @GetMapping("{member_id}")
-    public ResponseEntity getMember(@PathVariable("member_id") @Positive long memberId) {
+    public ResponseEntity getMember(@PathVariable("member_id") @Positive long memberId,
+                                    @Positive @RequestParam int page1,
+                                    @Positive @RequestParam int page2) {
         Member member = memberService.findMember(memberId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.memberToMemberResponseDto(member)), HttpStatus.OK);
+        return new ResponseEntity<>(mapper.memberToMemberResponseDto(member,page1,page2,5), HttpStatus.OK);
     }
 }

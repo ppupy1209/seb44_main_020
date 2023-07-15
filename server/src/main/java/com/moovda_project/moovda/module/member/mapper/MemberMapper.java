@@ -3,6 +3,7 @@ package com.moovda_project.moovda.module.member.mapper;
 import com.moovda_project.moovda.module.member.dto.MemberDto;
 import com.moovda_project.moovda.module.member.dto.MemberResponseDto;
 import com.moovda_project.moovda.module.member.entity.Member;
+import com.moovda_project.moovda.module.movie.dto.PageDto;
 import com.moovda_project.moovda.module.watch.dto.ToWatchResponseDto;
 import com.moovda_project.moovda.module.watch.dto.WatchedResponseDto;
 import com.moovda_project.moovda.module.watch.entity.ToWatch;
@@ -19,7 +20,7 @@ public interface MemberMapper {
 
     Member memberPostToMember(MemberDto.Post requestBody);
 
-    default MemberResponseDto memberToMemberResponseDto(Member member) {
+    default MemberResponseDto memberToMemberResponseDto(Member member,int page1,int page2, int pageSize) {
         MemberResponseDto memberResponseDto = new MemberResponseDto();
         memberResponseDto.setMemberId(member.getMemberId());
 
@@ -38,8 +39,18 @@ public interface MemberMapper {
 
             toWatchResponseDtos.add(toWatchResponseDto);
         }
+        int totalToWatch = toWatchResponseDtos.size();
+        int startIndex = (page1 - 1) * pageSize;
+        int endIndex = Math.min(startIndex + pageSize, totalToWatch);
 
-        memberResponseDto.setToWatch(toWatchResponseDtos);
+        List<ToWatchResponseDto> toWatchResponseDtos2 = toWatchResponseDtos.subList(startIndex,endIndex);
+        memberResponseDto.setToWatch(toWatchResponseDtos2);
+
+        PageDto toWatchPageInfo = new PageDto();
+        toWatchPageInfo.setPageSize(pageSize);
+        toWatchPageInfo.setCurrentPage(page1);
+        toWatchPageInfo.setTotal(totalToWatch);
+
 
         List<WatchedResponseDto> watchedResponseDtos = new ArrayList<>();
         List<Watched> watchedList = member.getWatchedList();
@@ -53,7 +64,22 @@ public interface MemberMapper {
             watchedResponseDtos.add(watchedResponseDto);
         }
 
-        memberResponseDto.setWatched(watchedResponseDtos);
+        int totalWatched = watchedResponseDtos.size();
+        int startIndex2 = (page2 - 1) * pageSize;
+        int endIndex2 = Math.min(startIndex2 + pageSize, totalWatched);
+
+        List<WatchedResponseDto> watchedResponseDtos2 = watchedResponseDtos.subList(startIndex2,endIndex2);
+        memberResponseDto.setWatched(watchedResponseDtos2);
+
+        PageDto watchedPageInfo = new PageDto();
+        watchedPageInfo.setPageSize(pageSize);
+        watchedPageInfo.setCurrentPage(page2);
+        watchedPageInfo.setTotal(totalWatched);
+
+        memberResponseDto.setToWatchInfo(toWatchPageInfo);
+        memberResponseDto.setWatchedInfo(watchedPageInfo);
+
+        memberResponseDto.setWatched(watchedResponseDtos2);
 
         return memberResponseDto;
     }

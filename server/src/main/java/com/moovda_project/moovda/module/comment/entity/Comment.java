@@ -18,7 +18,6 @@ import java.util.Set;
 @Entity
 @Table(name = "comments")
 public class Comment extends Auditable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")

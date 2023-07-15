@@ -13,11 +13,10 @@ import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
-      default MovieResponseDto movieToMovieResponseDto(Movie movie) {
+      default MovieResponseDto movieToMovieResponseDto(Movie movie,int page,int pageSize) {
           MovieResponseDto movieResponseDto = new MovieResponseDto();
           movieResponseDto.setMovieId(movie.getMovieId());
           movieResponseDto.setTitle(movie.getTitle());
@@ -29,24 +28,61 @@ public interface MovieMapper {
 
           movieResponseDto.setGenre(movieGenresToGenreResponseDto(movie.getMovieGenres()));
           movieResponseDto.setStaff(movieStaffToStaffResponseDto(movie.getMovieStaffs()));
-          movieResponseDto.setComments(commentToCommentResponseDto(movie.getComments()));
+
+          List<CommentResponseDto> comments = commentToCommentResponseDto(movie.getComments());
+          int totalComments = comments.size();
+          int startIndex = (page - 1) * pageSize;
+          int endIndex = Math.min(startIndex + pageSize, totalComments);
+          List<CommentResponseDto> pagedComments = comments.subList(startIndex, endIndex);
+          movieResponseDto.setComments(pagedComments);
+
+          PageDto pageDto = new PageDto();
+          pageDto.setCurrentPage(page);
+          pageDto.setPageSize(pageSize);
+          pageDto.setTotal(totalComments);
+
+          movieResponseDto.setPageInfo(pageDto);
 
           movieResponseDto.setOpeningDate(movie.getOpeningDate());
 
           return movieResponseDto;
       }
 
-      default List<MovieFilterResponseDto> moviesToMovieFilterResponseDtos(List<Movie> movies) {
-          return movies.stream()
-                  .map(movie -> {
-                      MovieFilterResponseDto movieFilterResponseDto = new MovieFilterResponseDto();
-                      movieFilterResponseDto.setMovieId(movie.getMovieId());
-                      movieFilterResponseDto.setTitle(movie.getTitle());
-                      movieFilterResponseDto.setPoster(movie.getPoster());
-                      movieFilterResponseDto.setStarAvg(movie.getStarAvg());
+      default MovieFilterResponseDtoV2 moviesToMovieFilterResponseDtosV2(List<Movie> movies,int page,int pageSize) {
 
-                      return movieFilterResponseDto;
-                  }).collect(Collectors.toList());
+          MovieFilterResponseDtoV2 movieFilterResponseDtoV2s = new MovieFilterResponseDtoV2();
+
+          List<MovieFilterResponseDto> movieFilterResponseDtos = moviesToMovieFilterResponseDtos(movies);
+          int totalMovies = movieFilterResponseDtos.size();
+          int startIndex = (page - 1) * pageSize;
+          int endIndex = Math.min(startIndex + pageSize, totalMovies);
+
+          List<MovieFilterResponseDto> pageMovies = movieFilterResponseDtos.subList(startIndex,endIndex);
+          movieFilterResponseDtoV2s.setMovies(pageMovies);
+
+          PageDto pageInfo = new PageDto();
+          pageInfo.setCurrentPage(page);
+          pageInfo.setTotal(totalMovies);
+          pageInfo.setPageSize(pageSize);
+
+          movieFilterResponseDtoV2s.setPageInfo(pageInfo);
+
+          return movieFilterResponseDtoV2s;
+      }
+
+      private List<MovieFilterResponseDto> moviesToMovieFilterResponseDtos(List<Movie> movies) {
+          List<MovieFilterResponseDto> movieFilterResponseDtos = new ArrayList<>();
+
+          for(Movie movie : movies) {
+                         MovieFilterResponseDto movieFilterResponseDto = new MovieFilterResponseDto();
+                         movieFilterResponseDto.setMovieId(movie.getMovieId());
+                         movieFilterResponseDto.setTitle(movie.getTitle());
+                         movieFilterResponseDto.setPoster(movie.getPoster());
+                         movieFilterResponseDto.setStarAvg(movie.getStarAvg());
+
+                         movieFilterResponseDtos.add(movieFilterResponseDto);
+                     }
+          return movieFilterResponseDtos;
       }
 
       default List<GenreResponseDto> movieGenresToGenreResponseDto(List<MovieGenre> movieGenres) {
