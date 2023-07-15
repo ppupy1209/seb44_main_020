@@ -39,6 +39,10 @@ spring:
         show_sql: true
         format_sql: true
 
+
+  config:
+    import: "optional:configserver:"
+
 logging.level:
   org.hibernate.SQL: debug
 
