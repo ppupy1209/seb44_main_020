@@ -40,7 +40,6 @@ spring:
         format_sql: true
 
 
-
 logging.level:
   org.hibernate.SQL: debug
 
@@ -82,10 +81,3 @@ jwt:
 
 api:
   key: ${api.key}
-
-aws:
-  paramstore:
-    enabled: true
-    prefix: /spring-boot-aws
-    name: MoovDa # 리소스 이름을 작성합니다.
-    profileSeparator: _
