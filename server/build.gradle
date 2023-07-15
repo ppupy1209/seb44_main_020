@@ -4,6 +4,7 @@ buildscript {
 	}
 }
 
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '2.7.13'
@@ -62,14 +63,15 @@ dependencies {
 	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
 
 	// Parameter Store
-	implementation 'org.springframework.cloud:spring-cloud-starter-aws-parameter-store-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 }
 
-dependencyManagement { // 블록 추가
-	imports {
-		mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Hoxton.SR12"
-	}
-}
+// 블록 추가
+//dependencyManagement {
+//	imports {
+//		mavenBom "org.springframework.cloud:spring-cloud-starter-parent:Hoxton.SR6"
+//	}
+//}
 
 tasks.named('test') {
 	useJUnitPlatform()
