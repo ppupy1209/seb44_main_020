@@ -81,6 +81,3 @@ jwt:
 
 api:
   key: ${api.key}
-
-awsParameterStorePropertySource:
-  enabled: true
