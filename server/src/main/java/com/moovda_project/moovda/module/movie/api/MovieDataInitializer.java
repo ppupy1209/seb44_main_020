@@ -30,36 +30,56 @@ public class MovieDataInitializer {
 
     @PostConstruct
     public void callApi() throws IOException {
+        for (int i = 0; i < 7; i++) {
         StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=" + apiKey); /*URL*/
-        urlBuilder.append("&" + URLEncoder.encode("listCount","UTF-8") + "=" + URLEncoder.encode("10", "UTF-8")); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("nation","UTF-8") + "=" + URLEncoder.encode("대한민국", "UTF-8"));
-        urlBuilder.append("&" + URLEncoder.encode("director","UTF-8") + "=" + URLEncoder.encode("박찬욱", "UTF-8"));
+        urlBuilder.append("&" + URLEncoder.encode("listCount", "UTF-8") + "=" + URLEncoder.encode("15", "UTF-8"));
 
 
+            if(i==0)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("박찬욱", "UTF-8"));
 
-        URL url = new URL(urlBuilder.toString());
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-        conn.setRequestMethod("GET");
-        conn.setRequestProperty("Content-type", "application/json");
+            if(i==1)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("봉준호", "UTF-8"));
 
-        System.out.println("Response code: " + conn.getResponseCode());
+            if(i==2)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("이창동", "UTF-8"));
 
-        BufferedReader rd;
-        if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
-            rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            if(i==3)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("폴 토마스 앤더슨", "UTF-8"));
+
+            if(i==4)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("고레에다 히로카즈", "UTF-8"));
+
+            if(i==5)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("데미언 셔젤", "UTF-8"));
+
+            if(i==6)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("크리스토퍼 놀란", "UTF-8"));
+
+
+            URL url = new URL(urlBuilder.toString());
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            conn.setRequestProperty("Content-type", "application/json");
+
+            System.out.println("Response code: " + conn.getResponseCode());
+
+            BufferedReader rd;
+            if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
+                rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                rd = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = rd.readLine()) != null) {
+                sb.append(line);
+            }
+
+            rd.close();
+            conn.disconnect();
+            movieApiService.init(sb.toString());
         }
-
-        StringBuilder sb = new StringBuilder();
-        String line;
-        while ((line = rd.readLine()) != null) {
-            sb.append(line);
-        }
-
-        rd.close();
-        conn.disconnect();
-        movieApiService.init(sb.toString());
     }
-
 }

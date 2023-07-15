@@ -89,6 +89,7 @@ public interface MovieMapper {
                 commentResponseDto.setStar(comment.getStar());
 //                commentResponseDto.setNickname(comment.getMember().getNickname);
                 commentResponseDto.setLikeCount(comment.getLikes().size());
+
                 commentResponseDto.setCreatedAt(comment.getCreatedAt());
                 commentResponseDtos.add(commentResponseDto);
             }

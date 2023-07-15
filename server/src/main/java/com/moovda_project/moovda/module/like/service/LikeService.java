@@ -23,7 +23,7 @@ public class LikeService {
 
     public void addLike(long memberId, long commentId) {
         Comment comment = commentService.findVerifiedComment(commentId);
-        Member member = memberService.findMember(memberId);
+        Member member = memberService.findVerifiedMember(memberId);
         Like like = new Like(member,comment);
 
         if(isNotAlreadyLike(member,comment)) {

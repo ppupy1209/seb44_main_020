@@ -2,6 +2,7 @@ package com.moovda_project.moovda.module.member.entity;
 
 import com.moovda_project.moovda.global.audit.Auditable;
 
+import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.watch.entity.ToWatch;
 import com.moovda_project.moovda.module.watch.entity.Watched;
 import lombok.AllArgsConstructor;
@@ -42,6 +43,7 @@ public class Member extends Auditable {
 
     @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Watched> watchedList = new ArrayList<>();
+
 
 //    public Member(String nickname) {
 //        this.nickname = nickname;
