@@ -6,7 +6,7 @@ spring:
   #  datasource:
   #    url: jdbc:h2:mem:test
   datasource:
-    url: jdbc:mysql://${AWS_RDS_Endpoint}/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mysql://${AWS_RDS_ENDPOINT}/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: admin
     password: ${MYSQL_SECRET}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -80,4 +80,4 @@ jwt:
   refresh-token-expiration-minutes: 420
 
 api:
-  key: ${api.key}
+  key: ${API_KEY}
