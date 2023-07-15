@@ -30,7 +30,7 @@ public class CommentService {
 
     public Comment createComment(Comment comment) {
 
-        Member member = memberService.findMember(comment.getMember().getMemberId());
+        Member member = memberService.findVerifiedMember(comment.getMember().getMemberId());
         Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
 
         existsCommentByMemberAndMovie(movie,member);
