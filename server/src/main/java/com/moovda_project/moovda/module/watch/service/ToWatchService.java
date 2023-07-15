@@ -27,7 +27,7 @@ public class ToWatchService {
         ToWatch toWatch = new ToWatch();
 
         Movie movie = movieService.findMovie(movieId);
-        Member member = memberService.findMember(memberId);
+        Member member = memberService.findVerifiedMember(memberId);
 
         if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
             throw new BusinessLogicException(ExceptionCode.TOWATCH_EXISTS);
@@ -42,7 +42,7 @@ public class ToWatchService {
     public void deleteToWatch(long movieId,long memberId) {
 
         Movie movie = movieService.findMovie(movieId);
-        Member member = memberService.findMember(memberId);
+        Member member = memberService.findVerifiedMember(memberId);
 
         ToWatch toWatch = isSavedToWatch(movie, member);
 
