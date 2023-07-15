@@ -18,6 +18,9 @@ spring:
       max-lifetime: 240000
       maximum-pool-size: 20
 
+  config:
+    import: classpath:/bootstrap.yml
+
   jpa:
     #    defer-datasource-initialization: true
     #    hibernate:
