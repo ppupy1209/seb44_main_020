@@ -30,7 +30,7 @@ public class MovieDataInitializer {
 
     @PostConstruct
     public void callApi() throws IOException {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < 11; i++) {
         StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=" + apiKey); /*URL*/
         urlBuilder.append("&" + URLEncoder.encode("listCount", "UTF-8") + "=" + URLEncoder.encode("15", "UTF-8"));
 
@@ -55,6 +55,18 @@ public class MovieDataInitializer {
 
             if(i==6)
                 urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("크리스토퍼 놀란", "UTF-8"));
+
+            if(i==7)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("조엘 코엔", "UTF-8"));
+
+            if(i==8)
+            urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("나홍진", "UTF-8"));
+
+            if(i==9)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("하마구치 류스케", "UTF-8"));
+
+            if(i==10)
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("스티븐 스필버그", "UTF-8"));
 
 
             URL url = new URL(urlBuilder.toString());

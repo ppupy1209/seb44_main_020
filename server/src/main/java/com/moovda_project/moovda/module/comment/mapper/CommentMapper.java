@@ -6,7 +6,6 @@ import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.like.entity.Like;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 
 import java.util.HashSet;
@@ -28,7 +27,6 @@ public interface CommentMapper {
         member.setMemberId(memberId);
 
         Set<Like> likes = new HashSet<>();
-
 
         comment.setMovie(movie);
         comment.setMember(member);

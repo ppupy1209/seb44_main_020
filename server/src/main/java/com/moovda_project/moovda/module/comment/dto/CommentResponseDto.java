@@ -9,10 +9,9 @@ import java.util.List;
 @Setter
 @Getter
 public class CommentResponseDto {
-//    String nickname;
 
+    //    String nickname;
     Long memberId;
-
     Long commentId;
     String content;
     Double star;

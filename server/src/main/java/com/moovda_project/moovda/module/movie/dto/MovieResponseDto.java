@@ -28,4 +28,6 @@ public class MovieResponseDto {
 
     List<CommentResponseDto> comments;
 
+    PageDto pageInfo;
+
 }

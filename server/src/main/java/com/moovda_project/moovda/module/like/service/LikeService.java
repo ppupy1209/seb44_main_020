@@ -18,32 +18,29 @@ public class LikeService {
     private final LikeRepository likeRepository;
     private final CommentService commentService;
     private final MemberService memberService;
-
     private final CommentRepository commentRepository;
 
     public void addLike(long memberId, long commentId) {
+
         Comment comment = commentService.findVerifiedComment(commentId);
         Member member = memberService.findVerifiedMember(memberId);
         Like like = new Like(member,comment);
 
         if(isNotAlreadyLike(member,comment)) {
             comment.addLikes(like);
+
             commentRepository.save(comment);
 
             likeRepository.save(like);
-
-            System.out.println(comment.getLikes().size());
         }
         else {
             comment.removeLikes(like);
+
             commentRepository.save(comment);
 
             likeRepository.deleteByMemberAndComment(member, comment);
-
-            System.out.println(comment.getLikes().size());
         }
     }
-
     private boolean isNotAlreadyLike(Member member, Comment comment) {
         return likeRepository.findByMemberAndComment(member,comment).isEmpty();
     }

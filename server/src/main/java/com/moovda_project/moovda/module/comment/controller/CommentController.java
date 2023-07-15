@@ -47,7 +47,7 @@ public class CommentController {
         long memberId = MemberIdExtractor.extractMemberId();
         commentPatchDto.setCommentId(commentId);
 
-        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto),memberId); // TODO: API 명세서에 movie_id 필요 없을수도?
+        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto),memberId);
 
         return ResponseEntity.ok().build();
     }
