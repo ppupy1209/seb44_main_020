@@ -26,7 +26,7 @@ public class MovieApiService {
     private final StaffRepository staffRepository;
 
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void init(String jsonData) {
         try {
             JSONParser jsonParser = new JSONParser();
