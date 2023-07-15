@@ -68,6 +68,7 @@ dependencies {
 
 	// Parameter Store
 	implementation 'org.springframework.cloud:spring-cloud-starter-config'
+	implementation 'org.springframework.cloud:spring-cloud-starter-bootstrap'
 }
 
 // 블록 추가
