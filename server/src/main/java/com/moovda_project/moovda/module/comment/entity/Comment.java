@@ -7,12 +7,14 @@ import com.moovda_project.moovda.module.movie.entity.Movie;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor()
+@NoArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -37,15 +39,13 @@ public class Comment extends Auditable {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "comment",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "comment",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     Set<Like> likes = new HashSet<>();
 
-    public void addLikes(Like like) {
+    public void addLike(Like like) {
         this.likes.add(like);
-        like.setComment(this);
-    }
-
-    public void removeLikes(Like like) {
-        this.likes.remove(like);
+        if(like.getComment()!=this) {
+            like.setComment(this);
+        }
     }
 }
