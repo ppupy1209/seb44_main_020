@@ -2,6 +2,7 @@ package com.moovda_project.moovda.module.movie.api;
 
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +16,7 @@ import java.net.URL;
 import java.io.BufferedReader;
 
 @Component
+@RequiredArgsConstructor
 public class MovieDataInitializer {
 
     private final MovieApiService movieApiService;
@@ -23,11 +25,7 @@ public class MovieDataInitializer {
     @Value("${api.key}")
     private String apiKey;
 
-    public MovieDataInitializer(MovieApiService movieApiService) {
-        this.movieApiService = movieApiService;
-    }
-
-
+    // 초기 영화 데이터 구성
     @PostConstruct
     public void callApi() throws IOException {
         for (int i = 0; i < 11; i++) {
@@ -60,7 +58,7 @@ public class MovieDataInitializer {
                 urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("조엘 코엔", "UTF-8"));
 
             if(i==8)
-            urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("나홍진", "UTF-8"));
+                urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("나홍진", "UTF-8"));
 
             if(i==9)
                 urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("하마구치 류스케", "UTF-8"));

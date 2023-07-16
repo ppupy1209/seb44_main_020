@@ -3,12 +3,11 @@ package com.moovda_project.moovda.module.member.mapper;
 import com.moovda_project.moovda.module.member.dto.MemberDto;
 import com.moovda_project.moovda.module.member.dto.MemberResponseDto;
 import com.moovda_project.moovda.module.member.entity.Member;
-import com.moovda_project.moovda.module.movie.dto.PageDto;
+import com.moovda_project.moovda.global.dto.PageDto;
 import com.moovda_project.moovda.module.watch.dto.ToWatchResponseDto;
 import com.moovda_project.moovda.module.watch.dto.WatchedResponseDto;
 import com.moovda_project.moovda.module.watch.entity.ToWatch;
 import com.moovda_project.moovda.module.watch.entity.Watched;
-import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -20,7 +19,7 @@ public interface MemberMapper {
 
     Member memberPostToMember(MemberDto.Post requestBody);
 
-    default MemberResponseDto memberToMemberResponseDto(Member member,int page1,int page2, int pageSize) {
+    default MemberResponseDto memberToMemberResponseDto(Member member,int toWatchPage,int WatchedPage, int pageSize) {
         MemberResponseDto memberResponseDto = new MemberResponseDto();
         memberResponseDto.setMemberId(member.getMemberId());
 
@@ -40,7 +39,7 @@ public interface MemberMapper {
             toWatchResponseDtos.add(toWatchResponseDto);
         }
         int totalToWatch = toWatchResponseDtos.size();
-        int startIndex = (page1 - 1) * pageSize;
+        int startIndex = (toWatchPage - 1) * pageSize;
         int endIndex = Math.min(startIndex + pageSize, totalToWatch);
 
         List<ToWatchResponseDto> toWatchResponseDtos2 = toWatchResponseDtos.subList(startIndex,endIndex);
@@ -48,7 +47,7 @@ public interface MemberMapper {
 
         PageDto toWatchPageInfo = new PageDto();
         toWatchPageInfo.setPageSize(pageSize);
-        toWatchPageInfo.setCurrentPage(page1);
+        toWatchPageInfo.setCurrentPage(toWatchPage);
         toWatchPageInfo.setTotal(totalToWatch);
 
 
@@ -65,7 +64,7 @@ public interface MemberMapper {
         }
 
         int totalWatched = watchedResponseDtos.size();
-        int startIndex2 = (page2 - 1) * pageSize;
+        int startIndex2 = (WatchedPage - 1) * pageSize;
         int endIndex2 = Math.min(startIndex2 + pageSize, totalWatched);
 
         List<WatchedResponseDto> watchedResponseDtos2 = watchedResponseDtos.subList(startIndex2,endIndex2);
@@ -73,7 +72,7 @@ public interface MemberMapper {
 
         PageDto watchedPageInfo = new PageDto();
         watchedPageInfo.setPageSize(pageSize);
-        watchedPageInfo.setCurrentPage(page2);
+        watchedPageInfo.setCurrentPage(WatchedPage);
         watchedPageInfo.setTotal(totalWatched);
 
         memberResponseDto.setToWatchInfo(toWatchPageInfo);

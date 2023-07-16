@@ -1,10 +1,10 @@
 package com.moovda_project.moovda.module.movie.repository;
 
-import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
-import com.moovda_project.moovda.module.movie.dto.QMovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.search.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.search.QMovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.QMovie;
 import com.moovda_project.moovda.module.movie.entity.genre.QGenre;
-import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.thymeleaf.util.StringUtils;

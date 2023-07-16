@@ -9,6 +9,5 @@ import java.util.Optional;
 
 public interface ToWatchRepository extends JpaRepository<ToWatch, Long> {
     Optional<ToWatch> findByMemberAndMovie(Member member, Movie movie);
-
     void deleteByMemberAndMovie(Member member, Movie movie);
 }

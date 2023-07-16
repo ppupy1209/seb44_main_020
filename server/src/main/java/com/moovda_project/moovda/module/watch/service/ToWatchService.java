@@ -19,7 +19,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ToWatchService {
     private final ToWatchRepository toWatchRepository;
-
     private final MovieService movieService;
     private final MemberService memberService;
 
@@ -29,22 +28,19 @@ public class ToWatchService {
         Movie movie = movieService.findMovie(movieId);
         Member member = memberService.findVerifiedMember(memberId);
 
-        if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
-            throw new BusinessLogicException(ExceptionCode.TOWATCH_EXISTS);
-        }
+        checkToWatchExists(movie, member); // ToWatch가 이미 있으면 ToWatch 추가 못함
 
         toWatch.setMovie(movie);
         toWatch.setMember(member);
 
         return toWatchRepository.save(toWatch);
     }
-
     public void deleteToWatch(long movieId,long memberId) {
 
         Movie movie = movieService.findMovie(movieId);
         Member member = memberService.findVerifiedMember(memberId);
 
-        ToWatch toWatch = isSavedToWatch(movie, member);
+        ToWatch toWatch = isSavedToWatch(movie, member); // ToWatch가 있어야 ToWatch 삭제 가능
 
         checkValidatedMember(memberId,toWatch);
 
@@ -57,17 +53,15 @@ public class ToWatchService {
         return toWatch;
     }
 
-//    private ToWatch findVerifiedToWatch(long toWatchId) {
-//        Optional<ToWatch> optionalToWatch = toWatchRepository.findById(toWatchId);
-//
-//        ToWatch toWatch = optionalToWatch.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TOWATCH_NOT_FOUND));
-//
-//        return toWatch;
-//    }
-
     private void checkValidatedMember(long memberId, ToWatch toWatch) {
         if(toWatch.getMember().getMemberId()!= memberId) {
             throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
+    }
+
+    private void checkToWatchExists(Movie movie, Member member) {
+        if(toWatchRepository.findByMemberAndMovie(member, movie).isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.TOWATCH_EXISTS);
         }
     }
 }

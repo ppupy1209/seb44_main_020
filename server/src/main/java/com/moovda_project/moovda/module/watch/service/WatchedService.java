@@ -22,7 +22,7 @@ public class WatchedService {
     }
 
     public void deleteWatched(long watchedId) {
-         Watched watched = findVerifiedWatched(watchedId);
+         Watched watched = findVerifiedWatched(watchedId); // watched 가 있어야 삭제 가능
 
          watchedRepository.delete(watched);
     }

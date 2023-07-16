@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.module.movie.dto;
+package com.moovda_project.moovda.global.dto;
 
 import lombok.Getter;
 import lombok.Setter;
