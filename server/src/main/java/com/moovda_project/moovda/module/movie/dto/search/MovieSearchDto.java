@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.module.movie.dto;
+package com.moovda_project.moovda.module.movie.dto.search;
 
 
 import com.querydsl.core.annotations.QueryProjection;

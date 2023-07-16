@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.module.movie.mapper;
 
+import com.moovda_project.moovda.global.dto.PageDto;
 import com.moovda_project.moovda.module.comment.dto.CommentResponseDto;
 import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.movie.dto.*;
@@ -25,49 +26,49 @@ public interface MovieMapper {
           movieResponseDto.setPoster(movie.getPoster());
           movieResponseDto.setRunningTime(movie.getRunningTime());
           movieResponseDto.setStarAvg(movie.getStarAvg());
-
           movieResponseDto.setGenre(movieGenresToGenreResponseDto(movie.getMovieGenres()));
           movieResponseDto.setStaff(movieStaffToStaffResponseDto(movie.getMovieStaffs()));
 
+          // 페이지네이션 시작
           List<CommentResponseDto> comments = commentToCommentResponseDto(movie.getComments());
           int totalComments = comments.size();
           int startIndex = (page - 1) * pageSize;
           int endIndex = Math.min(startIndex + pageSize, totalComments);
           List<CommentResponseDto> pagedComments = comments.subList(startIndex, endIndex);
-          movieResponseDto.setComments(pagedComments);
 
           PageDto pageDto = new PageDto();
           pageDto.setCurrentPage(page);
           pageDto.setPageSize(pageSize);
           pageDto.setTotal(totalComments);
+          // 페이지네이션 끝
 
+          movieResponseDto.setComments(pagedComments);
           movieResponseDto.setPageInfo(pageDto);
-
           movieResponseDto.setOpeningDate(movie.getOpeningDate());
 
           return movieResponseDto;
       }
 
-      default MovieFilterResponseDtoV2 moviesToMovieFilterResponseDtosV2(List<Movie> movies,int page,int pageSize) {
+      default PagedMovieFilterResponseDto moviesToPagedMovieFilterResponseDto(List<Movie> movies, int page, int pageSize) {
+          PagedMovieFilterResponseDto pagedMovieFilterResponseDto = new PagedMovieFilterResponseDto();
 
-          MovieFilterResponseDtoV2 movieFilterResponseDtoV2s = new MovieFilterResponseDtoV2();
-
+          // 페이지네이션 시작
           List<MovieFilterResponseDto> movieFilterResponseDtos = moviesToMovieFilterResponseDtos(movies);
           int totalMovies = movieFilterResponseDtos.size();
           int startIndex = (page - 1) * pageSize;
           int endIndex = Math.min(startIndex + pageSize, totalMovies);
-
           List<MovieFilterResponseDto> pageMovies = movieFilterResponseDtos.subList(startIndex,endIndex);
-          movieFilterResponseDtoV2s.setMovies(pageMovies);
 
           PageDto pageInfo = new PageDto();
           pageInfo.setCurrentPage(page);
           pageInfo.setTotal(totalMovies);
           pageInfo.setPageSize(pageSize);
+          // 페이지네이션 끝
 
-          movieFilterResponseDtoV2s.setPageInfo(pageInfo);
+          pagedMovieFilterResponseDto.setMovies(pageMovies);
+          pagedMovieFilterResponseDto.setPageInfo(pageInfo);
 
-          return movieFilterResponseDtoV2s;
+          return pagedMovieFilterResponseDto;
       }
 
       private List<MovieFilterResponseDto> moviesToMovieFilterResponseDtos(List<Movie> movies) {

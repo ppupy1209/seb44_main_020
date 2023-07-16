@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor()
+@NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "movies") // 테이블명 추가

@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.module.movie.dto;
 
+import com.moovda_project.moovda.global.dto.PageDto;
 import com.moovda_project.moovda.module.comment.dto.CommentResponseDto;
 import com.moovda_project.moovda.module.movie.dto.genre.GenreResponseDto;
 import com.moovda_project.moovda.module.movie.dto.staff.StaffResponseDto;
@@ -16,7 +17,6 @@ public class MovieResponseDto {
     String country;
     String summary;
     String poster;
-
     Integer runningTime;
     Double starAvg;
 
