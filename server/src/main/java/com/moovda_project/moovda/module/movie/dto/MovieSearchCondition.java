@@ -1,13 +1,12 @@
 package com.moovda_project.moovda.module.movie.dto;
 
-import com.moovda_project.moovda.module.movie.entity.genre.Genre;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+
 
 @NoArgsConstructor
 @Getter

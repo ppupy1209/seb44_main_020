@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor()
+@NoArgsConstructor
 @Table(name = "watched")
 public class Watched extends Auditable {
 

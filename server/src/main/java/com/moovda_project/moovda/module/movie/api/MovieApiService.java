@@ -25,7 +25,6 @@ public class MovieApiService {
     private final GenreRepository genreRepository;
     private final StaffRepository staffRepository;
 
-
     @Transactional
     public void init(String jsonData) {
         try {
@@ -43,7 +42,8 @@ public class MovieApiService {
                 Movie movie = new Movie();
 
                 String posterUrl = movieObj.get("posters").toString().split("\\|")[0];
-                if(posterUrl.equals("")) continue;
+                if(posterUrl.equals("")) continue;        // 포스터는 하나만 저장
+
                 movie.setPoster(posterUrl);
 
                 movie.setTitle(movieObj.get("title").toString());
@@ -57,14 +57,15 @@ public class MovieApiService {
 
                 movie.setRating(movieObj.get("rating").toString());
                 movie.setOpeningDate(movieObj.get("repRlsDate").toString());
-
                 movie.setRunningTime(Integer.parseInt(movieObj.get("runtime").toString()));
 
+                // 장르 시작
                 String[] genres = movieObj.get("genre").toString().split(",");
                 for(String genre : genres) {
                    MovieGenre movieGenre = new MovieGenre();
 
                    Genre existingGenre = genreRepository.findByName(genre);
+
                    if (existingGenre == null) {
                        existingGenre = new Genre();
                        existingGenre.setName(genre);
@@ -74,11 +75,15 @@ public class MovieApiService {
                    movieGenre.setGenre(existingGenre);
                    movieGenre.setMovie(movie);
                }
+              // 장르 끝
 
+
+                // 스태프 시작
                 JSONObject actorsObj = (JSONObject) movieObj.get("staffs");
                 JSONArray actorArray = (JSONArray) actorsObj.get("staff");
                 int directorCnt = 0;
                 int actorCnt = 0;
+
                 for(Object actorObj : actorArray) {
                     JSONObject ao = (JSONObject) actorObj;
 
@@ -87,7 +92,8 @@ public class MovieApiService {
                     String position = ao.get("staffRoleGroup").toString();
                     if(!position.equals("감독") && !position.equals("출연")) {
                         continue;
-                    }
+                    }       // 감독이랑 출연진만 저장
+
                     if(position.equals("감독")) directorCnt++;
                     if(position.equals("출연")) actorCnt++;
 
@@ -95,17 +101,21 @@ public class MovieApiService {
                     movieStaff.setRole(ao.get("staffRole").toString());
 
                     String staffName = ao.get("staffNm").toString();
+
                     Staff existingStaff = staffRepository.findByName(staffName);
                     if(existingStaff==null) {
                         existingStaff = new Staff();
                         existingStaff.setName(staffName);
                         staffRepository.save(existingStaff);
                     }
+
                     movieStaff.setStaff(existingStaff);
                     movieStaff.setMovie(movie);
 
-                    if(directorCnt+actorCnt==8) break;
+                    if(directorCnt+actorCnt==8) break;  // 최대 8명까지만 저장
                 }
+
+                // 스태프 끝
 
                 movieRepository.save(movie);
             }

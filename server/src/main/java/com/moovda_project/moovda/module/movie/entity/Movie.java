@@ -47,10 +47,8 @@ public class Movie {
     @OneToMany(mappedBy = "movie",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<MovieGenre> movieGenres = new ArrayList<>();
 
-
     @OneToMany(mappedBy = "movie",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<MovieStaff> movieStaffs = new ArrayList<>();
-
 
     @OneToMany(mappedBy = "movie",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Comment> comments = new ArrayList<>();
