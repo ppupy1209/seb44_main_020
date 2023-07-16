@@ -14,7 +14,6 @@ import javax.validation.constraints.Positive;
 @RequiredArgsConstructor
 public class LikeController {
     private final LikeService likeService;
-
     @PostMapping("/comments/{comment_id}/likes")
     public ResponseEntity addLike(@PathVariable("comment_id") @Positive long commentId) {
         Long memberId = MemberIdExtractor.extractMemberId();

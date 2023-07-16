@@ -3,7 +3,6 @@ package com.moovda_project.moovda.module.watch.entity;
 import com.moovda_project.moovda.global.audit.Auditable;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

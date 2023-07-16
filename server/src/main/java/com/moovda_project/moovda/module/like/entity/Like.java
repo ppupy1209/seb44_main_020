@@ -5,8 +5,6 @@ import com.moovda_project.moovda.module.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 
@@ -16,7 +14,6 @@ import javax.persistence.*;
 @Setter
 @Table(name = "likes")
 public class Like {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "like_id")
@@ -26,7 +23,7 @@ public class Like {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OnDelete(action = OnDeleteAction.CASCADE)
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
     private Comment comment;
@@ -35,4 +32,6 @@ public class Like {
         this.member = member;
         this.comment = comment;
     }
+
+
 }

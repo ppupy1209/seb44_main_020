@@ -1,13 +1,10 @@
 package com.moovda_project.moovda.module.movie.dto;
 
-import com.moovda_project.moovda.module.movie.entity.genre.Genre;
+
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
-import lombok.Generated;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 
 @Data
 @NoArgsConstructor

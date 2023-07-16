@@ -1,6 +1,5 @@
 package com.moovda_project.moovda.module.movie.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

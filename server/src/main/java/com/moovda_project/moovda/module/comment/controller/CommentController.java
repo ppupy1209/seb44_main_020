@@ -45,6 +45,7 @@ public class CommentController {
     public ResponseEntity patchComment(@PathVariable("comment_id") @Positive long commentId,
                                        @Valid @RequestBody CommentPatchDto commentPatchDto) {
         long memberId = MemberIdExtractor.extractMemberId();
+
         commentPatchDto.setCommentId(commentId);
 
         Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto),memberId);

@@ -33,23 +33,23 @@ public class CommentService {
         Member member = memberService.findVerifiedMember(comment.getMember().getMemberId());
         Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
 
-        existsCommentByMemberAndMovie(movie,member);
+        existsCommentByMemberAndMovie(movie,member);   // 이미 코멘트를 작성했으면, 작성 못해야 함.
 
-        if(isSavedToWatch(member,movie)) toWatchRepository.deleteByMemberAndMovie(member,movie);
+        isSavedToWatch(member,movie);  // 볼 영화 목록에 있으면, 볼 영화 목록에서 삭제
 
         Comment createdComment = commentRepository.save(comment);
 
-        updateStarAvg(movie);
+        updateStarAvg(movie);   // 영화 평균 별점 업데이트
 
-        addWatched(movie,member);
+        addWatched(movie,member);  // 본 영화 목록에 추가
 
         return createdComment;
     }
 
     public Comment updateComment(Comment comment,long memberId) {
-       Comment findComment = findVerifiedComment(comment.getCommentId());
+       Comment findComment = findVerifiedComment(comment.getCommentId()); // 존재하는 코멘트인지 확인
 
-       checkValidatedMember(memberId,findComment);
+       checkValidatedMember(memberId,findComment);  // 인증된 멤버인지 확인
 
        findComment.setContent(comment.getContent());
        findComment.setStar(comment.getStar());
@@ -57,7 +57,7 @@ public class CommentService {
        Comment updatedComment = commentRepository.save(findComment);
 
        Movie movie = movieService.findMovie(findComment.getMovie().getMovieId());
-       updateStarAvg(movie);
+       updateStarAvg(movie);  // 평균 별점 업데이트
 
        return updatedComment;
     }
@@ -69,13 +69,14 @@ public class CommentService {
 
         checkValidatedMember(memberId,comment);
 
-        deleteWatched(commentId);
+        deleteWatched(commentId);   // 본 영화 목록에서 삭제
 
         commentRepository.delete(comment);
 
         Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
         movie.removeComments(comment);
-        updateStarAvg(movie);
+
+         updateStarAvg(movie);  // 평균 별점 업데이트
     }
 
 
@@ -131,8 +132,9 @@ public class CommentService {
         }
     }
 
-    private boolean isSavedToWatch(Member member, Movie movie) {
-        return  toWatchRepository.findByMemberAndMovie(member,movie).isPresent();
+    private void isSavedToWatch(Member member, Movie movie) {
+         if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
+             toWatchRepository.deleteByMemberAndMovie(member,movie);
+         }
     }
-
 }
