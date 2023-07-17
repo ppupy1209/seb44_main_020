@@ -7,7 +7,7 @@ import { StaffBox } from '@/components/StaffBox/StaffBox';
 import { Comment } from '@/components/CommentBox/Comment';
 import {data} from './dummydata';
 import { StarrateShow } from '@/components/Starrate/StarrateShow';
-import { CommentModal } from '@/components/Comment/Modal';
+import { CommentModal } from '@/components/CommentModal/Modal';
 import {useSelector,useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store';
 import {open} from '@/redux/features/commentSlice'

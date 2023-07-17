@@ -11,7 +11,7 @@ import FaStarHalf from '@/assets/faStarHalf.svg'
 import StarHalfRight from '@/assets/StarHalfRight.svg'
 import StarHalfLeft from '@/assets/StarHalfLeft.svg'
 
-import { useState } from 'react';
+import { useState,useCallback } from 'react';
 import { click } from '@/redux/features/deleteSlice';
 
 
@@ -22,6 +22,10 @@ const dispatch=useDispatch();
 const handleClose=()=>{
     dispatch(close())
 }
+
+const handleAddComent=
+
+
     return(
         <S.ModalBackdrop>
 <S.ModalContainer>
