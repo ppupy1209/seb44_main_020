@@ -8,7 +8,7 @@ import { StyledSlider } from './MyCarousel.styled';
 import {dragOn, dragOff} from '@/redux/features/dragSlice'
 
 interface CarouselProps {
-  props: JSX.Element[];
+  props?: JSX.Element[];
 }
 export default function MyCarousel({ props }: CarouselProps) {
     

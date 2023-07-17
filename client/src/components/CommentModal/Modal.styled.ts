@@ -58,6 +58,7 @@ border-radius: 5px;
 background-color: #466093;
 border: 2px solid #5973B6;
 color: #ffffff;
+cursor: pointer;
  &:hover{
     background-color:#5973B6 ;
      border: 2px solid #283A6D; 
