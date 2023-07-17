@@ -9,4 +9,7 @@ public class WatchedResponseDto {
     private long movieId;
     private String title;
     private String poster;
+
+    private Double star;
+
 }

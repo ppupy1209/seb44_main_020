@@ -42,7 +42,7 @@ public class MemberController {
         return ResponseEntity.created(location).build();
     }
 
-    @GetMapping("{member_id}")
+    @GetMapping("/{member_id}")
     public ResponseEntity getMember(@PathVariable("member_id") @Positive long memberId) {
         Member member = memberService.findMember(memberId);
 

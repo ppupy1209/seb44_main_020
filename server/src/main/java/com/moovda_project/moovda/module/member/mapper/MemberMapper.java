@@ -49,13 +49,17 @@ public interface MemberMapper {
             watchedResponseDto.setMovieId(watched.getMovie().getMovieId());
             watchedResponseDto.setTitle(watched.getMovie().getTitle());
             watchedResponseDto.setPoster(watched.getMovie().getPoster());
+            watchedResponseDto.setStar(watched.getMovie().getComments().get(watched.getWatchedId().intValue()-1).getStar());
             watchedResponseDtos.add(watchedResponseDto);
         }
+
+
 
         memberResponseDto.setWatched(watchedResponseDtos);
 
         return memberResponseDto;
     }
+
 
 
 }
