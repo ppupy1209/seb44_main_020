@@ -135,4 +135,19 @@ public interface MovieMapper {
       }
 
 
+      default List<MovieMainResponseDto> moviesToMovieMainResponseDto(List<Movie> movies) {
+          List<MovieMainResponseDto> movieMainResponseDtos = new ArrayList<>();
+          for(Movie movie : movies) {
+              MovieMainResponseDto movieMainResponseDto = new MovieMainResponseDto();
+
+              movieMainResponseDto.setMovieId(movie.getMovieId());
+              movieMainResponseDto.setPoster(movie.getPoster());
+
+              movieMainResponseDtos.add(movieMainResponseDto);
+          }
+
+          return movieMainResponseDtos;
+      }
+
+
 }
