@@ -29,7 +29,7 @@ public class QuestionService {
     // TODO : 작성한 회원이 존재하는 회원인지 확인
 
     public Question createQuestion(Question question) {
-        memberService.findVerifiedMember(question.getMember().getMemberId());
+        // memberService.findVerifiedMember(question.getMember().getMemberId());
         return questionRepository.save(question);
     }
 

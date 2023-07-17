@@ -12,7 +12,6 @@ import java.util.List;
 public interface QuestionMapper {
     @Mapping(source = "memberId", target = "member.memberId")
     Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto);
-    @Mapping(source = "authenticatedMemberId", target = "member.memberId")
     Question questionPatchDtoToQuestion(QuestionDto.Patch questionPatchDto);
 
     List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions);
