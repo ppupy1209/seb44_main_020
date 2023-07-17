@@ -38,4 +38,12 @@ public class MovieController {
           return new ResponseEntity<>(mapper.moviesToPagedMovieFilterResponseDto(movies,page,10), HttpStatus.OK);
 
     }
+
+
+    @GetMapping("/main")
+    public ResponseEntity mainMovie() {
+        List<Movie> randomMovies = movieService.mainMovie(10);
+
+        return new ResponseEntity<>(mapper.moviesToMovieMainResponseDto(randomMovies),HttpStatus.OK);
+    }
 }

@@ -45,6 +45,27 @@ public class MovieService {
         return filteredMovies;
     }
 
+    public List<Movie> mainMovie(int count) {
+        List<Movie> allMovies = movieRepository.findAll();
+        List<Movie> randomMovies = new ArrayList<>();
+
+        int totalMovies = allMovies.size();
+
+        if(count>= totalMovies) {
+            return allMovies;
+        }
+
+        Random random = new Random();
+        while (randomMovies.size()<count) {
+            int randomIndex = random.nextInt(totalMovies);
+            Movie randomMovie = allMovies.get(randomIndex);
+
+            if (!randomMovies.contains(randomMovie)) randomMovies.add(randomMovie);
+        }
+
+        return randomMovies;
+    }
+
     private void removeSameMovie(List<MovieSearchDto> movieSearchDtos, Set<Long> movieIds, List<Movie> filteredMovies) {
         for (MovieSearchDto movieSearchDto : movieSearchDtos) {
             if (!movieIds.contains(movieSearchDto.getMovieId())) {
