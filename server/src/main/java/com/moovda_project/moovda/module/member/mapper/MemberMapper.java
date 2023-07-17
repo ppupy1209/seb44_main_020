@@ -19,7 +19,7 @@ public interface MemberMapper {
 
     Member memberPostToMember(MemberDto.Post requestBody);
 
-    default MemberResponseDto memberToMemberResponseDto(Member member,int toWatchPage,int WatchedPage, int pageSize) {
+    default MemberResponseDto memberToMemberResponseDto(Member member) {
         MemberResponseDto memberResponseDto = new MemberResponseDto();
         memberResponseDto.setMemberId(member.getMemberId());
 
@@ -38,17 +38,7 @@ public interface MemberMapper {
 
             toWatchResponseDtos.add(toWatchResponseDto);
         }
-        int totalToWatch = toWatchResponseDtos.size();
-        int startIndex = (toWatchPage - 1) * pageSize;
-        int endIndex = Math.min(startIndex + pageSize, totalToWatch);
-
-        List<ToWatchResponseDto> toWatchResponseDtos2 = toWatchResponseDtos.subList(startIndex,endIndex);
-        memberResponseDto.setToWatch(toWatchResponseDtos2);
-
-        PageDto toWatchPageInfo = new PageDto();
-        toWatchPageInfo.setPageSize(pageSize);
-        toWatchPageInfo.setCurrentPage(toWatchPage);
-        toWatchPageInfo.setTotal(totalToWatch);
+        memberResponseDto.setToWatch(toWatchResponseDtos);
 
 
         List<WatchedResponseDto> watchedResponseDtos = new ArrayList<>();
@@ -59,26 +49,10 @@ public interface MemberMapper {
             watchedResponseDto.setMovieId(watched.getMovie().getMovieId());
             watchedResponseDto.setTitle(watched.getMovie().getTitle());
             watchedResponseDto.setPoster(watched.getMovie().getPoster());
-
             watchedResponseDtos.add(watchedResponseDto);
         }
 
-        int totalWatched = watchedResponseDtos.size();
-        int startIndex2 = (WatchedPage - 1) * pageSize;
-        int endIndex2 = Math.min(startIndex2 + pageSize, totalWatched);
-
-        List<WatchedResponseDto> watchedResponseDtos2 = watchedResponseDtos.subList(startIndex2,endIndex2);
-        memberResponseDto.setWatched(watchedResponseDtos2);
-
-        PageDto watchedPageInfo = new PageDto();
-        watchedPageInfo.setPageSize(pageSize);
-        watchedPageInfo.setCurrentPage(WatchedPage);
-        watchedPageInfo.setTotal(totalWatched);
-
-        memberResponseDto.setToWatchInfo(toWatchPageInfo);
-        memberResponseDto.setWatchedInfo(watchedPageInfo);
-
-        memberResponseDto.setWatched(watchedResponseDtos2);
+        memberResponseDto.setWatched(watchedResponseDtos);
 
         return memberResponseDto;
     }
