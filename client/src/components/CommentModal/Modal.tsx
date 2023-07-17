@@ -1,34 +1,46 @@
 'use client'
 import React from 'react';
 import * as S from './Modal.styled'
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
+import { RootState } from '@/redux/store';
 import { close } from '@/redux/features/commentSlice';
+import { selectStar } from '@/redux/features/starSlice';
 import CloseIcon from '@/assets/close.svg'
-import EmptyStar from '@/assets/emptyStar.svg'
-import HalfStar from '@/assets/halfStar.svg'
-import FullStar from '@/assets/fullStar.svg'
-import FaStarHalf from '@/assets/faStarHalf.svg'
-import StarHalfRight from '@/assets/StarHalfRight.svg'
-import StarHalfLeft from '@/assets/StarHalfLeft.svg'
-
 import { useState,useCallback } from 'react';
 import { click } from '@/redux/features/deleteSlice';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 
 export function CommentModal(){
 const [newComment, setNewComment]=useState('')
-console.log(newComment);
+const selectedStar=useSelector((state:RootState) => state.star.selectedStar)
 const dispatch=useDispatch();
+
 const handleClose=()=>{
     dispatch(close())
 }
 
-const handleAddComent=
+// const handleAddComent=useCallback(()=>{
+//     axios
+//     .post(
+//         `comments/${movie_id}`,
+//         {content: newComment, star: selectedStar},
+//         //{headers}
+//     )
+//     .then(()=>{
+//         alert('코멘트가 등록되었습니다');
+//         dispatch(close())
 
+//     })
+//     .catch((error)=>{
+//  //에러처리
+//     })
+// },[movieId, newComment,selectedStar ])
 
     return(
-        <S.ModalBackdrop>
-<S.ModalContainer>
+    <S.ModalBackdrop>
+    <S.ModalContainer>
     <S.CloseBtn onClick={handleClose}><CloseIcon/></S.CloseBtn>
     <S.StarrateWrapper><Starrate /></S.StarrateWrapper> {/*<Starrate />*/}
     <S.Content 
@@ -36,17 +48,21 @@ const handleAddComent=
     value={newComment}
     onChange={(e: { target: { value: React.SetStateAction<string>; }; })=>setNewComment(e.target.value)}></S.Content>
     <S.SubmitBtn>등록</S.SubmitBtn>
-</S.ModalContainer>
-        </S.ModalBackdrop>
+    </S.ModalContainer>
+    </S.ModalBackdrop>
     )
 }
 
 function Starrate(){
+    const dispatch=useDispatch();
+
     const starValues = [5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5];
-    const handleClick = (value: number) => {
-        console.log(`Selected value: ${value}`);
+    
+    const handleClick = (star:number) => {
+        dispatch(selectStar(star));
       };
-    return(
+    
+      return(
         <S.StarratingWrapper>
             <S.Starrating>
                 <S.Text>별점 주기</S.Text>
