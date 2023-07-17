@@ -38,11 +38,18 @@ display:flex;
 justify-content:center;
 align-items:center;`
 
-export const Content=styled.div`
+export const Content=styled.textarea`
 width: 100%;
 height: 60%;
 border-radius: 5px;
-background-color:#01123D;`
+background-color:#01123D;
+color:white;
+padding: 10px;
+resize:none;
+border:none;
+&:focus{
+  outline: 2px solid #466093;
+}`
 
 export const SubmitBtn=styled.button`
 height:10%;

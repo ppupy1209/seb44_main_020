@@ -16,6 +16,8 @@ import { click } from '@/redux/features/deleteSlice';
 
 
 export function CommentModal(){
+const [newComment, setNewComment]=useState('')
+console.log(newComment);
 const dispatch=useDispatch();
 const handleClose=()=>{
     dispatch(close())
@@ -25,7 +27,10 @@ const handleClose=()=>{
 <S.ModalContainer>
     <S.CloseBtn onClick={handleClose}><CloseIcon/></S.CloseBtn>
     <S.StarrateWrapper><Starrate /></S.StarrateWrapper> {/*<Starrate />*/}
-    <S.Content>코멘트 내용</S.Content>
+    <S.Content 
+    placeholder='코멘트 입력 (10자 이상 40자 이하)'
+    value={newComment}
+    onChange={(e: { target: { value: React.SetStateAction<string>; }; })=>setNewComment(e.target.value)}></S.Content>
     <S.SubmitBtn>등록</S.SubmitBtn>
 </S.ModalContainer>
         </S.ModalBackdrop>

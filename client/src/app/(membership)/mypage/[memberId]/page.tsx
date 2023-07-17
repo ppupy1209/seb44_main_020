@@ -16,6 +16,7 @@ import { useRouter } from 'next/navigation';
 
 export default function MyPage() {
   // const router=useRouter();
+  //useParams 호출
   // const [data, setData]=useState([]);
     const showDelete =useSelector((state: RootState)=> state.showDelete.value);
     const dispatch=useDispatch();
@@ -79,7 +80,7 @@ const watchedList=data.watched.map((list)=>(
     <S.Section>
     <S.SectionTitle>
       <S.Title>볼 영화</S.Title>   
-      <S.ShowDelete onClick={handleShowDelete}>삭제</S.ShowDelete></S.SectionTitle>  {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
+      <S.ShowDelete onClick={handleShowDelete}>편집</S.ShowDelete></S.SectionTitle>  {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
     <S.SectionContent>
     <S.MovieList><MyCarousel props={toWatchlist} /></S.MovieList>
     </S.SectionContent>
