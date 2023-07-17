@@ -39,7 +39,7 @@ public class QuestionController {
     @PostMapping
     public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {
 
-        Question createdQuestion = questionMapper.questionPostDtoToQuestion(requestBody);
+        Question createdQuestion = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(requestBody));
 
         URI location = UriCreator.createUri("/questions", createdQuestion.getQuestionId());
 

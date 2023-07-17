@@ -26,9 +26,10 @@ public class QuestionDto {
         @NotBlank
         private String content;
 
-
-        public void addMemberId(long memberId) {
-            this.memberId = memberId;
+        public Member getMember() {
+            Member member = new Member();
+            member.setMemberId(memberId);
+            return member;
         }
 
     }
