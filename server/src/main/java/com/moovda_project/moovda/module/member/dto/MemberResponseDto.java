@@ -1,6 +1,6 @@
 package com.moovda_project.moovda.module.member.dto;
 
-import com.moovda_project.moovda.global.dto.PageDto;
+
 import com.moovda_project.moovda.module.watch.dto.ToWatchResponseDto;
 import com.moovda_project.moovda.module.watch.dto.WatchedResponseDto;
 import lombok.Getter;
@@ -16,6 +16,4 @@ public class MemberResponseDto {
     private List<ToWatchResponseDto> toWatch;
     private List<WatchedResponseDto> watched;
 
-    private PageDto toWatchInfo;
-    private PageDto watchedInfo;
 }
