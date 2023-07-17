@@ -13,6 +13,8 @@ import com.moovda_project.moovda.module.movie.entity.staff.MovieStaff;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
@@ -130,6 +132,8 @@ public interface MovieMapper {
                 commentResponseDto.setCreatedAt(comment.getCreatedAt());
                 commentResponseDtos.add(commentResponseDto);
             }
+
+          Collections.sort(commentResponseDtos, Comparator.comparingInt(CommentResponseDto::getLikeCount).reversed()); // 좋아요 내림차순 정렬
 
             return commentResponseDtos;
       }
