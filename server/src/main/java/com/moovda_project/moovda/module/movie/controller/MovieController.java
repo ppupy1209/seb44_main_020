@@ -27,7 +27,7 @@ public class MovieController {
                                    @Positive @RequestParam int page) {
         Movie movie = movieService.findMovie(movieId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie,page,3)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie,page,6)), HttpStatus.OK);
     }
 
     @GetMapping("/search")
@@ -35,7 +35,7 @@ public class MovieController {
                                       @Positive @RequestParam int page) {
           List<Movie> movies = movieService.filterMovie(condition);
 
-          return new ResponseEntity<>(mapper.moviesToPagedMovieFilterResponseDto(movies,page,5), HttpStatus.OK);
+          return new ResponseEntity<>(mapper.moviesToPagedMovieFilterResponseDto(movies,page,10), HttpStatus.OK);
 
     }
 }
