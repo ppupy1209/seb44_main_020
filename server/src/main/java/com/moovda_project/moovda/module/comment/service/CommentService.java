@@ -7,13 +7,11 @@ import com.moovda_project.moovda.global.exception.ExceptionCode;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.service.MemberService;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.watch.ToWatch;
-import com.moovda_project.moovda.module.movie.entity.watch.Watched;
-import com.moovda_project.moovda.module.movie.repository.watch.ToWatchRepository;
+import com.moovda_project.moovda.module.watch.entity.Watched;
+import com.moovda_project.moovda.module.watch.repository.ToWatchRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
-import com.moovda_project.moovda.module.movie.service.watch.WatchedService;
+import com.moovda_project.moovda.module.watch.service.WatchedService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.tool.schema.internal.exec.ScriptTargetOutputToFile;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,26 +30,26 @@ public class CommentService {
 
     public Comment createComment(Comment comment) {
 
-        Member member = memberService.findMember(comment.getMember().getMemberId());
+        Member member = memberService.findVerifiedMember(comment.getMember().getMemberId());
         Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
 
-        existsCommentByMemberAndMovie(movie,member);
+        existsCommentByMemberAndMovie(movie,member);   // 이미 코멘트를 작성했으면, 작성 못해야 함.
 
-        if(isSavedToWatch(member,movie)) toWatchRepository.deleteByMemberAndMovie(member,movie);
+        isSavedToWatch(member,movie);  // 볼 영화 목록에 있으면, 볼 영화 목록에서 삭제
 
         Comment createdComment = commentRepository.save(comment);
 
-        updateStarAvg(movie);
+        updateStarAvg(movie);   // 영화 평균 별점 업데이트
 
-        addWatched(movie,member);
+        addWatched(movie,member);  // 본 영화 목록에 추가
 
         return createdComment;
     }
 
     public Comment updateComment(Comment comment,long memberId) {
-       Comment findComment = findVerifiedComment(comment.getCommentId());
+       Comment findComment = findVerifiedComment(comment.getCommentId()); // 존재하는 코멘트인지 확인
 
-       checkValidatedMember(memberId,findComment);
+       checkValidatedMember(memberId,findComment);  // 인증된 멤버인지 확인
 
        findComment.setContent(comment.getContent());
        findComment.setStar(comment.getStar());
@@ -59,7 +57,7 @@ public class CommentService {
        Comment updatedComment = commentRepository.save(findComment);
 
        Movie movie = movieService.findMovie(findComment.getMovie().getMovieId());
-       updateStarAvg(movie);
+       updateStarAvg(movie);  // 평균 별점 업데이트
 
        return updatedComment;
     }
@@ -71,13 +69,14 @@ public class CommentService {
 
         checkValidatedMember(memberId,comment);
 
-        deleteWatched(commentId);
+        deleteWatched(commentId);   // 본 영화 목록에서 삭제
 
         commentRepository.delete(comment);
 
         Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
         movie.removeComments(comment);
-        updateStarAvg(movie);
+
+         updateStarAvg(movie);  // 평균 별점 업데이트
     }
 
 
@@ -133,8 +132,9 @@ public class CommentService {
         }
     }
 
-    private boolean isSavedToWatch(Member member, Movie movie) {
-        return  toWatchRepository.findByMemberAndMovie(member,movie).isPresent();
+    private void isSavedToWatch(Member member, Movie movie) {
+         if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
+             toWatchRepository.deleteByMemberAndMovie(member,movie);
+         }
     }
-
 }

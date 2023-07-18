@@ -3,12 +3,11 @@ package com.moovda_project.moovda.module.comment.mapper;
 import com.moovda_project.moovda.module.comment.dto.CommentPatchDto;
 import com.moovda_project.moovda.module.comment.dto.CommentPostDto;
 import com.moovda_project.moovda.module.comment.entity.Comment;
-import com.moovda_project.moovda.module.comment.entity.Like;
+import com.moovda_project.moovda.module.like.entity.Like;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import org.mapstruct.Mapper;
 
-import javax.persistence.SecondaryTable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,7 +27,6 @@ public interface CommentMapper {
         member.setMemberId(memberId);
 
         Set<Like> likes = new HashSet<>();
-
 
         comment.setMovie(movie);
         comment.setMember(member);

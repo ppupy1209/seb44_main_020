@@ -1,10 +1,7 @@
 package com.moovda_project.moovda.module.answer.dto;
 
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -30,16 +27,35 @@ public class AnswerDto {
     @NoArgsConstructor
     public static class Patch {
         private long answerId;
-
+        private long authenticatedMemberId;
         private long questionId;
-
         private String content;
-
         private Movie movie;
+
+        public void addAnswerId(long answerId) {
+            this.answerId = answerId;
+        }
+
+        public void addQuestionId(long questionId) {this.questionId = questionId;}
+
+        public void addAuthenticatedMemberId(long authenticatedMemberId) {
+            this.authenticatedMemberId = authenticatedMemberId;
+        }
+    }
+
+    @Getter @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class PatchResponse {
+        private String content;
+//        private MovieQuestionResponseDto movie;
+        private LocalDateTime modifiedAt;
     }
 
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Response {
@@ -51,12 +67,10 @@ public class AnswerDto {
 
         private String content;
 
-        private Movie movie;
+//        private MovieQuestionResponseDto movie;
 
         private long memberId;
 
         private LocalDateTime createdAt;
-
-        private LocalDateTime modifiedAt;
     }
 }

@@ -2,9 +2,14 @@
 
 import styled from 'styled-components';
 
+export const StyledContainer = styled.div`
+  position: relative;
+  min-height: 20vh;
+`;
 export const StyledFooter = styled.footer`
+  position: absolute;
+  bottom: 0;
   width: 100%;
-  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -3,24 +3,21 @@ package com.moovda_project.moovda.module.movie.service;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
-import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.search.MovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.repository.MovieRepository;
-import com.moovda_project.moovda.module.search.MovieSearchCondition;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 @Transactional
 @RequiredArgsConstructor
 public class MovieService {
-
     private final MovieRepository movieRepository;
 
     @Transactional(readOnly = true)
@@ -43,6 +40,33 @@ public class MovieService {
         Set<Long> movieIds = new HashSet<>();
         List<Movie> filteredMovies = new ArrayList<>();
 
+        removeSameMovie(movieSearchDtos, movieIds, filteredMovies); // 중복 영화 제거
+
+        return filteredMovies;
+    }
+
+    public List<Movie> mainMovie(int count) {
+        List<Movie> allMovies = movieRepository.findAll();
+        List<Movie> randomMovies = new ArrayList<>();
+
+        int totalMovies = allMovies.size();
+
+        if(count>= totalMovies) {
+            return allMovies;
+        }
+
+        Random random = new Random();
+        while (randomMovies.size()<count) {
+            int randomIndex = random.nextInt(totalMovies);
+            Movie randomMovie = allMovies.get(randomIndex);
+
+            if (!randomMovies.contains(randomMovie)) randomMovies.add(randomMovie);
+        }
+
+        return randomMovies;
+    }
+
+    private void removeSameMovie(List<MovieSearchDto> movieSearchDtos, Set<Long> movieIds, List<Movie> filteredMovies) {
         for (MovieSearchDto movieSearchDto : movieSearchDtos) {
             if (!movieIds.contains(movieSearchDto.getMovieId())) {
                 movieIds.add(movieSearchDto.getMovieId());
@@ -50,8 +74,6 @@ public class MovieService {
                 filteredMovies.add(movie);
             }
         }
-
-        return filteredMovies;
     }
 
     private Movie findverifiedMovie(long movieId) {
@@ -60,6 +82,5 @@ public class MovieService {
 
         return movie;
     }
-
 
 }

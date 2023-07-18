@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 // import { RootState } from '../store/store';
 
-export const loginSlice = createSlice({
+export const authSlice = createSlice({
   name: 'login',
   initialState: {
     user: null,
@@ -17,8 +17,8 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { setUser, setToken } = loginSlice.actions;
+export default authSlice.reducer; // reducer 해주면 리턴이 됨
+export const { setUser, setToken } = authSlice.actions;
 
-export default loginSlice.reducer; // reducer 해주면 리턴이 됨
 // export const selectCurrentUser = (state: RootState) => state.auth;
 // export const selectCurrentToken = (state: RootState) => state.auth;
