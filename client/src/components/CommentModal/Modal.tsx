@@ -7,7 +7,8 @@ import { close } from '@/redux/features/commentSlice';
 import { selectStar } from '@/redux/features/starSlice';
 import CloseIcon from '@/assets/close.svg'
 import { useState,useCallback } from 'react';
-import { click } from '@/redux/features/deleteSlice';
+import { click} from '@/redux/features/deleteSlice';
+import {getContent} from '@/redux/features/commentSlice'
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useParams } from 'next/navigation';
@@ -15,12 +16,17 @@ import { useParams } from 'next/navigation';
 
 export function CommentModal(){
 const {movieId}=useParams()
-const [newComment, setNewComment]=useState('')
 const selectedStar=useSelector((state:RootState) => state.star.selectedStar)
+const contentToEdit=useSelector((state:RootState) => state.comment.content)
+const commentId=useSelector((state:RootState)=>state.comment.commentId)
+const [newComment, setNewComment]=useState(contentToEdit)
 const dispatch=useDispatch();
 
+console.log(selectedStar); 
+
 const handleClose=()=>{
-    dispatch(close())
+    dispatch(close());
+    dispatch(getContent(''));
 }
 
 const handleAddComent=useCallback(()=>{
@@ -39,9 +45,28 @@ const handleAddComent=useCallback(()=>{
         dispatch(close())
     })
     .catch((error)=>{
-console.log(error.message);
+        console.log(error.message);
     })
 },[movieId, newComment,selectedStar ])
+
+const handleUpdate=useCallback(()=>{
+    axios
+    .patch(
+        `/comments/${commentId}`,
+        {content: newComment, star: selectedStar},
+        {headers:{
+            'Authorization': ''
+        }}
+    )
+    .then(()=>{
+        alert('코멘트가 수정되었습니다');
+        dispatch(close())
+        dispatch(getContent(''))//리덕스 content 데이터 삭제
+    })
+    .catch((error)=>{
+        console.log(error.message);
+    })
+},[commentId,newComment,selectStar])
 
     return(
     <S.ModalBackdrop>
@@ -51,8 +76,8 @@ console.log(error.message);
     <S.Content 
     placeholder='코멘트 입력 (10자 이상 40자 이하)'
     value={newComment}
-    onChange={(e: { target: { value: React.SetStateAction<string>; }; })=>setNewComment(e.target.value)}></S.Content>
-    <S.SubmitBtn onClick={handleAddComent}>등록</S.SubmitBtn>
+    onChange={(e: { target: { value: React.SetStateAction<string|undefined>; }; })=>setNewComment(e.target.value)}></S.Content>
+    <S.SubmitBtn onClick={contentToEdit?handleUpdate:handleAddComent}>등록</S.SubmitBtn>
     </S.ModalContainer>
     </S.ModalBackdrop>
     )
@@ -66,7 +91,6 @@ function Starrate(){
     const handleClick = (star:number) => {
         dispatch(selectStar(star));
       };
-    
       return(
         <S.StarratingWrapper>
             <S.Starrating>

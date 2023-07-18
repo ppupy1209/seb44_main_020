@@ -54,7 +54,7 @@ export const data={
        "content":"어떤 불은 물로는 끌 수 없어",
        "star":5,
        "likeCount":1,
-       "createdAt":""
+       "createdAt":"2023-07-17T05:52:21"
     },
     {
         "memberId":2,
@@ -63,7 +63,7 @@ export const data={
         "content":"어떤 불은 물로는 끌 수 없어어떤 불은 물로는 끌 수 없어12345678",
         "star":4.5,
         "likeCount":10,
-        "createdAt":""
+        "createdAt":"2023-07-17T05:52:21"
      },
      {
         "memberId":3,
@@ -72,7 +72,7 @@ export const data={
         "content":"어떤 불은 물로는 끌 수 없어",
         "star":5,
         "likeCount":3,
-        "createdAt":""
+        "createdAt":"2023-07-17T05:52:21"
      },
      {
         "memberId":3,
@@ -81,7 +81,7 @@ export const data={
         "content":"어떤 불은 물로는 끌 수 없어",
         "star":5,
         "likeCount":3,
-        "createdAt":""
+        "createdAt":"2023-07-17T05:52:21"
      },     {
         "memberId":3,
         "commentId":5,
@@ -89,7 +89,7 @@ export const data={
         "content":"어떤 불은 물로는 끌 수 없어",
         "star":5,
         "likeCount":3,
-        "createdAt":""
+        "createdAt":"2023-07-17T05:52:21"
      },     {
         "memberId":3,
         "commentId":6,
@@ -97,7 +97,7 @@ export const data={
         "content":"어떤 불은 물로는 끌 수 없어",
         "star":5,
         "likeCount":3,
-        "createdAt":""
+        "createdAt":"2023-07-17T05:52:21"
      }],
 
 };

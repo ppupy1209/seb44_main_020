@@ -13,7 +13,8 @@ import { RootState } from '@/redux/store';
 import {open} from '@/redux/features/commentSlice'
 import { useParams } from 'next/navigation';
 import axios from 'axios';
-
+import { selectStar } from '@/redux/features/starSlice';
+import { useCallback } from 'react';
 
 
 interface Genre{
@@ -54,11 +55,11 @@ interface Staff {
 export default function MovieDetail() {
 
 // const [data,setData]=useState<MovieData | null>(null);
-const dispatch=useDispatch();
-const openState=useSelector((state:RootState)=>state.comment.isOpen);
-const {movieId}=useParams();
+    const dispatch=useDispatch();
+    const openState=useSelector((state:RootState)=>state.comment.isOpen);
+    const {movieId}=useParams();
 
-// useEffect(()=>{
+        // useEffect(()=>{
 //     axios.get(`/movies/${movieId}?page=1`)
 //     .then((res)=>{
 //       setData(res.data.data);
@@ -67,30 +68,41 @@ const {movieId}=useParams();
 //     });
 //   },[]);
 
-
-const handleOpen=()=>{
-    dispatch(open())
-}
-    
     const memberId=1; //현재 로그인 상태의 멤버 아이디
     const found= data?.comments?.find(e=>e.memberId===memberId);
-
-
     const starAvg= data?.starAvg.toFixed(1);
-
     const genre=data?.genre.map((item)=>(
-        item.name
-    ))
-
+    item.name))
+    
     function changeDateFormat(date:string){
         const year =date.slice(0,2);
         const month =date.slice(2,4);
         const day =date.slice(4,6);
-
         const formattedDate=`20${year}.${month}.${day}`
-
         return formattedDate;
     }
+
+
+    const handleOpenModal=()=>{
+        dispatch(open())
+        dispatch(selectStar(null))
+    }
+
+    const handleToWatch=useCallback(()=>{
+        axios
+        .post(
+        `/toWatch/${movieId}`,
+        {},{
+        headers:{
+            'Authorization': ''
+        }}
+    )
+    .then(()=>{
+        alert('볼 영화 리스트에 추가되었습니다.')})
+    .catch((error)=>{
+        console.log(error.message);
+    })
+    },[movieId])
 
     const staffList= data?.staff.map((list,index)=>(
         <StaffBox key={index} data={list} />
@@ -122,8 +134,8 @@ const handleOpen=()=>{
                     <S.RunningTime>{data?.runningTime}분</S.RunningTime>
                     </S.DetailWrapper>
                     <S.BtnWrapper>
-                        <S.ToWatchBtn onClick={handleOpen} ><span><Pen fill="#ffffff"/></span><span>별점・코멘트</span> </S.ToWatchBtn>
-                        <S.WatchedBtn ><span><Plus fill="#ffffff"/></span><span>보고싶어요</span></S.WatchedBtn>
+                        <S.ToWatchBtn onClick={handleOpenModal} ><span><Pen fill="#ffffff"/></span><span>별점・코멘트</span> </S.ToWatchBtn>
+                        <S.WatchedBtn onClick={handleToWatch}><span><Plus fill="#ffffff"/></span><span>보고싶어요</span></S.WatchedBtn>
                     </S.BtnWrapper>
 
                     <S.Summary>

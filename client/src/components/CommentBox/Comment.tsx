@@ -3,9 +3,13 @@ import axios from 'axios';
 import * as S from './Comment.styled';
 import Heart from '@/assets/heart.svg';
 import Fullstar from '@/assets/fullStar.svg'
-import { useCallback } from 'react';
+import { ReactNode, useCallback } from 'react';
 import { handleDelete } from '@/api/axiosHandler';
-
+import { useState } from 'react';
+import {open,getContent,getCommentId} from '@/redux/features/commentSlice'
+import { useDispatch,useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+import { selectStar } from '@/redux/features/starSlice';
 
 interface Props {
     data: {
@@ -21,46 +25,73 @@ interface Props {
 
 export function Comment({data}:Props) {
 
+const [like, setLike]=useState<number|undefined>(data.likeCount);
+const [liked,setLiked]=useState(false)
 const {commentId}=data
+const dispatch=useDispatch();
 
 const handleLike=useCallback(()=>{
-    axios
-    .post(
-        `/comments/${commentId}/likes`,
-        {},{
-        headers:{
-            'Authorization': ''
-        }}
-    )
-    .then(()=>{
-        alert('좋아요 반영');
-    })
-    .catch((error)=>{
-        console.log('Error:', error.message);
-    });
-    },[commentId])
+    // axios
+    // .post(
+    //     `/comments/${commentId}/likes`,
+    //     {},{
+    //     headers:{
+    //         'Authorization': ''
+    //     }}
+    // )
+    // .then(()=>{
+    //     //좋아요 상태가 있어야 반영 가능할듯...?
+        if(liked===false){
+            like&&setLike(like+1);
+            setLiked(true); 
+        }
+        else{
+            if(like&&like>0){
+                setLike(like-1);
+                setLiked(false); 
+            }
+        }
+//     })
+//     .catch((error)=>{
+//         console.log('Error:', error.message);
+//     });
+},[commentId,liked,like])
 
-    // const handleDeleteComment=()=>{
-    //     handleDelete(`serveradress/comments/${commentId}`);
-    // };
 
-const handleDelete = 
+const handleDeleteComment = 
     () => {
-      if (window.confirm('삭제하시겠습니까?')){
-        //삭제 확인 경고창
-        axios
-          .delete(`/comments/${commentId}`,
-{headers:
-{'Authorization': ''}}
-            )
-          .then(() => {
-            console.log('삭제 성공');
-            alert('삭제가 완료되었습니다.');
-          })
-          .catch((error) => {
-            console.log('Error:', error.message);
-          });
-    }}
+        handleDelete(`/comments/${commentId}`);
+}
+    
+    const handleModalOpen=()=>{
+        dispatch(open());
+        dispatch(getCommentId(data.commentId));
+        dispatch(getContent(data.content))
+        if(data.star){dispatch(selectStar(data.star))}
+    }
+
+
+    const CommentDate = ()=> {
+        if(data.createdAt){
+        const milliSeconds: number = new Date().getTime() - new Date(data.createdAt).getTime();
+        const seconds: number = milliSeconds / 1000;
+      
+        if (seconds < 60) return `방금 전`;
+        const minutes: number = seconds / 60;
+        if (minutes < 60) return `${Math.floor(minutes)}분 전`;
+        const hours: number = minutes / 60;
+        if (hours < 24) return `${Math.floor(hours)}시간 전`;
+        const days: number = hours / 24;
+        if (days < 7) return `${Math.floor(days)}일 전`;
+        const weeks: number = days / 7;
+        if (weeks < 5) return `${Math.floor(weeks)}주 전`;
+        const months: number = days / 30;
+        if (months < 12) return `${Math.floor(months)}개월 전`;
+        const years: number = days / 365;
+        return `${Math.floor(years)}년 전`;
+        }
+        return ''
+      };
 
     return(
         <S.Container>
@@ -68,7 +99,7 @@ const handleDelete =
                 <S.Top>
                     <S.Left>
                         <S.Nickname>{data.nickname}</S.Nickname>
-                        <S.CreatedAt>(작성시간)</S.CreatedAt>
+                        <S.CreatedAt>{CommentDate()}</S.CreatedAt>
                     </S.Left>
                     <S.Right>
                         <S.StarIcon><Fullstar /></S.StarIcon>
@@ -79,12 +110,12 @@ const handleDelete =
                 </S.Content>
                 <S.Bottom>
                     <S.LikeWrapper>
-                    <S.LikeBtn onClick={handleLike}><Heart width="20" height="20" fill="#E7E7E7"/></S.LikeBtn>
-                    <S.LikeCount>{data.likeCount}</S.LikeCount>
+                    <S.LikeBtn onClick={handleLike}><Heart width="20" height="20" /></S.LikeBtn>
+                    <S.LikeCount>{like}</S.LikeCount>
                     </S.LikeWrapper>
                     <S.BtnWrapper>
-                    <S.EditBtn>수정</S.EditBtn>
-                    <S.DeleteBtn onClick={handleDelete}>삭제</S.DeleteBtn>
+                    <S.EditBtn onClick={handleModalOpen}>수정</S.EditBtn>
+                    <S.DeleteBtn onClick={handleDeleteComment}>삭제</S.DeleteBtn>
                     </S.BtnWrapper>
                 </S.Bottom>
             </S.Wrapper>

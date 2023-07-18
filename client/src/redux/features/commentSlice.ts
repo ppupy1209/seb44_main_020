@@ -1,11 +1,15 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 export type Comment={
-    isOpen:boolean;
+    isOpen?:boolean;
+    content?:string;
+    commentId?:number|null;
 }
 
 const initialState={
     isOpen:false,
+    content:'',
+    commentId:null
 } as Comment
 
 export const comment=createSlice({
@@ -17,9 +21,17 @@ export const comment=createSlice({
         },
         close:(state)=>{
             state.isOpen=false;
+        },
+        getContent:(state,action)=>{
+            state.content=action.payload;
+        },
+        getCommentId:(state,action)=>{
+            state.content=action.payload;
         }
-    }
-})
+        }
 
-export const { open, close}=comment.actions;
+    }
+)
+
+export const { open, close,getContent,getCommentId}=comment.actions;
 export default comment.reducer;

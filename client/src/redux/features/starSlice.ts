@@ -10,7 +10,7 @@ const starSlice = createSlice({
     selectedStar: null,
   }as StarState,
   reducers: {
-    selectStar: (state, action: PayloadAction<number>) => {
+    selectStar: (state, action: PayloadAction<number|null>) => {
       state.selectedStar = action.payload;
     },
   },

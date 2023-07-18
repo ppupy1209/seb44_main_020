@@ -68,7 +68,11 @@ gap: 10px;
 `;
 
 export const LikeBtn=styled.div`
-cursor: pointer;`;
+cursor: pointer;
+>svg{fill:#E7E7E7;
+&:hover{
+fill:#E96E75;
+}}`;
 
 export const LikeCount=styled.div`
 font-size:14px`;
