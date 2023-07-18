@@ -56,6 +56,7 @@ interface Staff {
     staff: Staff[];
     openingDate?: string;
     comments: Comment[];
+    pageInfo:PageInfo[];
   }
   
 
@@ -68,6 +69,7 @@ export default function MovieDetail() {
 // const [data,setData]=useState<MovieData | null>(null);
     const openState=useSelector((state:RootState)=>state.comment.isOpen);
     const {movieId}=useParams();
+    const [currentPage,setCurrentPage]=useState(1);
 
     const pageNumbers:number[]= Array.from(
         { length: Math.ceil(data.pageInfo.total / data.pageInfo.pageSize) },
@@ -75,7 +77,7 @@ export default function MovieDetail() {
       );
 
 // useEffect(()=>{
-//     axios.get(`/movies/${movieId}?page=${page}`)
+//     axios.get(`/movies/${movieId}?page=${currentPage}`)
 //     .then((res)=>{
 //       setData(res.data.data);
 //     }).catch((error)=>{
@@ -168,7 +170,7 @@ export default function MovieDetail() {
             <S.SectionContainer>
                 <S.SectionTitle>코멘트</S.SectionTitle>
                 <S.CommentList>{commentList}</S.CommentList>
-                <Pagination pageNumbers={pageNumbers} />
+                <Pagination pageNumbers={pageNumbers} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
                 </S.SectionContainer>
             </S.SectionWrapper>
         </S.Wrapper>
@@ -176,27 +178,24 @@ export default function MovieDetail() {
 }
 
 interface PaginationProps {
-pageNumbers:number[]
+pageNumbers:number[];
+currentPage:number;
+setCurrentPage:React.Dispatch<React.SetStateAction<number>>;
   }
 
-const Pagination = ({pageNumbers}:PaginationProps) => {
-    
-const [currentPage,setCurrentPage]=useState(1);
-
+//페이지네이션
+const Pagination = ({pageNumbers,currentPage,setCurrentPage}:PaginationProps) => {
 const handleClick = (pageNumber: number): void => {
     setCurrentPage(pageNumber);
   };
-
-console.log(currentPage);
 
     return (
       <div>
         <nav>
           <S.PageButtonGroup>
             {pageNumbers.map((pageNumber) => (
-              <S.PageButtonBox key={pageNumber} onClick={() => handleClick(pageNumber)}>
-                <S.PageButton 
-                >
+              <S.PageButtonBox key={pageNumber} onClick={() => handleClick(pageNumber)} >
+                <S.PageButton className={(currentPage===pageNumber)?'active':''} >
                   {pageNumber}
                 </S.PageButton>
               </S.PageButtonBox>

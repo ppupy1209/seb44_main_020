@@ -45,7 +45,7 @@ const handleAddComent=useCallback(()=>{
         dispatch(close())
     })
     .catch((error)=>{
-        console.log(error.message);
+        console.log(error.message); //에러처리
     })
 },[movieId, newComment,selectedStar ])
 
