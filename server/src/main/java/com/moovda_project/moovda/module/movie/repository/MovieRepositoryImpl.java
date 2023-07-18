@@ -42,8 +42,8 @@ public class MovieRepositoryImpl implements MovieRepositoryCustom {
                         genreNameEq(condition.getGenre()),
                         countryEq(condition.getCountry()),
                         ratingEq(condition.getRating()),
-                        starAvgBetween(condition.getStartStarAvg(), condition.getEndStarAvg())
-
+                        starAvgBetween(condition.getStartStarAvg(), condition.getEndStarAvg()),
+                        searchKeyWordLike(condition.getKeyword())
                 )
                 .fetch();
 
@@ -71,6 +71,16 @@ public class MovieRepositoryImpl implements MovieRepositoryCustom {
             return QMovie.movie.starAvg.goe(startStarAvg);
         } else {
             return QMovie.movie.starAvg.between(startStarAvg, endStarAvg);
+        }
+    }
+
+    private BooleanExpression searchKeyWordLike(String keyword) {
+        if(StringUtils.isEmpty(keyword)) {
+            return null;
+        } else {
+            return movie.title.containsIgnoreCase(keyword)
+                    .or(movie.movieStaffs.any().staff.name.containsIgnoreCase(keyword));
+
         }
     }
 }

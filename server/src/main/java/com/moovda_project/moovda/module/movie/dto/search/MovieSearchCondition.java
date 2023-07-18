@@ -18,4 +18,5 @@ public class MovieSearchCondition {
     private String rating;
     private Double startStarAvg;
     private Double endStarAvg;
+    private String keyword;
 }
