@@ -11,6 +11,7 @@ const GlobalStyle = createGlobalStyle`
 body{
     color: white;
     background-color: #01123d;
+    padding-top:100px;
 }
 a {
     text-decoration: none;
