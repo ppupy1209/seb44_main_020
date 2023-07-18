@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.module.answer.controller;
 
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.answer.dto.AnswerDto;
 import com.moovda_project.moovda.module.answer.entity.Answer;
 import com.moovda_project.moovda.module.answer.mapper.AnswerMapper;
@@ -41,16 +42,23 @@ public class AnswerController {
     @PatchMapping("/{answer-id}")
     public ResponseEntity patchAnswer(@Valid @RequestBody AnswerDto.Patch request,
                                       @Positive @PathVariable("answer-id") long answerId) {
+        long authenticatedMemberId = MemberIdExtractor.extractMemberId();
+
         request.setAnswerId(answerId);
-        answerService.updateAnswer(answerMapper.answerPatchToAnswer(request));
+        request.addAuthenticatedMemberId(authenticatedMemberId);
+
+        Answer answer = answerService.updateAnswer(answerMapper.answerPatchToAnswer(request),authenticatedMemberId);
 
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{answer-id}")
     public ResponseEntity deleteAnswer(@Positive @PathVariable("answer-id") long answerId) {
-        answerService.deleteAnswer(answerId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        long authenticatedMemberId = MemberIdExtractor.extractMemberId();
+
+        answerService.deleteAnswer(answerId, authenticatedMemberId);
+
+        return ResponseEntity.noContent().build();
     }
 
 }

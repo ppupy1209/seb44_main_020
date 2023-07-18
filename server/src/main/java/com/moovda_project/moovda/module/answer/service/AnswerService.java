@@ -31,25 +31,50 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    public Answer updateAnswer(Answer answer) {
+    public Answer updateAnswer(Answer answer, long authenticationMemberId) {
         // TODO : 본인 검증 로직 추가
         Answer foundAnswer = findAnswer(answer.getAnswerId());
-        Optional.ofNullable(answer.getContent()).ifPresent(content -> foundAnswer.setContent(content));
-        Optional.ofNullable(answer.getMovie()).ifPresent(movie -> foundAnswer.setMovie(movie));
-        Optional.ofNullable(answer.getModifiedAt()).ifPresent(modifiedAt -> foundAnswer.setModifiedAt(modifiedAt));
+
+        checkValidatedMember(authenticationMemberId, foundAnswer);
+
+        foundAnswer.setContent(answer.getContent());
+        foundAnswer.setMovie(answer.getMovie());
+        foundAnswer.setModifiedAt(answer.getModifiedAt());
+
         return answerRepository.save(foundAnswer);
     }
 
 
-    public void deleteAnswer(long answerId) {
+    public void deleteAnswer(long answerId, long authenticationMemberId) {
         // TODO : 본인 검증 로직 추가
-        answerRepository.deleteById(answerId);
+        Answer findAnswerId = findVerifiedAnswer(answerId);
+
+        checkValidatedMember(authenticationMemberId,findAnswerId);
+
+        answerRepository.delete(findAnswerId);
     }
     public Answer findAnswer(long answerId){
         Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
         return optionalAnswer.orElseThrow( () -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
     }
 
+    /** 질문이 등록된 질문인지 확인 메서드 **/
+    public Answer findVerifiedAnswer(long answerId){
+
+        Optional<Answer> findAnswer = answerRepository.findById(answerId);
+
+        Answer answer = findAnswer.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+
+        return answer;
+    }
+
+    /** 작성한 회원인지 확인하는 메서드 **/
+    private void checkValidatedMember(long memberId, Answer answer) {
+        if(answer.getMember().getMemberId()!= memberId) {
+            throw new BusinessLogicException(ExceptionCode.MEMBER_UNAUTHORIZED);
+        }
+    }
 
  //   public List<Answer> findAnswers(long questionId) {
 //        return answerRepository.findAll(questionId);

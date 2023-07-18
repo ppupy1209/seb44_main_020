@@ -1,6 +1,9 @@
 package com.moovda_project.moovda.module.movie.dto;
 
-import com.moovda_project.moovda.module.movie.entity.genre.Genre;
+import com.moovda_project.moovda.global.dto.PageDto;
+import com.moovda_project.moovda.module.comment.dto.CommentResponseDto;
+import com.moovda_project.moovda.module.movie.dto.genre.GenreResponseDto;
+import com.moovda_project.moovda.module.movie.dto.staff.StaffResponseDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +17,6 @@ public class MovieResponseDto {
     String country;
     String summary;
     String poster;
-
     Integer runningTime;
     Double starAvg;
 
@@ -24,5 +26,7 @@ public class MovieResponseDto {
     String openingDate;
 
     List<CommentResponseDto> comments;
+
+    PageDto pageInfo;
 
 }

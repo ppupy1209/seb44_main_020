@@ -1,15 +1,10 @@
 package com.moovda_project.moovda.module.movie.controller;
 
 import com.moovda_project.moovda.global.dto.SingleResponseDto;
-import com.moovda_project.moovda.module.movie.dto.MovieFilterResponseDto;
-import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.QMovie;
 import com.moovda_project.moovda.module.movie.mapper.MovieMapper;
-import com.moovda_project.moovda.module.movie.repository.MovieRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
-import com.moovda_project.moovda.module.search.MovieSearchCondition;
-import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,24 +19,31 @@ import java.util.List;
 @RequestMapping("/movies")
 @RequiredArgsConstructor
 public class MovieController {
-
      private final MovieService movieService;
      private final MovieMapper mapper;
 
-     private final MovieRepository movieRepository;
-
     @GetMapping("{movie_id}")
-    public ResponseEntity getMovie(@PathVariable("movie_id") @Positive long movieId) {
+    public ResponseEntity getMovie(@PathVariable("movie_id") @Positive long movieId,
+                                   @Positive @RequestParam int page) {
         Movie movie = movieService.findMovie(movieId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie)), HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie,page,6)), HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public List<MovieFilterResponseDto> searchMovie(MovieSearchCondition condition) {
+    public ResponseEntity searchMovie(MovieSearchCondition condition,
+                                      @Positive @RequestParam int page) {
           List<Movie> movies = movieService.filterMovie(condition);
 
+          return new ResponseEntity<>(mapper.moviesToPagedMovieFilterResponseDto(movies,page,10), HttpStatus.OK);
 
-          return mapper.moviesToMovieFilterResponseDtos(movies);
+    }
+
+
+    @GetMapping("/main")
+    public ResponseEntity mainMovie() {
+        List<Movie> randomMovies = movieService.mainMovie(10);
+
+        return new ResponseEntity<>(mapper.moviesToMovieMainResponseDto(randomMovies),HttpStatus.OK);
     }
 }

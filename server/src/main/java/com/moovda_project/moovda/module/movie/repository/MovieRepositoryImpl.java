@@ -1,21 +1,16 @@
 package com.moovda_project.moovda.module.movie.repository;
 
-import com.moovda_project.moovda.module.movie.dto.MovieFilterResponseDto;
-import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
-import com.moovda_project.moovda.module.movie.dto.QMovieSearchDto;
-import com.moovda_project.moovda.module.movie.entity.Movie;
+import com.moovda_project.moovda.module.movie.dto.search.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.search.QMovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.QMovie;
 import com.moovda_project.moovda.module.movie.entity.genre.QGenre;
-import com.moovda_project.moovda.module.movie.mapper.MovieMapper;
-import com.moovda_project.moovda.module.movie.service.MovieService;
-import com.moovda_project.moovda.module.search.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static com.moovda_project.moovda.module.movie.entity.QMovie.*;
 import static com.moovda_project.moovda.module.movie.entity.genre.QGenre.*;
@@ -25,8 +20,6 @@ import static org.thymeleaf.util.StringUtils.*;
 public class MovieRepositoryImpl implements MovieRepositoryCustom {
 
     private final JPAQueryFactory queryFactory;
-
-
 
     public MovieRepositoryImpl(EntityManager em) {
         this.queryFactory = new JPAQueryFactory(em);
@@ -49,8 +42,8 @@ public class MovieRepositoryImpl implements MovieRepositoryCustom {
                         genreNameEq(condition.getGenre()),
                         countryEq(condition.getCountry()),
                         ratingEq(condition.getRating()),
-                        starAvgBetween(condition.getStartStarAvg(), condition.getEndStarAvg())
-
+                        starAvgBetween(condition.getStartStarAvg(), condition.getEndStarAvg()),
+                        searchKeyWordLike(condition.getKeyword())
                 )
                 .fetch();
 
@@ -78,6 +71,16 @@ public class MovieRepositoryImpl implements MovieRepositoryCustom {
             return QMovie.movie.starAvg.goe(startStarAvg);
         } else {
             return QMovie.movie.starAvg.between(startStarAvg, endStarAvg);
+        }
+    }
+
+    private BooleanExpression searchKeyWordLike(String keyword) {
+        if(StringUtils.isEmpty(keyword)) {
+            return null;
+        } else {
+            return movie.title.containsIgnoreCase(keyword)
+                    .or(movie.movieStaffs.any().staff.name.containsIgnoreCase(keyword));
+
         }
     }
 }
