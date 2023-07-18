@@ -2,6 +2,7 @@ package com.moovda_project.moovda.module;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.InetAddress;
@@ -10,6 +11,7 @@ import java.net.UnknownHostException;
 @RestController("/test")
 public class HealthController
 {
+    @GetMapping(value = "/")
     public ResponseEntity<String> healthCheck() {
         try {
             InetAddress ip = InetAddress.getLocalHost();
