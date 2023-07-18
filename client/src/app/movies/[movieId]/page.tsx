@@ -11,10 +11,11 @@ import { CommentModal } from '@/components/CommentModal/Modal';
 import {useSelector,useDispatch } from 'react-redux';
 import { RootState } from '@/redux/store';
 import {open} from '@/redux/features/commentSlice'
-import { useParams } from 'next/navigation';
+import { useParams,useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { selectStar } from '@/redux/features/starSlice';
 import { useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 
 
 interface Genre{
@@ -36,6 +37,12 @@ interface Staff {
     likeCount:number;
     createdAt:string;
   }
+  
+  interface PageInfo{
+    currentPage: number;
+    pageSize: number;
+    total: number;
+  }
 
   interface MovieData {
     movieId: number;
@@ -53,14 +60,22 @@ interface Staff {
   
 
 export default function MovieDetail() {
+    const dispatch=useDispatch();
+    // const searchParams=useSearchParams();
+    // const pageNumber = searchParams.get('page') ?? 1;
+    // console.log(pageNumber)
 
 // const [data,setData]=useState<MovieData | null>(null);
-    const dispatch=useDispatch();
     const openState=useSelector((state:RootState)=>state.comment.isOpen);
     const {movieId}=useParams();
 
-        // useEffect(()=>{
-//     axios.get(`/movies/${movieId}?page=1`)
+    const pageNumbers:number[]= Array.from(
+        { length: Math.ceil(data.pageInfo.total / data.pageInfo.pageSize) },
+        (_, i) => i + 1
+      );
+
+// useEffect(()=>{
+//     axios.get(`/movies/${movieId}?page=${page}`)
 //     .then((res)=>{
 //       setData(res.data.data);
 //     }).catch((error)=>{
@@ -100,7 +115,7 @@ export default function MovieDetail() {
     .then(()=>{
         alert('볼 영화 리스트에 추가되었습니다.')})
     .catch((error)=>{
-        console.log(error.message);
+        console.log(error.message);//에러 처리
     })
     },[movieId])
 
@@ -153,8 +168,42 @@ export default function MovieDetail() {
             <S.SectionContainer>
                 <S.SectionTitle>코멘트</S.SectionTitle>
                 <S.CommentList>{commentList}</S.CommentList>
+                <Pagination pageNumbers={pageNumbers} />
                 </S.SectionContainer>
             </S.SectionWrapper>
         </S.Wrapper>
     )
 }
+
+interface PaginationProps {
+pageNumbers:number[]
+  }
+
+const Pagination = ({pageNumbers}:PaginationProps) => {
+    
+const [currentPage,setCurrentPage]=useState(1);
+
+const handleClick = (pageNumber: number): void => {
+    setCurrentPage(pageNumber);
+  };
+
+console.log(currentPage);
+
+    return (
+      <div>
+        <nav>
+          <S.PageButtonGroup>
+            {pageNumbers.map((pageNumber) => (
+              <S.PageButtonBox key={pageNumber} onClick={() => handleClick(pageNumber)}>
+                <S.PageButton 
+                >
+                  {pageNumber}
+                </S.PageButton>
+              </S.PageButtonBox>
+            ))}
+          </S.PageButtonGroup>
+        </nav>
+      </div>
+    );
+  };
+  

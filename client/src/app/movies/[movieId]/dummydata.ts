@@ -98,7 +98,13 @@ export const data={
         "star":5,
         "likeCount":3,
         "createdAt":"2023-07-17T05:52:21"
-     }],
+     },],
+
+     "pageInfo": {
+        "currentPage": 1,
+        "pageSize": 6,
+        "total": 20
+        }
 
 };
 

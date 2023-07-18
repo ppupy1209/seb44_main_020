@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 
 export const Wrapper=styled.div`
-margin: 50px 90px 0 90px;
+margin: 50px 90px 50px 90px;
 `;
 
 export const MovieInfoWrapper=styled.div`
@@ -135,4 +135,31 @@ export const CommentList=styled(StaffList)`
 display:grid;
 grid-template-columns: repeat(3, 1fr);
 place-items:center;
-grid-gap:60px`;
+grid-gap:60px;`;
+
+export const PageButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+`;
+
+export const PageButtonBox = styled.li`
+  display: inline;
+`;
+
+export const PageButton = styled.button`
+border: none;
+  background-color: #01123D;
+  color: white;
+  width: 30px;
+  height: 32px;
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: #f48224;
+  }
+  &.active {
+    background-color: #f48224;
+  }
+`;
