@@ -8,6 +8,7 @@ import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.watch.entity.ToWatch;
 import com.moovda_project.moovda.module.watch.repository.ToWatchRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
+import com.moovda_project.moovda.module.watch.repository.WatchedRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ToWatchService {
     private final ToWatchRepository toWatchRepository;
+    private final WatchedRepository watchedRepository;
     private final MovieService movieService;
     private final MemberService memberService;
 
@@ -29,6 +31,8 @@ public class ToWatchService {
         Member member = memberService.findVerifiedMember(memberId);
 
         checkToWatchExists(movie, member); // ToWatch가 이미 있으면 ToWatch 추가 못함
+
+        checkWatchedExists(movie,member); // Watched가 이미 있으면 ToWatch 추가 못함
 
         toWatch.setMovie(movie);
         toWatch.setMember(member);
@@ -62,6 +66,12 @@ public class ToWatchService {
     private void checkToWatchExists(Movie movie, Member member) {
         if(toWatchRepository.findByMemberAndMovie(member, movie).isPresent()) {
             throw new BusinessLogicException(ExceptionCode.TOWATCH_EXISTS);
+        }
+    }
+
+    private void checkWatchedExists(Movie movie, Member member) {
+        if(watchedRepository.findByMemberAndMovie(member, movie).isPresent()) {
+            throw new BusinessLogicException(ExceptionCode.WATCHED_EXISTS);
         }
     }
 }
