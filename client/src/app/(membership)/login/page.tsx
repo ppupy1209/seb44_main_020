@@ -7,10 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser, setToken } from '../../../redux/features/authSlice';
 import axios from 'axios';
 import { setLoginState } from '@/redux/features/loginSlice';
+import jwtDecode from 'jwt-decode';
+
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const url = `${process.env.REACT_APP_API_URL}/members/login`;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/members/login`;
   const { data: session } = useSession();
   dispatch(setUser(session));
 
@@ -29,6 +31,8 @@ const LoginPage = () => {
       );
       const Authorization = response.headers.authorization;
       const Refresh = response.headers.refresh;
+      const decodedToken = jwtDecode(Authorization) as { memberId?: string };
+      const memberId = decodedToken?.memberId;
       if (response.status === 200) {
         dispatch(setLoginState(true));
         alert('로그인에 성공하였습니다.');
@@ -37,6 +41,7 @@ const LoginPage = () => {
           JSON.stringify({
             access: Authorization,
             refresh: Refresh,
+            memberId: memberId,
           }),
         );
         localStorage.setItem(
@@ -46,6 +51,7 @@ const LoginPage = () => {
           }),
         );
         dispatch(setUser(response.data.updatedSession)); // 사용자 정보 Redux 상태 업데이트
+        dispatch(setToken(response.data.memberId)); // store에 memberId 저장
       } else {
         alert('로그인에 실패하였습니다.');
       }
