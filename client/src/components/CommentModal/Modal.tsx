@@ -10,9 +10,11 @@ import { useState,useCallback } from 'react';
 import { click } from '@/redux/features/deleteSlice';
 import axios from 'axios';
 import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 
 
 export function CommentModal(){
+const {movieId}=useParams()
 const [newComment, setNewComment]=useState('')
 const selectedStar=useSelector((state:RootState) => state.star.selectedStar)
 const dispatch=useDispatch();
@@ -21,22 +23,25 @@ const handleClose=()=>{
     dispatch(close())
 }
 
-// const handleAddComent=useCallback(()=>{
-//     axios
-//     .post(
-//         `comments/${movie_id}`,
-//         {content: newComment, star: selectedStar},
-//         //{headers}
-//     )
-//     .then(()=>{
-//         alert('코멘트가 등록되었습니다');
-//         dispatch(close())
-
-//     })
-//     .catch((error)=>{
-//  //에러처리
-//     })
-// },[movieId, newComment,selectedStar ])
+const handleAddComent=useCallback(()=>{
+    axios
+    .post(
+        `/comments/${movieId}`,
+        {content: newComment, star: selectedStar},
+{
+    headers:{
+    'Authorization': ''
+}
+}
+    )
+    .then(()=>{
+        alert('코멘트가 등록되었습니다');
+        dispatch(close())
+    })
+    .catch((error)=>{
+console.log(error.message);
+    })
+},[movieId, newComment,selectedStar ])
 
     return(
     <S.ModalBackdrop>
@@ -47,7 +52,7 @@ const handleClose=()=>{
     placeholder='코멘트 입력 (10자 이상 40자 이하)'
     value={newComment}
     onChange={(e: { target: { value: React.SetStateAction<string>; }; })=>setNewComment(e.target.value)}></S.Content>
-    <S.SubmitBtn>등록</S.SubmitBtn>
+    <S.SubmitBtn onClick={handleAddComent}>등록</S.SubmitBtn>
     </S.ModalContainer>
     </S.ModalBackdrop>
     )

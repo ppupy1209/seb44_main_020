@@ -28,12 +28,12 @@ export const data={
             "poster":"https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230608_106%2F1686210179351v3uGk_JPEG%2Fmovie_image.jpg"
         },
         {
-            "movieId":6,
+            "movieId":8,
             "title":"여름날 우리",
             "poster":"https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230517_69%2F1684307283737fSxvD_JPEG%2Fmovie_image.jpg"
         },
         {
-            "movieId":7,
+            "movieId":9,
             "title":"어디로 가고 싶으신가요",
             "poster":"https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230608_106%2F1686210179351v3uGk_JPEG%2Fmovie_image.jpg"
         },

@@ -4,6 +4,8 @@ import * as S from './Comment.styled';
 import Heart from '@/assets/heart.svg';
 import Fullstar from '@/assets/fullStar.svg'
 import { useCallback } from 'react';
+import { handleDelete } from '@/api/axiosHandler';
+
 
 interface Props {
     data: {
@@ -25,14 +27,40 @@ const handleLike=useCallback(()=>{
     axios
     .post(
         `/comments/${commentId}/likes`,
-        {},
-        // {headers}
+        {},{
+        headers:{
+            'Authorization': ''
+        }}
     )
+    .then(()=>{
+        alert('좋아요 반영');
+    })
     .catch((error)=>{
         console.log('Error:', error.message);
     });
-    //에러처리
     },[commentId])
+
+    // const handleDeleteComment=()=>{
+    //     handleDelete(`serveradress/comments/${commentId}`);
+    // };
+
+const handleDelete = 
+    () => {
+      if (window.confirm('삭제하시겠습니까?')){
+        //삭제 확인 경고창
+        axios
+          .delete(`/comments/${commentId}`,
+{headers:
+{'Authorization': ''}}
+            )
+          .then(() => {
+            console.log('삭제 성공');
+            alert('삭제가 완료되었습니다.');
+          })
+          .catch((error) => {
+            console.log('Error:', error.message);
+          });
+    }}
 
     return(
         <S.Container>
@@ -56,7 +84,7 @@ const handleLike=useCallback(()=>{
                     </S.LikeWrapper>
                     <S.BtnWrapper>
                     <S.EditBtn>수정</S.EditBtn>
-                    <S.DeleteBtn>삭제</S.DeleteBtn>
+                    <S.DeleteBtn onClick={handleDelete}>삭제</S.DeleteBtn>
                     </S.BtnWrapper>
                 </S.Bottom>
             </S.Wrapper>

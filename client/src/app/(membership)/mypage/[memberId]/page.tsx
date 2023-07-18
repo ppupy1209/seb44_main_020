@@ -1,7 +1,7 @@
 'use client'
 import {click} from '@/redux/features/deleteSlice'
 import { useDispatch, useSelector } from 'react-redux';
-// import { useState, useEffect,useCallback } from 'react';
+import { useState, useEffect,useCallback } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 import { MainPoster } from '@/components/MainPoster/MainPoster';
@@ -9,15 +9,36 @@ import {data} from './dummydata'
 import * as S from './page.styled';
 import theme from '@/components/MainPoster/theme';
 import { ThemeProvider } from 'styled-components';
-import { useCallback } from 'react';
 import { RootState } from '@/redux/store';
 import MyCarousel from '@/components/MyCarousel/MyCarousel';
 import { useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
+import axios from 'axios';
+
+interface ToWatch {
+  movieId:number;
+  title:string;
+  poster:string;
+ }
+
+interface Watched{
+  movieId:number;
+  title:string;
+  poster:string
+}
+
+interface My{
+  memberId:number;
+  nickname:string;
+  toWatch: ToWatch[]
+  watched: Watched[]
+}
 
 export default function MyPage() {
-  // const router=useRouter();
-  //useParams 호출
-  // const [data, setData]=useState([]);
+const router=useRouter();
+// const [data,setData]=useState<My | null>(null);
+const {memberId}=useParams();
+
     const showDelete =useSelector((state: RootState)=> state.showDelete.value);
     const dispatch=useDispatch();
 
@@ -26,7 +47,7 @@ export default function MyPage() {
     }
 
   // useEffect(()=>{
-  //   axios.get('주소/members/${member_id}')
+  //   axios.get(`/v11/members/${memberId}`)
   //   .then((res)=>{
   //     setData(res.data);
   //   }).catch((error)=>{
@@ -43,7 +64,7 @@ export default function MyPage() {
   //         `주소/members/${member_id}`,
   //         {
   //           headers: {
-  //            //권한헤더
+  //            'Authorization': ''
   //           },
   //         }
   //       )
@@ -58,15 +79,15 @@ export default function MyPage() {
   //   } 
   // }, [memberId]);
 
-const toWatchlist =data.toWatch.map((list)=>(
-    <ThemeProvider theme={theme.myPage}>
-<MainPoster key={list.movie_id} data={list} isWatched={false} isToWatch={true}/> 
+const toWatchlist =data?.toWatch?.map((list)=>(
+<ThemeProvider theme={theme.myPage} key={list.movieId}>
+<MainPoster data={list} isWatched={false} isToWatch={true}/> 
 </ThemeProvider>
 ));
 
-const watchedList=data.watched.map((list)=>(
-    <ThemeProvider theme={theme.myPage}>
-    <MainPoster key={list.movie_id} data={list} isWatched={true} isToWatch={false}/> 
+const watchedList=data?.watched?.map((list)=>(
+    <ThemeProvider theme={theme.myPage} key={list.movieId}>
+    <MainPoster key={list.movieId} data={list} isWatched={true} isToWatch={false}/> 
     </ThemeProvider>
 ))
 
@@ -75,7 +96,7 @@ const watchedList=data.watched.map((list)=>(
     my page
   </S.PageTitle>
   <S.Container>
-    <S.Nickname>{data.nickname} 님의 리스트</S.Nickname>
+    <S.Nickname>{data?.nickname} 님의 리스트</S.Nickname>
     <S.SectionWrapper>
     <S.Section>
     <S.SectionTitle>

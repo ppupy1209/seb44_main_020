@@ -6,7 +6,8 @@ export const handleDelete =
         //삭제 확인 경고창
         axios
           .delete(url,
-            // {headers}
+{headers:
+{'Authorization': ''}}
             )
           .then(() => {
             console.log('삭제 성공');
