@@ -29,14 +29,14 @@ public class QuestionService {
     // TODO : 작성한 회원이 존재하는 회원인지 확인
 
     public Question createQuestion(Question question) {
-        // memberService.findVerifiedMember(question.getMember().getMemberId());
+        memberService.findVerifiedMember(question.getMember().getMemberId());
         return questionRepository.save(question);
     }
 
     /** 질문 수정 **/
     public Question updateQuestion(Question question, long authenticationMemberId) {
         Question findQuestionId = findVerifiedQuestion(question.getQuestionId());
-        // TODO : 작성한 회원만 수정 가능
+
 
         checkValidatedMember(authenticationMemberId,findQuestionId);
 
@@ -46,10 +46,15 @@ public class QuestionService {
         return questionRepository.save(findQuestionId);
     }
 
-    /** 질문 조회 **/
+    /** 질문 조회
+     * Transactional로 인해 save를 안해도 views 증가**/
     public Question findQuestion(long questionId){
 
         Question findQuestion = findVerifiedQuestion(questionId);
+
+        // 답변 수 표시
+//        questionRepository.countByAnswers(questionId);
+
 
         // 조회수 +1 증가
         findQuestion.addView(findQuestion.getViews());
