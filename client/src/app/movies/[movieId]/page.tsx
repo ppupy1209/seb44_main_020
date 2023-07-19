@@ -96,7 +96,7 @@ export default function MovieDetail() {
         dispatch(open());
         dispatch(selectStar(null));
       } else {
-        alert('코멘트는 한 번만 등록 가능합니다.');
+        alert('코멘트는 하나만 등록이 가능합니다.');
       }
     } else {
       alert('로그인 후 이용이 가능합니다.');
@@ -146,7 +146,7 @@ export default function MovieDetail() {
       {openState ? <CommentModal /> : ''}
       <S.MovieInfoWrapper>
         <S.PosterStar>
-          <S.PosterImg src={data?.poster} alt="영화 포스터" />
+          <S.PosterImg src={data?.poster} alt="영화 포스터" loading="lazy" />
           <S.MyStar>
             <S.MystarIcon>
               <StarrateShow rate={found ? found.star : 0} />
