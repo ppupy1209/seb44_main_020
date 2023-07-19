@@ -1,6 +1,7 @@
 'use client';
 import MoovDa from '@/assets/moovdaLogo.svg';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 import {
   faMagnifyingGlass,
   faPen,
@@ -19,7 +20,7 @@ import {
   StyledLogo,
   StyledBody,
 } from './Header.styled';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { setLoginState } from '@/redux/features/loginSlice';
 
 const Header = () => {
@@ -31,6 +32,12 @@ const Header = () => {
     dispatch(setLoginState(false));
     localStorage.clear();
     signOut();
+  };
+  const handleMypageClick = () => {
+    const memberId = useSelector((state: RootState) => state.auth.memberId);
+    if (memberId) {
+      router.push(`/mypage/${memberId}`);
+    }
   };
   return (
     <StyledBody>
@@ -59,7 +66,7 @@ const Header = () => {
             icon={faUser}
             style={{ color: 'white' }}
             size="xl"
-            onClick={() => router.push('/mypage')}
+            onClick={handleMypageClick}
           />
         </StyledIconMyPage>
         {session ? (
