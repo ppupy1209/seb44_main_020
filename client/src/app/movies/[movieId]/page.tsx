@@ -196,11 +196,15 @@ export default function MovieDetail() {
         <S.SectionContainer>
           <S.SectionTitle>코멘트</S.SectionTitle>
           <S.CommentList>{commentList}</S.CommentList>
-          <Pagination
-            pageNumbers={pageNumbers}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          {pageNumbers.length !== 1 ? (
+            <Pagination
+              pageNumbers={pageNumbers}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          ) : (
+            ''
+          )}
         </S.SectionContainer>
       </S.SectionWrapper>
     </S.Wrapper>
