@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "movie_genre")
+@Table(name = "movie_genres")
 public class MovieGenre {
 
     @Id
