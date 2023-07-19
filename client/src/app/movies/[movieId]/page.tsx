@@ -147,7 +147,7 @@ export default function MovieDetail() {
       <S.MovieInfoWrapper>
         <S.PosterStar>
           <S.PosterImg src={data?.poster} alt="영화 포스터" loading="lazy" />
-          <S.MyStar>
+          <S.MyStar onClick={handleOpenModal}>
             <S.MystarIcon>
               <StarrateShow rate={found ? found.star : 0} />
             </S.MystarIcon>
