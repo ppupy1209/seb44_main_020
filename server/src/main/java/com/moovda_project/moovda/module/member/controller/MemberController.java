@@ -1,6 +1,5 @@
 package com.moovda_project.moovda.module.member.controller;
 
-import com.moovda_project.moovda.global.dto.SingleResponseDto;
 import com.moovda_project.moovda.module.member.dto.MemberDto;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.mapper.MemberMapper;
