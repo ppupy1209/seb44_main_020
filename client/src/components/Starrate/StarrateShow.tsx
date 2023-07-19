@@ -15,11 +15,11 @@ export function StarrateShow({ rate }: proptype) {
     <S.Container>
       {starRatings.map((starRating) => {
         if (rate >= starRating) {
-          return <Starfull />;
+          return <Starfull  key={starRating}/>;
         } else if (rate === starRating - 0.5) {
-          return <Starhalf />;
+          return <Starhalf  key={starRating} />;
         } else {
-          return <Starempty />;
+          return <Starempty width="24" height="24" fill="#1F305F"  key={starRating}/>;
         }
       })}
     </S.Container>
