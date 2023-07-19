@@ -1,8 +1,10 @@
 'use client'
-import Slider from 'react-slick';
+import Slider,{Settings} from 'react-slick';
 import styled from 'styled-components';
 
-export const StyledSlider=styled(Slider)`
+interface StyledSliderProps extends Settings {}
+
+export const StyledSlider: React.ComponentType<StyledSliderProps>=styled(Slider)`
 height: 100%;
 width: 100%;
 .slick-list{

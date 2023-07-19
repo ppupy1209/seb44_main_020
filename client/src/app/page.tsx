@@ -7,11 +7,14 @@ import MoovDa from '@/assets/moovdaLogo.svg';
 import MainCarousel from '@/components/MainCarousel/MainCarousel';
 import { MainPoster } from '@/components/MainPoster/MainPoster';
 import theme from '@/components/MainPoster/theme';
+import { useEffect } from 'react';
+import axios from 'axios';
+import { useState } from 'react';
 
 export default function MainPage() {
   // const [data, setData] = useState([]);
 
-  //더미데이터. 추후 삭제 예정
+  // 더미데이터. 추후 삭제 예정
   const data = [
     {
       poster: 'https://search.pstatic.net/common?quality=75&direct=true&src=https%3A%2F%2Fmovie-phinf.pstatic.net%2F20230526_154%2F1685060493223yFUCL_JPEG%2Fmovie_image.jpg',
@@ -46,7 +49,7 @@ export default function MainPage() {
   ];
 
   // useEffect(()=>{
-  //   axios.get('주소')
+  //   axios.get(`/movies/main`)
   //   .then((res)=>{
   //     setData(res.data);
   //   })
@@ -56,8 +59,8 @@ export default function MainPage() {
   // },[]);
 
   const posters = data.map((poster, index) => (
-    <ThemeProvider theme={theme.mainPage}>
-    <MainPoster key={index} data={poster} isWatched={false} isToWatch={false} />
+    <ThemeProvider theme={theme.mainPage} key={index}>
+    <MainPoster data={poster} isWatched={false} isToWatch={false} />
     </ThemeProvider>
   ));
   return (

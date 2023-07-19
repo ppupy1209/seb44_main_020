@@ -1,8 +1,8 @@
 package com.moovda_project.moovda.module.question.controller;
 
 
+import com.moovda_project.moovda.global.dto.MultiResponseDto;
 import com.moovda_project.moovda.global.utils.MemberIdExtractor;
-import com.moovda_project.moovda.module.question.dto.MultiResponseDto;
 import com.moovda_project.moovda.module.question.dto.QuestionDto;
 import com.moovda_project.moovda.module.question.entity.Question;
 import com.moovda_project.moovda.module.question.service.QuestionService;
@@ -56,7 +56,7 @@ public class QuestionController {
         requestBody.addQuestionId(questionId);
         requestBody.addAuthenticatedMemberId(authenticatedMemberId);
 
-        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(requestBody),authenticatedMemberId);
+        questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(requestBody),authenticatedMemberId);
 
         return ResponseEntity.ok().build();
     }

@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 interface Props {
   data: {
-    movie_id?:number;
+    movieId?:number;
     poster: string;
     title: string;
     star?: number;
@@ -34,7 +34,7 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
   }
 }
 
-  const movieId=data.movie_id
+  const {movieId}=data
   const showDelete =useSelector((state: RootState)=> state.showDelete.value);
 
       const handleDeleteMovie=(e: React.MouseEvent<HTMLDivElement>)=>{
