@@ -12,8 +12,8 @@ import org.thymeleaf.util.StringUtils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
-import static com.moovda_project.moovda.module.genre.entity.QGenre.genre;
-import static com.moovda_project.moovda.module.genre.entity.QMovieGenre.movieGenre;
+import static com.moovda_project.moovda.module.genre.entity.QGenre.*;
+import static com.moovda_project.moovda.module.genre.entity.QMovieGenre.*;
 import static com.moovda_project.moovda.module.movie.entity.QMovie.*;
 import static org.thymeleaf.util.StringUtils.*;
 
