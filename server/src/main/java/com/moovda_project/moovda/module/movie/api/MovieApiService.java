@@ -59,67 +59,70 @@ public class MovieApiService {
                 movie.setOpeningDate(movieObj.get("repRlsDate").toString());
                 movie.setRunningTime(Integer.parseInt(movieObj.get("runtime").toString()));
 
-                // 장르 시작
                 String[] genres = movieObj.get("genre").toString().split(",");
-                for(String genre : genres) {
-                   MovieGenre movieGenre = new MovieGenre();
+                addGenre(movie, genres);
 
-                   Genre existingGenre = genreRepository.findByName(genre);
-
-                   if (existingGenre == null) {
-                       existingGenre = new Genre();
-                       existingGenre.setName(genre);
-                       genreRepository.save(existingGenre);
-                   }
-
-                   movieGenre.setGenre(existingGenre);
-                   movieGenre.setMovie(movie);
-               }
-              // 장르 끝
-
-
-                // 스태프 시작
                 JSONObject actorsObj = (JSONObject) movieObj.get("staffs");
                 JSONArray actorArray = (JSONArray) actorsObj.get("staff");
-                int directorCnt = 0;
-                int actorCnt = 0;
-
-                for(Object actorObj : actorArray) {
-                    JSONObject ao = (JSONObject) actorObj;
-
-                    MovieStaff movieStaff = new MovieStaff();
-
-                    String position = ao.get("staffRoleGroup").toString();
-                    if(!position.equals("감독") && !position.equals("출연")) {
-                        continue;
-                    }       // 감독이랑 출연진만 저장
-
-                    if(position.equals("감독")) directorCnt++;
-                    if(position.equals("출연")) actorCnt++;
-
-                    movieStaff.setPosition(position);
-                    movieStaff.setRole(ao.get("staffRole").toString());
-
-                    String staffName = ao.get("staffNm").toString();
-
-                    Staff existingStaff = staffRepository.findByName(staffName);
-                    if(existingStaff==null) {
-                        existingStaff = new Staff();
-                        existingStaff.setName(staffName);
-                        staffRepository.save(existingStaff);
-                    }
-
-                    movieStaff.setStaff(existingStaff);
-                    movieStaff.setMovie(movie);
-
-                    if(directorCnt+actorCnt==8) break;  // 최대 8명까지만 저장
-                }
-                // 스태프 끝
+                addStaff(movie, actorArray);
 
                 movieRepository.save(movie);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void addStaff(Movie movie, JSONArray actorArray) {
+        int directorCnt = 0;
+        int actorCnt = 0;
+
+        for(Object actorObj : actorArray) {
+            JSONObject ao = (JSONObject) actorObj;
+
+            MovieStaff movieStaff = new MovieStaff();
+
+            String position = ao.get("staffRoleGroup").toString();
+            if(!position.equals("감독") && !position.equals("출연")) {
+                continue;
+            }       // 감독이랑 출연진만 저장
+
+            if(position.equals("감독")) directorCnt++;
+            if(position.equals("출연")) actorCnt++;
+
+            movieStaff.setPosition(position);
+            movieStaff.setRole(ao.get("staffRole").toString());
+
+            String staffName = ao.get("staffNm").toString();
+
+            Staff existingStaff = staffRepository.findByName(staffName);
+            if(existingStaff==null) {
+                existingStaff = new Staff();
+                existingStaff.setName(staffName);
+                staffRepository.save(existingStaff);
+            }
+
+            movieStaff.setStaff(existingStaff);
+            movieStaff.setMovie(movie);
+
+            if(directorCnt+actorCnt==8) break;  // 최대 8명까지만 저장
+        }
+    }
+
+    private void addGenre(Movie movie, String[] genres) {
+        for(String genre : genres) {
+           MovieGenre movieGenre = new MovieGenre();
+
+           Genre existingGenre = genreRepository.findByName(genre);
+
+           if (existingGenre == null) {
+               existingGenre = new Genre();
+               existingGenre.setName(genre);
+               genreRepository.save(existingGenre);
+           }
+
+           movieGenre.setGenre(existingGenre);
+           movieGenre.setMovie(movie);
+       }
     }
 }

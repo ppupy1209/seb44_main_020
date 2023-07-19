@@ -2,7 +2,6 @@ package com.moovda_project.moovda.module.member.entity;
 
 import com.moovda_project.moovda.global.audit.Auditable;
 
-import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.watch.entity.ToWatch;
 import com.moovda_project.moovda.module.watch.entity.Watched;
 import lombok.AllArgsConstructor;
@@ -49,6 +48,10 @@ public class Member extends Auditable {
 //        this.nickname = nickname;
 //    }
 
+
+    public Member(Long memberId) {
+        this.memberId = memberId;
+    }
 
     public void addToWatchList(ToWatch toWatch) {
         this.toWatchList.add(toWatch);

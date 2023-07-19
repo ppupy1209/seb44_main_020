@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor()
+@NoArgsConstructor
 @Getter
 @Setter
 @Table(name = "staffs")
@@ -18,9 +18,6 @@ public class Staff {
     private Long staffId;
     @Column(name = "name")
     private String name;
-
-//    @Column(name = "profile_image")
-//    private String profileImage;
 
 
 }

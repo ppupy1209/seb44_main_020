@@ -31,11 +31,11 @@ public class CommentService {
     public Comment createComment(Comment comment) {
 
         Member member = memberService.findVerifiedMember(comment.getMember().getMemberId());
-        Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
+        Movie movie = movieService.findVerifiedMovie(comment.getMovie().getMovieId());
 
-        existsCommentByMemberAndMovie(movie,member);   // 이미 코멘트를 작성했으면, 작성 못해야 함.
+        checkExistsCommentByMemberAndMovie(movie,member);   // 이미 코멘트를 작성했으면, 작성 못해야 함.
 
-        isSavedToWatch(member,movie);  // 볼 영화 목록에 있으면, 볼 영화 목록에서 삭제
+        checkExistsToWatchByMemberAndMovie(member,movie);  // 볼 영화 목록에 있으면, 볼 영화 목록에서 삭제
 
         Comment createdComment = commentRepository.save(comment);
 
@@ -51,12 +51,12 @@ public class CommentService {
 
        checkValidatedMember(memberId,findComment);  // 인증된 멤버인지 확인
 
-       findComment.setContent(comment.getContent());
-       findComment.setStar(comment.getStar());
+       findComment.updateComment(comment.getContent(),comment.getStar());
 
        Comment updatedComment = commentRepository.save(findComment);
 
-       Movie movie = movieService.findMovie(findComment.getMovie().getMovieId());
+       Movie movie = movieService.findVerifiedMovie(findComment.getMovie().getMovieId());
+
        updateStarAvg(movie);  // 평균 별점 업데이트
 
        return updatedComment;
@@ -73,10 +73,11 @@ public class CommentService {
 
         commentRepository.delete(comment);
 
-        Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
+        Movie movie = movieService.findVerifiedMovie(comment.getMovie().getMovieId());
+
         movie.removeComments(comment);
 
-         updateStarAvg(movie);  // 평균 별점 업데이트
+        updateStarAvg(movie);  // 평균 별점 업데이트
     }
 
 
@@ -109,9 +110,7 @@ public class CommentService {
     }
 
     private void addWatched(Movie movie, Member member) {
-        Watched watched = new Watched();
-        watched.setMovie(movie);
-        watched.setMember(member);
+        Watched watched = new Watched(movie,member);
 
         watchedService.createWatched(watched);
     }
@@ -126,13 +125,13 @@ public class CommentService {
         }
     }
 
-    private void existsCommentByMemberAndMovie(Movie movie, Member member) {
+    private void checkExistsCommentByMemberAndMovie(Movie movie, Member member) {
         if(commentRepository.existsByMemberAndMovie(member,movie)) {
             throw new BusinessLogicException(ExceptionCode.COMMENT_EXISTS);
         }
     }
 
-    private void isSavedToWatch(Member member, Movie movie) {
+    private void checkExistsToWatchByMemberAndMovie(Member member, Movie movie) {
          if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
              toWatchRepository.deleteByMemberAndMovie(member,movie);
          }
