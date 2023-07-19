@@ -27,7 +27,7 @@ public class AnswerService {
 
         answer.addQuestion(findQuestion);
         // answer.addMovie(answer.getMovie()); TODO: 영화 검색에서 얻은 데이터 등록하기
-        findQuestion.addAnswerCount(findQuestion.getAnswerCount()); // 답변 수 증가
+//        findQuestion.addAnswerCount(findQuestion.getAnswerCount()); // 답변 수 증가
 
         return answerRepository.save(answer);
     }

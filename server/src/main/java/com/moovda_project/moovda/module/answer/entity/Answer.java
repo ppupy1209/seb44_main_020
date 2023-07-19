@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "answers")
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
