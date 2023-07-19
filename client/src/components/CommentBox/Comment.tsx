@@ -10,6 +10,7 @@ import {open,getContent,getCommentId} from '@/redux/features/commentSlice'
 import { useDispatch,useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 import { selectStar } from '@/redux/features/starSlice';
+import { useRouter } from 'next/navigation';
 
 interface Props {
     data: {
@@ -24,8 +25,8 @@ interface Props {
   }
 
 export function Comment({data}:Props) {
-
-const [like, setLike]=useState<number|undefined>(data.likeCount);
+const router=useRouter();
+const [likeTotal, setLikeTotal]=useState<number|undefined>(data.likeCount);
 const [liked,setLiked]=useState(false)
 const {commentId}=data
 const dispatch=useDispatch();
@@ -42,12 +43,12 @@ const handleLike=useCallback(()=>{
     // .then(()=>{
     //     //좋아요 상태가 있어야 반영 가능할듯...?
         if(liked===false){
-            like&&setLike(like+1);
+            likeTotal&&setLikeTotal(likeTotal+1);
             setLiked(true); 
         }
         else{
-            if(like&&like>0){
-                setLike(like-1);
+            if(likeTotal&&likeTotal>0){
+                setLikeTotal(likeTotal-1);
                 setLiked(false); 
             }
         }
@@ -55,7 +56,7 @@ const handleLike=useCallback(()=>{
 //     .catch((error)=>{
 //         console.log('Error:', error.message);
 //     });
-},[commentId,liked,like])
+},[commentId,liked,likeTotal])
 
 
 const handleDeleteComment = 
@@ -63,14 +64,17 @@ const handleDeleteComment =
         handleDelete(`/comments/${commentId}`);
 }
     
-    const handleModalOpen=()=>{
+const handleModalOpen=()=>{
         dispatch(open());
         dispatch(getCommentId(data.commentId));
         dispatch(getContent(data.content))
         if(data.star){dispatch(selectStar(data.star))}
     }
 
-
+const {memberId}=data;
+const handleProfile=()=>{
+    router.push(`/mypage/${memberId}`)
+}
     const CommentDate = ()=> {
         if(data.createdAt){
         const milliSeconds: number = new Date().getTime() - new Date(data.createdAt).getTime();
@@ -98,7 +102,7 @@ const handleDeleteComment =
             <S.Wrapper>
                 <S.Top>
                     <S.Left>
-                        <S.Nickname>{data.nickname}</S.Nickname>
+                        <S.Nickname onClick={handleProfile}>{data.nickname}</S.Nickname>
                         <S.CreatedAt>{CommentDate()}</S.CreatedAt>
                     </S.Left>
                     <S.Right>
@@ -111,7 +115,7 @@ const handleDeleteComment =
                 <S.Bottom>
                     <S.LikeWrapper>
                     <S.LikeBtn onClick={handleLike}><Heart width="20" height="20" /></S.LikeBtn>
-                    <S.LikeCount>{like}</S.LikeCount>
+                    <S.LikeCount>{likeTotal}</S.LikeCount>
                     </S.LikeWrapper>
                     <S.BtnWrapper>
                     <S.EditBtn onClick={handleModalOpen}>수정</S.EditBtn>

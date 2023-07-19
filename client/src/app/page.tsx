@@ -59,8 +59,8 @@ export default function MainPage() {
   // },[]);
 
   const posters = data.map((poster, index) => (
-    <ThemeProvider theme={theme.mainPage}>
-    <MainPoster key={index} data={poster} isWatched={false} isToWatch={false} />
+    <ThemeProvider theme={theme.mainPage} key={index}>
+    <MainPoster data={poster} isWatched={false} isToWatch={false} />
     </ThemeProvider>
   ));
   return (
