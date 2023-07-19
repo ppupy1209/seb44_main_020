@@ -11,7 +11,6 @@ import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "watched")
 public class Watched extends Auditable {
@@ -28,6 +27,11 @@ public class Watched extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public Watched(Movie movie, Member member) {
+        this.movie = movie;
+        this.member = member;
+    }
 
     public void setMember(Member member) {
         this.member = member;

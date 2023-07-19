@@ -19,7 +19,6 @@ public class Genre {
     @Column(name = "genre_id")
     private Long genreId;
 
-
     @Column(name = "name")
     private String name;
 }

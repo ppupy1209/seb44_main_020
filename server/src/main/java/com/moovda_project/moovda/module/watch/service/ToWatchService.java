@@ -25,33 +25,30 @@ public class ToWatchService {
     private final MemberService memberService;
 
     public ToWatch createToWatch(long movieId, long memberId) {
-        ToWatch toWatch = new ToWatch();
-
-        Movie movie = movieService.findMovie(movieId);
+        Movie movie = movieService.findVerifiedMovie(movieId);
         Member member = memberService.findVerifiedMember(memberId);
 
         checkToWatchExists(movie, member); // ToWatch가 이미 있으면 ToWatch 추가 못함
 
         checkWatchedExists(movie,member); // Watched가 이미 있으면 ToWatch 추가 못함
 
-        toWatch.setMovie(movie);
-        toWatch.setMember(member);
+        ToWatch toWatch = new ToWatch(movie,member);
 
         return toWatchRepository.save(toWatch);
     }
     public void deleteToWatch(long movieId,long memberId) {
 
-        Movie movie = movieService.findMovie(movieId);
+        Movie movie = movieService.findVerifiedMovie(movieId);
         Member member = memberService.findVerifiedMember(memberId);
 
-        ToWatch toWatch = isSavedToWatch(movie, member); // ToWatch가 있어야 ToWatch 삭제 가능
+        ToWatch toWatch = checkExistsToWatch(movie, member); // ToWatch가 있어야 ToWatch 삭제 가능
 
-        checkValidatedMember(memberId,toWatch);
+        checkValidatedMember(memberId,toWatch); // 인증된 멤버인지 확인
 
         toWatchRepository.delete(toWatch);
     }
 
-    private ToWatch isSavedToWatch(Movie movie, Member member) {
+    private ToWatch checkExistsToWatch(Movie movie, Member member) {
         Optional<ToWatch> optionalToWatch = toWatchRepository.findByMemberAndMovie(member, movie);
         ToWatch toWatch = optionalToWatch.orElseThrow(() -> new BusinessLogicException(ExceptionCode.TOWATCH_NOT_FOUND));
         return toWatch;

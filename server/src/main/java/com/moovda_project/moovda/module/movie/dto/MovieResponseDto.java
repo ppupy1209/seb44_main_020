@@ -4,12 +4,12 @@ import com.moovda_project.moovda.global.dto.PageDto;
 import com.moovda_project.moovda.module.comment.dto.CommentResponseDto;
 import com.moovda_project.moovda.module.movie.dto.genre.GenreResponseDto;
 import com.moovda_project.moovda.module.movie.dto.staff.StaffResponseDto;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
-@Setter
+@Builder
 @Getter
 public class MovieResponseDto {
     long movieId;

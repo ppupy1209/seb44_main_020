@@ -5,13 +5,12 @@ import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 import javax.persistence.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "to_watch")
 public class ToWatch extends Auditable {
@@ -28,6 +27,11 @@ public class ToWatch extends Auditable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public ToWatch(Movie movie, Member member) {
+        this.movie = movie;
+        this.member = member;
+    }
 
     public void setMember(Member member) {
         this.member = member;
