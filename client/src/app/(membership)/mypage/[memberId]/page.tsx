@@ -1,11 +1,11 @@
-'use client'
-import {click} from '@/redux/features/deleteSlice'
+'use client';
+import { click } from '@/redux/features/deleteSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect,useCallback } from 'react';
 // import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 import { MainPoster } from '@/components/MainPoster/MainPoster';
-import {data} from './dummydata'
+import { data } from './dummydata';
 import * as S from './page.styled';
 import theme from '@/components/MainPoster/theme';
 import { ThemeProvider } from 'styled-components';
@@ -35,6 +35,7 @@ interface My{
 }
 
 export default function MyPage() {
+
 const router=useRouter();
 // const [data,setData]=useState<My | null>(null);
 const {memberId}=useParams();
@@ -42,9 +43,9 @@ const {memberId}=useParams();
     const showDelete =useSelector((state: RootState)=> state.showDelete.value);
     const dispatch=useDispatch();
 
-    const handleShowDelete=()=>{
-      dispatch(click());
-    }
+  const handleShowDelete = () => {
+    dispatch(click());
+  };
 
   // useEffect(()=>{
   //   axios.get(`/v11/members/${memberId}`)
@@ -55,8 +56,7 @@ const {memberId}=useParams();
   //   });
   // },[]);
 
-
-//회원삭제
+  //회원삭제
   // const handleDelete = useCallback(() => {
   //   if (window.confirm('삭제하시겠습니까?')) {
   //     axios
@@ -76,8 +76,9 @@ const {memberId}=useParams();
   //       .catch((error) => {
   //         console.log( error.message);
   //       });
-  //   } 
+  //   }
   // }, [memberId]);
+
 
 const toWatchlist =data?.toWatch?.map((list)=>(
 <ThemeProvider theme={theme.myPage} key={list.movieId}>
@@ -89,8 +90,8 @@ const watchedList=data?.watched?.map((list)=>(
     <ThemeProvider theme={theme.myPage} key={list.movieId}>
     <MainPoster key={list.movieId} data={list} isWatched={true} isToWatch={false}/> 
     </ThemeProvider>
-))
-
+  ));
+  
   return <S.Wrapper>
   <S.PageTitle>     {/*현재 로그인한 사용자와 my paged의 member_id가 같을 때 표시 */}
     my page
