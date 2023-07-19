@@ -1,5 +1,6 @@
-package com.moovda_project.moovda.module.movie.entity.genre;
+package com.moovda_project.moovda.module.genre.entity;
 
+import com.moovda_project.moovda.module.genre.entity.Genre;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

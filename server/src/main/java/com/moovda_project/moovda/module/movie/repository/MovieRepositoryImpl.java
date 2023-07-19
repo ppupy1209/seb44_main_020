@@ -1,9 +1,9 @@
 package com.moovda_project.moovda.module.movie.repository;
 
+import com.moovda_project.moovda.module.genre.entity.QGenre;
 import com.moovda_project.moovda.module.movie.dto.search.MovieSearchDto;
 import com.moovda_project.moovda.module.movie.dto.search.QMovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.QMovie;
-import com.moovda_project.moovda.module.movie.entity.genre.QGenre;
 import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -12,9 +12,9 @@ import org.thymeleaf.util.StringUtils;
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.moovda_project.moovda.module.genre.entity.QGenre.genre;
+import static com.moovda_project.moovda.module.genre.entity.QMovieGenre.movieGenre;
 import static com.moovda_project.moovda.module.movie.entity.QMovie.*;
-import static com.moovda_project.moovda.module.movie.entity.genre.QGenre.*;
-import static com.moovda_project.moovda.module.movie.entity.genre.QMovieGenre.*;
 import static org.thymeleaf.util.StringUtils.*;
 
 public class MovieRepositoryImpl implements MovieRepositoryCustom {

@@ -1,6 +1,6 @@
-package com.moovda_project.moovda.module.movie.repository.staff;
+package com.moovda_project.moovda.module.staff.repository;
 
-import com.moovda_project.moovda.module.movie.entity.staff.Staff;
+import com.moovda_project.moovda.module.staff.entity.Staff;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface StaffRepository extends JpaRepository<Staff,Long> {
