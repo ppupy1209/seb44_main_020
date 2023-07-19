@@ -5,7 +5,10 @@ import lombok.*;
 
 
 
+@NoArgsConstructor
 @Getter
+@Setter
+@AllArgsConstructor
 public class MovieSearchCondition {
     private String genre;
     private String country;
