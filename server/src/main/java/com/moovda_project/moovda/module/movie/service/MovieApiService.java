@@ -1,13 +1,13 @@
-package com.moovda_project.moovda.module.movie.api;
+package com.moovda_project.moovda.module.movie.service;
 
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import com.moovda_project.moovda.module.movie.entity.genre.Genre;
-import com.moovda_project.moovda.module.movie.entity.genre.MovieGenre;
-import com.moovda_project.moovda.module.movie.entity.staff.MovieStaff;
+import com.moovda_project.moovda.module.genre.entity.Genre;
+import com.moovda_project.moovda.module.genre.entity.MovieGenre;
+import com.moovda_project.moovda.module.staff.entity.MovieStaff;
 import com.moovda_project.moovda.module.movie.repository.MovieRepository;
-import com.moovda_project.moovda.module.movie.repository.genre.GenreRepository;
-import com.moovda_project.moovda.module.movie.repository.staff.StaffRepository;
-import com.moovda_project.moovda.module.movie.entity.staff.Staff;
+import com.moovda_project.moovda.module.genre.repository.GenreRepository;
+import com.moovda_project.moovda.module.staff.repository.StaffRepository;
+import com.moovda_project.moovda.module.staff.entity.Staff;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;

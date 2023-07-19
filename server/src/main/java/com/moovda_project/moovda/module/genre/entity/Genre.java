@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.module.movie.entity.genre;
+package com.moovda_project.moovda.module.genre.entity;
 
 
 import lombok.Getter;

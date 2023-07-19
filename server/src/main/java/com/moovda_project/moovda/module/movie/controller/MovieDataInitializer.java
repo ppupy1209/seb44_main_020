@@ -1,6 +1,7 @@
-package com.moovda_project.moovda.module.movie.api;
+package com.moovda_project.moovda.module.movie.controller;
 
 
+import com.moovda_project.moovda.module.movie.service.MovieApiService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

@@ -8,8 +8,8 @@ import com.moovda_project.moovda.module.movie.dto.genre.GenreResponseDto;
 import com.moovda_project.moovda.module.movie.dto.staff.StaffResponseDto;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 
-import com.moovda_project.moovda.module.movie.entity.genre.MovieGenre;
-import com.moovda_project.moovda.module.movie.entity.staff.MovieStaff;
+import com.moovda_project.moovda.module.genre.entity.MovieGenre;
+import com.moovda_project.moovda.module.staff.entity.MovieStaff;
 import org.mapstruct.Mapper;
 
 import java.util.Collections;

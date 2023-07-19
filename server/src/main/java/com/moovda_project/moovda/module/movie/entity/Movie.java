@@ -1,8 +1,8 @@
 package com.moovda_project.moovda.module.movie.entity;
 
 import com.moovda_project.moovda.module.comment.entity.Comment;
-import com.moovda_project.moovda.module.movie.entity.genre.MovieGenre;
-import com.moovda_project.moovda.module.movie.entity.staff.MovieStaff;
+import com.moovda_project.moovda.module.genre.entity.MovieGenre;
+import com.moovda_project.moovda.module.staff.entity.MovieStaff;
 import lombok.*;
 
 import javax.persistence.*;
