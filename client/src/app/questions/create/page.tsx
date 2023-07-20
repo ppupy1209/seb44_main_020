@@ -1,7 +1,7 @@
 'use client';
 
 import * as S from '@/app/questions/create/page.styled';
-import { WebEditor } from '@/components/Question/Webeditor';
+// import { WebEditor } from '@/components/Question/Webeditor';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useId, useState } from 'react';
@@ -44,7 +44,7 @@ const QuestionCreatePage = () => {
               <S.ContentTitle>
                 원하는 영화에 대한 설명을 최대한 자세히 작성해주세요.
               </S.ContentTitle>
-              <WebEditor value={contentValue} setValue={setContentValue} />
+              {/* <WebEditor value={contentValue} setValue={setContentValue} /> */}
             </S.Content>
             <S.ButtonBox>
               <S.Button onClick={onSubmit}>질문하기</S.Button>
