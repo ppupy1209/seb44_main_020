@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.module.movie.controller;
 
 import com.moovda_project.moovda.global.dto.SingleResponseDto;
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.mapper.MovieMapper;
@@ -25,7 +26,9 @@ public class MovieController {
     @GetMapping("{movie_id}")
     public ResponseEntity getMovie(@PathVariable("movie_id") @Positive long movieId,
                                    @Positive @RequestParam int page) {
-        Movie movie = movieService.findMovie(movieId);
+        long memberId = MemberIdExtractor.extractMemberId();
+
+        Movie movie = movieService.findMovie(movieId,memberId);
 
         return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie,page,6)), HttpStatus.OK);
     }
