@@ -125,6 +125,7 @@ public interface MovieMapper {
                                       content(comment.getContent()).
                                       star(comment.getStar()).
                                       likeCount(comment.getLikes().size()).
+                                      likeState(comment.isLikeState()).
                                       createdAt(comment.getCreatedAt()).
                                       build())
                      .collect(Collectors.toList());
