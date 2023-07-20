@@ -19,7 +19,7 @@ export function CommentModal() {
   const contentToEdit = useSelector(
     (state: RootState) => state.comment.content,
   );
-  const commentId = useSelector((state: RootState) => state.comment.commentId);
+  const commentID = useSelector((state: RootState) => state.comment.commentId);
   const [newComment, setNewComment] = useState(contentToEdit);
   const dispatch = useDispatch();
 
@@ -52,7 +52,7 @@ export function CommentModal() {
   const handleUpdate = useCallback(() => {
     axios
       .patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentID}`,
         { content: newComment, star: selectedStar },
         {
           headers: {
@@ -65,11 +65,12 @@ export function CommentModal() {
         alert('코멘트가 수정되었습니다');
         dispatch(close());
         dispatch(getContent(''));
+        location.reload();
       })
       .catch((error) => {
         console.log(error.message);
       });
-  }, [commentId, newComment, selectStar]);
+  }, [commentID, newComment, selectStar]);
 
   return (
     <S.ModalBackdrop>
