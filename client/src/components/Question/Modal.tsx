@@ -127,7 +127,7 @@ const SearchedMovieList = ({
         </S.SearchedMovieBox>
       ))}
     </S.SearchedListBox>
-  );
+);
 };
 
 export default Modal;

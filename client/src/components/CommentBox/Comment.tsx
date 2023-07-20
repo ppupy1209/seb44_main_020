@@ -37,7 +37,7 @@ export function Comment({ data }: Props) {
     if (userId) {
       axios
         .post(
-          `서버url/comments/${commentId}/likes`,
+          `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}/likes`,
           {},
           {
             headers: {
@@ -67,7 +67,7 @@ export function Comment({ data }: Props) {
   }, [commentId, liked, likeTotal]);
 
   const handleDeleteComment = () => {
-    handleDelete(`/comments/${commentId}`);
+    handleDelete(`${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`);
   };
 
   //수정 버튼 클릭

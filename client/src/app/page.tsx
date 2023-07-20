@@ -13,7 +13,7 @@ export default function MainPage() {
 
   useEffect(() => {
     axios
-      .get(`서버주소/movies/main`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/movies/main`)
       .then((res) => {
         setData(res.data);
       })
