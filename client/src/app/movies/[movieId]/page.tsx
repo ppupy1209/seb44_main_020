@@ -65,7 +65,9 @@ export default function MovieDetail() {
 
   useEffect(() => {
     axios
-      .get(`/movies/${movieId}?page=${currentPage}`)
+      .get(
+        `${process.env.NEXT_PUBLIC_API_URL}/movies/${movieId}?page=${currentPage}`,
+      )
       .then((res) => {
         setData(res.data.data);
       })
@@ -112,7 +114,7 @@ export default function MovieDetail() {
     if (userId) {
       axios
         .post(
-          `/toWatch/${movieId}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/toWatch/${movieId}`,
           {},
           {
             headers: {
