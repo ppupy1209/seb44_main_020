@@ -38,15 +38,14 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
   const showDelete = useSelector((state: RootState) => state.showDelete.value);
 
   const handleDeleteMovie = (e: React.MouseEvent<HTMLDivElement>) => {
-    handleDelete(
-      `${process.env.NEXT_PUBLIC_API_URL}/movies/toWatch/${movieId}`,
-    );
+    handleDelete(`${process.env.NEXT_PUBLIC_API_URL}/toWatch/${movieId}`);
     e.preventDefault();
+    e.stopPropagation();
   };
 
   return (
     <S.Container onClick={goToMovieDetail}>
-      <S.PosterImg src={data.poster} alt="영화포스터" loading="lazy" />
+      <S.PosterImg src={data.poster} alt="영화포스터" />
       {data.title ? (
         <S.Title>
           <S.TitleText>{data.title}</S.TitleText>

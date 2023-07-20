@@ -19,7 +19,10 @@ gap:40px;`;
 
 export const PosterImg=styled.img`
 width:350px;
-height:auto;
+height:500px;
+object-fit: contain;
+object-position: 50% 50%;
+border: 3px solid green;
 border-radius:20px;`
 
 export const MyStar=styled.div`
@@ -80,10 +83,10 @@ font-size: 14px;
 
 export const Summary=styled.div`
 border-top:1px solid #283A6D;
-padding-top: 40px;
+padding-top: 30px;
 margin-top: 40px;
 width:600px;
-line-height: 1.5em;
+line-height: 1.7em;
 text-align: justify;
 `;
 
@@ -123,7 +126,11 @@ color: #466093;`;
 export const SectionContainer=styled.div`
 margin:0 50px;`;
 
-export const SectionTitle=styled.h2``;
+export const SectionTitle = styled.h2`
+>span{
+  font-weight:300;
+  font-size: 20px;
+}`;
 
 export const StaffList=styled.div`
 margin: 50px ;

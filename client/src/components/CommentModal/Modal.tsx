@@ -27,49 +27,71 @@ export function CommentModal() {
     dispatch(close());
     dispatch(getContent(''));
   };
+  console.log(selectedStar);
 
   const handleAddComent = useCallback(() => {
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API_URL}/comments/${movieId}`,
-        { content: newComment, star: selectedStar },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('Authorization'),
-          },
-        },
-      )
-      .then(() => {
-        alert('코멘트가 등록되었습니다');
-        dispatch(close());
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    if (selectedStar !== 0 && selectedStar !== null && selectedStar !== null) {
+      if (
+        newComment?.length &&
+        newComment.length >= 10 &&
+        newComment.length <= 40
+      ) {
+        axios
+          .post(
+            `${process.env.NEXT_PUBLIC_API_URL}/comments/${movieId}`,
+            { content: newComment, star: selectedStar },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem('Authorization'),
+              },
+            },
+          )
+          .then(() => {
+            alert('코멘트가 등록되었습니다');
+            dispatch(close());
+            location.reload();
+          })
+          .catch((error) => {
+            console.log(error.message);
+          });
+      } else {
+        alert('코멘트는 10글자 이상 40글자 이하로 작성해야 합니다.');
+      }
+    } else {
+      alert('별점을 입력해야 합니다.');
+    }
   }, [movieId, newComment, selectedStar]);
 
   const handleUpdate = useCallback(() => {
-    axios
-      .patch(
-        `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentID}`,
-        { content: newComment, star: selectedStar },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('Authorization'),
+    if (
+      newComment?.length &&
+      newComment.length >= 10 &&
+      newComment.length <= 40
+    ) {
+      axios
+        .patch(
+          `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentID}`,
+          { content: newComment, star: selectedStar },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: localStorage.getItem('Authorization'),
+            },
           },
-        },
-      )
-      .then(() => {
-        alert('코멘트가 수정되었습니다');
-        dispatch(close());
-        dispatch(getContent(''));
-        location.reload();
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+        )
+        .then(() => {
+          alert('코멘트가 수정되었습니다');
+          dispatch(close());
+          dispatch(getContent(''));
+          location.reload();
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    } else {
+      alert('코멘트는 10글자 이상 40글자 이하로 작성해야 합니다.');
+    }
   }, [commentID, newComment, selectStar]);
 
   return (

@@ -201,7 +201,9 @@ export default function MovieDetail() {
       </S.SectionWrapper>
       <S.SectionWrapper>
         <S.SectionContainer>
-          <S.SectionTitle>코멘트</S.SectionTitle>
+          <S.SectionTitle>
+            코멘트 <span>{data?.pageInfo.total}</span>
+          </S.SectionTitle>
           <S.CommentList>{commentList}</S.CommentList>
           {pageNumbers.length !== 1 ? (
             <Pagination

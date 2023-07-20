@@ -48,8 +48,8 @@ export function Comment({ data }: Props) {
         )
         .then(() => {
           //좋아요 상태가 있어야 반영 가능할듯...?
-          if (liked === false) {
-            likeTotal && setLikeTotal(likeTotal + 1);
+          if (likeTotal === 0) {
+            setLikeTotal(likeTotal + 1);
             setLiked(true);
           } else {
             if (likeTotal && likeTotal > 0) {
@@ -62,7 +62,7 @@ export function Comment({ data }: Props) {
           console.log('Error:', error.message);
         });
     } else {
-      alert('로그인 후 좋아요가 가능합니다');
+      alert('로그인 후 이용이 가능합니다');
     }
   }, [commentId, liked, likeTotal]);
 

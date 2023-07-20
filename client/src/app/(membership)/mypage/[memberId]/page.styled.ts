@@ -33,10 +33,7 @@ margin: 0 auto;`;
 
 export const Section=styled.div`
 margin-bottom:30px ;
-height: 400px;
-&:last-child{
-    height: auto;
-}
+min-height: 200px;
 `;
 
 export const SectionTitle=styled.div`
@@ -99,3 +96,11 @@ white-space:nowrap;
 width: 100%;
 `;
 
+export const EmptyText = styled.div`
+width: 100%;
+height: 100px;
+display: flex;
+align-items:center;
+justify-content: center;
+color: #B3BFD7;
+`
