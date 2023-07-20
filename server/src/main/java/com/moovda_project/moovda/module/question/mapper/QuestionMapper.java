@@ -38,7 +38,9 @@ public interface QuestionMapper {
                                     .answerId(answer.getAnswerId())
                                     .questionId(answer.getQuestion().getQuestionId())
                                     //.nickname(answer.getMember().getNickname))
+                                    .memberId(answer.getMember().getMemberId())
                                     .content(answer.getContent())
+                                    .createdAt(answer.getCreatedAt())
                                     .build())
                                     .collect(Collectors.toList());
             questionResponseDto.setAnswers(answerResponseDtos);
