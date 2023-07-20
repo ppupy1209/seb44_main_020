@@ -26,7 +26,6 @@ const ModalTrigger = ({ onSuccess }: ModalTriggerProps) => {
       <Link href={`${pathname}/?modal=true`} replace>
         <S.MoviePickButton>+ 추천할 영화 고르기</S.MoviePickButton>
       </Link>
-      {/* 추후 모달 컴포넌트 추가 예정 */}
       {showModal && <Modal onSelectItem={onSelectMovie} />}
     </>
   );
@@ -40,7 +39,6 @@ interface SearchBoxProps {
     selectedMovie: SearchMovieList;
     textValue: string;
   }) => void;
-  // searchmovie 안에 content를 추가한 새로운 타입
   defaultValue?: {
     content: string;
   } & SearchMovieList;
