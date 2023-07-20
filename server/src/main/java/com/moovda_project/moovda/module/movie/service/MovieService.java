@@ -3,8 +3,8 @@ package com.moovda_project.moovda.module.movie.service;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
-import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
-import com.moovda_project.moovda.module.movie.dto.search.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;

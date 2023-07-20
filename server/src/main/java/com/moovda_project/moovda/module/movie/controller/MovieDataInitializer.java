@@ -29,7 +29,7 @@ public class MovieDataInitializer {
     // 초기 영화 데이터 구성
     @PostConstruct
     public void callApi() throws IOException {
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 6; i++) {
         StringBuilder urlBuilder = new StringBuilder("http://api.koreafilm.or.kr/openapi-data2/wisenut/search_api/search_json2.jsp?collection=kmdb_new2&ServiceKey=" + apiKey); /*URL*/
         urlBuilder.append("&" + URLEncoder.encode("listCount", "UTF-8") + "=" + URLEncoder.encode("15", "UTF-8"));
 
