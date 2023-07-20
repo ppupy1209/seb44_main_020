@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -52,9 +53,6 @@ public class QuestionService {
 
         Question findQuestion = findVerifiedQuestion(questionId);
 
-        // 답변 수 표시
-//        questionRepository.countByAnswers(questionId);
-
 
         // 조회수 +1 증가
         findQuestion.addView(findQuestion.getViews());
@@ -64,8 +62,9 @@ public class QuestionService {
 
     /** 전체 질문 조회 **/
     public Page<Question> findQuestions(int page) {
-        // 페이지 당 데이터 수 10개
-        return questionRepository.findAll(PageRequest.of(page,10));
+        // 페이지 당 데이터 수 10개, 질문 역순 정렬
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        return questionRepository.findAll(PageRequest.of(page,10, sort));
     }
 
     /** 질문 삭제 **/
