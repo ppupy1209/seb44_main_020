@@ -33,7 +33,6 @@ export const QuestionBox = ({ question }: QuestionBoxProps) => {
   };
 
   return (
-    // TODO: 해당 questionId값 페이지로 이동
     <Link href={`/questions/${questionId}`}>
       <S.QuestionBoxGroup>
         <S.QuestionBox>
