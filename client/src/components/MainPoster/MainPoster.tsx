@@ -47,9 +47,13 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
   return (
     <S.Container onClick={goToMovieDetail}>
       <S.PosterImg src={data.poster} alt="영화포스터" loading="lazy" />
-      <S.Title>
-        <S.TitleText>{data.title}</S.TitleText>
-      </S.Title>
+      {data.title ? (
+        <S.Title>
+          <S.TitleText>{data.title}</S.TitleText>
+        </S.Title>
+      ) : (
+        ''
+      )}
       {isWatched ? (
         <S.Star>
           <StarrateShow rate={data.star ? data.star : 0} />
