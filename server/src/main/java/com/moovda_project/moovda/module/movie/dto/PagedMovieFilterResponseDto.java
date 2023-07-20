@@ -1,13 +1,13 @@
 package com.moovda_project.moovda.module.movie.dto;
 
 import com.moovda_project.moovda.global.dto.PageDto;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 
 @Getter
-@Setter
+@Builder
 public class PagedMovieFilterResponseDto {
     List<MovieFilterResponseDto> movies;
     PageDto pageInfo;

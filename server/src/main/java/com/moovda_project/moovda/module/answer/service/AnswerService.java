@@ -24,16 +24,17 @@ public class AnswerService {
 
     public Answer createAnswer(Answer answer) {
         Question findQuestion = questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId());
+
         answer.addQuestion(findQuestion);
-        // TODO : 영화를 넣는 메서드 새로 추가
-        // answer.addMember(answer.getMember()); TODO : MemberIdExtractor에서 memberId 받아서 하는 것으로 수정
-        // answer.addMovie(answer.getMovie());
+        // answer.addMovie(answer.getMovie()); TODO: 영화 검색에서 얻은 데이터 등록하기
+//        findQuestion.addAnswerCount(findQuestion.getAnswerCount()); // 답변 수 증가
+
         return answerRepository.save(answer);
     }
 
     public Answer updateAnswer(Answer answer, long authenticationMemberId) {
         // TODO : 본인 검증 로직 추가
-        Answer foundAnswer = findAnswer(answer.getAnswerId());
+        Answer foundAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         checkValidatedMember(authenticationMemberId, foundAnswer);
 
@@ -53,18 +54,14 @@ public class AnswerService {
 
         answerRepository.delete(findAnswerId);
     }
-    public Answer findAnswer(long answerId){
-        Optional<Answer> optionalAnswer = answerRepository.findById(answerId);
-        return optionalAnswer.orElseThrow( () -> new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
-    }
 
-    /** 질문이 등록된 질문인지 확인 메서드 **/
+    /** 답변이 등록된 답변인지 확인 메서드 **/
     public Answer findVerifiedAnswer(long answerId){
 
         Optional<Answer> findAnswer = answerRepository.findById(answerId);
 
         Answer answer = findAnswer.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+                new BusinessLogicException(ExceptionCode.ANSWER_NOT_FOUND));
 
         return answer;
     }

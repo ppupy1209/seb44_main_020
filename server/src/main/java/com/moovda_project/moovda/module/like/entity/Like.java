@@ -2,16 +2,15 @@ package com.moovda_project.moovda.module.like.entity;
 
 import com.moovda_project.moovda.module.comment.entity.Comment;
 import com.moovda_project.moovda.module.member.entity.Member;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Table(name = "likes")
 public class Like {
     @Id

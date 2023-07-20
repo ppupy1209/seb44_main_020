@@ -9,7 +9,6 @@ import axios from 'axios';
 import { setLoginState } from '@/redux/features/loginSlice';
 import jwtDecode from 'jwt-decode';
 
-
 const LoginPage = () => {
   const dispatch = useDispatch();
   const url = `${process.env.NEXT_PUBLIC_API_URL}/members/login`;

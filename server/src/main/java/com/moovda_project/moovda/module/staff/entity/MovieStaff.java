@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.module.movie.entity.staff;
+package com.moovda_project.moovda.module.staff.entity;
 
 import com.moovda_project.moovda.module.movie.entity.Movie;
 

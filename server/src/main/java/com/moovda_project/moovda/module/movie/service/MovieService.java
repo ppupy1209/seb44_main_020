@@ -22,11 +22,11 @@ public class MovieService {
 
     @Transactional(readOnly = true)
     public Movie findMovie(long movieId) {
-        return findverifiedMovie(movieId);
+        return findVerifiedMovie(movieId);
     }
 
     public Movie updateMovie(Movie movie) {
-        Movie findMovie = findverifiedMovie(movie.getMovieId());
+        Movie findMovie = findVerifiedMovie(movie.getMovieId());
 
         Optional.ofNullable(movie.getStarAvg())
                 .ifPresent(starAvg -> findMovie.setStarAvg(starAvg));
@@ -51,7 +51,7 @@ public class MovieService {
 
         int totalMovies = allMovies.size();
 
-        if(count>= totalMovies) {
+        if(count>=totalMovies) {
             return allMovies;
         }
 
@@ -70,13 +70,13 @@ public class MovieService {
         for (MovieSearchDto movieSearchDto : movieSearchDtos) {
             if (!movieIds.contains(movieSearchDto.getMovieId())) {
                 movieIds.add(movieSearchDto.getMovieId());
-                Movie movie = findverifiedMovie(movieSearchDto.getMovieId());
+                Movie movie = findVerifiedMovie(movieSearchDto.getMovieId());
                 filteredMovies.add(movie);
             }
         }
     }
 
-    private Movie findverifiedMovie(long movieId) {
+    public Movie findVerifiedMovie(long movieId) {
         Optional<Movie> optionalMovie = movieRepository.findById(movieId);
         Movie movie = optionalMovie.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MOVIE_NOT_FOUND));
 

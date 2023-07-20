@@ -1,10 +1,8 @@
-package com.moovda_project.moovda.module.movie.entity.genre;
-
+package com.moovda_project.moovda.module.staff.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 
 import javax.persistence.*;
 
@@ -12,14 +10,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "genres")
-public class Genre {
+@Table(name = "staffs")
+public class Staff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "genre_id")
-    private Long genreId;
-
-
+    @Column(name = "staff_id")
+    private Long staffId;
     @Column(name = "name")
     private String name;
+
+
 }

@@ -1,10 +1,10 @@
 package com.moovda_project.moovda.global.dto;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
+@Builder
 public class PageDto {
     int currentPage;
     int pageSize;
