@@ -7,6 +7,27 @@ export const PageGroup = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 10px;
+`;
+
+export const goMenuBtnBox = styled.div`
+  display: flex;
+  justify-content: start;
+  flex-direction: row;
+  width: 1024px;
+`;
+
+export const goMenuBtn = styled.button`
+  margin-top: 10px;
+  padding: 12px 24px;
+  border-radius: 8px;
+  width: 250px;
+  background-color: #111321;
+  &:hover {
+    background-color: rgba(108, 99, 255, 0.3);
+  }
+  cursor: pointer;
+  color: white;
 `;
 
 export const AskBox = styled.div`
