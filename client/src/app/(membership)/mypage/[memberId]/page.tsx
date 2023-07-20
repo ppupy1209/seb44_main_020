@@ -9,7 +9,6 @@ import { setLoginState } from '@/redux/features/loginSlice';
 import { click } from '@/redux/features/deleteSlice';
 import { MainPoster } from '@/components/MainPoster/MainPoster';
 import MyCarousel from '@/components/MyCarousel/MyCarousel';
-import { data } from './dummydata';
 import * as S from './page.styled';
 import { ThemeProvider } from 'styled-components';
 import theme from '@/components/MainPoster/theme';
@@ -35,7 +34,7 @@ interface My {
 
 export default function MyPage() {
   const router = useRouter();
-  // const [data, setData] = useState<My | null>(null);
+  const [data, setData] = useState<My | null>(null);
   const { memberId } = useParams();
   const userId = useSelector((state: RootState) => state.auth.memberId);
 
@@ -45,16 +44,16 @@ export default function MyPage() {
     dispatch(click());
   };
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`/v11/members/${memberId}`)
-  //     .then((res) => {
-  //       setData(res.data);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error.message);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axios
+      .get(`서버주소/v11/members/${memberId}`)
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
 
   // 회원삭제
   const handleDelete = useCallback(() => {

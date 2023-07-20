@@ -79,8 +79,7 @@ export function CommentModal() {
         </S.CloseBtn>
         <S.StarrateWrapper>
           <Starrate />
-        </S.StarrateWrapper>{' '}
-        {/*<Starrate />*/}
+        </S.StarrateWrapper>
         <S.Content
           placeholder="코멘트 입력 (10자 이상 40자 이하)"
           value={newComment}

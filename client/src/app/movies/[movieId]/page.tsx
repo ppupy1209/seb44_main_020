@@ -13,7 +13,6 @@ import { Comment } from '@/components/CommentBox/Comment';
 import Pen from '@/assets/penIcon.svg';
 import Plus from '@/assets/plus.svg';
 import * as S from './page.styled';
-import { data } from './dummydata';
 
 interface Genre {
   name: string;
@@ -53,30 +52,36 @@ interface MovieData {
   staff: Staff[];
   openingDate?: string;
   comments: Comment[];
-  pageInfo: PageInfo[];
+  pageInfo: PageInfo;
 }
 
 export default function MovieDetail() {
   const dispatch = useDispatch();
-  // const [data,setData]=useState<MovieData | null>(null);
+  const [data, setData] = useState<MovieData | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const openState = useSelector((state: RootState) => state.comment.isOpen);
   const userId = useSelector((state: RootState) => state.auth.memberId);
   const { movieId } = useParams();
 
+  useEffect(() => {
+    axios
+      .get(`/movies/${movieId}?page=${currentPage}`)
+      .then((res) => {
+        setData(res.data.data);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  }, []);
+
   const pageNumbers: number[] = Array.from(
-    { length: Math.ceil(data.pageInfo.total / data.pageInfo.pageSize) },
+    {
+      length: Math.ceil(
+        (data?.pageInfo?.total ?? 0) / (data?.pageInfo?.pageSize ?? 6),
+      ),
+    },
     (_, i) => i + 1,
   );
-
-  // useEffect(()=>{
-  //     axios.get(`/movies/${movieId}?page=${currentPage}`)
-  //     .then((res)=>{
-  //       setData(res.data.data);
-  //     }).catch((error)=>{
-  //       console.log(error.message);
-  //     });
-  //   },[]);
 
   const found = data?.comments?.find((e) => e.memberId === userId);
   const starAvg = data?.starAvg.toFixed(1);
