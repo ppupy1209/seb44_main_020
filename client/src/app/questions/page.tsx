@@ -34,8 +34,8 @@ const QuestionListPage = () => {
   const [pageInfo, setPageInfo] = useState<QuestionListResponse['pageInfo']>({
     page: 1,
     size: 10,
-    totalElements: 70,
-    totalPages: 7,
+    totalElements: 100,
+    totalPages: 10,
   });
 
   const page = searchParams.get('page') ?? 1;
