@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.module.movie.dto.staff;
+package com.moovda_project.moovda.module.staff.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 public interface MemberMapper {
 
     Member memberPostToMember(MemberDto.Post requestBody);
+
     default MemberResponseDto memberToMemberResponseDto(Member member) {
 
         List<ToWatch> toWatchList = member.getToWatchList();

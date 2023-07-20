@@ -2,8 +2,8 @@ package com.moovda_project.moovda.module.movie.dto;
 
 import com.moovda_project.moovda.global.dto.PageDto;
 import com.moovda_project.moovda.module.comment.dto.CommentResponseDto;
-import com.moovda_project.moovda.module.movie.dto.genre.GenreResponseDto;
-import com.moovda_project.moovda.module.movie.dto.staff.StaffResponseDto;
+import com.moovda_project.moovda.module.genre.dto.GenreResponseDto;
+import com.moovda_project.moovda.module.staff.dto.StaffResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 

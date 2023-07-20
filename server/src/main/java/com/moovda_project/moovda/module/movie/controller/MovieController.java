@@ -1,7 +1,7 @@
 package com.moovda_project.moovda.module.movie.controller;
 
 import com.moovda_project.moovda.global.dto.SingleResponseDto;
-import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.mapper.MovieMapper;
 import com.moovda_project.moovda.module.movie.service.MovieService;

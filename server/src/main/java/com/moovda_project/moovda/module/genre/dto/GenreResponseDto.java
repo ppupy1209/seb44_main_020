@@ -1,4 +1,4 @@
-package com.moovda_project.moovda.module.movie.dto.genre;
+package com.moovda_project.moovda.module.genre.dto;
 
 import lombok.Builder;
 import lombok.Getter;

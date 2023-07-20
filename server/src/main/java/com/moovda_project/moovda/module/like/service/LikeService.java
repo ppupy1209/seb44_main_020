@@ -18,7 +18,7 @@ public class LikeService {
     private final CommentService commentService;
     private final MemberService memberService;
 
-    public void addLike(long memberId, long commentId) {
+    public void likeOrDislike(long memberId, long commentId) {
 
         Comment comment = commentService.findVerifiedComment(commentId);
         Member member = memberService.findVerifiedMember(memberId);
@@ -26,7 +26,7 @@ public class LikeService {
         Like like = new Like(member,comment);
 
         // 좋아요 목록에 있는지 체크
-        if(isNotAlreadyLike(member,comment)) {   // 없으면 좋아요 추가
+        if(checkExistsLikeByMemberAndComment(member,comment)) {   // 없으면 좋아요 추가
             likeRepository.save(like);
 
         }
@@ -35,7 +35,7 @@ public class LikeService {
         }
     }
 
-    private boolean isNotAlreadyLike(Member member, Comment comment) {
+    private boolean checkExistsLikeByMemberAndComment(Member member, Comment comment) {
         return likeRepository.findByMemberAndComment(member,comment).isEmpty();
     }
 }
