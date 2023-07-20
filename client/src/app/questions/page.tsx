@@ -1,16 +1,58 @@
 'use client';
 
-import { useCallback, useState } from 'react';
 import * as S from '@/app/questions/page.styled';
 import { QuestionBox } from '@/components/Question/QuestionBox';
+import axios from 'axios';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export interface QuestionItem {
-  id: string;
+  questionId: string;
+  title: string;
+  content: string;
+  nickname: string;
+  createdAt: string;
+  answerCount: number;
+  views: number;
+}
+export interface QuestionListResponse {
+  data: QuestionItem[];
+  pageInfo: {
+    page: number;
+    size: number;
+    totalElements: number;
+    totalPages: number;
+  };
 }
 
 const QuestionListPage = () => {
-  const [questions] = useState<QuestionItem[]>([]);
+  const searchParams = useSearchParams();
+
+  const [questions, setQuestions] = useState<QuestionItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [pageInfo, setPageInfo] = useState<QuestionListResponse['pageInfo']>({
+    page: 1,
+    size: 10,
+    totalElements: 70,
+    totalPages: 7,
+  });
+
+  const page = searchParams.get('page') ?? 1;
+
+  useEffect(() => {
+    const getQuestionList = async () => {
+      setLoading(true);
+
+      const source = `${process.env.NEXT_PUBLIC_API_URL}/questions?page=${page}`;
+      const response = await axios.get(source, {
+        // TODO: headers
+      });
+      setQuestions(response.data.data);
+    };
+    getQuestionList();
+    setLoading(false);
+  }, [page]);
 
   return (
     <S.TalkPage>
@@ -18,13 +60,20 @@ const QuestionListPage = () => {
         <S.Header>
           <S.Title>MoovTalk</S.Title>
           <S.ButtonBox>
-            <S.Button>추천 받기</S.Button>
+            <Link href={'/questions/create'}>
+              <S.Button>추천 받기</S.Button>
+            </Link>
           </S.ButtonBox>
         </S.Header>
         <S.QuestionBox>
-          <QuestionBoxes questions={questions} />
+          <QuestionBoxes loading={loading} questions={questions} />
         </S.QuestionBox>
-        {/* <Pagination totalElements={15} pages={3} /> */}
+        {!loading ? (
+          <Pagination
+            totalElements={pageInfo?.totalElements}
+            size={pageInfo.size}
+          />
+        ) : null}
       </S.TalkPageBox>
     </S.TalkPage>
   );
@@ -32,19 +81,17 @@ const QuestionListPage = () => {
 
 interface QuestionBoxesProps {
   questions: QuestionItem[];
+  loading: boolean;
 }
 
-const QuestionBoxes = ({ questions }: QuestionBoxesProps) => {
+const QuestionBoxes = ({ loading, questions }: QuestionBoxesProps) => {
+  if (loading) return <div>영화 추천 목록을 불러오는 중입니다...</div>;
+
   return (
     <ul>
       {questions.map((question) => (
-        <QuestionBox key={question.id} question={question} />
+        <QuestionBox key={question.questionId} question={question} />
       ))}
-      {/* <QuestionBox />
-      <QuestionBox />
-      <QuestionBox />
-      <QuestionBox />
-      <QuestionBox /> */}
     </ul>
   );
 };
@@ -58,7 +105,6 @@ const Pagination = ({ totalElements, size }: PaginationProps) => {
   const searchParams = useSearchParams()!;
   const router = useRouter();
   const pathname = usePathname();
-  // button active 상태 확인용
   const page = searchParams.get('page') ?? 1;
 
   const onPaginate = useCallback(
@@ -77,21 +123,22 @@ const Pagination = ({ totalElements, size }: PaginationProps) => {
   );
 
   return (
-    <section>
-      <div>
+    <>
+      <S.PaginationBtnContainer>
         {pageNumbers.map((pageNumber) => (
-          <div key={pageNumber}>
-            <button
+          <S.PaginationBtnBox key={pageNumber}>
+            <S.PaginationBtn
               onClick={() => {
                 router.push(pathname + '?' + onPaginate(pageNumber));
               }}
+              className={page === pageNumber.toString() ? 'active' : ''}
             >
               {pageNumber}
-            </button>
-          </div>
+            </S.PaginationBtn>
+          </S.PaginationBtnBox>
         ))}
-      </div>
-    </section>
+      </S.PaginationBtnContainer>
+    </>
   );
 };
 
