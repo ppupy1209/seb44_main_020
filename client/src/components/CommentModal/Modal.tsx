@@ -31,7 +31,7 @@ export function CommentModal() {
   const handleAddComent = useCallback(() => {
     axios
       .post(
-        `/comments/${movieId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comments/${movieId}`,
         { content: newComment, star: selectedStar },
         {
           headers: {
@@ -52,7 +52,7 @@ export function CommentModal() {
   const handleUpdate = useCallback(() => {
     axios
       .patch(
-        `/comments/${commentId}`,
+        `${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`,
         { content: newComment, star: selectedStar },
         {
           headers: {
