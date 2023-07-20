@@ -38,7 +38,9 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
   const showDelete = useSelector((state: RootState) => state.showDelete.value);
 
   const handleDeleteMovie = (e: React.MouseEvent<HTMLDivElement>) => {
-    handleDelete(`서버주소/movies/toWatch/${movieId}`);
+    handleDelete(
+      `${process.env.NEXT_PUBLIC_API_URL}/movies/toWatch/${movieId}`,
+    );
     e.preventDefault();
   };
 
