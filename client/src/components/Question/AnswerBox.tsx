@@ -1,51 +1,108 @@
-// TODO: api 경로 필요
-
 'use client';
 
 import * as S from '@/components/Question/AnswerBox.styled';
+import {
+  AnswerType,
+  deleteAnswerList,
+  editAnswerList,
+} from '@/redux/features/answerListSlice';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { SearchMovieList } from './Modal';
+import SearchBox from './SearchBox';
 
-const AnswerBox = () => {
+interface AnswerBoxProps {
+  answer: AnswerType;
+}
+
+const AnswerBox = ({ answer }: AnswerBoxProps) => {
+  const [isEditing, setIsEditing] = useState<Boolean>(false);
+  const dispatch = useDispatch();
+
+  const onEditClick = () => {
+    setIsEditing((prev) => !prev);
+  };
+
+  const onSubmit = ({
+    selectedMovie,
+    textValue,
+  }: {
+    selectedMovie?: SearchMovieList;
+    textValue: string;
+  }) => {
+    dispatch(
+      editAnswerList({
+        answerId: answer.answerId,
+        nickname: answer.nickname,
+        content: textValue,
+        movie: {
+          title: selectedMovie?.title,
+          poster: selectedMovie?.poster,
+        },
+      }),
+    );
+    // TODO: post 요청
+    setIsEditing(false);
+  };
+
   return (
     <S.AnswerBoxGroup>
       <S.AnswerBox>
-        <AnswerBoxTop />
+        <AnswerBoxTop onEditClick={onEditClick} answer={answer} />
         <S.AnswerBoxMid>
-          <S.ContentBox>
-            <div>내용</div>
-          </S.ContentBox>
+          {isEditing ? (
+            <SearchBox
+              onSubmit={onSubmit}
+              defaultValue={{
+                movieId: '',
+                content: answer.content,
+                title: answer.movie.title,
+                poster: answer.movie.poster,
+                pageInfo: {
+                  currentPage: 0,
+                  pageSize: 0,
+                  total: 0,
+                },
+              }}
+            />
+          ) : (
+            <S.ContentBox>
+              <div>{answer.content}</div>
+              <AnswerBoxBottom answer={answer} />
+            </S.ContentBox>
+          )}
         </S.AnswerBoxMid>
-        <AnswerBoxBottom />
       </S.AnswerBox>
     </S.AnswerBoxGroup>
   );
 };
 
-const AnswerBoxTop = () => {
+interface AnswerBoxTopProps {
+  onEditClick: () => void;
+  answer: AnswerType;
+}
+
+const AnswerBoxTop = ({ onEditClick, answer }: AnswerBoxTopProps) => {
+  const dispatch = useDispatch();
+
+  const handleDeleteAnswer = () => {
+    dispatch(deleteAnswerList(answer));
+  };
+
   return (
     <S.BoxTop>
       <S.LeftBox>
         {/* // TODO: 회원 === 글작성자 -> 본인 mypage || 회원 != 글작성자 -> 글작성자 mypage */}
         <Link href={'/mypage'}>
-          <S.Nickname>닉네임</S.Nickname>
+          <S.Nickname>{answer.nickname}</S.Nickname>
         </Link>
         <S.Time>{AnswerDate(new Date())}</S.Time>
       </S.LeftBox>
       <S.RightBox>
-        <S.EditBtn
-          onClick={() => {
-            // TODO: if(작성자 === 수정하려는 사람){수정가능}else 수정 불가능
-          }}
-        >
-          수정
-        </S.EditBtn>
-        <S.DeleteBtn
-          onClick={() => {
-            // TODO: if(작성자 === 삭제하려는 사람){삭제가능}else 삭제 불가능
-          }}
-        >
-          삭제
-        </S.DeleteBtn>
+        <S.EditBtn onClick={onEditClick}>수정</S.EditBtn>
+        <S.DeleteBtn onClick={handleDeleteAnswer}>삭제</S.DeleteBtn>
       </S.RightBox>
     </S.BoxTop>
   );
@@ -70,16 +127,20 @@ const AnswerDate = (createdAt: Date): string => {
   return `${Math.floor(years)}년 전`;
 };
 
-const AnswerBoxBottom = () => {
+interface AnswerBoxBottomProps {
+  answer: AnswerType;
+}
+
+const AnswerBoxBottom = ({ answer }: AnswerBoxBottomProps) => {
+  const { movieId } = useParams();
   return (
-    <Link href={'/movie/:movieId'}>
-      {/* //TODO: movie 클릭시 해당 movie홈페이지로 이동 */}
+    <Link href={`/movie/${movieId}`}>
       <S.BoxBottom>
         <S.SelectedMovieBox>
-          <S.Poster>포스터</S.Poster>
+          <S.Poster>{answer.movie.poster}</S.Poster>
           <S.MovieInfo>
-            <S.MovieTitle>제목</S.MovieTitle>
-            <S.MovieReleaseDate>개봉년도</S.MovieReleaseDate>
+            <S.MovieTitle>{answer.movie.title}</S.MovieTitle>
+            <S.MovieReleaseDate>{answer.movie.prodYear}</S.MovieReleaseDate>
           </S.MovieInfo>
         </S.SelectedMovieBox>
       </S.BoxBottom>
