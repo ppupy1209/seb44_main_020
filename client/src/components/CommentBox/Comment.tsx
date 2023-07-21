@@ -50,7 +50,7 @@ export function Comment({ data }: Props) {
         )
         .then(() => {
           if (liked === false) {
-            alert('좋아요');
+            alert('좋아요 성공');
             setLikeTotal((prevTotal) => (prevTotal ?? 0) + 1);
             setLiked(true);
           } else if (liked === true) {

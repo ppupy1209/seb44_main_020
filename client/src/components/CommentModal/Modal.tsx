@@ -43,6 +43,7 @@ export function CommentModal() {
       .then(() => {
         alert('코멘트가 등록되었습니다');
         dispatch(close());
+        location.reload();
       })
       .catch((error) => {
         console.log(error.message);
@@ -65,6 +66,7 @@ export function CommentModal() {
         alert('코멘트가 수정되었습니다');
         dispatch(close());
         dispatch(getContent(''));
+        location.reload();
       })
       .catch((error) => {
         console.log(error.message);
