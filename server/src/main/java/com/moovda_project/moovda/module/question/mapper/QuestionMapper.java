@@ -69,6 +69,8 @@ public interface QuestionMapper {
                                     //.nickname(answer.getMember().getNickname))
                                     .memberId(answer.getMember().getMemberId())
                                     .content(answer.getContent())
+                                    .title(answer.getTitle())
+                                    .poster(answer.getPoster())
                                     .createdAt(answer.getCreatedAt())
                                     .build())
                                     .collect(Collectors.toList());
