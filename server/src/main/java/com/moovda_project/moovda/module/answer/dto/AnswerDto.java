@@ -1,6 +1,5 @@
 package com.moovda_project.moovda.module.answer.dto;
 
-import com.moovda_project.moovda.module.movie.entity.Movie;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -13,14 +12,11 @@ public class AnswerDto {
     @NoArgsConstructor
     public static class Post {
         private long memberId;
-
         private long questionId;
-
         private String content;
-
-        private Movie movie;
+        private String title;
+        private String poster;
     }
-
     @Getter
     @Setter
     @AllArgsConstructor
@@ -30,7 +26,8 @@ public class AnswerDto {
         private long authenticatedMemberId;
         private long questionId;
         private String content;
-        private Movie movie;
+        private String title;
+        private String poster;
 
         public void addAnswerId(long answerId) {
             this.answerId = answerId;
@@ -67,7 +64,9 @@ public class AnswerDto {
 
         private String content;
 
-//        private MovieQuestionResponseDto movie;
+        private String title;
+
+        private String poster;
 
         private long memberId;
 
