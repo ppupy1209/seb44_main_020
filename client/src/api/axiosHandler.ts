@@ -6,9 +6,13 @@ export const handleDelete =
         //삭제 확인 경고창
         axios
           .delete(url,
-            {headers:
-              {'Authorization': ''}}
-            )
+            {
+              headers:
+              {
+                'Content-Type': 'application/json',
+                Authorization: localStorage.getItem('Authorization'),
+              },
+            })
           .then(() => {
             console.log('삭제 성공');
             alert('삭제가 완료되었습니다.');

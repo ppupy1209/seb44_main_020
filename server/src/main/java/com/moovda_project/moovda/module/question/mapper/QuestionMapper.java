@@ -18,9 +18,9 @@ public interface QuestionMapper {
     Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto);
     Question questionPatchDtoToQuestion(QuestionDto.Patch questionPatchDto);
 
-    default List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions) {
+    default List<QuestionDto.ListResponse> questionsToQuestionResponseDtos(List<Question> questions) {
         return questions.stream()
-                .map(question -> QuestionDto.Response.builder()
+                .map(question -> QuestionDto.ListResponse.builder()
                         .questionId(question.getQuestionId())
                         .title(question.getTitle())
         //                .nickname(question.getMember().getNickname())
@@ -60,6 +60,8 @@ public interface QuestionMapper {
                     .pageSize(pageSize)
                     .build();
 
+
+
             List<AnswerDto.Response> answerResponseDtos =
                     paginatedAnswers
                             .stream()
@@ -69,6 +71,10 @@ public interface QuestionMapper {
                                     //.nickname(answer.getMember().getNickname))
                                     .memberId(answer.getMember().getMemberId())
                                     .content(answer.getContent())
+                                    .movie(AnswerDto.AnswerMovie.builder()
+                                            .title(answer.getTitle())
+                                            .poster(answer.getPoster())
+                                            .build())
                                     .createdAt(answer.getCreatedAt())
                                     .build())
                                     .collect(Collectors.toList());

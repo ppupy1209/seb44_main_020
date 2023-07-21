@@ -26,7 +26,7 @@ export const Right = styled.div`
 
 export const Poster = styled.div`
   width: 580px;
-  padding-top: 18px;
+  padding-top: 57px;
   display: flex;
   justify-content: center;
   margin: 0 auto;

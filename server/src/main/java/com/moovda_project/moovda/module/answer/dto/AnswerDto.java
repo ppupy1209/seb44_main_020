@@ -1,8 +1,8 @@
 package com.moovda_project.moovda.module.answer.dto;
 
-import com.moovda_project.moovda.module.movie.entity.Movie;
 import lombok.*;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,14 +13,12 @@ public class AnswerDto {
     @NoArgsConstructor
     public static class Post {
         private long memberId;
-
         private long questionId;
-
+        @Size(min = 10, message = "답변 내용은 10자 이상이어야합니다.")
         private String content;
-
-        private Movie movie;
+        private String title;
+        private String poster;
     }
-
     @Getter
     @Setter
     @AllArgsConstructor
@@ -29,8 +27,10 @@ public class AnswerDto {
         private long answerId;
         private long authenticatedMemberId;
         private long questionId;
+        @Size(min = 10, message = "답변 내용은 10자 이상이어야합니다.")
         private String content;
-        private Movie movie;
+        private String title;
+        private String poster;
 
         public void addAnswerId(long answerId) {
             this.answerId = answerId;
@@ -67,10 +67,20 @@ public class AnswerDto {
 
         private String content;
 
-//        private MovieQuestionResponseDto movie;
+        private AnswerMovie movie;
 
         private long memberId;
 
         private LocalDateTime createdAt;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AnswerMovie {
+        private String title;
+        private String poster;
     }
 }

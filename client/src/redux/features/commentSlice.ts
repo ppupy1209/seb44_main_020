@@ -26,7 +26,7 @@ export const comment=createSlice({
             state.content=action.payload;
         },
         getCommentId:(state,action)=>{
-            state.content=action.payload;
+            state.commentId=action.payload;
         }
         }
 

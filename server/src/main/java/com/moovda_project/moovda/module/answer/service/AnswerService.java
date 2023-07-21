@@ -1,5 +1,6 @@
 package com.moovda_project.moovda.module.answer.service;
 
+import com.moovda_project.moovda.global.utils.MemberIdExtractor;
 import com.moovda_project.moovda.module.answer.entity.Answer;
 import com.moovda_project.moovda.module.answer.repository.AnswerRepository;
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
@@ -26,8 +27,9 @@ public class AnswerService {
         Question findQuestion = questionService.findVerifiedQuestion(answer.getQuestion().getQuestionId());
 
         answer.addQuestion(findQuestion);
-        // answer.addMovie(answer.getMovie()); TODO: 영화 검색에서 얻은 데이터 등록하기
-//        findQuestion.addAnswerCount(findQuestion.getAnswerCount()); // 답변 수 증가
+        answer.addMember(answer.getMember());
+
+        findQuestion.addAnswerCount(findQuestion.getAnswerCount()); // 답변 수 증가
 
         return answerRepository.save(answer);
     }
@@ -39,8 +41,8 @@ public class AnswerService {
         checkValidatedMember(authenticationMemberId, foundAnswer);
 
         foundAnswer.setContent(answer.getContent());
-        foundAnswer.setMovie(answer.getMovie());
-        foundAnswer.setModifiedAt(answer.getModifiedAt());
+        foundAnswer.setTitle(answer.getTitle());
+        foundAnswer.setPoster(answer.getPoster());
 
         return answerRepository.save(foundAnswer);
     }
