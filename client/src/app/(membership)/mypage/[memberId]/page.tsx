@@ -113,9 +113,13 @@ export default function MyPage() {
               )}
             </S.SectionTitle>
             <S.SectionContent>
-              <S.MovieList>
-                <MyCarousel props={toWatchlist} />
-              </S.MovieList>
+              {toWatchlist?.length === 0 ? (
+                <S.EmptyText>목록이 비어 있습니다.</S.EmptyText>
+              ) : (
+                <S.MovieList>
+                  <MyCarousel props={toWatchlist} />
+                </S.MovieList>
+              )}
             </S.SectionContent>
           </S.Section>
           <S.Section>
@@ -123,9 +127,13 @@ export default function MyPage() {
               <S.Title>본 영화</S.Title>{' '}
             </S.SectionTitle>
             <S.SectionContent>
-              <S.MovieList>
-                <MyCarousel props={watchedList} />
-              </S.MovieList>
+              {watchedList?.length === 0 ? (
+                <S.EmptyText>목록이 비어 있습니다.</S.EmptyText>
+              ) : (
+                <S.MovieList>
+                  <MyCarousel props={watchedList} />
+                </S.MovieList>
+              )}
             </S.SectionContent>
           </S.Section>
           {userId === memberId ? (
