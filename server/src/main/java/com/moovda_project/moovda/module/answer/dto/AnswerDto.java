@@ -67,12 +67,20 @@ public class AnswerDto {
 
         private String content;
 
-        private String title;
-
-        private String poster;
+        private AnswerMovie movie;
 
         private long memberId;
 
         private LocalDateTime createdAt;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AnswerMovie {
+        private String title;
+        private String poster;
     }
 }
