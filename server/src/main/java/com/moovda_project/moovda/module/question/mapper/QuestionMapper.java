@@ -23,6 +23,7 @@ public interface QuestionMapper {
                 .map(question -> QuestionDto.Response.builder()
                         .questionId(question.getQuestionId())
                         .title(question.getTitle())
+                        .content(question.getContent())
         //                .nickname(question.getMember().getNickname())
                         .createdAt(question.getCreatedAt())
                         .answerCount(question.getAnswerCount())
