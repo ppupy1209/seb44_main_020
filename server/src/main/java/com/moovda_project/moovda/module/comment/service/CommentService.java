@@ -90,14 +90,21 @@ public class CommentService {
 
     private void updateStarAvg(Movie movie) {
         double totalStar = calculateTotalStar(movie); // 총 별점 합
+        double roundedStar;
 
-        double averageStar = totalStar / movie.getComments().size(); // 별점 합 / 코멘트 개수
+        if(movie.getComments().size()!=0) {
 
-        double roundedStar = Double.parseDouble(String.format("%.1f", averageStar)); // 소수점 둘째자리에서 반올림
+            double averageStar = totalStar / movie.getComments().size(); // 별점 합 / 코멘트 개수
 
-        movie.setStarAvg(roundedStar);
+             roundedStar = Double.parseDouble(String.format("%.1f", averageStar)); // 소수점 둘째자리에서 반올림
+        }  else {
+             roundedStar = 0.0;
+        }
 
-        movieService.updateMovie(movie);
+            movie.setStarAvg(roundedStar);
+
+            movieService.updateMovie(movie);
+
     }
 
     private double calculateTotalStar(Movie movie) {
