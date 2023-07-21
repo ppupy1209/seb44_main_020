@@ -62,13 +62,16 @@ public class QuestionController {
     }
 
     /** 개별 질문 조회 **/
-//    @GetMapping("/{question_id}")
-//    public ResponseEntity getQuestion(@Positive @PathVariable("question_id") long questionId){
-//
-//        Question findQuestion = questionService.findQuestion(questionId);
-//
-//        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(findQuestion),HttpStatus.OK);
-//    }
+
+    @GetMapping("/{question_id}")
+    public ResponseEntity getQuestion(@Positive @PathVariable("question_id") long questionId,
+                                      @Positive @RequestParam int page){
+
+        Question findQuestion = questionService.findQuestion(questionId);
+
+        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(findQuestion,page,10),HttpStatus.OK);
+    }
+
 
 
     /** 전체 질문 목록 조회 **/
