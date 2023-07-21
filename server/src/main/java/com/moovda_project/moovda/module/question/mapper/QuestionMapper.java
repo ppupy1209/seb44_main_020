@@ -60,6 +60,8 @@ public interface QuestionMapper {
                     .pageSize(pageSize)
                     .build();
 
+
+
             List<AnswerDto.Response> answerResponseDtos =
                     paginatedAnswers
                             .stream()
@@ -69,8 +71,10 @@ public interface QuestionMapper {
                                     //.nickname(answer.getMember().getNickname))
                                     .memberId(answer.getMember().getMemberId())
                                     .content(answer.getContent())
-                                    .title(answer.getTitle())
-                                    .poster(answer.getPoster())
+                                    .movie(AnswerDto.AnswerMovie.builder()
+                                            .title(answer.getTitle())
+                                            .poster(answer.getPoster())
+                                            .build())
                                     .createdAt(answer.getCreatedAt())
                                     .build())
                                     .collect(Collectors.toList());
