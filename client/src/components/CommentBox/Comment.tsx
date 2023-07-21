@@ -20,6 +20,7 @@ interface Props {
     star?: number;
     likeCount?: number;
     createdAt?: string;
+    likeState?: boolean;
   };
 }
 
@@ -28,7 +29,8 @@ export function Comment({ data }: Props) {
   const [likeTotal, setLikeTotal] = useState<number | undefined>(
     data.likeCount,
   );
-  const [liked, setLiked] = useState(false);
+  console.log(data.likeCount);
+  const [liked, setLiked] = useState(data.likeState);
   const dispatch = useDispatch();
   const userId = useSelector((state: RootState) => state.auth.memberId);
   const { commentId, memberId } = data;
@@ -47,24 +49,27 @@ export function Comment({ data }: Props) {
           },
         )
         .then(() => {
-          //좋아요 상태가 있어야 반영 가능할듯...?
           if (liked === false) {
-            likeTotal && setLikeTotal(likeTotal + 1);
+            alert('좋아요');
+            setLikeTotal((prevTotal) => (prevTotal ?? 0) + 1);
             setLiked(true);
-          } else {
-            if (likeTotal && likeTotal > 0) {
-              setLikeTotal(likeTotal - 1);
-              setLiked(false);
-            }
+          } else if (liked === true) {
+            alert('좋아요 취소');
+            setLikeTotal((prevTotal) =>
+              prevTotal && prevTotal >= 1 ? prevTotal - 1 : prevTotal,
+            );
+            setLiked(false);
           }
         })
+        .then(() => console.log(likeTotal))
+
         .catch((error) => {
           console.log('Error:', error.message);
         });
     } else {
       alert('로그인 후 좋아요가 가능합니다');
     }
-  }, [commentId, liked, likeTotal]);
+  }, [commentId, likeTotal]);
 
   const handleDeleteComment = () => {
     handleDelete(`${process.env.NEXT_PUBLIC_API_URL}/comments/${commentId}`);
@@ -125,7 +130,7 @@ export function Comment({ data }: Props) {
         <S.Content>{data.content}</S.Content>
         <S.Bottom>
           <S.LikeWrapper>
-            <S.LikeBtn onClick={handleLike}>
+            <S.LikeBtn className={liked ? 'liked' : ''} onClick={handleLike}>
               <Heart width="20" height="20" />
             </S.LikeBtn>
             <S.LikeCount>{likeTotal}</S.LikeCount>

@@ -72,7 +72,12 @@ cursor: pointer;
 >svg{fill:#E7E7E7;
 &:hover{
 fill:#E96E75;
-}}`;
+}}
+&.liked{
+    >svg{
+        fill:#E96E75;
+    }
+}`;
 
 export const LikeCount=styled.div`
 font-size:14px`;
