@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.module.question.dto;
 
 
+import com.moovda_project.moovda.global.dto.PageInfo;
 import com.moovda_project.moovda.module.answer.dto.AnswerDto;
 import com.moovda_project.moovda.module.member.entity.Member;
 
@@ -72,6 +73,7 @@ public class QuestionDto {
         private int answerCount;
         private int views;
         private List<AnswerDto.Response> answers;
+        private PageInfo pageInfo;
     }
 
     @Getter @Setter
