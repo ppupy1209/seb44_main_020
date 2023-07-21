@@ -22,7 +22,6 @@ width:350px;
 height:500px;
 object-fit: contain;
 object-position: 50% 50%;
-border: 3px solid green;
 border-radius:20px;`
 
 export const MyStar=styled.div`

@@ -92,7 +92,7 @@ export function Comment({ data }: Props) {
   const CommentDate = () => {
     if (data.createdAt) {
       const milliSeconds: number =
-        new Date().getTime() - new Date(data.createdAt).getTime();
+        new Date().getTime() - new Date(`${data.createdAt}z`).getTime();
       const seconds: number = milliSeconds / 1000;
 
       if (seconds < 60) return `방금 전`;
