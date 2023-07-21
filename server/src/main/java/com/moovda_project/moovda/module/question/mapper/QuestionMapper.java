@@ -1,6 +1,7 @@
 package com.moovda_project.moovda.module.question.mapper;
 
 import com.moovda_project.moovda.global.dto.PageDto;
+import com.moovda_project.moovda.global.dto.PageInfo;
 import com.moovda_project.moovda.module.answer.dto.AnswerDto;
 import com.moovda_project.moovda.module.answer.entity.Answer;
 import com.moovda_project.moovda.module.question.dto.QuestionDto;
@@ -47,6 +48,7 @@ public interface QuestionMapper {
         if(question.getAnswers() != null) {
             List<Answer> answers = question.getAnswers();
             int totalAnswers = answers.size();
+            int size = 10;
 
             // 시작 인덱스 계산
             int startIndex = (page-1) * pageSize;
@@ -54,10 +56,11 @@ public interface QuestionMapper {
             int endIndex = Math.min(startIndex + pageSize, totalAnswers);
             List<Answer> paginatedAnswers = answers.subList(startIndex, endIndex);
 
-            PageDto pageInfo = PageDto.builder()
-                    .currentPage(page)
-                    .total(totalAnswers)
-                    .pageSize(pageSize)
+            PageInfo pageDto = PageInfo.builder()
+                    .page(page)
+                    .size(size)
+                    .totalPages(pageSize)
+                    .totalElements(totalAnswers)
                     .build();
 
 
@@ -80,6 +83,7 @@ public interface QuestionMapper {
                                     .collect(Collectors.toList());
             questionResponseDto.setAnswers(answerResponseDtos);
 
+            questionResponseDto.setPageInfo(pageDto);
         }
 /*
         List<MovieQuestionResponseDto> movieQuestionResponseDto =
