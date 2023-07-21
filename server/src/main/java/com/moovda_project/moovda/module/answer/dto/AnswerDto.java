@@ -2,6 +2,7 @@ package com.moovda_project.moovda.module.answer.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,6 +14,7 @@ public class AnswerDto {
     public static class Post {
         private long memberId;
         private long questionId;
+        @Size(min = 10, message = "답변 내용은 10자 이상이어야합니다.")
         private String content;
         private String title;
         private String poster;
@@ -25,6 +27,7 @@ public class AnswerDto {
         private long answerId;
         private long authenticatedMemberId;
         private long questionId;
+        @Size(min = 10, message = "답변 내용은 10자 이상이어야합니다.")
         private String content;
         private String title;
         private String poster;
