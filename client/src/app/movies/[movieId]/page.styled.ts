@@ -26,7 +26,8 @@ export const MyStar=styled.div`
 display:flex;
 align-items:center;
 justify-content:center;
-gap:20px;`;
+gap:20px;
+cursor: pointer;`;
 
 export const MystarIcon=styled.div``;
 export const MyStarNum=styled.div`

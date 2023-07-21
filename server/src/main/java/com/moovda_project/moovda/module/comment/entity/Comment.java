@@ -26,6 +26,9 @@ public class Comment extends Auditable {
     @Column(name = "star", nullable = false)
     private double star;
 
+    @Transient
+    private boolean likeState;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
@@ -57,5 +60,7 @@ public class Comment extends Auditable {
         this.star = star;
     }
 
-
+    public void setLikeState(boolean likeState) {
+        this.likeState = likeState;
+    }
 }

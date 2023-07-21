@@ -1,7 +1,7 @@
 package com.moovda_project.moovda.module.movie.repository;
 
-import com.moovda_project.moovda.module.movie.dto.search.MovieSearchDto;
-import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
 
 import java.util.List;
 

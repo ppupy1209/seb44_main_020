@@ -9,7 +9,6 @@ import axios from 'axios';
 import { setLoginState } from '@/redux/features/loginSlice';
 import jwtDecode from 'jwt-decode';
 
-
 const LoginPage = () => {
   const dispatch = useDispatch();
   const url = `${process.env.NEXT_PUBLIC_API_URL}/members/login`;
@@ -33,6 +32,7 @@ const LoginPage = () => {
       const Refresh = response.headers.refresh;
       const decodedToken = jwtDecode(Authorization) as { memberId?: string };
       const memberId = decodedToken?.memberId;
+      console.log(memberId);
       if (response.status === 200) {
         dispatch(setLoginState(true));
         alert('로그인에 성공하였습니다.');
@@ -59,9 +59,19 @@ const LoginPage = () => {
       console.error('Error', error);
     }
   };
-
   const auth = useSelector((state: any) => state.auth);
   console.log(auth.user);
+
+  // const Authorization =
+  //   'eyJhbGciOiJIUzI1NiJ9.eyJyb2xlcyI6W10sIm1lbWJlcklkIjoyLCJ1c2VybmFtZSI6InBwdXB5MTIwOUBnbWFpbC5jb20iLCJzdWIiOiJwcHVweTEyMDlAZ21haWwuY29tIiwiaWF0IjoxNjg5NjY5NTEyLCJleHAiOjE2ODk2NzE5MTJ9.MrnJ4QHw-N35jmyS80rjIty-J9CzZEhW-oVnqBrCoDA';
+  // const decodedToken = jwtDecode(Authorization) as {
+  //   memberId?: string;
+  //   username?: string;
+  // };
+  // const memberId = decodedToken?.memberId;
+  // const username = decodedToken?.username;
+  // console.log(memberId);
+  // console.log(username);
 
   return (
     <>

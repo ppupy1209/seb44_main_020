@@ -48,7 +48,7 @@ public class CommentController {
 
         commentPatchDto.setCommentId(commentId);
 
-        Comment comment = commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto),memberId);
+        commentService.updateComment(mapper.commentPatchDtoToComment(commentPatchDto),memberId);
 
         return ResponseEntity.ok().build();
     }

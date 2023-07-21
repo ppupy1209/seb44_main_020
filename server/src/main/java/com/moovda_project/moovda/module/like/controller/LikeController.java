@@ -18,7 +18,7 @@ public class LikeController {
     public ResponseEntity addLike(@PathVariable("comment_id") @Positive long commentId) {
         Long memberId = MemberIdExtractor.extractMemberId();
 
-        likeService.addLike(memberId,commentId);
+        likeService.likeOrDislike(memberId,commentId);
 
         return ResponseEntity.ok().build();
     }
