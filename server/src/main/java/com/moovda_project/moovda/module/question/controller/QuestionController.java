@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
@@ -37,7 +38,7 @@ public class QuestionController {
     /** 질문 등록 **/
 
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
 
         Question createdQuestion = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(requestBody));
 
@@ -49,7 +50,7 @@ public class QuestionController {
     /** 질문 수정 **/
     @PatchMapping("/{question_id}")
     public ResponseEntity patchQuestion(@PathVariable("question_id") @Positive long questionId,
-                                        @RequestBody QuestionDto.Patch requestBody) {
+                                        @Valid @RequestBody QuestionDto.Patch requestBody) {
         // TODO : token으로 어떤 회원인지 알아야 함
         long authenticatedMemberId = MemberIdExtractor.extractMemberId();
 
