@@ -40,8 +40,6 @@ public class QuestionDto {
     @Getter
     @NoArgsConstructor
     public static class Patch {
-
-        @Positive
         private long questionId;
         private long authenticatedMemberId;
         @Size(min = 5, max = 30 , message = "제목은 5자 이상 30자 이하여야 합니다.")
@@ -55,10 +53,6 @@ public class QuestionDto {
         }
         public void addAuthenticatedMemberId(long authenticatedMemberId) {
             this.authenticatedMemberId = authenticatedMemberId;
-        }
-        public Patch(String title, String content) {
-            this.title = title;
-            this.content = content;
         }
     }
 

@@ -18,12 +18,11 @@ public interface QuestionMapper {
     Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto);
     Question questionPatchDtoToQuestion(QuestionDto.Patch questionPatchDto);
 
-    default List<QuestionDto.Response> questionsToQuestionResponseDtos(List<Question> questions) {
+    default List<QuestionDto.ListResponse> questionsToQuestionResponseDtos(List<Question> questions) {
         return questions.stream()
-                .map(question -> QuestionDto.Response.builder()
+                .map(question -> QuestionDto.ListResponse.builder()
                         .questionId(question.getQuestionId())
                         .title(question.getTitle())
-                        .content(question.getContent())
         //                .nickname(question.getMember().getNickname())
                         .createdAt(question.getCreatedAt())
                         .answerCount(question.getAnswerCount())
