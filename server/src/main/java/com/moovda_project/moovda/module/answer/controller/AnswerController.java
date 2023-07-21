@@ -6,6 +6,7 @@ import com.moovda_project.moovda.module.answer.entity.Answer;
 import com.moovda_project.moovda.module.answer.mapper.AnswerMapper;
 import com.moovda_project.moovda.module.answer.service.AnswerService;
 import com.moovda_project.moovda.global.utils.UriCreator;
+import com.moovda_project.moovda.module.movie.entity.Movie;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -45,9 +46,10 @@ public class AnswerController {
         long authenticatedMemberId = MemberIdExtractor.extractMemberId();
 
         request.setAnswerId(answerId);
+
         request.addAuthenticatedMemberId(authenticatedMemberId);
 
-        Answer answer = answerService.updateAnswer(answerMapper.answerPatchToAnswer(request),authenticatedMemberId);
+        answerService.updateAnswer(answerMapper.answerPatchToAnswer(request),authenticatedMemberId);
 
         return ResponseEntity.ok().build();
     }
