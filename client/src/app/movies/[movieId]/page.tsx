@@ -67,6 +67,11 @@ export default function MovieDetail() {
     axios
       .get(
         `${process.env.NEXT_PUBLIC_API_URL}/movies/${movieId}?page=${currentPage}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem('Authorization'),
+          },
+        },
       )
       .then((res) => {
         setData(res.data.data);
