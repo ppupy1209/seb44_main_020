@@ -10,6 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +57,8 @@ public interface QuestionMapper {
             // 끝 인덱스 계산
             int endIndex = Math.min(startIndex + pageSize, totalAnswers);
             List<Answer> paginatedAnswers = answers.subList(startIndex, endIndex);
+
+            Collections.reverse(paginatedAnswers);
 
             PageInfo pageDto = PageInfo.builder()
                     .page(page)
