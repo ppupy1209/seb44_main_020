@@ -1,38 +1,42 @@
 import React from 'react';
 import * as S from './NavigationBar.styled';
+import { StarrateShow } from '../Starrate/StarrateShow';
+import { useState } from 'react';
 
 interface Props {
   toggleGenreDropdown: () => void;
   toggleCountryDropdown: () => void;
-  toggleAgeDropdown: () => void;
+  toggleStarDropdown: () => void;
   toggleRatingDropdown: () => void;
   handleGenreClick: (genre: string) => void;
   handleCountryClick: (country: string) => void;
-  handleAgeClick: (age: number) => void;
+  handleStartingStarClick: (star: number) => void;
+  handleEndingStarClick: (star: number) => void;
   handleRatingClick: (rating: string) => void;
   genreDropdownOpen: boolean;
   countryDropdownOpen: boolean;
-  ageDropdownOpen: boolean;
+  starDropdownOpen: boolean;
   ratingDropdownOpen: boolean;
   selectedGenre: string | null;
   selectedCountry: string | null;
-  startStarAvg: number;
-  endStarAvg: number;
+  startStarAvg: number | null;
+  endStarAvg: number | null;
   selectedRating: string | null;
 }
 
 const NavigationBar: React.FC<Props> = ({
   toggleGenreDropdown,
   toggleCountryDropdown,
-  toggleAgeDropdown,
+  toggleStarDropdown,
   toggleRatingDropdown,
   handleGenreClick,
   handleCountryClick,
-  handleAgeClick,
+  handleStartingStarClick,
+  handleEndingStarClick,
   handleRatingClick,
   genreDropdownOpen,
   countryDropdownOpen,
-  ageDropdownOpen,
+  starDropdownOpen,
   ratingDropdownOpen,
   selectedGenre,
   selectedCountry,
@@ -67,14 +71,17 @@ const NavigationBar: React.FC<Props> = ({
     { label: '18세관람가', value: '18세관람가(청소년관람불가)' },
   ];
 
-  const ageOptions = [
-    { label: '0점', value: 0.0 },
-    { label: '1점', value: 1 },
-    { label: '2점', value: 2 },
-    { label: '3점', value: 3 },
-    { label: '4점', value: 4 },
-  ];
-
+  // const handleEndingStarSliderChange = (
+  //   event: React.ChangeEvent<HTMLInputElement>,
+  // ) => {
+  //   const value = parseInt(event.target.value, 10);
+  //   handleEndingStarClick(value);
+  // };
+  // const handleStartingStarSliderChange = (value: number) => {
+  //   // 별점 슬라이더 값을 0.5 단위로 반올림하여 업데이트합니다.
+  //   const roundedValue = Math.round(value * 2) / 2;
+  //   handleStartingStarClick(roundedValue);
+  // };
   return (
     <S.StyledNav>
       {/* 장르 드롭다운 */}
@@ -130,27 +137,67 @@ const NavigationBar: React.FC<Props> = ({
           ))}
         </S.Dropdown>
       )}
-      {/* 연령 드롭다운 */}
-      <S.Button onClick={toggleAgeDropdown} active={ageDropdownOpen}>
+      {/* 별점 드롭다운 */}
+      <S.Button onClick={toggleStarDropdown} active={starDropdownOpen}>
         별점순
       </S.Button>
-      {ageDropdownOpen && (
-        <S.Dropdown>
-          {ageOptions.map((option) => (
-            <S.Buttondetail
-              key={option.value}
-              onClick={() => handleAgeClick(option.value)}
-              active={
-                startStarAvg === option.value && endStarAvg === option.value
-              }
-            >
-              {option.label}
-            </S.Buttondetail>
-          ))}
-        </S.Dropdown>
+      {starDropdownOpen && (
+        <S.DropdownWrapper>
+          <S.Dropdown1>
+            <S.SliderWrapper>
+              <StarRating
+                rate={startStarAvg || 5}
+                onChange={handleStartingStarClick}
+              />
+            </S.SliderWrapper>
+          </S.Dropdown1>
+        </S.DropdownWrapper>
       )}
     </S.StyledNav>
   );
 };
+interface StarRatingProps {
+  rate: number;
+  onChange: (star: number) => void;
+}
+
+const StarRating: React.FC<StarRatingProps> = ({ rate = 5, onChange }) => {
+  const [currentRating, setCurrentRating] = useState(rate);
+
+  const handleClick = (starRating: number) => {
+    setCurrentRating(starRating);
+    onChange(starRating);
+  };
+
+  return (
+    <div>
+      {[1, 2, 3, 4, 5].map((starRating) => (
+        <StarIcon
+          key={starRating}
+          filled={starRating <= currentRating}
+          onClick={() => handleClick(starRating)}
+        />
+      ))}
+    </div>
+  );
+};
+
+interface StarIconProps {
+  filled: boolean;
+  onClick: () => void;
+}
+
+const StarIcon: React.FC<StarIconProps> = ({ filled, onClick }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="25"
+    height="25"
+    fill={filled ? 'yellow' : 'none'}
+    viewBox="0 0 16 16"
+    onClick={onClick}
+  >
+    <path d="M8 0l2.5 6h6l-4.5 3.5 1.5 6-5-4-5 4 1.5-6L1.5 6h6z" />
+  </svg>
+);
 
 export default NavigationBar;

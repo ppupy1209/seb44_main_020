@@ -25,7 +25,7 @@ export const MovieWrapper = styled.div`
 `;
 export const Poster = styled.img`
   width: 200px;
-  height: 230px;
+  height: 260px;
   object-fit: cover;
   grow: 1;
   border radius: 10px;
@@ -74,4 +74,10 @@ export const SearchIcon = styled.div`
 `;
 export const SearchInputWrapper = styled.div`
   position: relative;
+`;
+export const NoMoviesFound = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 1420px;
 `;
