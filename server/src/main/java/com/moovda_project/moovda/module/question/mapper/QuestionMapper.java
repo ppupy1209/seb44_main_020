@@ -8,12 +8,13 @@ import com.moovda_project.moovda.module.question.dto.QuestionDto;
 import com.moovda_project.moovda.module.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface QuestionMapper {
     @Mapping(source = "memberId", target = "member.memberId")
     Question questionPostDtoToQuestion(QuestionDto.Post questionPostDto);

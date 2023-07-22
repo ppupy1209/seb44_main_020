@@ -5,10 +5,11 @@ import com.moovda_project.moovda.module.answer.entity.Answer;
 import com.moovda_project.moovda.module.question.service.QuestionService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AnswerMapper {
     /*
     default Answer answerPostToAnswer(long questionId, QuestionService questionService, AnswerDto.Post requesBody) {
@@ -28,6 +29,7 @@ public interface AnswerMapper {
     @Mapping(source = "authenticatedMemberId", target = "member.memberId")
     Answer answerPatchToAnswer(AnswerDto.Patch answerPatchDto);
 
+    @Mapping(source = "createdAt", target = "createdAt")
     AnswerDto.Response answerToAnswerResponse(Answer answer);
 
     List<AnswerDto.Response> answersToAnswerResponses(List<Answer> answers);
