@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import Link from 'next/link';
 import * as S from './page.styled';
 import NavigationBar from '../../components/Filter/NavigationBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,28 +34,22 @@ const SearchPage: React.FC = () => {
 
   const [genreDropdownOpen, setGenreDropdownOpen] = useState(false);
   const [countryDropdownOpen, setCountryDropdownOpen] = useState(false);
-  const [ageDropdownOpen, setAgeDropdownOpen] = useState(false);
+  const [starDropdownOpen, setStarDropdownOpen] = useState(false);
   const [ratingDropdownOpen, setRatingDropdownOpen] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [selectedRating, setSelectedRating] = useState<string | null>(null);
-  // const [selectedAge, setSelectedAge] = useState<number>(0);
-  const [startStarAvg, setStartStarAvg] = useState<number>(0);
-  const [endStarAvg, setEndStarAvg] = useState<number>(0);
+  const [startStarAvg, setStartStarAvg] = useState<number | null>(0);
+  const [endStarAvg, setEndStarAvg] = useState<number | null>(0);
   const [searchKeyword, setSearchKeyword] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [pageInfo, setPageInfo] = useState<PageInfo>({
-  //   currentPage: 1,
-  //   pageSize: 10,
-  //   total: 10,
-  // });
 
   const fetchData = async (
     genre: string | null,
     country: string | null,
     rating: string | null,
-    startStarAvg: 0,
-    endStarAvg: 0,
+    startStarAvg: number | null,
+    endStarAvg: number | null,
     page: number,
     keyword: string | null,
   ) => {
@@ -64,8 +59,8 @@ const SearchPage: React.FC = () => {
           genre,
           country,
           rating,
-          startStarAvg,
-          endStarAvg,
+          startStarAvg: startStarAvg || 0,
+          endStarAvg: endStarAvg || 0,
           page,
           keyword,
         },
@@ -77,23 +72,29 @@ const SearchPage: React.FC = () => {
   };
 
   useEffect(() => {
-    fetchData(null, null, null, 0, 0, 1, null);
+    fetchData(null, null, null, null, null, 1, null);
   }, []);
 
   const handleGenreClick = (genre: string) => {
     if (selectedGenre === genre) {
       setSelectedGenre(null);
-      setGenreDropdownOpen(true);
-      fetchData(genre, selectedCountry, selectedRating, 0, 0, 1, searchKeyword);
-    } else {
-      setSelectedGenre(genre);
-      setGenreDropdownOpen(true);
       fetchData(
-        selectedGenre,
+        null,
         selectedCountry,
         selectedRating,
-        0,
-        0,
+        startStarAvg,
+        endStarAvg,
+        1,
+        searchKeyword,
+      );
+    } else {
+      setSelectedGenre(genre);
+      fetchData(
+        genre,
+        selectedCountry,
+        selectedRating,
+        startStarAvg,
+        endStarAvg,
         1,
         searchKeyword,
       );
@@ -103,17 +104,23 @@ const SearchPage: React.FC = () => {
   const handleCountryClick = (country: string) => {
     if (selectedCountry === country) {
       setSelectedCountry(null);
-      setCountryDropdownOpen(true);
-      fetchData(selectedGenre, country, selectedRating, 0, 0, 1, searchKeyword);
-    } else {
-      setSelectedCountry(country);
-      setCountryDropdownOpen(true);
       fetchData(
         selectedGenre,
-        selectedCountry,
+        null,
         selectedRating,
-        0,
-        0,
+        startStarAvg,
+        endStarAvg,
+        1,
+        searchKeyword,
+      );
+    } else {
+      setSelectedCountry(country);
+      fetchData(
+        selectedGenre,
+        country,
+        selectedRating,
+        startStarAvg,
+        endStarAvg,
         1,
         searchKeyword,
       );
@@ -123,53 +130,55 @@ const SearchPage: React.FC = () => {
   const handleRatingClick = (rating: string) => {
     if (selectedRating === rating) {
       setSelectedRating(null);
-      setRatingDropdownOpen(true);
-      fetchData(selectedGenre, selectedCountry, rating, 0, 0, 1, searchKeyword);
-    } else {
-      setSelectedRating(rating);
-      setRatingDropdownOpen(true);
       fetchData(
         selectedGenre,
         selectedCountry,
-        selectedRating,
-        0,
-        0,
+        null,
+        startStarAvg,
+        endStarAvg,
+        1,
+        searchKeyword,
+      );
+    } else {
+      setSelectedRating(rating);
+      fetchData(
+        selectedGenre,
+        selectedCountry,
+        rating,
+        startStarAvg,
+        endStarAvg,
         1,
         searchKeyword,
       );
     }
   };
 
-  const handleAgeClick = (age: number) => {
-    if (startStarAvg === age && endStarAvg === age) {
-      // If the selected age is already applied, remove the age filter
-      setStartStarAvg(0);
-      setEndStarAvg(0);
-      setAgeDropdownOpen(false);
-      fetchData(
-        selectedGenre,
-        selectedCountry,
-        selectedRating,
-        0,
-        0,
-        1,
-        searchKeyword,
-      );
-    } else {
-      setStartStarAvg(age);
-      setEndStarAvg(age);
-      setAgeDropdownOpen(true);
-      fetchData(
-        selectedGenre,
-        selectedCountry,
-        selectedRating,
-        0,
-        0,
-        1,
-        searchKeyword,
-      );
-    }
+  const handleStartingStarClick = (star: number) => {
+    setStartStarAvg(star);
+    fetchData(
+      selectedGenre,
+      selectedCountry,
+      selectedRating,
+      star,
+      endStarAvg || 5,
+      1,
+      searchKeyword,
+    );
   };
+
+  const handleEndingStarClick = (star: number) => {
+    setEndStarAvg(star);
+    fetchData(
+      selectedGenre,
+      selectedCountry,
+      selectedRating,
+      startStarAvg || 0,
+      star,
+      1,
+      searchKeyword,
+    );
+  };
+
   const toggleGenreDropdown = () => {
     setGenreDropdownOpen(!genreDropdownOpen);
   };
@@ -178,8 +187,8 @@ const SearchPage: React.FC = () => {
     setCountryDropdownOpen(!countryDropdownOpen);
   };
 
-  const toggleAgeDropdown = () => {
-    setAgeDropdownOpen(!ageDropdownOpen);
+  const toggleStarDropdown = () => {
+    setStarDropdownOpen(!starDropdownOpen);
   };
 
   const toggleRatingDropdown = () => {
@@ -214,8 +223,8 @@ const SearchPage: React.FC = () => {
         selectedGenre,
         selectedCountry,
         selectedRating,
-        0,
-        0,
+        startStarAvg,
+        endStarAvg,
         prevPage,
         searchKeyword,
       );
@@ -229,8 +238,8 @@ const SearchPage: React.FC = () => {
       selectedGenre,
       selectedCountry,
       selectedRating,
-      0,
-      0,
+      startStarAvg,
+      endStarAvg,
       nextPage,
       searchKeyword,
     );
@@ -240,8 +249,8 @@ const SearchPage: React.FC = () => {
       selectedGenre,
       selectedCountry,
       selectedRating,
-      0,
-      0,
+      startStarAvg,
+      endStarAvg,
       page,
       searchKeyword,
     );
@@ -277,15 +286,16 @@ const SearchPage: React.FC = () => {
         <NavigationBar
           toggleGenreDropdown={toggleGenreDropdown}
           toggleCountryDropdown={toggleCountryDropdown}
-          toggleAgeDropdown={toggleAgeDropdown}
+          toggleStarDropdown={toggleStarDropdown}
           toggleRatingDropdown={toggleRatingDropdown}
           handleGenreClick={handleGenreClick}
           handleCountryClick={handleCountryClick}
-          handleAgeClick={handleAgeClick}
           handleRatingClick={handleRatingClick}
+          handleStartingStarClick={handleStartingStarClick}
+          handleEndingStarClick={handleEndingStarClick}
           genreDropdownOpen={genreDropdownOpen}
           countryDropdownOpen={countryDropdownOpen}
-          ageDropdownOpen={ageDropdownOpen}
+          starDropdownOpen={starDropdownOpen}
           ratingDropdownOpen={ratingDropdownOpen}
           selectedGenre={selectedGenre}
           selectedCountry={selectedCountry}
@@ -293,15 +303,23 @@ const SearchPage: React.FC = () => {
           endStarAvg={endStarAvg}
           selectedRating={selectedRating}
         />
-        <S.GridContainer>
-          {filteredData.movies.map((item) => (
-            <S.MovieWrapper key={item.movieId}>
-              <S.Poster src={item.poster} alt={item.title} />
-              <S.Title>{item.title}</S.Title>
-              {/* <S.Title>평균별점: {item.starAvg}</S.Title> */}
-            </S.MovieWrapper>
-          ))}
-        </S.GridContainer>
+        {filteredData.movies.length === 0 ? (
+          <S.NoMoviesFound>
+            검색하신 조건에 해당하는 영화가 없습니다.
+          </S.NoMoviesFound>
+        ) : (
+          <S.GridContainer>
+            {filteredData.movies.map((item) => (
+              <Link key={item.movieId} href={`/movies/${item.movieId}`}>
+                <S.MovieWrapper key={item.movieId}>
+                  <S.Poster src={item.poster} alt={item.title} />
+                  <S.Title>{item.title}</S.Title>
+                  {/* <S.Title>평균별점: {item.starAvg}</S.Title> */}
+                </S.MovieWrapper>
+              </Link>
+            ))}
+          </S.GridContainer>
+        )}
       </S.MoviesWrapper>
       <Pagination
         pageNumbers={pageNumbers}
