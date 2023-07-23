@@ -31,7 +31,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private final MemberService memberService;
 
     private final MemberRepository memberRepository;
-    @Value("$redirect_uri")
+    @Value("${REDIRECT_URI}")
     private String uri;
 
 
@@ -96,10 +96,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         return UriComponentsBuilder
                 .newInstance()
-                .scheme("http")
                 .host(uri)
-//                .port(80)
-                .path("/movies/main")
                 .build()
                 .toUri();
     }
