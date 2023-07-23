@@ -9,16 +9,16 @@ export const SearchBoxGroup = styled.div`
 `;
 
 export const SearchBox = styled.div`
-  margin: 0.75rem 1rem;
+  margin: 1.5rem 1rem;
   width: 1024px;
-  background-color: rgba(255, 255, 255, 0.8);
+  /* background-color: rgba(255, 255, 255, 0.5); */
   border-radius: 16px;
-  padding: 1rem;
+  /* padding: 1rem; */
 `;
 
 export const SelectedMovieContainer = styled.div`
   display: flex;
-  background-color: white;
+  background-color: rgba(255, 255, 255, 0.5);
   height: 64px;
   width: 32%;
 `;
