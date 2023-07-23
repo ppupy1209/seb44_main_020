@@ -16,11 +16,11 @@ const QuestionCreatePage = () => {
 
   const onSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     if (titleValue.length < 5 || titleValue.length > 30) {
-      alert('제목은 5자 이상, 30자 이하로 입력해주세요.');
+      alert('제목은 5자 이상, 30자 이하로 입력해 주세요.');
       return;
     }
     if (contentValue.length < 10) {
-      alert('내용은 10자 이상 입력해주세요.');
+      alert('내용은 10자 이상 입력해 주세요.');
       return;
     }
 
@@ -116,7 +116,7 @@ const SearchBox = ({ value, setValue }: SearchBoxProps) => {
         id={titleId}
         value={value}
         onChange={onChangeSearchTitle}
-        placeholder="예: 추석에 온 가족이 같이 볼 수 있는 영화 추천해주세요."
+        placeholder="예: 추석에 온 가족이 같이 볼 수 있는 영화 추천해 주세요."
       />
     </S.Search>
   );
