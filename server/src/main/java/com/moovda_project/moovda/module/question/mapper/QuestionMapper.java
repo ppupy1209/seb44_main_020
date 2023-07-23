@@ -79,6 +79,7 @@ public interface QuestionMapper {
                                     .movie(AnswerDto.AnswerMovie.builder()
                                             .title(answer.getTitle())
                                             .poster(answer.getPoster())
+                                            .prodYear(answer.getProdYear())
                                             .build())
                                     .createdAt(answer.getCreatedAt())
                                     .build())
