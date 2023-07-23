@@ -18,6 +18,7 @@ public class AnswerDto {
         private String content;
         private String title;
         private String poster;
+        private String prodYear;
     }
     @Getter
     @Setter
@@ -41,16 +42,6 @@ public class AnswerDto {
         public void addAuthenticatedMemberId(long authenticatedMemberId) {
             this.authenticatedMemberId = authenticatedMemberId;
         }
-    }
-
-    @Getter @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class PatchResponse {
-        private String content;
-//        private MovieQuestionResponseDto movie;
-        private LocalDateTime modifiedAt;
     }
 
     @Getter
@@ -82,5 +73,6 @@ public class AnswerDto {
     public static class AnswerMovie {
         private String title;
         private String poster;
+        private String prodYear;
     }
 }
