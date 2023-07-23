@@ -7,17 +7,17 @@ import lombok.Getter;
 public class MemberDetailsImpl {
 
     private Long memberId;
-    private String name;
+    private String nickname;
 
-    public MemberDetailsImpl(Long memberId, String name) {
+    public MemberDetailsImpl(Long memberId, String nickname) {
         this.memberId = memberId;
-        this.name = name;
+        this.nickname = nickname;
     }
 
     public static MemberDetailsImpl build(Member member) {
         return new MemberDetailsImpl(
                 member.getMemberId(),
-                member.getName()
+                member.getNickname()
         );
     }
 }

@@ -30,16 +30,16 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
         Map<String, Object> attributes = oAuth2User.getAttributes();
-        String name = (String) attributes.get("name");
+        String nickname = (String) attributes.get("name");
         String email = (String) attributes.get("email");
 
         // 멤버 정보 저장
-        Member member = memberRepository.findByName(name);
+        Member member = memberRepository.findByNickname(nickname);
 
         if( member == null ) {
             member = Member.builder()
                     .email(email)
-                    .name(name)
+                    .nickname(nickname)
                     .build();
             memberRepository.save(member);
         }
