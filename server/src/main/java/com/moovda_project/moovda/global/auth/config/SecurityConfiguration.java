@@ -1,40 +1,50 @@
 package com.moovda_project.moovda.global.auth.config;
 
-import com.moovda_project.moovda.global.auth.filter.JwtAuthenticationFilter;
 import com.moovda_project.moovda.global.auth.filter.JwtVerificationFilter;
+import com.moovda_project.moovda.global.auth.handler.JwtLogoutSuccessHandler;
 import com.moovda_project.moovda.global.auth.handler.MemberAccessDeniedHandler;
 import com.moovda_project.moovda.global.auth.handler.MemberAuthenticationEntryPoint;
-import com.moovda_project.moovda.global.auth.handler.MemberAuthenticationFailureHandler;
-import com.moovda_project.moovda.global.auth.handler.MemberAuthenticationSuccessHandler;
 import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
-import com.moovda_project.moovda.global.utils.CustomAuthorityUtils;
+import com.moovda_project.moovda.global.auth.service.CustomOAuth2UserService;
+import com.moovda_project.moovda.global.auth.service.TokenBlacklistService;
+import com.moovda_project.moovda.module.member.service.MemberService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 
-import static org.springframework.security.config.Customizer.*;
+import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
 public class SecurityConfiguration {
-
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
 
+    private final MemberService memberService;
 
-    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils) {
+    private TokenBlacklistService tokenBlacklistService;
+    @Autowired
+    private JwtLogoutSuccessHandler logoutSuccessHandler;
+
+    @Autowired
+    private CustomOAuth2UserService customOAuth2UserService;
+
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer,
+                                 MemberService memberService,
+                                 TokenBlacklistService tokenBlacklistService) {
         this.jwtTokenizer = jwtTokenizer;
-        this.authorityUtils = authorityUtils;
+        this.memberService = memberService;
+        this.tokenBlacklistService = tokenBlacklistService;
     }
 
     @Bean
@@ -52,48 +62,44 @@ public class SecurityConfiguration {
                 .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
                 .accessDeniedHandler(new MemberAccessDeniedHandler())
                 .and()
-                .apply(new CustomFilterConfigurer())
+                .apply(new CustomFilterConfigurer())  // 추가
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers("/","/**").permitAll()
-                        .anyRequest().permitAll());
+                        .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth2 -> oauth2
+                        .successHandler(new com.moovda_project.moovda.oauth2_jwt.handler.OAuth2MemberSuccessHandler(jwtTokenizer,  memberService))
+                        .loginPage("/members/login")
+                        .userInfoEndpoint()
+                        .userService(customOAuth2UserService)
+                )
+                .logout()
+                .logoutUrl("/members/logout")
+                .logoutSuccessHandler(new JwtLogoutSuccessHandler(tokenBlacklistService))
+                .deleteCookies("token")
+        ;
+
         return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
-    // (8)
-    @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));   // (8-1)
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "DELETE"));  // (8-2)
-        configuration.setAllowedHeaders(Arrays.asList("*")); // CORS 정책 추가 (1)
-        configuration.setExposedHeaders(Arrays.asList("*")); // CORS 정책 추가 (2)
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // 주의 사항: 컨텐츠 표시 오류로 인해 '/**'를 '\/**'로 표기했으니 실제 코드 구현 시에는 '\(역슬래시)'를 빼 주세요.
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();   // (8-3)
-        source.registerCorsConfiguration("/**", configuration);      // (8-4)     주의 사항: 콘텐츠 표시 오류로 인해 '/**'를 '\/**'로 표기했으니 실제 코드 구현 시에는 '\(역슬래시)'를 빼 주세요.
         return source;
     }
 
+    // 추가
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
-        public void configure(HttpSecurity builder) throws Exception {  // (2-2)
-            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);  // (2-3)
+        public void configure(HttpSecurity builder) throws Exception {
+            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer);
 
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer);  // (2-4)
-            jwtAuthenticationFilter.setFilterProcessesUrl("/v11/auth/login");// (2-5)
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler());
-            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
-
-            JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
-
-            builder.addFilter(jwtAuthenticationFilter)  // (2-6)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class);
-
+            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 }
