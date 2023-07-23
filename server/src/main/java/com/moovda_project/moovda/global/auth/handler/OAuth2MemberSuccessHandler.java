@@ -4,6 +4,7 @@ package com.moovda_project.moovda.oauth2_jwt.handler;
 import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.service.MemberService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;
     private final MemberService memberService;
@@ -37,7 +39,9 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         var oAuth2User = (OAuth2User)authentication.getPrincipal();
         String name = String.valueOf(oAuth2User.getAttributes().get("name"));
 
+        log.info("OAuth2 로그인에 성공했습니다1");
         redirect(request, response, name);
+        log.info("OAuth2 로그인에 성공했습니다2");
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username) throws IOException {
