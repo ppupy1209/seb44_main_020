@@ -39,7 +39,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         if( member == null ) {
             member = Member.builder()
                     .email(email)
-                    .name(name)
+                    .nickname(name)
                     .build();
             memberRepository.save(member);
         }

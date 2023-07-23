@@ -17,7 +17,7 @@ public class MemberDetailsImpl {
     public static MemberDetailsImpl build(Member member) {
         return new MemberDetailsImpl(
                 member.getMemberId(),
-                member.getName()
+                member.getNickname()
         );
     }
 }

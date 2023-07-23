@@ -3,6 +3,7 @@ package com.moovda_project.moovda.oauth2_jwt.handler;
 
 import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import com.moovda_project.moovda.module.member.entity.Member;
+import com.moovda_project.moovda.module.member.repository.MemberRepository;
 import com.moovda_project.moovda.module.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -27,36 +28,45 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private final JwtTokenizer jwtTokenizer;
     private final MemberService memberService;
 
+    private final MemberRepository memberRepository;
+
 
     public OAuth2MemberSuccessHandler(JwtTokenizer jwtTokenizer,
-                                      MemberService memberService) {
+                                      MemberService memberService,
+                                      MemberRepository memberRepository) {
         this.jwtTokenizer = jwtTokenizer;
         this.memberService = memberService;
+        this.memberRepository = memberRepository;
     }
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         var oAuth2User = (OAuth2User)authentication.getPrincipal();
-        String name = String.valueOf(oAuth2User.getAttributes().get("name"));
+        String nickName = String.valueOf(oAuth2User.getAttributes().get("name"));
+        String email = String.valueOf(oAuth2User.getAttributes().get("email"));
 
         log.info("OAuth2 로그인에 성공했습니다1");
-        redirect(request, response, name);
+        redirect(request, response, nickName, email);
         log.info("OAuth2 로그인에 성공했습니다2");
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String username) throws IOException {
-        String accessToken = delegateAccessToken(username);
-        String refreshToken = delegateRefreshToken(username);
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String nickName, String email) throws IOException {
+        String accessToken = delegateAccessToken(nickName, email);
+        String refreshToken = delegateRefreshToken(nickName);
 
+        response.setHeader("Authorization", "Bearer " + accessToken);
+        response.setHeader("Refresh", refreshToken);
         String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
-    private String delegateAccessToken(String username) {
+    private String delegateAccessToken(String nickName, String email) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username);
+        Member member = memberService.findByEmail(email);
+        claims.put("memberId",member.getMemberId());
+        claims.put("username", nickName);
 
-        String subject = username;
+        String subject = nickName;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -66,8 +76,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return accessToken;
     }
 
-    private String delegateRefreshToken(String username) {
-        String subject = username;
+    private String delegateRefreshToken(String userName) {
+        String subject = userName;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
@@ -78,16 +88,13 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     private URI createURI(String accessToken, String refreshToken) {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-        queryParams.add("access_token", accessToken);
-        queryParams.add("refresh_token", refreshToken);
 
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
 //                .port(80)
-                .path("/receive-token.html")
-                .queryParams(queryParams)
+                .path("/movies/main")
                 .build()
                 .toUri();
     }

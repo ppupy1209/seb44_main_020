@@ -7,17 +7,16 @@ import com.moovda_project.moovda.global.auth.handler.MemberAuthenticationEntryPo
 import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import com.moovda_project.moovda.global.auth.service.CustomOAuth2UserService;
 import com.moovda_project.moovda.global.auth.service.TokenBlacklistService;
+import com.moovda_project.moovda.module.member.repository.MemberRepository;
 import com.moovda_project.moovda.module.member.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -32,6 +31,7 @@ public class SecurityConfiguration {
 
     private final MemberService memberService;
 
+    private final MemberRepository memberRepository;
     private TokenBlacklistService tokenBlacklistService;
     @Autowired
     private JwtLogoutSuccessHandler logoutSuccessHandler;
@@ -41,9 +41,10 @@ public class SecurityConfiguration {
 
     public SecurityConfiguration(JwtTokenizer jwtTokenizer,
                                  MemberService memberService,
-                                 TokenBlacklistService tokenBlacklistService) {
+                                 MemberRepository memberRepository, TokenBlacklistService tokenBlacklistService) {
         this.jwtTokenizer = jwtTokenizer;
         this.memberService = memberService;
+        this.memberRepository = memberRepository;
         this.tokenBlacklistService = tokenBlacklistService;
     }
 
@@ -68,7 +69,7 @@ public class SecurityConfiguration {
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
-                        .successHandler(new com.moovda_project.moovda.oauth2_jwt.handler.OAuth2MemberSuccessHandler(jwtTokenizer,  memberService))
+                        .successHandler(new com.moovda_project.moovda.oauth2_jwt.handler.OAuth2MemberSuccessHandler(jwtTokenizer,  memberService, memberRepository))
                         .loginPage("/members/login")
                         .userInfoEndpoint()
                         .userService(customOAuth2UserService)
