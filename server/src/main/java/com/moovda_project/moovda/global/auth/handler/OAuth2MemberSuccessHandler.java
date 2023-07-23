@@ -42,17 +42,17 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         var oAuth2User = (OAuth2User)authentication.getPrincipal();
-        String nickName = String.valueOf(oAuth2User.getAttributes().get("name"));
+        String nickname = String.valueOf(oAuth2User.getAttributes().get("name"));
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
 
         log.info("OAuth2 로그인에 성공했습니다1");
-        redirect(request, response, nickName, email);
+        redirect(request, response, nickname, email);
         log.info("OAuth2 로그인에 성공했습니다2");
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String nickName, String email) throws IOException {
-        String accessToken = delegateAccessToken(nickName, email);
-        String refreshToken = delegateRefreshToken(nickName);
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String nickname, String email) throws IOException {
+        String accessToken = delegateAccessToken(nickname, email);
+        String refreshToken = delegateRefreshToken(nickname);
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
@@ -60,13 +60,13 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
-    private String delegateAccessToken(String nickName, String email) {
+    private String delegateAccessToken(String nickname, String email) {
         Map<String, Object> claims = new HashMap<>();
         Member member = memberService.findByEmail(email);
         claims.put("memberId",member.getMemberId());
-        claims.put("username", nickName);
+        claims.put("nickname", nickname);
 
-        String subject = nickName;
+        String subject = nickname;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
 
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
@@ -76,8 +76,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return accessToken;
     }
 
-    private String delegateRefreshToken(String userName) {
-        String subject = userName;
+    private String delegateRefreshToken(String nickname) {
+        String subject = nickname;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
         String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
 
