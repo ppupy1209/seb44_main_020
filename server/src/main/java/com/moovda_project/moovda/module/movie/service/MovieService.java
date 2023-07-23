@@ -25,7 +25,6 @@ import java.util.*;
 public class MovieService {
     private final MovieRepository movieRepository;
     private final MemberService memberService;
-
     private final LikeRepository likeRepository;
 
     @Transactional(readOnly = true)
