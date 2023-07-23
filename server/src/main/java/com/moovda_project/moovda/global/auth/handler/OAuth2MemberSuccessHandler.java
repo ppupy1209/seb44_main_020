@@ -56,8 +56,6 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
-        String uri = createURI(accessToken, refreshToken).toString();
-        getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
     private String delegateAccessToken(String nickname, String email) {
@@ -84,19 +82,6 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String refreshToken = jwtTokenizer.generateRefreshToken(subject, expiration, base64EncodedSecretKey);
 
         return refreshToken;
-    }
-
-    private URI createURI(String accessToken, String refreshToken) {
-        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-
-        return UriComponentsBuilder
-                .newInstance()
-                .scheme("http")
-                .host("localhost")
-//                .port(80)
-                .path("/movies/main")
-                .build()
-                .toUri();
     }
 
 }
