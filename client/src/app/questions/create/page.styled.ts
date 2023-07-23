@@ -15,7 +15,7 @@ export const Header = styled.div`
 export const PageTitleBox = styled.div`
   max-width: 1024px;
   margin: 0 auto;
-  padding: 180px 16px;
+  padding: 150px 16px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -49,6 +49,7 @@ export const TitleSecondMsg = styled.p``;
 
 export const PageBody = styled.div`
   padding-bottom: 3rem;
+  /* height: 450px; */
 `;
 
 export const PageBodyContent = styled.div`
@@ -72,7 +73,7 @@ export const Search = styled.div`
 
 export const SearchTitle = styled.p`
   color: black;
-  margin-bottom: 8px;
+  font-weight: 700;
 `;
 
 export const SearchInput = styled.input`
@@ -82,13 +83,28 @@ export const SearchInput = styled.input`
   border: 1px solid white;
 `;
 
-export const Content = styled.div`
-  height: 330px;
-`;
+export const Content = styled.div``;
 
 export const ContentTitle = styled.p`
   color: black;
+  font-weight: 700;
+`;
+
+export const ContentDescriptionDiv = styled.div`
   margin-bottom: 8px;
+`;
+
+export const ContentDescription = styled.span`
+  color: dark grey;
+  font-size: small;
+`;
+
+export const AskTextArea = styled.textarea`
+  height: 176px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  resize: none;
 `;
 
 export const ButtonBox = styled.div`
