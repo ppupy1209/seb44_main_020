@@ -78,6 +78,9 @@ export const EditBtn = styled.button`
   border-color: rgba(255, 255, 255, 0);
   color: white;
   font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const DeleteBtn = styled.button`
@@ -87,6 +90,9 @@ export const DeleteBtn = styled.button`
   border-color: rgba(255, 255, 255, 0);
   color: white;
   font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BoxTitle = styled.h2`
