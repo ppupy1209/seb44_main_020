@@ -65,6 +65,7 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer())  // 추가
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers("/","/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -87,6 +88,8 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST", "PATCH", "DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("*")); // CORS 정책 추가 (1)
+        configuration.setExposedHeaders(Arrays.asList("*")); // CORS 정책 추가 (2)
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration); // 주의 사항: 컨텐츠 표시 오류로 인해 '/**'를 '\/**'로 표기했으니 실제 코드 구현 시에는 '\(역슬래시)'를 빼 주세요.
 
