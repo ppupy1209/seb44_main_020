@@ -12,7 +12,6 @@ import java.util.List;
 @Builder
 public class MemberResponseDto {
     private long memberId;
-
     private String nickname;
     private List<ToWatchResponseDto> toWatch;
     private List<WatchedResponseDto> watched;
