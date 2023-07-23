@@ -1,7 +1,5 @@
 'use client';
 
-// TODO: userId === memberId 일 때 수정, 삭제 버튼 노출
-
 import * as S from '@/app/questions/[questionId]/page.styled';
 import AnswerBox from '@/components/Question/AnswerBox';
 import { SearchMovieList } from '@/components/Question/Modal';
@@ -23,9 +21,11 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { QuestionListResponse } from '../page';
+import { setUser } from '@/redux/features/authSlice';
+import { setQuestionId } from '@/redux/features/questionIdSlice';
 
 export interface QuestionDetailResponse {
-  memberId: string;
+  memberId: number;
   questionId: string;
   nickname: string;
   title: string;
@@ -39,18 +39,17 @@ export interface QuestionDetailResponse {
 const QuestionDetailPage = () => {
   const dispatch = useDispatch();
   const { answers } = useSelector((state: RootState) => state.answerList);
-  // const { user } = useSelector((state: RootState) => state.login);
+  const userId = useSelector((state: RootState) => state.auth.memberId);
   const { questionId } = useParams();
   const searchParams = useSearchParams();
   const page = searchParams.get('page') ?? 1;
   const [pageInfo, setPageInfo] = useState<QuestionListResponse['pageInfo']>({
     page: 1,
-    size: 1,
-    totalElements: 7,
-    totalPages: 7,
+    size: 0,
+    totalElements: 0,
+    totalPages: 0,
   });
 
-  // TODO: const user = 로그인한 유저 Id
   // 작성자인지 아닌지 체크
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
   const [questionAndAnswer, setQuestionAndAnswer] =
@@ -60,16 +59,30 @@ const QuestionDetailPage = () => {
     const getQuestionDetailData = async () => {
       const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}?page=${page}`;
       const response = await axios.get(source, {
-        headers: {},
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       setQuestionAndAnswer(response.data);
-      console.log(response.data);
-      // setPageInfo(response.data.pageInfo);
+      console.log(response.data.answers);
+      setPageInfo(response.data.pageInfo);
       dispatch(setAnswerList(response.data.answers));
     };
+
     // user추가
     getQuestionDetailData();
+    // }
   }, [questionId, page]);
+
+  // useEffect(() => {
+  //   dispatch(
+  //     setUser({
+  //       user: 'he',
+  //       token: 'aaaa',
+  //       memberId: 1,
+  //     }),
+  //   );
+  // });
 
   const onSubmit = async ({
     selectedMovie,
@@ -78,36 +91,52 @@ const QuestionDetailPage = () => {
     selectedMovie: SearchMovieList;
     textValue: string;
   }) => {
-    // 댓글 생성 post
-
     const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers`;
-    const response = await axios.post(source, {
-      body: {
-        memberId: 1,
-        content: textValue,
-        movie: {
-          title: selectedMovie.title,
-          poster: selectedMovie.poster,
-        },
-      },
-      headers: {},
-    });
-    console.log(response);
+    const body = {
+      memberId: 1,
+      content: textValue,
+      title: selectedMovie.title,
+      poster: selectedMovie.poster,
+    };
 
-    dispatch(
-      addAnswerList({
-        answerId: crypto.randomUUID(),
-        // nickname: user ? user.nickname : '',
-        createdAt: new Date().toString(),
-        content: textValue,
-        movie: { title: selectedMovie?.title, poster: selectedMovie?.poster },
-      }),
-    );
+    // const response
+    await axios.post(source, body, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    // console.log('response', response);
+
+    // dispatch(
+    //   addAnswerList({
+    //     answerId: ,
+    //     answerId: response.data.answerId,
+    //     memberId: 1,
+    //     nickname: userId ? questionAndAnswer?.nickname : '',
+    //     createdAt: new Date().toString(),
+    //     content: textValue,
+    //     movie: { title: selectedMovie?.title, poster: selectedMovie?.poster },
+    //   }),
+    // );
+    const answerSource = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}?page=${page}`;
+    const response = await axios.get(answerSource, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    setQuestionAndAnswer(response.data);
+    setPageInfo(response.data.pageInfo);
+    dispatch(setAnswerList(response.data.answers));
   };
 
-  // if (questionAndAnswer?.memberId === user?.memberId) {
-  //   setIsAuthor(true);
-  // }
+  // useEffect(() => {
+  //   if (!questionAndAnswer) return;
+
+  //   if (questionAndAnswer.memberId === userId) {
+  //     setIsAuthor(true);
+  //   }
+  // }, [questionAndAnswer]);
 
   return (
     <S.PageGroup>
@@ -119,11 +148,15 @@ const QuestionDetailPage = () => {
       <AskBox isAuthor={isAuthor} question={questionAndAnswer} />
       <SearchBox onSubmit={onSubmit} />
       {answers.map((answer) => (
-        <AnswerBox key={answer.answerId} answer={answer} />
+        <AnswerBox
+          key={answer.answerId}
+          answer={answer}
+          question={questionAndAnswer}
+        />
       ))}
       <Pagination
         totalElements={pageInfo?.totalElements}
-        size={pageInfo.size}
+        size={pageInfo?.size}
       />
     </S.PageGroup>
   );
@@ -161,12 +194,20 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
     if (window.confirm('삭제하시겠습니까?')) {
       const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}`;
       await axios.delete(source, {
-        headers: {},
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
     }
     console.log('질문이 삭제되었습니다.');
     router.push('/questions');
   };
+
+  const EditButton = () => {
+    const dispatch = useDispatch();
+    dispatch(setQuestionId(Number(questionId)));
+  };
+  console.log('questionId!!!!!!', questionId!!!!!!);
 
   return (
     <S.BoxTop>
@@ -177,18 +218,21 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
             router.push('/mypage')
           }
         >
-          {question?.nickname}
+          {/* {question?.nickname} */}
         </S.Nickname>
-        <S.Time>{AnswerDate(new Date())}</S.Time>
+        <S.Time>
+          {question?.createdAt ? AnswerDate(new Date(question.createdAt)) : ''}
+        </S.Time>
       </S.LeftBox>
       <S.RightBox>
         {/* {isAuthor && ( */}
         <Link href={'/questions/edit'}>
-          <S.EditBtn>수정</S.EditBtn>
+          <S.EditBtn onClick={EditButton}>수정</S.EditBtn>
         </Link>
         {/* )} */}
         {/* {isAuthor &&  */}
-        {<S.DeleteBtn onClick={onDelete}>삭제</S.DeleteBtn>}
+        <S.DeleteBtn onClick={onDelete}>삭제</S.DeleteBtn>
+        {/* } */}
       </S.RightBox>
     </S.BoxTop>
   );
@@ -203,7 +247,6 @@ const Pagination = ({ totalElements, size }: PaginationProps) => {
   const searchParams = useSearchParams()!;
   const router = useRouter();
   const pathname = usePathname();
-  // button active 상태 확인용
   const page = searchParams.get('page') ?? 1;
 
   const onPaginate = useCallback(
@@ -220,24 +263,23 @@ const Pagination = ({ totalElements, size }: PaginationProps) => {
     { length: Math.ceil(totalElements / size) },
     (_, i) => i + 1,
   );
+  // console.log(pageNumbers, totalElements, size);
 
   return (
-    <>
-      <div>
-        {pageNumbers.map((pageNumber) => (
-          <div key={pageNumber}>
-            <button
-              onClick={() => {
-                router.push(pathname + '?' + onPaginate(pageNumber));
-              }}
-              className={page === pageNumber.toString() ? 'active' : ''}
-            >
-              {pageNumber}
-            </button>
-          </div>
-        ))}
-      </div>
-    </>
+    <div>
+      {pageNumbers.map((pageNumber) => (
+        <div key={pageNumber}>
+          <button
+            onClick={() => {
+              router.push(pathname + '?' + onPaginate(pageNumber));
+            }}
+            className={page === pageNumber.toString() ? 'active' : ''}
+          >
+            {pageNumber}
+          </button>
+        </div>
+      ))}
+    </div>
   );
 };
 
