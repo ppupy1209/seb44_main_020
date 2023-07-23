@@ -34,12 +34,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String email = (String) attributes.get("email");
 
         // 멤버 정보 저장
-        Member member = memberRepository.findByName(name);
+        Member member = memberRepository.findByNickname(name);
 
         if( member == null ) {
             member = Member.builder()
                     .email(email)
-                    .name(name)
+                    .nickname(name)
                     .build();
             memberRepository.save(member);
         }
