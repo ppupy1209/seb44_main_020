@@ -4,11 +4,8 @@ import * as S from '@/app/questions/[questionId]/page.styled';
 import AnswerBox from '@/components/Question/AnswerBox';
 import { SearchMovieList } from '@/components/Question/Modal';
 import SearchBox from '@/components/Question/SearchBox';
-import {
-  AnswerType,
-  addAnswerList,
-  setAnswerList,
-} from '@/redux/features/answerListSlice';
+import { AnswerType, setAnswerList } from '@/redux/features/answerListSlice';
+import { setQuestionId } from '@/redux/features/questionIdSlice';
 import { RootState } from '@/redux/store';
 import axios from 'axios';
 import Link from 'next/link';
@@ -21,8 +18,6 @@ import {
 import { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { QuestionListResponse } from '../page';
-import { setUser } from '@/redux/features/authSlice';
-import { setQuestionId } from '@/redux/features/questionIdSlice';
 
 export interface QuestionDetailResponse {
   memberId: number;
@@ -34,6 +29,7 @@ export interface QuestionDetailResponse {
   answerCount: number;
   views: number;
   answers: AnswerType[];
+  pageInfo: QuestionListResponse['pageInfo'];
 }
 
 const QuestionDetailPage = () => {
