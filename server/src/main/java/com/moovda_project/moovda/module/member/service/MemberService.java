@@ -28,6 +28,9 @@ public class MemberService {
         return findVerifiedMember(memberId);
     }
 
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 

@@ -29,6 +29,8 @@ public class Answer extends Auditable {
     @Column(nullable = false)
     private String poster;
 
+    @Column(nullable = false)
+    private String prodYear;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
