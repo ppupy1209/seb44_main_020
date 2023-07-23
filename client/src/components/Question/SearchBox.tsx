@@ -81,21 +81,31 @@ const SearchBox = ({ onSubmit, defaultValue }: SearchBoxProps) => {
       <S.SearchBox>
         {selectedMovie ? (
           <div>
-            <div>
-              <div>
-                <img
-                  src={selectedMovie.poster}
-                  alt="movieposter"
-                  width={'56px'}
-                  height={'64px'}
-                />
-              </div>
-              <div>
-                <div>{selectedMovie.title}</div>
-                {/* <div>{selectedMovie.prodYear}</div> */}
-              </div>
-            </div>
-            <button onClick={resetSelectedMovie}>영화 다시 선택하기</button>
+            <Link href={`movie/${selectedMovie.movieId}`}>
+              <S.SelectedMovieContainer>
+                <div>
+                  <img
+                    src={selectedMovie.poster}
+                    alt="movieposter"
+                    width={'56px'}
+                    height={'64px'}
+                  />
+                </div>
+                <div>
+                  <S.SelectedMovieTitle>
+                    {selectedMovie.title}
+                  </S.SelectedMovieTitle>
+                </div>
+                <div>
+                  <S.SelectedMovieProdYear>
+                    {selectedMovie.prodYear}
+                  </S.SelectedMovieProdYear>
+                </div>
+              </S.SelectedMovieContainer>
+            </Link>
+            <S.ChangeMovieButton onClick={resetSelectedMovie}>
+              영화 다시 선택하기
+            </S.ChangeMovieButton>
           </div>
         ) : (
           <S.MovieSelector>
