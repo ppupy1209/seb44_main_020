@@ -11,9 +11,50 @@ export const SearchBoxGroup = styled.div`
 export const SearchBox = styled.div`
   margin: 0.75rem 1rem;
   width: 1024px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 16px;
   padding: 1rem;
+`;
+
+export const SelectedMovieContainer = styled.div`
+  display: flex;
+  background-color: white;
+  height: 64px;
+  width: 32%;
+`;
+
+export const SelectedMovieTitle = styled.p`
+  padding-top: 1rem;
+  padding-left: 0.75rem;
+  font-weight: 700;
+  font-size: small;
+`;
+
+export const SelectedMovieProdYear = styled.p`
+  padding-top: 0.25rem;
+  padding-left: 0.75rem;
+  font-weight: bold;
+`;
+
+export const ChangeMovieButton = styled.button`
+  border-radius: 4px;
+  width: 100%;
+  background-color: #111321;
+  &:hover {
+    background-color: #111321;
+    cursor: pointer;
+    color: white;
+  }
+  display: flex;
+  background-color: #c2c2c2;
+  height: 48px;
+  cursor: pointer;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: large;
+  margin: 0.25rem 0 0.5rem 0;
 `;
 
 export const MovieSelector = styled.div``;
