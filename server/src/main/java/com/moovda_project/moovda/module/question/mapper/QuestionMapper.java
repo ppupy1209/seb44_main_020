@@ -1,6 +1,5 @@
 package com.moovda_project.moovda.module.question.mapper;
 
-import com.moovda_project.moovda.global.dto.PageDto;
 import com.moovda_project.moovda.global.dto.PageInfo;
 import com.moovda_project.moovda.module.answer.dto.AnswerDto;
 import com.moovda_project.moovda.module.answer.entity.Answer;
@@ -26,7 +25,7 @@ public interface QuestionMapper {
                 .map(question -> QuestionDto.ListResponse.builder()
                         .questionId(question.getQuestionId())
                         .title(question.getTitle())
-        //                .nickname(question.getMember().getNickname())
+                        .nickname(question.getMember().getNickname())
                         .createdAt(question.getCreatedAt())
                         .answerCount(question.getAnswerCount())
                         .views(question.getViews())
@@ -34,11 +33,10 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
     }
     default QuestionDto.Response questionToQuestionResponseDto(Question question, int page, int pageSize) {
-/** TODO : pageInfo 출력 해야함  **/
         QuestionDto.Response questionResponseDto =
                 QuestionDto.Response.builder()
                         .questionId(question.getQuestionId())
-        //                .nickname(question.getMember().getNickname())
+                        .nickname(question.getMember().getNickname())
                         .memberId(question.getMember().getMemberId())
                         .title(question.getTitle())
                         .content(question.getContent())
@@ -75,7 +73,7 @@ public interface QuestionMapper {
                             .map(answer -> AnswerDto.Response.builder()
                                     .answerId(answer.getAnswerId())
                                     .questionId(answer.getQuestion().getQuestionId())
-                                    //.nickname(answer.getMember().getNickname))
+                                    .nickname(answer.getMember().getNickname())
                                     .memberId(answer.getMember().getMemberId())
                                     .content(answer.getContent())
                                     .movie(AnswerDto.AnswerMovie.builder()
