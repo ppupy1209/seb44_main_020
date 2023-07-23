@@ -26,11 +26,8 @@ public class Member extends Auditable {
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(length = 100, nullable = false)
-    private String password;
-
     @Column(nullable = false)
-    private String name;
+    private String nickname;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();

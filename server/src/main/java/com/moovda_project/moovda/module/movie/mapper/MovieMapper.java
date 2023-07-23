@@ -86,6 +86,7 @@ public interface MovieMapper {
                           .movieId(movie.getMovieId())
                           .title(movie.getTitle())
                           .poster(movie.getPoster())
+                          .openingDate(movie.getOpeningDate())
                           .starAvg(movie.getStarAvg())
                           .build())
                   .collect(Collectors.toList());
@@ -122,6 +123,7 @@ public interface MovieMapper {
                               CommentResponseDto.builder().
                                       memberId(comment.getMember().getMemberId()).
                                       commentId(comment.getCommentId()).
+                                      nickname(comment.getMember().getNickname()).
                                       content(comment.getContent()).
                                       star(comment.getStar()).
                                       likeCount(comment.getLikes().size()).

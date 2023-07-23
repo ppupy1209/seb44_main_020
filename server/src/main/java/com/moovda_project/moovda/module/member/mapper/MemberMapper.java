@@ -29,6 +29,7 @@ public interface MemberMapper {
 
         return MemberResponseDto.builder().
                 memberId(member.getMemberId()).
+                nickname(member.getNickname()).
                 toWatch(toWatchResponseDtos).
                 watched(watchedResponseDtos).
                 build();

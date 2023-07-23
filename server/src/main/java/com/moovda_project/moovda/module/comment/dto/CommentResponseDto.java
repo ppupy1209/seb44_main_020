@@ -9,9 +9,10 @@ import java.time.LocalDateTime;
 @Builder
 public class CommentResponseDto {
 
-    //    String nickname;
+
     Long memberId;
     Long commentId;
+    String nickname;
     String content;
     Double star;
     Integer likeCount;
