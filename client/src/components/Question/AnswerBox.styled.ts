@@ -101,7 +101,7 @@ export const MovieInfo = styled.div`
 `;
 
 export const MovieTitle = styled.p`
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 export const MovieReleaseDate = styled.p`
