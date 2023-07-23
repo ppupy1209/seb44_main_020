@@ -74,6 +74,7 @@ export const Search = styled.div`
 export const SearchTitle = styled.p`
   color: black;
   font-weight: 700;
+  margin-left: 0.5rem;
 `;
 
 export const SearchInput = styled.input`
@@ -88,10 +89,12 @@ export const Content = styled.div``;
 export const ContentTitle = styled.p`
   color: black;
   font-weight: 700;
+  margin-left: 0.5rem;
 `;
 
 export const ContentDescriptionDiv = styled.div`
   margin-bottom: 8px;
+  margin-left: 0.5rem;
 `;
 
 export const ContentDescription = styled.span`
