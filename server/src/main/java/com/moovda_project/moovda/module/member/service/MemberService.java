@@ -13,17 +13,11 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public Member createMember(Member member) {
-
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
 
         Member savedMember = memberRepository.save(member);
         return savedMember;
