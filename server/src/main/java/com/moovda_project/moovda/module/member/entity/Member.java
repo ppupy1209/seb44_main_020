@@ -4,10 +4,7 @@ import com.moovda_project.moovda.global.audit.Auditable;
 
 import com.moovda_project.moovda.module.watch.entity.ToWatch;
 import com.moovda_project.moovda.module.watch.entity.Watched;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "members")
 public class Member extends Auditable {
     @Id
@@ -30,6 +28,9 @@ public class Member extends Auditable {
 
     @Column(length = 100, nullable = false)
     private String password;
+
+    @Column(nullable = false)
+    private String name;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
