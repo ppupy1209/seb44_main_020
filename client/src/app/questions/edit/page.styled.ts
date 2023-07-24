@@ -124,3 +124,15 @@ export const Button = styled.button`
   cursor: pointer;
   color: white;
 `;
+
+export const CancelButton = styled.button`
+  padding: 12px 24px;
+  border-radius: 8px;
+  width: 100px;
+  background-color: #01123d;
+  &:hover {
+    background-color: #6c63ff;
+  }
+  cursor: pointer;
+  color: white;
+`;

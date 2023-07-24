@@ -85,6 +85,13 @@ const QuestionEditPage = () => {
             </S.Content>
             <S.ButtonBox>
               <S.Button onClick={onSubmit}>질문하기</S.Button>
+              <S.CancelButton
+                onClick={() => {
+                  router.push(`/questions/${questionId}`);
+                }}
+              >
+                Cancel
+              </S.CancelButton>
             </S.ButtonBox>
           </S.PageBodyItem>
         </S.PageBodyContent>
