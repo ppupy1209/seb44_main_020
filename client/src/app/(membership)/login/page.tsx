@@ -28,6 +28,7 @@ const LoginPage = () => {
               구글계정으로 로그인하기
             </S.StyledButtonText>
           </S.StyledLoginBtn>
+          <GoogleLoginToken />
         </S.StyledSection>
       </div>
     </>
