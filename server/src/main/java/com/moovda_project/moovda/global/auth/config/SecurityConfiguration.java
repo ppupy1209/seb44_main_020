@@ -71,6 +71,7 @@ public class SecurityConfiguration {
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .successHandler(new com.moovda_project.moovda.oauth2_jwt.handler.OAuth2MemberSuccessHandler(jwtTokenizer,  memberService, memberRepository))
+                        .loginPage("/members/login")
                         .userInfoEndpoint()
                         .userService(customOAuth2UserService)
                 )
