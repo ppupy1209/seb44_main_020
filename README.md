@@ -1,8 +1,5 @@
 
-![뭅다로고](https://github.com/codestates-seb/seb44_main_020/assets/64067205/2e002967-74c8-4aff-9c98-3d25764bc2ff)
-
-<br><br><br>
-
+![ㄹㅇ로고](https://github.com/codestates-seb/seb44_main_020/assets/64067205/dcfa15c6-273e-4cd5-9827-d433a4239699)
 안녕하세요. <br>
 
 MoovDa는 영화에 대한 평가와 리뷰를 자유롭게 공유하는 곳입니다.  <br>다른 사용자들의 의견을 듣고, 자신만의 영화 리스트를 만들어보세요. <br><br>
