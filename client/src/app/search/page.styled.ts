@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 export const Body = styled.body`
-  hight: 100%
+  height: 100%;
   width: 100%;
 `;
 
@@ -27,8 +27,8 @@ export const Poster = styled.img`
   width: 200px;
   height: 260px;
   object-fit: cover;
-  grow: 1;
-  border radius: 10px;
+  flex-grow: 1;
+  border-radius: 10px;
 `;
 
 export const Title = styled.h3`

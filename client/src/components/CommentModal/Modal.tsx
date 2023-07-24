@@ -1,6 +1,5 @@
 'use client';
 import React, { useState, useCallback } from 'react';
-import { useRouter } from 'next/router';
 import { useParams } from 'next/navigation';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';

@@ -79,14 +79,6 @@ position: absolute;
 left: 0;
 margin-left:10px;`;
 
-export const Star=styled.div`
->svg{ 
-  >path{
-    fill: "#466093"
-    }
-  }
-`
-
 export const StarArr=styled.div`
 display:flex;
 flex-direction: row-reverse;
