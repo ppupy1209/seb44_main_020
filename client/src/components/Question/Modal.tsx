@@ -5,7 +5,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import Link from 'next/link';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { useParams, usePathname, useSearchParams } from 'next/navigation';
 import React, { useState } from 'react';
 
 interface ModalProps {
@@ -15,6 +15,7 @@ interface ModalProps {
 const Modal = ({ onSelectItem }: ModalProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const { questionId } = useParams();
   const isModalOpen = searchParams.get('modal') === 'true';
 
   const onSelectMovie = (movie: SearchMovieList) => {
@@ -25,7 +26,7 @@ const Modal = ({ onSelectItem }: ModalProps) => {
     <S.ModalWrapper>
       <S.ModalContent>
         <div>
-          <Link href={pathname} replace>
+          <Link href={pathname}>
             <S.SubmitButton>
               <S.ClosedIcon />
             </S.SubmitButton>
@@ -45,11 +46,6 @@ const Modal = ({ onSelectItem }: ModalProps) => {
 const SearchTipContainer = () => {
   return (
     <S.SearchTipWrapper>
-      {/* <S.ImageContainer>
-        <S.ImageBox>
-          <HeaderLogo />
-        </S.ImageBox>
-      </S.ImageContainer> */}
       <div>
         <S.SearchDiscription>
           <S.SearchTip>
@@ -85,7 +81,6 @@ interface SearchModalProps {
 }
 
 const SearchModal = ({ onSelect }: SearchModalProps) => {
-  // const [searchTitle, setSearchTitle] = useState<string>('');
   const searchParams = useSearchParams();
   const page = searchParams.get('page') ?? 1;
   const [searchResult, setSearchResult] = useState<
@@ -101,10 +96,9 @@ const SearchModal = ({ onSelect }: SearchModalProps) => {
       const MovieSearchData = async () => {
         const source = `${process.env.NEXT_PUBLIC_API_URL}/movies/search?page=${currentPage}&keyword=${searchKeyword}`;
         const response = await axios.get(source, { headers: {} });
-        // console.log(response.data);
+
         setSearchResult(response.data.movies);
         setTotalPages(response.data.pageInfo.total);
-        // console.log(searchResult);
       };
       MovieSearchData();
     }
