@@ -33,7 +33,7 @@ const Footer = () => {
             <Styled.ContentText>
               BE 김연우
               <Styled.GithubId href="https://github.com/ppupy1209">
-                @ppup1209
+                @ppupy1209
               </Styled.GithubId>
             </Styled.ContentText>
             <Styled.ContentText>
