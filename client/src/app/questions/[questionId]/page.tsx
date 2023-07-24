@@ -222,7 +222,7 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
       </S.LeftBox>
       <S.RightBox>
         {/* {isAuthor && ( */}
-        <Link href={'/questions/edit'}>
+        <Link href={`/questions/edit/${questionId}`}>
           <S.EditBtn onClick={EditButton}>수정</S.EditBtn>
         </Link>
         {/* )} */}
