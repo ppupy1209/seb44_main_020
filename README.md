@@ -7,4 +7,5 @@
 안녕하세요.
 
 ### [Go To Wiki | Project Record](https://github.com/codestates-seb/seb44_main_020/wiki) <br>
+### [Go To MoovDa | Project Result](https://github.com/codestates-seb/seb44_main_020) <br>
 
