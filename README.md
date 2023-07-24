@@ -20,7 +20,15 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 ## MoovDa Page View <br>
 
 - Main Page
+
+![ezgif com-video-to-gif (1)](https://github.com/codestates-seb/seb44_main_020/assets/64067205/2ff34663-0d0f-45c2-bbde-85c5a8efd630)
+
+
+
+
+
 - Movie Search Page
+- 
 - Movie Detail Page
 - Member Detail Page
 - Question Page
