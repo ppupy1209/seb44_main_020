@@ -65,20 +65,8 @@ const QuestionDetailPage = () => {
       dispatch(setAnswerList(response.data.answers));
     };
 
-    // user추가
     getQuestionDetailData();
-    // }
   }, [questionId, page]);
-
-  // useEffect(() => {
-  //   dispatch(
-  //     setUser({
-  //       user: 'he',
-  //       token: 'aaaa',
-  //       memberId: 1,
-  //     }),
-  //   );
-  // });
 
   const onSubmit = async ({
     selectedMovie,
@@ -95,26 +83,12 @@ const QuestionDetailPage = () => {
       poster: selectedMovie.poster,
     };
 
-    // const response
     await axios.post(source, body, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
 
-    // console.log('response', response);
-
-    // dispatch(
-    //   addAnswerList({
-    //     answerId: ,
-    //     answerId: response.data.answerId,
-    //     memberId: 1,
-    //     nickname: userId ? questionAndAnswer?.nickname : '',
-    //     createdAt: new Date().toString(),
-    //     content: textValue,
-    //     movie: { title: selectedMovie?.title, poster: selectedMovie?.poster },
-    //   }),
-    // );
     const answerSource = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}?page=${page}`;
     const response = await axios.get(answerSource, {
       headers: {
@@ -126,13 +100,13 @@ const QuestionDetailPage = () => {
     dispatch(setAnswerList(response.data.answers));
   };
 
-  // useEffect(() => {
-  //   if (!questionAndAnswer) return;
+  useEffect(() => {
+    if (!questionAndAnswer) return;
 
-  //   if (questionAndAnswer.memberId === userId) {
-  //     setIsAuthor(true);
-  //   }
-  // }, [questionAndAnswer]);
+    if (questionAndAnswer.memberId === userId) {
+      setIsAuthor(true);
+    }
+  }, [questionAndAnswer]);
 
   return (
     <S.PageGroup>
@@ -143,6 +117,7 @@ const QuestionDetailPage = () => {
       </S.goMenuBtnBox>
       <AskBox isAuthor={isAuthor} question={questionAndAnswer} />
       <SearchBox onSubmit={onSubmit} />
+      <AnswerCountBox question={questionAndAnswer} />
       {answers.map((answer) => (
         <AnswerBox
           key={answer.answerId}
@@ -155,6 +130,20 @@ const QuestionDetailPage = () => {
         size={pageInfo?.size}
       />
     </S.PageGroup>
+  );
+};
+
+interface AnswerCountBoxProps {
+  question: QuestionDetailResponse | null;
+}
+
+const AnswerCountBox = ({ question }: AnswerCountBoxProps) => {
+  return (
+    <S.AnswerCountContainer>
+      <S.AnswerCountBox>
+        댓글<span>{question?.answerCount}</span>
+      </S.AnswerCountBox>
+    </S.AnswerCountContainer>
   );
 };
 
@@ -203,7 +192,6 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
     const dispatch = useDispatch();
     dispatch(setQuestionId(Number(questionId)));
   };
-  console.log('questionId!!!!!!', questionId!!!!!!);
 
   return (
     <S.BoxTop>
@@ -214,21 +202,19 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
             router.push('/mypage')
           }
         >
-          {/* {question?.nickname} */}
+          {question?.nickname}
         </S.Nickname>
         <S.Time>
           {question?.createdAt ? AnswerDate(new Date(question.createdAt)) : ''}
         </S.Time>
       </S.LeftBox>
       <S.RightBox>
-        {/* {isAuthor && ( */}
-        <Link href={`/questions/edit/${questionId}`}>
-          <S.EditBtn onClick={EditButton}>수정</S.EditBtn>
-        </Link>
-        {/* )} */}
-        {/* {isAuthor &&  */}
-        <S.DeleteBtn onClick={onDelete}>삭제</S.DeleteBtn>
-        {/* } */}
+        {isAuthor && (
+          <Link href={`/questions/edit/${questionId}`}>
+            <S.EditBtn onClick={EditButton}>수정</S.EditBtn>
+          </Link>
+        )}
+        {isAuthor && <S.DeleteBtn onClick={onDelete}>삭제</S.DeleteBtn>}
       </S.RightBox>
     </S.BoxTop>
   );
@@ -259,7 +245,6 @@ const Pagination = ({ totalElements, size }: PaginationProps) => {
     { length: Math.ceil(totalElements / size) },
     (_, i) => i + 1,
   );
-  // console.log(pageNumbers, totalElements, size);
 
   return (
     <div>
