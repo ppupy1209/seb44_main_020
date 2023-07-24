@@ -314,7 +314,6 @@ const SearchPage: React.FC = () => {
                 <S.MovieWrapper key={item.movieId}>
                   <S.Poster src={item.poster} alt={item.title} />
                   <S.Title>{item.title}</S.Title>
-                  {/* <S.Title>평균별점: {item.starAvg}</S.Title> */}
                 </S.MovieWrapper>
               </Link>
             ))}
