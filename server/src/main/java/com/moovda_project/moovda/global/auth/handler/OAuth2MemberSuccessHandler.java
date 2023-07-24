@@ -62,10 +62,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String accessToken = delegateAccessToken(nickname, email);
         String refreshToken = delegateRefreshToken(nickname);
 
-        response.setHeader("Authorization", "Bearer " + accessToken);
-        response.setHeader("Refresh", refreshToken);
-
-        getRedirectStrategy().sendRedirect(request, response, redirecturi);
+        String uri = createURI(accessToken, refreshToken).toString();
+        getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
     private String delegateAccessToken(String nickname, String email) {
@@ -94,4 +92,17 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return refreshToken;
     }
 
+    private URI createURI(String accessToken, String refreshToken) {
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        queryParams.add("access_token", accessToken);
+        queryParams.add("refresh_token", refreshToken);
+
+        return UriComponentsBuilder
+                .newInstance()
+                .scheme("http")
+                .host("moovda-test1.s3-website.ap-northeast-2.amazonaws.com")
+                .queryParams(queryParams)
+                .build()
+                .toUri();
+    }
 }
