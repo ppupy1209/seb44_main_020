@@ -14,7 +14,7 @@ const Footer = () => {
             </Styled.ContentText>
             <Styled.ContentText>
               FE 안현지
-              <Styled.GithubId href="https://github.com/YeaHkode">
+              <Styled.GithubId href="https://github.com/hjthebunny">
                 @hjthebunny
               </Styled.GithubId>
             </Styled.ContentText>
