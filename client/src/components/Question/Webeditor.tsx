@@ -6,7 +6,7 @@ interface WebEditorProps {
   setValue: (value: string) => void;
 }
 
-export const WebEditor = ({ value, setValue }: WebEditorProps) => {
+const WebEditor = ({ value, setValue }: WebEditorProps) => {
   const toolbarOptions = [
     ['bold', 'italic', 'underline', 'strike'],
     ['blockquote'],
@@ -72,3 +72,5 @@ export const WebEditor = ({ value, setValue }: WebEditorProps) => {
     />
   );
 };
+
+export default WebEditor;

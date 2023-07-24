@@ -15,7 +15,7 @@ export const Header = styled.div`
 export const PageTitleBox = styled.div`
   max-width: 1024px;
   margin: 0 auto;
-  padding: 150px 16px;
+  padding: 180px 16px;
   display: flex;
   flex-direction: column;
   position: relative;
@@ -49,7 +49,6 @@ export const TitleSecondMsg = styled.p``;
 
 export const PageBody = styled.div`
   padding-bottom: 3rem;
-  /* height: 450px; */
 `;
 
 export const PageBodyContent = styled.div`
@@ -88,7 +87,7 @@ export const Content = styled.div``;
 
 export const ContentTitle = styled.p`
   color: black;
-  font-weight: 700;
+  margin-bottom: 8px;
   margin-left: 0.5rem;
 `;
 
@@ -116,6 +115,18 @@ export const ButtonBox = styled.div`
 `;
 
 export const Button = styled.button`
+  padding: 12px 24px;
+  border-radius: 8px;
+  width: 100px;
+  background-color: #01123d;
+  &:hover {
+    background-color: #6c63ff;
+  }
+  cursor: pointer;
+  color: white;
+`;
+
+export const CancelButton = styled.button`
   padding: 12px 24px;
   border-radius: 8px;
   width: 100px;

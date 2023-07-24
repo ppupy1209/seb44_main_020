@@ -9,7 +9,7 @@ export const AnswerBoxGroup = styled.div`
 `;
 
 export const AnswerBox = styled.div`
-  background-color: #162135;
+  background-color: rgba(17, 19, 33 0.7);
   width: 1024px;
   border-radius: 12px;
   margin: 1rem;
@@ -101,7 +101,7 @@ export const MovieInfo = styled.div`
 `;
 
 export const MovieTitle = styled.p`
-  font-weight: bold;
+  font-weight: 700;
 `;
 
 export const MovieReleaseDate = styled.p`

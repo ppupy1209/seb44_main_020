@@ -1,31 +1,37 @@
 'use client';
 
+import { QuestionDetailResponse } from '@/app/questions/[questionId]/page';
 import * as S from '@/components/Question/AnswerBox.styled';
 import {
   AnswerType,
   deleteAnswerList,
   editAnswerList,
 } from '@/redux/features/answerListSlice';
+import axios from 'axios';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SearchMovieList } from './Modal';
 import SearchBox from './SearchBox';
+import { RootState } from '@/redux/store';
 
 interface AnswerBoxProps {
   answer: AnswerType;
+  question: QuestionDetailResponse | null;
 }
 
-const AnswerBox = ({ answer }: AnswerBoxProps) => {
+const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
   const [isEditing, setIsEditing] = useState<Boolean>(false);
   const dispatch = useDispatch();
+  const { questionId } = useParams();
+  const answerId = answer.answerId;
 
   const onEditClick = () => {
     setIsEditing((prev) => !prev);
   };
 
-  const onSubmit = ({
+  const onSubmit = async ({
     selectedMovie,
     textValue,
   }: {
@@ -40,17 +46,53 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
         movie: {
           title: selectedMovie?.title,
           poster: selectedMovie?.poster,
+          prodYear: selectedMovie?.prodYear,
         },
       }),
     );
-    // TODO: post 요청
+
+    const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers/${answerId}`;
+    const body = {
+      answerId: answer.answerId,
+      nickname: answer.nickname,
+      content: textValue,
+      movie: {
+        title: selectedMovie?.title,
+        poster: selectedMovie?.poster,
+        prodYear: selectedMovie?.prodYear,
+      },
+    };
+    const response = await axios.patch(source, body, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
     setIsEditing(false);
+    console.log('response', response);
+
+    // NOTE: 대비책
+    // const response = await fetch(source, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //
+    //   },
+    //   body: JSON.stringify(body),
+    // });
+    // console.log('response', response);
+
+    // const result = await response.json();
+    // console.log('result', result);
   };
 
   return (
     <S.AnswerBoxGroup>
       <S.AnswerBox>
-        <AnswerBoxTop onEditClick={onEditClick} answer={answer} />
+        <AnswerBoxTop
+          onEditClick={onEditClick}
+          answer={answer}
+          question={question}
+        />
         <S.AnswerBoxMid>
           {isEditing ? (
             <SearchBox
@@ -58,8 +100,9 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
               defaultValue={{
                 movieId: '',
                 content: answer.content,
-                title: answer.movie.title,
-                poster: answer.movie.poster,
+                title: answer.movie?.title,
+                poster: answer.movie?.poster,
+                prodYear: answer.movie?.prodYear,
                 pageInfo: {
                   currentPage: 0,
                   pageSize: 0,
@@ -82,28 +125,50 @@ const AnswerBox = ({ answer }: AnswerBoxProps) => {
 interface AnswerBoxTopProps {
   onEditClick: () => void;
   answer: AnswerType;
+  question: QuestionDetailResponse | null;
 }
 
-const AnswerBoxTop = ({ onEditClick, answer }: AnswerBoxTopProps) => {
+const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
   const dispatch = useDispatch();
+  const answerId = answer.memberId;
+  const { questionId } = useParams();
+  const userId = useSelector((state: RootState) => state.auth.memberId);
+  const [isAuthor, setIsAuthor] = useState<boolean>(false);
 
-  const handleDeleteAnswer = () => {
+  const handleDeleteAnswer = async () => {
     dispatch(deleteAnswerList(answer));
+    const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers/${answerId}`;
+    await axios.delete(source, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log('답변이 삭제되었습니다.');
   };
+
+  useEffect(() => {
+    if (userId === answerId) {
+      setIsAuthor(true);
+    }
+  }, []);
 
   return (
     <S.BoxTop>
       <S.LeftBox>
-        {/* // TODO: 회원 === 글작성자 -> 본인 mypage || 회원 != 글작성자 -> 글작성자 mypage */}
+        {/* // TODO: 회원 === 글작성자 -> 본인 mypage || 회원 != 글작성자 -> 글작성자 mypage  ???현재 받아오는 answer.memberId가 없음*/}
         <Link href={'/mypage'}>
           <S.Nickname>{answer.nickname}</S.Nickname>
         </Link>
-        <S.Time>{AnswerDate(new Date())}</S.Time>
+        <S.Time>
+          {question?.createdAt ? AnswerDate(new Date(question.createdAt)) : ''}
+        </S.Time>
       </S.LeftBox>
+      {/* {isAuthor && ( */}
       <S.RightBox>
         <S.EditBtn onClick={onEditClick}>수정</S.EditBtn>
         <S.DeleteBtn onClick={handleDeleteAnswer}>삭제</S.DeleteBtn>
       </S.RightBox>
+      {/* )} */}
     </S.BoxTop>
   );
 };
@@ -137,10 +202,10 @@ const AnswerBoxBottom = ({ answer }: AnswerBoxBottomProps) => {
     <Link href={`/movie/${movieId}`}>
       <S.BoxBottom>
         <S.SelectedMovieBox>
-          <S.Poster>{answer.movie.poster}</S.Poster>
+          <S.Poster>{answer?.movie?.poster}</S.Poster>
           <S.MovieInfo>
-            <S.MovieTitle>{answer.movie.title}</S.MovieTitle>
-            <S.MovieReleaseDate>{answer.movie.prodYear}</S.MovieReleaseDate>
+            <S.MovieTitle>{answer?.movie?.title}</S.MovieTitle>
+            <S.MovieReleaseDate>{answer?.movie?.prodYear}</S.MovieReleaseDate>
           </S.MovieInfo>
         </S.SelectedMovieBox>
       </S.BoxBottom>

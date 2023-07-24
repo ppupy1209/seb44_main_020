@@ -3,7 +3,6 @@
 import { styled } from 'styled-components';
 
 export const TalkPage = styled.div`
-  background-color: #111321;
   display: flex;
   justify-content: center;
   align-items: center;

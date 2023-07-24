@@ -1,34 +1,64 @@
 'use client';
 
-import * as S from '@/app/questions/create/page.styled';
+import * as S from '@/app/questions/edit/[questionId]/page.styled';
+import { RootState } from '@/redux/store';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
-import { useId, useState } from 'react';
+// import dynamic from 'next/dynamic';
+import { useParams, useRouter } from 'next/navigation';
+import { useEffect, useId, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-const QuestionCreatePage = () => {
+// const WebEditor = dynamic(() => import('@/components/Question/Webeditor'), {
+//   ssr: false,
+// });
+
+const QuestionEditPage = () => {
   const router = useRouter();
   const [titleValue, setTitleValue] = useState<string>('');
   const [contentValue, setContentValue] = useState<string>('');
+  // const questionId = useSelector(
+  //   (state: RootState) => state.questionId?.questionId,
+  // );
+  // console.log(questionId);
+  const { questionId } = useParams();
+
+  useEffect(() => {
+    const getQuestion = async () => {
+      const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}?page=1`;
+      const response = await axios.get(source, {
+        headers: {},
+      });
+      setTitleValue(response.data.title);
+      setContentValue(response.data.content);
+      // setQuestionId(response.data.question.questionId);
+    };
+    getQuestion();
+  }, []);
+  console.log('questionId', questionId);
 
   const onSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     if (titleValue.length < 5 || titleValue.length > 30) {
-      alert('제목은 5자 이상, 30자 이하로 입력해 주세요.');
+      alert('제목은 5자 이상, 30자 이하로 입력해주세요.');
       return;
     }
     if (contentValue.length < 10) {
-      alert('내용은 10자 이상 입력해 주세요.');
+      alert('내용은 10자 이상 입력해주세요.');
       return;
     }
 
-    const source = `${process.env.NEXT_PUBLIC_API_URL}/questions`;
-    const body = { memberId: 1, title: titleValue, content: contentValue };
-    const response = await axios.post(source, body, {
+    const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}`;
+    const body = {
+      title: titleValue,
+      content: contentValue,
+    };
+    const response = await axios.patch(source, body, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
     console.log(response);
-    if (response.status === 201) router.push(`/questions`);
+
+    router.push(`/questions`);
   };
 
   return (
@@ -57,6 +87,13 @@ const QuestionCreatePage = () => {
             </S.Content>
             <S.ButtonBox>
               <S.Button onClick={onSubmit}>질문하기</S.Button>
+              <S.CancelButton
+                onClick={() => {
+                  router.push(`/questions/${questionId}`);
+                }}
+              >
+                Cancel
+              </S.CancelButton>
             </S.ButtonBox>
           </S.PageBodyItem>
         </S.PageBodyContent>
@@ -104,6 +141,8 @@ const SearchBox = ({ value, setValue }: SearchBoxProps) => {
         <S.ContentDescriptionDiv>
           <S.ContentDescription>
             ❗️ 질문 제목은 5자 이상 30자 이하로 작성해주세요.
+            <br />
+            ❗️ 이전 작성 내용과 주제가 크게 벗어나지 않게 수정해주세요.
           </S.ContentDescription>
         </S.ContentDescriptionDiv>
       </label>
@@ -112,10 +151,10 @@ const SearchBox = ({ value, setValue }: SearchBoxProps) => {
         id={titleId}
         value={value}
         onChange={onChangeSearchTitle}
-        placeholder="예: 추석에 온 가족이 같이 볼 수 있는 영화 추천해 주세요."
+        placeholder="예: 추석에 온 가족이 같이 볼 수 있는 영화 추천해주세요"
       />
     </S.Search>
   );
 };
 
-export default QuestionCreatePage;
+export default QuestionEditPage;

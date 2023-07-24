@@ -19,6 +19,7 @@ export const goMenuBtnBox = styled.div`
 
 export const goMenuBtn = styled.button`
   margin-top: 10px;
+
   padding: 12px 24px;
   border-radius: 8px;
   width: 250px;
@@ -29,6 +30,13 @@ export const goMenuBtn = styled.button`
   cursor: pointer;
   color: white;
 `;
+
+export const AnswerCountContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+
+export const AnswerCountBox = styled.div``;
 
 export const AskBox = styled.div`
   width: 1024px;
@@ -78,6 +86,9 @@ export const EditBtn = styled.button`
   border-color: rgba(255, 255, 255, 0);
   color: white;
   font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const DeleteBtn = styled.button`
@@ -87,6 +98,9 @@ export const DeleteBtn = styled.button`
   border-color: rgba(255, 255, 255, 0);
   color: white;
   font-size: 0.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const BoxTitle = styled.h2`

@@ -6,6 +6,7 @@ import commentReducer from '@/redux/features/commentSlice';
 import starReducer from '@/redux/features/starSlice';
 import authReducer from '@/redux/features/authSlice';
 import answerListReducer from '@/redux/features/answerListSlice';
+import questionIdReducer from '@/redux/features/questionIdSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     star: starReducer,
     auth: authReducer,
     answerList: answerListReducer,
+    questionId: questionIdReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

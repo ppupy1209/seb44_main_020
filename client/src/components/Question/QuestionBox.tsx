@@ -37,10 +37,10 @@ export const QuestionBox = ({ question }: QuestionBoxProps) => {
       <S.QuestionBoxGroup>
         <S.QuestionBox>
           <S.BoxTop>
-            <S.Name>{question.title}</S.Name>
+            <S.Name>{question.nickname}</S.Name>
           </S.BoxTop>
           <S.BoxMiddle>
-            <S.Title>{question.content}</S.Title>
+            <S.Title>{question.title}</S.Title>
           </S.BoxMiddle>
           <S.BoxBottom>
             <S.Comment>
@@ -51,7 +51,11 @@ export const QuestionBox = ({ question }: QuestionBoxProps) => {
               />
               <S.CommentCount>{question.answerCount}</S.CommentCount>
             </S.Comment>
-            <S.Time>{AnswerDate(new Date())}</S.Time>
+            <S.Time>
+              {question?.createdAt
+                ? AnswerDate(new Date(question.createdAt))
+                : ''}
+            </S.Time>
           </S.BoxBottom>
         </S.QuestionBox>
       </S.QuestionBoxGroup>

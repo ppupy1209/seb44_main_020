@@ -46,7 +46,9 @@ const QuestionListPage = () => {
 
       const source = `${process.env.NEXT_PUBLIC_API_URL}/questions?page=${page}`;
       const response = await axios.get(source, {
-        // TODO: headers
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
       setQuestions(response.data.data);
     };
