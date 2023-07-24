@@ -15,7 +15,6 @@ spring:
       client:
         registration:
           google:
-            redirect-uri: ${REDIRECT_URI}
             clientId: ${GOOGLE_CLIENT_ID}
             clientSecret: ${GOOGLE_SECRET}
             scope:
@@ -85,3 +84,6 @@ api:
 
 config:
   domain: ${CONFIG_DOMAIN}
+
+redirect:
+  uri: ${REDIRECT_URI}
