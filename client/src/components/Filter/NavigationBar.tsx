@@ -1,6 +1,5 @@
 import React from 'react';
 import * as S from './NavigationBar.styled';
-import { StarrateShow } from '../Starrate/StarrateShow';
 import { useState } from 'react';
 
 interface Props {
@@ -32,7 +31,6 @@ const NavigationBar: React.FC<Props> = ({
   handleGenreClick,
   handleCountryClick,
   handleStartingStarClick,
-  handleEndingStarClick,
   handleRatingClick,
   genreDropdownOpen,
   countryDropdownOpen,
@@ -41,7 +39,6 @@ const NavigationBar: React.FC<Props> = ({
   selectedGenre,
   selectedCountry,
   startStarAvg,
-  endStarAvg,
   selectedRating,
 }) => {
   const genreOptions = [
@@ -71,17 +68,6 @@ const NavigationBar: React.FC<Props> = ({
     { label: '18세관람가', value: '18세관람가(청소년관람불가)' },
   ];
 
-  // const handleEndingStarSliderChange = (
-  //   event: React.ChangeEvent<HTMLInputElement>,
-  // ) => {
-  //   const value = parseInt(event.target.value, 10);
-  //   handleEndingStarClick(value);
-  // };
-  // const handleStartingStarSliderChange = (value: number) => {
-  //   // 별점 슬라이더 값을 0.5 단위로 반올림하여 업데이트합니다.
-  //   const roundedValue = Math.round(value * 2) / 2;
-  //   handleStartingStarClick(roundedValue);
-  // };
   return (
     <S.StyledNav>
       {/* 장르 드롭다운 */}
