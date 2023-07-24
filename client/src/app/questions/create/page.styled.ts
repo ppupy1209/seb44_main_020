@@ -37,7 +37,7 @@ export const Title = styled.h1`
 `;
 
 export const TitleMessageBox = styled.div`
-  color: lightgrey;
+  color: #8c8c8c;
   text-shadow: -2px 0 0 black;
 `;
 
@@ -98,7 +98,7 @@ export const ContentDescriptionDiv = styled.div`
 `;
 
 export const ContentDescription = styled.span`
-  color: dark grey;
+  color: #8c8c8c;
   font-size: small;
 `;
 
