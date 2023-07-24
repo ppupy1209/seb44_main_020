@@ -31,6 +31,9 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private final JwtTokenizer jwtTokenizer;
     private final MemberService memberService;
 
+    @Value("${REDIRECT_URI}")
+    private String redirecturi;
+
     private final MemberRepository memberRepository;
 
     @Getter
@@ -53,7 +56,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
 
         log.info("OAuth2 로그인에 성공했습니다1");
-        redirect(request, response, nickname, email);
+        redirect(request, response, nickname, redirecturi);
         log.info("OAuth2 로그인에 성공했습니다2");
     }
 
@@ -64,7 +67,6 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
-        String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
@@ -94,13 +96,4 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return refreshToken;
     }
 
-    private URI createURI(String accessToken, String refreshToken) {
-        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
-
-        return UriComponentsBuilder
-                .newInstance()
-                .host(uri)
-                .build()
-                .toUri();
-    }
 }
