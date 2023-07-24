@@ -5,10 +5,6 @@ import axios from 'axios';
 import { useRouter } from 'next/navigation';
 import { useId, useState } from 'react';
 
-// const WebEditor = dynamic(() => import('@/components/Question/Webeditor'), {
-//   ssr: false,
-// });
-
 const QuestionCreatePage = () => {
   const router = useRouter();
   const [titleValue, setTitleValue] = useState<string>('');
@@ -56,7 +52,7 @@ const QuestionCreatePage = () => {
                 onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
                   setContentValue(e.target.value)
                 }
-                placeholder="예: 등골이 오싹해질 만한 공포 영화를 추천해 주세요. 큰 저랑컨저링 시리즈는 다 봤고, 소우는 제 취향이 아니었습니다."
+                placeholder="예: 등골이 오싹해질 만한 공포 영화를 추천해 주세요. 컨저링 시리즈는 다 봤고, 쏘우는 제 취향이 아니었습니다."
               />
             </S.Content>
             <S.ButtonBox>
