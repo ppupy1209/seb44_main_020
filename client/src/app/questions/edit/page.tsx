@@ -136,6 +136,13 @@ const SearchBox = ({ value, setValue }: SearchBoxProps) => {
     <S.Search>
       <label htmlFor={titleId}>
         <S.SearchTitle>어떤 영화를 추천받고 싶은지 입력해주세요.</S.SearchTitle>
+        <S.ContentDescriptionDiv>
+          <S.ContentDescription>
+            ❗️ 질문 제목은 5자 이상 30자 이하로 작성해주세요.
+            <br />
+            ❗️ 이전 작성 내용과 주제가 크게 벗어나지 않게 수정해주세요.
+          </S.ContentDescription>
+        </S.ContentDescriptionDiv>
       </label>
       <S.SearchInput
         type="text"
