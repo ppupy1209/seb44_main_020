@@ -46,7 +46,11 @@ public class MovieApiService {
 
                 movie.setPoster(posterUrl);
 
-                movie.setTitle(movieObj.get("title").toString());
+                String title = movieObj.get("title").toString();
+                if(movieRepository.findByTitle(title).isPresent()) continue;
+
+                movie.setTitle(title);
+
                 movie.setCountry(movieObj.get("nation").toString());
 
                 JSONObject plotsObj = (JSONObject) movieObj.get("plots");
