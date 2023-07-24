@@ -14,7 +14,7 @@ const Footer = () => {
             </Styled.ContentText>
             <Styled.ContentText>
               FE 안현지
-              <Styled.GithubId href="https://github.com/YeaHkode">
+              <Styled.GithubId href="https://github.com/hjthebunny">
                 @hjthebunny
               </Styled.GithubId>
             </Styled.ContentText>
@@ -33,7 +33,7 @@ const Footer = () => {
             <Styled.ContentText>
               BE 김연우
               <Styled.GithubId href="https://github.com/ppupy1209">
-                @ppup1209
+                @ppupy1209
               </Styled.GithubId>
             </Styled.ContentText>
             <Styled.ContentText>

@@ -17,7 +17,8 @@ export const Container = styled.div<{ width?: string }>`
 
 export const PosterImg = styled.img`
   border-radius: 10px;
-  height:${(props) => props.theme.height};
+  min-height:${(props) => props.theme.height};
+  height: auto;
 `;
 
 export const Title = styled.div<{posterTitleGap?:string}>`
