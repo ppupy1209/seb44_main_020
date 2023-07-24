@@ -5,7 +5,9 @@ import com.moovda_project.moovda.global.auth.jwt.JwtTokenizer;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.repository.MemberRepository;
 import com.moovda_project.moovda.module.member.service.MemberService;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -16,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URI;
 import java.util.Date;
@@ -29,6 +32,10 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private final MemberService memberService;
 
     private final MemberRepository memberRepository;
+
+    @Getter
+    @Value("${REDIRECT_URI}")
+    private String uri;
 
 
     public OAuth2MemberSuccessHandler(JwtTokenizer jwtTokenizer,
@@ -56,6 +63,9 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
+
+        String uri = createURI(accessToken, refreshToken).toString();
+        getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
     private String delegateAccessToken(String nickname, String email) {
@@ -84,4 +94,13 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return refreshToken;
     }
 
+    private URI createURI(String accessToken, String refreshToken) {
+        MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+
+        return UriComponentsBuilder
+                .newInstance()
+                .host(uri)
+                .build()
+                .toUri();
+    }
 }
