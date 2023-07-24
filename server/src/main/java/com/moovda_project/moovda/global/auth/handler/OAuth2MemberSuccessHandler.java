@@ -31,14 +31,12 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     private final JwtTokenizer jwtTokenizer;
     private final MemberService memberService;
 
-    @Value("${REDIRECT_URI}")
+    @Getter
+    @Value("${redirect.uri}")
     private String redirecturi;
 
     private final MemberRepository memberRepository;
 
-    @Getter
-    @Value("${REDIRECT_URI}")
-    private String uri;
 
 
     public OAuth2MemberSuccessHandler(JwtTokenizer jwtTokenizer,
@@ -67,7 +65,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         response.setHeader("Authorization", "Bearer " + accessToken);
         response.setHeader("Refresh", refreshToken);
 
-        getRedirectStrategy().sendRedirect(request, response, uri);
+        getRedirectStrategy().sendRedirect(request, response, redirecturi);
     }
 
     private String delegateAccessToken(String nickname, String email) {
