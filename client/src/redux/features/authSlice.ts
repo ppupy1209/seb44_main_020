@@ -1,19 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Content } from 'next/font/google';
 // import { RootState } from '../store/store';
+
+interface LoginState {
+  userInfo: {
+    nickname: string | null;
+    memberId: string | null;
+  };
+  tokens: {
+    accessToken: string | null;
+    refreshToken: string | null;
+  };
+}
 
 export const authSlice = createSlice({
   name: 'login',
   initialState: {
-    user: null,
-    token: null,
+    nickname: null,
     memberId: null,
+    accessToken: null,
+    refreshToken: null,
   },
   reducers: {
     setUser(state, action) {
-      state.user = action.payload;
+      state.nickname = action.payload;
+      state.memberId = action.payload;
     },
     setToken(state, action) {
-      state.token = action.payload;
+      state.accessToken = action.payload;
+      state.refreshToken = action.payload;
     },
   },
 });
