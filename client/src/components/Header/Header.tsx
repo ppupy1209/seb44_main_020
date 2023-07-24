@@ -5,8 +5,6 @@ import { RootState } from '@/redux/store';
 import {
   faMagnifyingGlass,
   faPen,
-  faRightToBracket,
-  faRightFromBracket,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -20,19 +18,15 @@ import {
   StyledLogo,
   StyledBody,
 } from './Header.styled';
-import { useSession, signOut } from 'next-auth/react';
 import { setLoginState } from '@/redux/features/loginSlice';
 
 const Header = () => {
   const router = useRouter();
-  const { data: session, status } = useSession();
   const dispatch = useDispatch();
+  dispatch(setLoginState(true));
+  const loginState = useSelector((state: any) => state.login);
+  const nickname = useSelector((state: RootState) => state.auth.nickname);
 
-  const handleSingOut = () => {
-    dispatch(setLoginState(false));
-    localStorage.clear();
-    signOut();
-  };
   const handleMypageClick = () => {
     const memberId = useSelector((state: RootState) => state.auth.memberId);
     if (memberId) {
@@ -69,10 +63,10 @@ const Header = () => {
             onClick={handleMypageClick}
           />
         </StyledIconMyPage>
-        {session ? (
-          <StyledLog onClick={handleSingOut}>
+        {loginState === true ? (
+          <StyledLog>
             LogOut
-            <p>{session.user?.name}님 환영합니다.</p>
+            <p>{nickname}님 환영합니다.</p>
           </StyledLog>
         ) : (
           <StyledLog onClick={() => router.push('/login')}>LogIn</StyledLog>
