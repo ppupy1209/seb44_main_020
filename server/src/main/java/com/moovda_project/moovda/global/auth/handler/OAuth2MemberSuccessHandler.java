@@ -54,7 +54,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
 
         log.info("OAuth2 로그인에 성공했습니다1");
-        redirect(request, response, nickname, redirecturi);
+        redirect(request, response, nickname, email);
         log.info("OAuth2 로그인에 성공했습니다2");
     }
 
