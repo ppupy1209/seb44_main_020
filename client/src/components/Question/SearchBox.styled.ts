@@ -11,9 +11,9 @@ export const SearchBoxGroup = styled.div`
 export const SearchBox = styled.div`
   margin: 1.5rem 1rem;
   width: 1024px;
-  /* background-color: rgba(255, 255, 255, 0.5); */
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 16px;
-  /* padding: 1rem; */
+  padding: 1rem;
 `;
 
 export const SelectedMovieContainer = styled.div`
@@ -76,6 +76,7 @@ export const Textarea = styled.textarea`
   width: 100%;
   height: 142px;
   resize: none;
+  padding: 1rem;
 `;
 
 export const ButtonBox = styled.div`
