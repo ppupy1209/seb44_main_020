@@ -2,7 +2,6 @@
 import * as S from './page.styled';
 import LoginLogo from '@/assets/LoginLogo.svg';
 import GoogleLogo from '@/assets/GoogleLogo.svg';
-import { GoogleLoginToken } from '@/components/Token/GoogleLoginToken';
 import { useRouter } from 'next/navigation';
 
 const LoginPage = () => {
@@ -28,7 +27,6 @@ const LoginPage = () => {
               구글계정으로 로그인하기
             </S.StyledButtonText>
           </S.StyledLoginBtn>
-          <GoogleLoginToken />
         </S.StyledSection>
       </div>
     </>

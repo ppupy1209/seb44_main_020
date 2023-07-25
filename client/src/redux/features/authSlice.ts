@@ -7,10 +7,6 @@ interface LoginState {
     nickname: string | null;
     memberId: string | null;
   };
-  tokens: {
-    accessToken: string | null;
-    refreshToken: string | null;
-  };
 }
 
 export const authSlice = createSlice({
@@ -18,23 +14,20 @@ export const authSlice = createSlice({
   initialState: {
     nickname: null,
     memberId: null,
-    accessToken: null,
-    refreshToken: null,
   },
+
   reducers: {
-    setUser(state, action) {
-      state.nickname = action.payload;
+    setMemberId(state, action) {
       state.memberId = action.payload;
     },
-    setToken(state, action) {
-      state.accessToken = action.payload;
-      state.refreshToken = action.payload;
+    setNickname(state, action) {
+      state.nickname = action.payload;
     },
   },
 });
 
 export default authSlice.reducer; // reducer 해주면 리턴이 됨
-export const { setUser, setToken } = authSlice.actions;
+export const { setMemberId, setNickname } = authSlice.actions;
 
 // export const selectCurrentUser = (state: RootState) => state.auth;
 // export const selectCurrentToken = (state: RootState) => state.auth;
