@@ -40,7 +40,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 회고 및 소감 작성해주세요.
 
 <details>
-<summary><b>전수빈 Worklog📜</b></summary>
+<summary>전수빈 Worklog📜</summary>
 
 
 <br>
@@ -60,7 +60,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 - <b>안현지</b> <br>
 회고 및 소감 작성해주세요.
 <details>
-<summary><b>안현지 Worklog📜</b></summary>
+<summary>안현지 Worklog📜</summary>
 
 <br>
 
@@ -114,7 +114,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 회고 및 소감 작성해주세요.
 
 <details>
-<summary><b>강예현 Worklog📜</b></summary>
+<summary>강예현 Worklog📜</summary>
 
 <br>
 
@@ -143,7 +143,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
  
 
 <details>
-<summary><b>김연우 Worklog📜</b></summary>
+<summary>김연우 Worklog📜</summary>
 
 <br>
 
@@ -189,7 +189,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 그래도 session인증도 이해도 버거웠던 제가 oauth와 jwt 로그인 기능을 어느정도 완성했다는 것에 많이 보람을 느끼며 다음에 또 이런 기회가 찾아온다면 더 잘 코딩할 자신이 생겼습니다.  
 
 <details>
-<summary><b>정민우 Worklog📜</b></summary>
+<summary>정민우 Worklog📜</summary>
 
 <br>
 
@@ -207,7 +207,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 회고 및 소감 작성해주세요.
 
 <details>
-<summary><b>김민성 Worklog📜</b></summary>
+<summary>김민성 Worklog📜</summary>
 
 <br>
 
