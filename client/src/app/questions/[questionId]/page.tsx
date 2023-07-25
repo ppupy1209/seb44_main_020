@@ -57,6 +57,7 @@ const QuestionDetailPage = () => {
       const response = await axios.get(source, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('Authorization'),
         },
       });
       setQuestionAndAnswer(response.data);
@@ -86,6 +87,7 @@ const QuestionDetailPage = () => {
     await axios.post(source, body, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
       },
     });
 
@@ -93,6 +95,7 @@ const QuestionDetailPage = () => {
     const response = await axios.get(answerSource, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
       },
     });
     setQuestionAndAnswer(response.data);
@@ -181,6 +184,7 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
       await axios.delete(source, {
         headers: {
           'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('Authorization'),
         },
       });
     }
