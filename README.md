@@ -41,14 +41,19 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
 <details>
 <summary><b>전수빈 Worklog📜</b></summary>
-</summary>
 
-<!-- summary 아래 한칸 공백 두어야함 -->
+
 <br>
-> Position :<br><br>
-> Stack : <br><br>
-> Works : <br><br>
+
+ <b>Position</b> : Frontend
+
+ <b>Stack</b> : 
+
+ <b>Works</b> : 
+
 1. 
+
+
 
 </details>
 
@@ -57,11 +62,14 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 <details>
 <summary><b>안현지 Worklog📜</b></summary>
 
-<!-- summary 아래 한칸 공백 두어야함 -->
 <br>
-> Position :<br><br>
-> Stack : <br><br>
-> Works : <br><br>
+
+ <b>Position</b> : Frontend
+
+ <b>Stack</b> : 
+
+ <b>Works</b> : 
+
 1. 
 
 </details>
@@ -72,11 +80,14 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 <details>
 <summary><b>강예현 Worklog📜</b></summary>
 
-<!-- summary 아래 한칸 공백 두어야함 -->
 <br>
-> Position :<br><br>
-> Stack : <br><br>
-> Works : <br><br>
+
+ <b>Position</b> : Frontend
+
+ <b>Stack</b> : 
+
+ <b>Works</b> : 
+
 1. 
 
 </details>
@@ -92,11 +103,14 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 <details>
 <summary><b>김연우 Worklog📜</b></summary>
 
-<!-- summary 아래 한칸 공백 두어야함 -->
 <br>
-> Position :<br><br>
-> Stack : <br><br>
-> Works : <br><br>
+
+ <b>Position</b> : Backend
+
+ <b>Stack</b> : 
+
+ <b>Works</b> : 
+
 1. 
 
 </details>
@@ -107,11 +121,14 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 <details>
 <summary><b>정민우 Worklog📜</b></summary>
 
-<!-- summary 아래 한칸 공백 두어야함 -->
 <br>
-> Position :<br><br>
-> Stack : <br><br>
-> Works : <br><br>
+
+ <b>Position</b> : Backend
+
+ <b>Stack</b> : 
+
+ <b>Works</b> : 
+
 1. 
 
 </details>
@@ -122,11 +139,14 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 <details>
 <summary><b>김민성 Worklog📜</b></summary>
 
-<!-- summary 아래 한칸 공백 두어야함 -->
 <br>
-> Position :<br><br>
-> Stack : <br><br>
-> Works : <br><br>
+
+ <b>Position</b> : Backend
+
+ <b>Stack</b> : 
+
+ <b>Works</b> : 
+
 1. 
 
 </details>
