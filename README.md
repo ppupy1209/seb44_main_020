@@ -172,7 +172,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
 5. Documentation
    
-    * Git Wiki 작성
+    * Git Wiki 작성<[Go To Wiki | Record](https://github.com/codestates-seb/seb44_main_020/wiki)>
     * README 작성
 
 </details>
