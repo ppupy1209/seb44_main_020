@@ -5,7 +5,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: flex;
   background-color: #01123d;
-  margin: 235px 0 ;
+  margin: 60px 0 ;
 `;
 
 export const Left = styled.div`
