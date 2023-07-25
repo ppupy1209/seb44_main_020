@@ -25,6 +25,7 @@ const QuestionCreatePage = () => {
     const response = await axios.post(source, body, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
       },
     });
     console.log(response);
