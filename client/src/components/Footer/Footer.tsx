@@ -52,7 +52,6 @@ const Footer = () => {
             <Styled.ContentText>TypeScript</Styled.ContentText>
             <Styled.ContentText>Styled-Components</Styled.ContentText>
             <Styled.ContentText>Redux-Toolkit</Styled.ContentText>
-            <Styled.ContentText>Vercel</Styled.ContentText>
           </Styled.Content>
         </Styled.Section>
         <Styled.Section>
