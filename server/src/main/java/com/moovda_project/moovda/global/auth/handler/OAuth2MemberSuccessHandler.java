@@ -100,7 +100,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return UriComponentsBuilder
                 .newInstance()
                 .scheme("http")
-                .host("moovda-test1.s3-website.ap-northeast-2.amazonaws.com")
+                .host("moovda.s3-website.ap-northeast-2.amazonaws.com")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
