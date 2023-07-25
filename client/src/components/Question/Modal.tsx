@@ -95,7 +95,12 @@ const SearchModal = ({ onSelect }: SearchModalProps) => {
     if (searchKeyword) {
       const MovieSearchData = async () => {
         const source = `${process.env.NEXT_PUBLIC_API_URL}/movies/search?page=${currentPage}&keyword=${searchKeyword}`;
-        const response = await axios.get(source, { headers: {} });
+        const response = await axios.get(source, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: localStorage.getItem('Authorization'),
+          },
+        });
 
         setSearchResult(response.data.movies);
         setTotalPages(response.data.pageInfo.total);
