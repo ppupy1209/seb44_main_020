@@ -65,6 +65,7 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
     const response = await axios.patch(source, body, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
       },
     });
     setIsEditing(false);
@@ -141,6 +142,7 @@ const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
     await axios.delete(source, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
       },
     });
     console.log('답변이 삭제되었습니다.');
