@@ -26,7 +26,10 @@ const QuestionEditPage = () => {
     const getQuestion = async () => {
       const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}?page=1`;
       const response = await axios.get(source, {
-        headers: {},
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: localStorage.getItem('Authorization'),
+        },
       });
       setTitleValue(response.data.title);
       setContentValue(response.data.content);
@@ -54,6 +57,7 @@ const QuestionEditPage = () => {
     const response = await axios.patch(source, body, {
       headers: {
         'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
       },
     });
     console.log(response);
