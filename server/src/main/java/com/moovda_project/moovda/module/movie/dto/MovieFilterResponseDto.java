@@ -9,7 +9,7 @@ public class MovieFilterResponseDto {
     long movieId;
     String title;
     String poster;
-    String openingDate;
+    String prodYear;
     Double starAvg;
 
 }

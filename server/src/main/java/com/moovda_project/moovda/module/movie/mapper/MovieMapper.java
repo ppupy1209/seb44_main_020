@@ -86,7 +86,7 @@ public interface MovieMapper {
                           .movieId(movie.getMovieId())
                           .title(movie.getTitle())
                           .poster(movie.getPoster())
-                          .openingDate(movie.getOpeningDate())
+                          .prodYear(movie.getOpeningDate())
                           .starAvg(movie.getStarAvg())
                           .build())
                   .collect(Collectors.toList());
