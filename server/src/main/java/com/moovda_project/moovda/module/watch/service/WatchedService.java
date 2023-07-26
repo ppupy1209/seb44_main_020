@@ -2,6 +2,8 @@ package com.moovda_project.moovda.module.watch.service;
 
 import com.moovda_project.moovda.global.exception.BusinessLogicException;
 import com.moovda_project.moovda.global.exception.ExceptionCode;
+import com.moovda_project.moovda.module.member.entity.Member;
+import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.watch.entity.Watched;
 import com.moovda_project.moovda.module.watch.repository.WatchedRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,14 @@ public class WatchedService {
         Watched findWatched = watched.orElseThrow(() -> new BusinessLogicException(ExceptionCode.WATCHED_NOT_FOUND));
 
         return findWatched;
+    }
+
+    public Watched findByMemberAndMovie(Member member, Movie movie) {
+        Optional<Watched> optionalWatched = watchedRepository.findByMemberAndMovie(member,movie);
+
+        Watched watched = optionalWatched.orElseThrow(() -> new BusinessLogicException(ExceptionCode.WATCHED_NOT_FOUND));
+
+        return watched;
     }
 
 }
