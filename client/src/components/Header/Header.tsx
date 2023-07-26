@@ -9,6 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation';
+
 import {
   StyledHeader,
   StyledIconAsk,
@@ -39,7 +40,7 @@ const Header = () => {
       const searchParams = new URLSearchParams(window.location.search);
       const Authorization: any = searchParams.get('Authorization');
       const refreshToken = searchParams.get('refresh_token');
-
+      console.log('Authorization: ', Authorization);
       // setAuthorization(Authorization);
       // setRefreshToken(refreshToken);
 
@@ -51,6 +52,7 @@ const Header = () => {
         dispatch(setMemberId(memberId));
         dispatch(setNickname(nickname));
 
+        localStorage.setItem('Authorization', Authorization);
         const storedAccessToken = localStorage.getItem('Authorization');
 
         if (storedAccessToken !== null) {
@@ -69,11 +71,11 @@ const Header = () => {
   console.log('nickname: ', nickname);
   console.log('memberId: ', memberId);
 
-  const handleMypageClick = () => {
-    if (memberId) {
-      router.push(`/mypage/${memberId}`);
-    }
-  };
+const handleMypageClick = () => {
+  if (memberId) {
+    router.push(`/mypage?memberId=${memberId}`)
+  }
+};
   return (
     <StyledBody>
       <StyledHeader>
