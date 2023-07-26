@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 export interface AnswerType {
-  answerId: string;
-  memberId: number;
+  answerId: number;
+  questionId: number;
   nickname: string;
   content: string;
   createdAt: string;
