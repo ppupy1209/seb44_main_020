@@ -11,4 +11,4 @@ Assignee : [이름]
 
 Task Description : [작업 상세 내용]
 
-Date : [작업일]
+Date : [작업일] ex) 7월 4일(화)
