@@ -142,20 +142,19 @@ const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
   return (
     <S.BoxTop>
       <S.LeftBox>
-        {/* // TODO: 회원 === 글작성자 -> 본인 mypage || 회원 != 글작성자 -> 글작성자 mypage  ???현재 받아오는 answer.memberId가 없음*/}
-        <Link href={'/mypage'}>
+        <Link href={`/mypage/${userId}`}>
           <S.Nickname>{answer.nickname}</S.Nickname>
         </Link>
         <S.Time>
           {question?.createdAt ? AnswerDate(new Date(question.createdAt)) : ''}
         </S.Time>
       </S.LeftBox>
-      {/* {isAuthor && ( */}
-      <S.RightBox>
-        <S.EditBtn onClick={onEditClick}>수정</S.EditBtn>
-        <S.DeleteBtn onClick={handleDeleteAnswer}>삭제</S.DeleteBtn>
-      </S.RightBox>
-      {/* )} */}
+      {isAuthor && (
+        <S.RightBox>
+          <S.EditBtn onClick={onEditClick}>수정</S.EditBtn>
+          <S.DeleteBtn onClick={handleDeleteAnswer}>삭제</S.DeleteBtn>
+        </S.RightBox>
+      )}
     </S.BoxTop>
   );
 };

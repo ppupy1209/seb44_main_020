@@ -62,7 +62,7 @@ export interface SearchMovieList {
   movieId: string;
   title: string;
   poster: string;
-  prodYear: string;
+  prodYear: number | string;
   pageInfo: {
     currentPage: number;
     pageSize: number;
