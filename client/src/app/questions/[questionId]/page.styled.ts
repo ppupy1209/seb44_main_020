@@ -33,10 +33,14 @@ export const goMenuBtn = styled.button`
 
 export const AnswerCountContainer = styled.div`
   display: flex;
-  justify-content: flex-start;
+  width: 1024px;
 `;
 
-export const AnswerCountBox = styled.div``;
+export const AnswerCountBox = styled.div`
+  display: flex;
+  font-weight: 600;
+  font-size: large;
+`;
 
 export const AskBox = styled.div`
   width: 1024px;
