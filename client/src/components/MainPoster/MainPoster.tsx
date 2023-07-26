@@ -30,6 +30,8 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
   const goToMovieDetail = () => {
     if (dragState === false && userId) {
       router.push(`/movies/${movieId}`);
+    } else {
+      alert('로그인 후 이용 가능합니다.');
     }
   };
 
