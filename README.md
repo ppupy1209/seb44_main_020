@@ -199,11 +199,21 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
  <b>Position</b> : Backend
 
- <b>Stack</b> : 
+ <b>Stack</b> :  Java, Spring Boot, Spring Data JPA, mySQL, Spring Security
 
  <b>Works</b> : 
 
-1. 
+1. Member
+	* 로그인 후 DB에 멤버 정보 저장
+
+2. JWT 토큰
+	* JWT ACCESS TOKEN 발행
+	* JWT REFRESH TOKEN 발행
+
+3. 구글 OAuth 2.0
+	* OAuth 2.0 로그인 시 JWT 토큰에 구글 memberId와 이름 저장
+ 	* 로그인 성공 시 URI에 JWT 토큰을 넣은 후 메인 홈페이지로 리다이렉트
+ 	* 로그아웃 기능 구현
 
 </details>
 <br>
