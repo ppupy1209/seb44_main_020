@@ -135,7 +135,7 @@ const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
   };
 
   useEffect(() => {
-    if (userId === answerId) {
+    if (userId === answer.memberId) {
       setIsAuthor(true);
     }
   }, []);
