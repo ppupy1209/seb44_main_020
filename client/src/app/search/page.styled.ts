@@ -34,6 +34,7 @@ export const Poster = styled.img`
 export const Title = styled.h3`
   margin-top: 10px;
   text-align: center;
+  color: white;
 `;
 
 export const MovieInfo = styled.ul`
