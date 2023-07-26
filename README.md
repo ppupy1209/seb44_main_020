@@ -47,7 +47,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
  <b>Position</b> : Frontend
 
- <b>Stack</b> : 
+ <b>Stack</b> : Typescript, ReactJS, NextJS, Redux Toolkit, Styled Components
 
  <b>Works</b> : 
 
