@@ -96,8 +96,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         return UriComponentsBuilder
                 .newInstance()
-                .scheme("http")
-                .host("moovda.s3-website.ap-northeast-2.amazonaws.com")
+                .scheme("https")
+                .host("seb44-main-020-sandy.vercel.app")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
