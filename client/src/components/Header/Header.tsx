@@ -35,6 +35,8 @@ const Header = () => {
   const loginState = useSelector((state: RootState) => state.login);
   const memberId = useSelector((state: RootState) => state.auth.memberId);
   const nickname = useSelector((state: RootState) => state.auth.nickname);
+  const storedAccessToken = localStorage.getItem('Authorization');
+  const loginState1 = storedAccessToken !== null;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -42,7 +44,6 @@ const Header = () => {
       const Authorization: any = searchParams.get('Authorization');
       const refreshToken = searchParams.get('refresh_token');
       dispatch(setLoginState(false));
-
 
       if (Authorization !== null) {
         const decodedAccessToken: DecodedAccessToken = jwtDecode(Authorization);
@@ -82,7 +83,7 @@ const Header = () => {
     localStorage.clear();
     router.push('/');
   };
-  
+
   return (
     <StyledBody>
       <StyledHeader>
@@ -113,10 +114,12 @@ const Header = () => {
             onClick={handleMypageClick}
           />
         </StyledIconMyPage>
-        {loginState === false ? (
+        {loginState1 === false ? (
           <StyledLog onClick={() => router.push('/login')}>Login</StyledLog>
         ) : (
-          <StyledLog onClick={handleLogout}>LogOut</StyledLog>
+          <>
+            <StyledLog onClick={handleLogout}>LogOut</StyledLog>
+          </>
         )}
       </StyledHeader>
     </StyledBody>
