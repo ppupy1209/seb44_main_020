@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRouter } from 'next/navigation';
-
+import { useState, useEffect } from 'react';
 import {
   StyledHeader,
   StyledIconAsk,
@@ -19,10 +19,11 @@ import {
   StyledLogo,
   StyledBody,
 } from './Header.styled';
-import { setLoginState } from '@/redux/features/loginSlice';
 import jwtDecode from 'jwt-decode';
+
+import { setLoginState } from '@/redux/features/loginSlice';
 import { setMemberId, setNickname } from '@/redux/features/authSlice';
-import { useState, useEffect } from 'react';
+import { responseUserInfo } from '@/redux/features/userinfoSlice';
 
 interface DecodedAccessToken {
   memberId: number | null;
@@ -32,6 +33,13 @@ interface DecodedAccessToken {
 const Header = () => {
   const router = useRouter();
   const dispatch = useDispatch();
+  const loginState = useSelector((state: RootState) => state.login);
+  const memberId = useSelector((state: RootState) => state.auth.memberId);
+  const nickname = useSelector((state: RootState) => state.auth.nickname);
+  console.log('nickname: ', nickname);
+  console.log('memberId: ', memberId);
+  console.log('loginState:', loginState);
+
   // const [Authorization, setAuthorization] = useState<string | null>(null);
   // const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
@@ -40,7 +48,7 @@ const Header = () => {
       const searchParams = new URLSearchParams(window.location.search);
       const Authorization: any = searchParams.get('Authorization');
       const refreshToken = searchParams.get('refresh_token');
-      console.log('Authorization: ', Authorization);
+      dispatch(setLoginState(false));
       // setAuthorization(Authorization);
       // setRefreshToken(refreshToken);
 
@@ -54,7 +62,6 @@ const Header = () => {
 
         localStorage.setItem('Authorization', Authorization);
         const storedAccessToken = localStorage.getItem('Authorization');
-
         if (storedAccessToken !== null) {
           dispatch(setLoginState(true));
         } else {
@@ -65,59 +72,65 @@ const Header = () => {
     }
   }, [router, dispatch]);
 
-  const loginState = useSelector((state: any) => state.login);
-  const memberId = useSelector((state: RootState) => state.auth.memberId);
-  const nickname = useSelector((state: RootState) => state.auth.nickname);
-  console.log('nickname: ', nickname);
-  console.log('memberId: ', memberId);
-
   const handleMypageClick = () => {
-    if (memberId) {
-      router.push(`/mypage/${memberId}`);
+    if (loginState === false) {
+      alert('로그인 후 이용하세요!');
+    } else if (memberId) {
+      router.push(`/mypage?memberId=${memberId}`);
+      if (memberId) {
+        router.push(`/mypage/${memberId}`);
+      }
     }
+  }
+    const handleLogout = () => {
+      dispatch(setLoginState(false));
+      localStorage.clear();
+      dispatch(responseUserInfo({ memberId: null, nickname: '' }));
+      router.push('/');
+    };
+    console.log(loginState);
+    return (
+      <StyledBody>
+        <StyledHeader>
+          <StyledLogo>
+            <MoovDa onClick={() => router.push('/')} />
+          </StyledLogo>
+          <StyledIconSearch>
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              style={{ color: 'white' }}
+              size="xl"
+              onClick={() => router.push('/search')}
+            />
+          </StyledIconSearch>
+          <StyledIconAsk>
+            <FontAwesomeIcon
+              icon={faPen}
+              style={{ color: 'white' }}
+              size="xl"
+              onClick={() => router.push('/questions')}
+            />
+          </StyledIconAsk>
+          <StyledIconMyPage>
+            <FontAwesomeIcon
+              icon={faUser}
+              style={{ color: 'white' }}
+              size="xl"
+              onClick={handleMypageClick}
+            />
+          </StyledIconMyPage>
+          {loginState === true ? (
+            <>
+              <StyledLog onClick={handleLogout}>LogOut</StyledLog>
+            </>
+          ) : (
+            <>
+              <StyledLog onClick={() => router.push('/login')}>Login</StyledLog>
+            </>
+          )}
+        </StyledHeader>
+      </StyledBody>
+    );
   };
-
-  return (
-    <StyledBody>
-      <StyledHeader>
-        <StyledLogo>
-          <MoovDa onClick={() => router.push('/')} />
-        </StyledLogo>
-        <StyledIconSearch>
-          <FontAwesomeIcon
-            icon={faMagnifyingGlass}
-            style={{ color: 'white' }}
-            size="xl"
-            onClick={() => router.push('/search')}
-          />
-        </StyledIconSearch>
-        <StyledIconAsk>
-          <FontAwesomeIcon
-            icon={faPen}
-            style={{ color: 'white' }}
-            size="xl"
-            onClick={() => router.push('/questions')}
-          />
-        </StyledIconAsk>
-        <StyledIconMyPage>
-          <FontAwesomeIcon
-            icon={faUser}
-            style={{ color: 'white' }}
-            size="xl"
-            onClick={handleMypageClick}
-          />
-        </StyledIconMyPage>
-        {loginState === true ? (
-          <StyledLog>
-            LogOut
-            <p>{nickname}님 환영합니다.</p>
-          </StyledLog>
-        ) : (
-          <StyledLog onClick={() => router.push('/login')}>LogIn</StyledLog>
-        )}
-      </StyledHeader>
-    </StyledBody>
-  );
-};
-
 export default Header;
+
