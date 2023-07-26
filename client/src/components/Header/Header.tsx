@@ -79,7 +79,7 @@ const Header = () => {
     if (loginState === false) {
       alert('로그인 후 이용하세요!');
     } else if (memberId) {
-      router.push(`/mypage?memberId=${memberId}`);
+      router.push(`/mypage/${memberId}`);
     }
   };
   const handleLogout = () => {
