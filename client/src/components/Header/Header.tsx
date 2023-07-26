@@ -76,9 +76,7 @@ const Header = () => {
       router.push(`/mypage?memberId=${memberId}`);
     }
   };
-  const LoginRequestHandlerGoogle = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorization/google`;
-  };
+
   return (
     <StyledBody>
       <StyledHeader>
@@ -115,8 +113,7 @@ const Header = () => {
             <p>{nickname}님 환영합니다.</p>
           </StyledLog>
         ) : (
-          // <StyledLog onClick={() => router.push('/login')}>LogIn</StyledLog>
-          <StyledLog onClick={LoginRequestHandlerGoogle}>LogIn</StyledLog>
+          <StyledLog onClick={() => router.push('/login')}>LogIn</StyledLog>
         )}
       </StyledHeader>
     </StyledBody>
