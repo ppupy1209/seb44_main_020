@@ -1,5 +1,3 @@
-import { useCallback } from 'react';
-import Link from 'next/link';
 import { faSquareMinus } from '@fortawesome/free-solid-svg-icons';
 import * as S from './MainPoster.styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -27,9 +25,10 @@ export function MainPoster({ data, isWatched, isToWatch }: Props) {
   const router = useRouter();
 
   const dragState = useSelector((state: RootState) => state.drag.value);
+  const userId = useSelector((state: RootState) => state.auth.memberId);
 
   const goToMovieDetail = () => {
-    if (dragState === false) {
+    if (dragState === false && userId) {
       router.push(`/movies/${movieId}`);
     }
   };
