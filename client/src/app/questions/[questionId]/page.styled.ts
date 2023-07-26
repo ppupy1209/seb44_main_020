@@ -54,6 +54,7 @@ export const AskBox = styled.div`
 export const BoxTop = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.75rem;
 `;
 
 export const LeftBox = styled.div`
@@ -107,9 +108,9 @@ export const DeleteBtn = styled.button`
   align-items: center;
 `;
 
-export const BoxTitle = styled.h2`
+export const BoxTitle = styled.h3`
   font-weight: bold;
-  margin: 0px 0px 8px 8px;
+  margin: 0px 0px 12px 8px;
 `;
 
 export const BoxMid = styled.div`
@@ -117,7 +118,7 @@ export const BoxMid = styled.div`
 `;
 
 export const ContentBox = styled.div`
-  margin: 12px 8px 0px 8px;
+  margin: 16px 8px 0px 8px;
 `;
 
 export const PageBottom = styled.div`
