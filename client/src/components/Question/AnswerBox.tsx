@@ -38,19 +38,6 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
     selectedMovie?: SearchMovieList;
     textValue: string;
   }) => {
-    dispatch(
-      editAnswerList({
-        answerId: answer.answerId,
-        nickname: answer.nickname,
-        content: textValue,
-        movie: {
-          title: selectedMovie?.title,
-          poster: selectedMovie?.poster,
-          prodYear: selectedMovie?.prodYear,
-        },
-      }),
-    );
-
     const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers/${answerId}`;
     const body = {
       answerId: answer.answerId,
@@ -69,7 +56,19 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
       },
     });
     setIsEditing(false);
-    console.log('response', response);
+
+    dispatch(
+      editAnswerList({
+        answerId: answer.answerId,
+        nickname: answer.nickname,
+        content: textValue,
+        movie: {
+          title: selectedMovie?.title,
+          poster: selectedMovie?.poster,
+          prodYear: selectedMovie?.prodYear,
+        },
+      }),
+    );
   };
 
   return (
