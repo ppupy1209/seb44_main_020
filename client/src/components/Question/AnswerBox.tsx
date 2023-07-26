@@ -185,7 +185,7 @@ interface AnswerBoxBottomProps {
 const AnswerBoxBottom = ({ answer }: AnswerBoxBottomProps) => {
   const { movieId } = useParams();
   return (
-    <Link href={`/movie/${movieId}`}>
+    <Link href={`/movies/${movieId}`}>
       <S.BoxBottom>
         <S.SelectedMovieBox>
           <S.Poster>{answer?.movie?.poster}</S.Poster>
