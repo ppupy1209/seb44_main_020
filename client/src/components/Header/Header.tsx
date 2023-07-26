@@ -35,8 +35,6 @@ const Header = () => {
   const loginState = useSelector((state: RootState) => state.login);
   const memberId = useSelector((state: RootState) => state.auth.memberId);
   const nickname = useSelector((state: RootState) => state.auth.nickname);
-  const storedAccessToken = localStorage.getItem('Authorization');
-  const loginState1 = storedAccessToken !== null;
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -83,7 +81,11 @@ const Header = () => {
     localStorage.clear();
     router.push('/');
   };
-
+  const storedAccessToken =
+    typeof window !== 'undefined'
+      ? localStorage.getItem('Authorization')
+      : null;
+  const isLoggedIn = storedAccessToken !== null;
   return (
     <StyledBody>
       <StyledHeader>
@@ -114,7 +116,7 @@ const Header = () => {
             onClick={handleMypageClick}
           />
         </StyledIconMyPage>
-        {loginState1 === false ? (
+        {isLoggedIn === false ? (
           <StyledLog onClick={() => router.push('/login')}>Login</StyledLog>
         ) : (
           <>
