@@ -46,7 +46,6 @@ const QuestionDetailPage = () => {
     totalPages: 0,
   });
 
-  // 작성자인지 아닌지 체크
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
   const [questionAndAnswer, setQuestionAndAnswer] =
     useState<QuestionDetailResponse | null>(null);
