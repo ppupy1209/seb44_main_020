@@ -81,7 +81,7 @@ const Header = () => {
         router.push(`/mypage/${memberId}`);
       }
     }
-
+  }
     const handleLogout = () => {
       dispatch(setLoginState(false));
       localStorage.clear();
@@ -132,5 +132,5 @@ const Header = () => {
       </StyledBody>
     );
   };
-};
 export default Header;
+
