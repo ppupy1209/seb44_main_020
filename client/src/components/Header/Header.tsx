@@ -37,7 +37,7 @@ const Header = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const searchParams = new URLSearchParams(window.location.search);
-      const Authorization: any = searchParams.get('access_token');
+      const Authorization: any = searchParams.get('Authorization');
       const refreshToken = searchParams.get('refresh_token');
 
       // setAuthorization(Authorization);
