@@ -41,6 +41,7 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
     const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers/${answerId}`;
     const body = {
       answerId: answer.answerId,
+      questionId: answer.questionId,
       nickname: answer.nickname,
       content: textValue,
       movie: {
@@ -116,7 +117,7 @@ interface AnswerBoxTopProps {
 
 const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
   const dispatch = useDispatch();
-  const answerId = answer.memberId;
+  const answerId = answer.answerId;
   const { questionId } = useParams();
   const userId = useSelector((state: RootState) => state.auth.memberId);
   const [isAuthor, setIsAuthor] = useState<boolean>(false);
