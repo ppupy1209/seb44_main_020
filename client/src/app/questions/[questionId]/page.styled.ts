@@ -40,7 +40,7 @@ export const AnswerCountBox = styled.div``;
 
 export const AskBox = styled.div`
   width: 1024px;
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: #162135;
   padding: 1rem;
   margin: 0.75rem 1rem;
   border: 0.5px solid #8a97ab;
