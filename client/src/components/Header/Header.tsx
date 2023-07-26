@@ -20,7 +20,6 @@ import {
   StyledBody,
 } from './Header.styled';
 import jwtDecode from 'jwt-decode';
-
 import { setLoginState } from '@/redux/features/loginSlice';
 import { setMemberId, setNickname } from '@/redux/features/authSlice';
 import { responseUserInfo } from '@/redux/features/userinfoSlice';
@@ -36,11 +35,6 @@ const Header = () => {
   const loginState = useSelector((state: RootState) => state.login);
   const memberId = useSelector((state: RootState) => state.auth.memberId);
   const nickname = useSelector((state: RootState) => state.auth.nickname);
-  console.log('nickname: ', nickname);
-  console.log('memberId: ', memberId);
-
-  // const [Authorization, setAuthorization] = useState<string | null>(null);
-  // const [refreshToken, setRefreshToken] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -48,8 +42,7 @@ const Header = () => {
       const Authorization: any = searchParams.get('Authorization');
       const refreshToken = searchParams.get('refresh_token');
       dispatch(setLoginState(false));
-      // setAuthorization(Authorization);
-      // setRefreshToken(refreshToken);
+
 
       if (Authorization !== null) {
         const decodedAccessToken: DecodedAccessToken = jwtDecode(Authorization);
@@ -89,7 +82,7 @@ const Header = () => {
     localStorage.clear();
     router.push('/');
   };
-  console.log(loginState);
+  
   return (
     <StyledBody>
       <StyledHeader>
