@@ -7,6 +7,7 @@ import {
   deleteAnswerList,
   editAnswerList,
 } from '@/redux/features/answerListSlice';
+import { RootState } from '@/redux/store';
 import axios from 'axios';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
@@ -14,7 +15,6 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchMovieList } from './Modal';
 import SearchBox from './SearchBox';
-import { RootState } from '@/redux/store';
 
 interface AnswerBoxProps {
   answer: AnswerType;
@@ -70,20 +70,6 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
     });
     setIsEditing(false);
     console.log('response', response);
-
-    // NOTE: 대비책
-    // const response = await fetch(source, {
-    //   method: 'PATCH',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //
-    //   },
-    //   body: JSON.stringify(body),
-    // });
-    // console.log('response', response);
-
-    // const result = await response.json();
-    // console.log('result', result);
   };
 
   return (
