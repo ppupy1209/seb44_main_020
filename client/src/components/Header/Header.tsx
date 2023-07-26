@@ -38,26 +38,29 @@ const Header = () => {
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedAccessToken = localStorage.getItem('Authorization');
+      const searchParams = new URLSearchParams(window.location.search);
+      const Authorization: any = searchParams.get('Authorization');
+      const refreshToken = searchParams.get('refresh_token');
+      dispatch(setLoginState(false));
 
-      if (storedAccessToken) {
-        const decodedAccessToken: DecodedAccessToken =
-          jwtDecode(storedAccessToken);
+
+      if (Authorization !== null) {
+        const decodedAccessToken: DecodedAccessToken = jwtDecode(Authorization);
         const memberId: any = Number(decodedAccessToken?.memberId);
         const nickname: any = decodedAccessToken?.nickname;
 
         dispatch(setMemberId(memberId));
         dispatch(setNickname(nickname));
-        dispatch(setLoginState(true));
-      } else {
-        dispatch(setLoginState(false));
-        dispatch(setMemberId(null));
-        dispatch(setNickname(null));
-      }
 
-      const searchParams = new URLSearchParams(window.location.search);
-      const Authorization: any = searchParams.get('Authorization');
-      const refreshToken = searchParams.get('refresh_token');
+        localStorage.setItem('Authorization', Authorization);
+        const storedAccessToken = localStorage.getItem('Authorization');
+        if (storedAccessToken !== null) {
+          dispatch(setLoginState(true));
+        } else {
+          dispatch(setLoginState(false));
+          localStorage.removeItem('Authorization');
+        }
+      }
       if (Authorization || refreshToken) {
         const newUrl = window.location.origin + window.location.pathname;
         history.replaceState({}, document.title, newUrl);
@@ -79,7 +82,7 @@ const Header = () => {
     localStorage.clear();
     router.push('/');
   };
-
+  
   return (
     <StyledBody>
       <StyledHeader>
