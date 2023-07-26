@@ -41,7 +41,7 @@ public interface MemberMapper {
                         .movieId(watched.getMovie().getMovieId())
                         .title(watched.getMovie().getTitle())
                         .poster(watched.getMovie().getPoster())
-                        .star(watched.getMovie().getComments().get(watched.getWatchedId().intValue()-1).getStar())
+                        .star(watched.getStar())
                         .build()).collect(Collectors.toList());
         return watchedResponseDtos;
     }

@@ -41,7 +41,7 @@ public class CommentService {
 
         updateStarAvg(movie);   // 영화 평균 별점 업데이트
 
-        addWatched(movie,member);  // 본 영화 목록에 추가
+        addWatched(movie,member,createdComment);  // 본 영화 목록에 추가
 
         return createdComment;
     }
@@ -58,6 +58,8 @@ public class CommentService {
        Movie movie = movieService.findVerifiedMovie(findComment.getMovie().getMovieId());
 
        updateStarAvg(movie);  // 평균 별점 업데이트
+
+       updateWatched(updatedComment.getMovie(),updatedComment.getMember(),updatedComment);
 
        return updatedComment;
     }
@@ -116,10 +118,17 @@ public class CommentService {
         return sum;
     }
 
-    private void addWatched(Movie movie, Member member) {
-        Watched watched = new Watched(movie,member);
+    private void addWatched(Movie movie, Member member,Comment comment) {
+        Watched watched = new Watched(comment.getStar(),movie,member);
 
         watchedService.createWatched(watched);
+    }
+
+    private void updateWatched(Movie movie,Member member,Comment comment) {
+      Watched watched =  watchedService.findByMemberAndMovie(member,movie);
+
+      watched.setStar(comment.getStar());
+      watchedService.createWatched(watched);
     }
 
     private void deleteWatched(long watchedId) {
