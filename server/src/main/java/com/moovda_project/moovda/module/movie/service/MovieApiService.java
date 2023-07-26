@@ -42,6 +42,7 @@ public class MovieApiService {
                 Movie movie = new Movie();
 
                 String posterUrl = movieObj.get("posters").toString().split("\\|")[0];  // 포스터는 하나만 저장
+                posterUrl = posterUrl.replaceFirst("http","https");
                 if(posterUrl.equals("")) continue;       // 포스터가 없으면 저장하지 않는다.
 
                 movie.setPoster(posterUrl);
