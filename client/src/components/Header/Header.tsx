@@ -43,7 +43,6 @@ const Header = () => {
       const refreshToken = searchParams.get('refresh_token');
       dispatch(setLoginState(false));
 
-
       if (Authorization !== null) {
         const decodedAccessToken: DecodedAccessToken = jwtDecode(Authorization);
         const memberId: any = Number(decodedAccessToken?.memberId);
@@ -82,7 +81,11 @@ const Header = () => {
     localStorage.clear();
     router.push('/');
   };
-  
+  const storedAccessToken =
+    typeof window !== 'undefined'
+      ? localStorage.getItem('Authorization')
+      : null;
+  const isLoggedIn = storedAccessToken !== null;
   return (
     <StyledBody>
       <StyledHeader>
@@ -113,10 +116,12 @@ const Header = () => {
             onClick={handleMypageClick}
           />
         </StyledIconMyPage>
-        {loginState === false ? (
+        {isLoggedIn === false ? (
           <StyledLog onClick={() => router.push('/login')}>Login</StyledLog>
         ) : (
-          <StyledLog onClick={handleLogout}>LogOut</StyledLog>
+          <>
+            <StyledLog onClick={handleLogout}>LogOut</StyledLog>
+          </>
         )}
       </StyledHeader>
     </StyledBody>
