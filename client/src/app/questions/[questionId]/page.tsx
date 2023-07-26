@@ -82,6 +82,7 @@ const QuestionDetailPage = () => {
       content: textValue,
       title: selectedMovie.title,
       poster: selectedMovie.poster,
+      prodYear: selectedMovie.prodYear,
     };
 
     await axios.post(source, body, {
