@@ -3,6 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 export interface AnswerType {
   answerId: number;
   questionId: number;
+  memberId: number;
   nickname: string;
   content: string;
   createdAt: string;
