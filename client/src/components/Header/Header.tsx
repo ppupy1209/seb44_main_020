@@ -73,7 +73,7 @@ const Header = () => {
 
   const handleMypageClick = () => {
     if (memberId) {
-      router.push(`/mypage?memberId=${memberId}`);
+      router.push(`/mypage/${memberId}`);
     }
   };
 
