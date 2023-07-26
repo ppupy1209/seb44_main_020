@@ -30,7 +30,6 @@ export const Poster = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  overflow: hidden;
 `;
 export const TextContainer = styled.div``;
 
