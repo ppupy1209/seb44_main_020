@@ -35,7 +35,7 @@ public class AnswerService {
     }
 
     public Answer updateAnswer(Answer answer, long authenticationMemberId) {
-        // TODO : 본인 검증 로직 추가
+
         Answer foundAnswer = findVerifiedAnswer(answer.getAnswerId());
 
         checkValidatedMember(authenticationMemberId, foundAnswer);
