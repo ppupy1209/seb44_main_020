@@ -39,8 +39,8 @@ const SearchPage: React.FC = () => {
   const [selectedGenre, setSelectedGenre] = useState<string | null>(null);
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
   const [selectedRating, setSelectedRating] = useState<string | null>(null);
-  const [startStarAvg, setStartStarAvg] = useState<number | null>(0);
-  const [endStarAvg, setEndStarAvg] = useState<number | null>(0);
+  const [startStarAvg, setStartStarAvg] = useState<number | null>(null);
+  const [endStarAvg, setEndStarAvg] = useState<number | null>(null);
   const [searchKeyword, setSearchKeyword] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -59,8 +59,8 @@ const SearchPage: React.FC = () => {
           genre,
           country,
           rating,
-          startStarAvg: startStarAvg || 0,
-          endStarAvg: endStarAvg || 0,
+          startStarAvg: startStarAvg !== null ? startStarAvg : undefined,
+          endStarAvg: endStarAvg !== null ? endStarAvg : undefined,
           page,
           keyword,
         },
@@ -154,25 +154,33 @@ const SearchPage: React.FC = () => {
   };
 
   const handleStartingStarClick = (star: number) => {
-    setStartStarAvg(star);
+    if (star === startStarAvg) {
+      setStartStarAvg(null);
+    } else {
+      setStartStarAvg(star);
+    }
     fetchData(
       selectedGenre,
       selectedCountry,
       selectedRating,
       star,
-      endStarAvg || 5,
+      endStarAvg,
       1,
       searchKeyword,
     );
   };
 
   const handleEndingStarClick = (star: number) => {
-    setEndStarAvg(star);
+    if (star === endStarAvg) {
+      setEndStarAvg(null);
+    } else {
+      setEndStarAvg(star);
+    }
     fetchData(
       selectedGenre,
       selectedCountry,
       selectedRating,
-      startStarAvg || 0,
+      startStarAvg,
       star,
       1,
       searchKeyword,
