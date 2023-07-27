@@ -200,7 +200,9 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
           {question?.nickname}
         </S.Nickname>
         <S.Time>
-          {question?.createdAt ? AnswerDate(new Date(question.createdAt)) : ''}
+          {question?.createdAt
+            ? AnswerDate(new Date(`${question.createdAt}`))
+            : ''}
         </S.Time>
       </S.LeftBox>
       <S.RightBox>
