@@ -109,12 +109,14 @@ const SearchModal = ({ onSelect }: SearchModalProps) => {
   const onPrevPage = () => {
     if (currentPage > 1) {
       setCurrentPage((prevPage) => prevPage - 1);
+      window.scrollTo(0, 0);
     }
   };
 
   const onNextPage = () => {
     if (currentPage < totalPages) {
       setCurrentPage((prevPage) => prevPage + 1);
+      window.scrollTo(0, 0);
     }
   };
 
