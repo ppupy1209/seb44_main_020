@@ -16,11 +16,10 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/v11/members")
+@RequestMapping("/members")
 @Validated
 @Slf4j
 public class MemberController {
-    private final static String MEMBER_DEFAULT_URL = "/v11/members";
 
     private final MemberService memberService;
 
@@ -46,5 +45,13 @@ public class MemberController {
         Member member = memberService.findMember(memberId);
 
         return new ResponseEntity<>(mapper.memberToMemberResponseDto(member), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{member-id}")
+    public ResponseEntity deleteMember(
+            @PathVariable("member-id") @Positive long memberId) {
+        memberService.deleteMember(memberId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
