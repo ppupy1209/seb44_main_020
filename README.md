@@ -275,7 +275,48 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
 </details>
  
+<br><br><br>
 
 ## Technologies used <br>
+
+### Frontend
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=React&logoColor=white"  height="30"/>
+<img src="https://img.shields.io/badge/Next.js-000000?style=flat&logo=Next.js&logoColor=white"  height="30"/>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=TypeScript&logoColor=white"  height="30"/> 
+<img src="https://img.shields.io/badge/StyledComponets-DB7093?style=flat&logo=styledcomponents&logoColor=white"  height="30"/>
+<img src="https://img.shields.io/badge/ReduxToolkit-764ABC?style=flat&logo=redux&logoColor=white"  height="30"/>
+
+<br><br>
+
+### Backend
+<img src="https://img.shields.io/badge/Spring%20Boot-339933?style=flat-square&logo=springboot&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/Spring%20Data%20JPA-339933?style=flat-square&logo=spring&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/Spring%20Security-339933?style=flat-square&logo=springsecurity&logoColor=white" height="30" /> 
+<img src="https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/OAuth2.0-2C2255?style=flat-square&logo=google&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/QueryDSL-00BFFF?style=flat-square&logo=qualcomm&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/Tomcat-FF8800?style=flat-square&logo=apachetomcat&logoColor=white" height="30" />
+
+
+
+<br><br>
+
+### Deployment
+<img src="https://img.shields.io/badge/AWS-232F3E?style=flat-square&logo=amazonaws&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/EC2-FF9900?style=flat-square&logo=amazonec2&logoColor=white" height="30" /> 
+<img src="https://img.shields.io/badge/Vercel-000000?style=flat-square&logo=vercel&logoColor=white" height="30" /> 
+<img src="https://img.shields.io/badge/RDS-527FFF?style=flat-square&logo=amazonrds&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/Route53-FF9900?style=flat-square&logo=amazonaws&logoColor=white" height="30" />
+
+
+<br><br>
+
+### Project Management
+<img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=github&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white" height="30" /> 
+<img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white" height="30" />
+<img src="https://img.shields.io/badge/Zoom-2D8CFF?style=flat-square&logo=zoom&logoColor=white" height="30" />
+
 
 
