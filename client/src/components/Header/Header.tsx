@@ -81,11 +81,26 @@ const Header = () => {
     localStorage.clear();
     router.push('/');
   };
+
+  useEffect(() => {
+    const storedAccessToken = localStorage.getItem('Authorization');
+    if (storedAccessToken) {
+      dispatch(setLoginState(true));
+      const decodedAccessToken: DecodedAccessToken =
+        jwtDecode(storedAccessToken);
+      const memberId = Number(decodedAccessToken?.memberId);
+      const nickname = decodedAccessToken?.nickname;
+      dispatch(setMemberId(memberId));
+      dispatch(setNickname(nickname));
+    }
+  }, [dispatch]);
+
   const storedAccessToken =
     typeof window !== 'undefined'
       ? localStorage.getItem('Authorization')
       : null;
   const isLoggedIn = storedAccessToken !== null;
+
   return (
     <StyledBody>
       <StyledHeader>
