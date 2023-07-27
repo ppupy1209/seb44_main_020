@@ -32,6 +32,7 @@ public class AnswerDto {
         private String content;
         private String title;
         private String poster;
+        private String prodYear;
 
         public void addAnswerId(long answerId) {
             this.answerId = answerId;
