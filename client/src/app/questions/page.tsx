@@ -51,9 +51,10 @@ const QuestionListPage = () => {
         },
       });
       setQuestions(response.data.data);
+      setPageInfo(response.data.pageInfo);
+      setLoading(false);
     };
     getQuestionList();
-    setLoading(false);
   }, [page]);
 
   return (

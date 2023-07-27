@@ -21,11 +21,11 @@ export const goMenuBtn = styled.button`
   margin-top: 10px;
 
   padding: 12px 24px;
-  border-radius: 8px;
+  border-radius: 4px;
   width: 250px;
   background-color: #111321;
   &:hover {
-    background-color: rgba(108, 99, 255, 0.3);
+    background-color: #6c63ff;
   }
   cursor: pointer;
   color: white;
@@ -160,4 +160,33 @@ export const Button = styled.button`
   }
   cursor: pointer;
   color: white;
+`;
+
+export const PaginationBtnContainer = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const PaginationBtnBox = styled.div`
+  display: inline;
+`;
+
+export const PaginationBtn = styled.button`
+  background-color: rgba(66, 99, 235, 0.5);
+  border: solid 1px #616c7f;
+  color: white;
+  padding: 4px;
+  border-radius: 4px;
+  width: 30px;
+  height: 32px;
+  margin: 32px 4px;
+  cursor: pointer;
+  &:hover {
+    color: #111321;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
+  &.active {
+    color: #111321;
+    background-color: rgba(255, 255, 255, 0.9);
+  }
 `;

@@ -94,17 +94,24 @@ export const SearchedMovieBox = styled.div`
   height: 64px;
 `;
 
+export const MovieInfo = styled.div`
+  font-size: 0.75rem;
+  margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+`;
+
 export const SearchedMovieTitle = styled.p`
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   padding-left: 0.75rem;
   font-weight: 700;
   font-size: small;
 `;
 
 export const SearchedMovieProdYear = styled.p`
-  padding-top: 0.25rem;
   padding-left: 0.75rem;
-  font-weight: bold;
+  color: #5d5d5d;
 `;
 
 export const SearchContainer = styled.div`

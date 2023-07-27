@@ -214,12 +214,10 @@ const SearchedMovieList = ({
               height={'64px'}
             />
           </div>
-          <div>
+          <S.MovieInfo>
             <S.SearchedMovieTitle>{movie.title}</S.SearchedMovieTitle>
-          </div>
-          <div>
             <S.SearchedMovieProdYear>{movie.prodYear}</S.SearchedMovieProdYear>
-          </div>
+          </S.MovieInfo>
         </S.SearchedMovieBox>
       ))}
     </S.SearchedListBox>

@@ -12,7 +12,6 @@ export const SearchBox = styled.div`
   margin: 1.5rem 1rem;
   width: 1024px;
   background-color: #334163;
-
   border-radius: 16px;
   padding: 1rem;
 `;
@@ -20,41 +19,57 @@ export const SearchBox = styled.div`
 export const SelectedMovieContainer = styled.div`
   display: flex;
   background-color: rgba(255, 255, 255, 0.5);
-  height: 64px;
   width: 32%;
+  border-radius: 4px;
+  border-left: 10px solid #111321;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+`;
+
+export const Poster = styled.div`
+  display: flex;
+  height: 64px;
+`;
+
+export const MovieInfo = styled.div`
+  font-size: 0.75rem;
+  margin-top: 2px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 `;
 
 export const SelectedMovieTitle = styled.p`
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   padding-left: 0.75rem;
   font-weight: 700;
   font-size: small;
+  color: black;
+  text-decoration: none;
 `;
 
 export const SelectedMovieProdYear = styled.p`
-  padding-top: 0.25rem;
   padding-left: 0.75rem;
-  font-weight: bold;
+  color: #5d5d5d;
 `;
 
 export const ChangeMovieButton = styled.button`
   border-radius: 4px;
   width: 100%;
-  background-color: #111321;
+  background-color: #e1e1e1;
+  color: black;
   &:hover {
     background-color: #111321;
     cursor: pointer;
     color: white;
   }
   display: flex;
-  background-color: #c2c2c2;
   height: 48px;
   cursor: pointer;
-  color: black;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  font-size: large;
+  font-weight: 600;
+  font-size: medium;
   margin: 0.25rem 0 0.5rem 0;
 `;
 
@@ -64,7 +79,7 @@ export const MoviePickButton = styled.button`
   width: 100%;
   height: 50px;
   margin-bottom: 8px;
-  font-weight: bold;
+  font-weight: 600;
   font-size: medium;
   cursor: pointer;
 `;
@@ -89,10 +104,13 @@ export const Button = styled.button`
   padding: 12px 24px;
   border-radius: 4px;
   width: 100px;
-  background-color: #111321;
+  background-color: #e1e1e1;
+  color: black;
   &:hover {
-    background-color: rgba(108, 99, 255, 0.3);
+    background-color: #111321;
+    cursor: pointer;
+    color: white;
   }
   cursor: pointer;
-  color: white;
+  font-weight: 700;
 `;
