@@ -90,7 +90,12 @@ export const SelectedMovieBox = styled.div`
   cursor: pointer;
 `;
 
-export const Poster = styled.div``;
+export const Poster = styled.div`
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.5);
+  height: 64px;
+  width: 32%;
+`;
 
 export const MovieInfo = styled.div`
   font-size: 0.75rem;
