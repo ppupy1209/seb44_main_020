@@ -72,9 +72,7 @@ export const AnswerBoxMid = styled.div`
   margin: 12px 8px 0px 8px;
 `;
 
-export const ContentBox = styled.div`
-  font-weight: bold;
-`;
+export const ContentBox = styled.div``;
 
 export const BoxBottom = styled.div`
   margin: 16px 8px 0px 0px;
