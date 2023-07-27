@@ -138,7 +138,7 @@ const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
   return (
     <S.BoxTop>
       <S.LeftBox>
-        <Link href={`/mypage/${answer.memberId}}`}>
+        <Link href={`/mypage/${answer.nickname}}`}>
           <S.Nickname>{answer.nickname}</S.Nickname>
         </Link>
         <S.Time>
