@@ -16,13 +16,19 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
 ## MoovDa Page View <br>
 
+<br>
+
 - <b>Main</b>
 
 ![메인페이지](https://github.com/codestates-seb/seb44_main_020/assets/64067205/4bf7259f-fbcd-4919-93f4-c3ff6895241e)
 
+<br>
+
 - <b>Login</b>
 
 ![로그인 앤 마이페이지](https://github.com/codestates-seb/seb44_main_020/assets/64067205/e12ee450-0601-4988-b086-3ad2f15fd1e8)
+
+<br>
 
 
 
@@ -30,43 +36,54 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
 ![영화 필터 검색](https://github.com/codestates-seb/seb44_main_020/assets/64067205/f9a857d5-f3bb-4232-973d-08058432df4d)
 
+<br>
+
 
 - <b>Movie Detail</b>
 
 ![영화 상세](https://github.com/codestates-seb/seb44_main_020/assets/64067205/5e2a6cab-9b0c-4a0e-b8b8-acdb62529d7d)
+
+<br>
 
 
 - <b>Comment</b>
 
 ![코멘트 작성](https://github.com/codestates-seb/seb44_main_020/assets/64067205/98bd7004-4b82-4811-a884-371f96a86195)
 
+<br>
+
 - <b>Comment Like</b>
 
 ![코멘트 좋아요](https://github.com/codestates-seb/seb44_main_020/assets/64067205/8d6e7ae2-78d4-444f-bd99-676bbb952b19)
+
+<br>
 
 
 - <b>To Watch</b>
 
 ![볼 영화 추가](https://github.com/codestates-seb/seb44_main_020/assets/64067205/d5d12ed7-c3c9-4750-8be5-fecdc94ac7e7)
 
-
+<br>
 
 
 - <b>Question</b>
 
 ![질문 작성](https://github.com/codestates-seb/seb44_main_020/assets/64067205/3cd52e3e-1fe0-4a62-a5bf-64d481d2b40c)
 
-
+<br>
 
 - <b>Answer</b>
 
 ![답변 작성](https://github.com/codestates-seb/seb44_main_020/assets/64067205/ac6e4783-5138-42e9-bde5-02d2ebc615a0)
 
+<br>
 
 
-<br><br><br>
+<br><br>
 
 ## Team MoovDa <br>
+
+
 
 ### Frontend <br>
 
