@@ -36,6 +36,7 @@ export default function MyPage() {
   const router = useRouter();
   const [data, setData] = useState<My | null>(null);
   const { memberId } = useParams();
+  const memberIdtoNumber = Number(memberId);
   const userId = useSelector((state: RootState) => state.auth.memberId);
 
   const dispatch = useDispatch();
@@ -99,14 +100,14 @@ export default function MyPage() {
 
   return (
     <S.Wrapper>
-      {userId === memberId ? <S.PageTitle>my page</S.PageTitle> : ''}
+      {userId === memberIdtoNumber ? <S.PageTitle>my page</S.PageTitle> : ''}
       <S.Container>
         <S.Nickname>{data?.nickname} 님의 리스트</S.Nickname>
         <S.SectionWrapper>
           <S.Section>
             <S.SectionTitle>
               <S.Title>볼 영화</S.Title>
-              {userId === memberId ? (
+              {userId === memberIdtoNumber ? (
                 <S.ShowDelete onClick={handleShowDelete}>편집</S.ShowDelete>
               ) : (
                 ''
@@ -136,7 +137,7 @@ export default function MyPage() {
               )}
             </S.SectionContent>
           </S.Section>
-          {userId === memberId ? (
+          {userId === memberIdtoNumber ? (
             <S.Section>
               <S.SectionTitle>
                 <S.Title>계정 관리</S.Title>
