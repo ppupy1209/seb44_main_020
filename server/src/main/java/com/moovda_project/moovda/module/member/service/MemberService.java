@@ -38,4 +38,10 @@ public class MemberService {
 
         return member;
     }
+
+    public void deleteMember(long memberId) {
+        Member member = findVerifiedMember(memberId);
+
+        memberRepository.delete(member);
+    }
 }
