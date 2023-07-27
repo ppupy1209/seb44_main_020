@@ -96,12 +96,41 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
 <br>
 
- <b>Position</b> : Frontend
+<b>Position</b> : Frontend  
 
- <b>Stack</b> : Typescript, ReactJS, NextJS, Redux Toolkit, Styled Components
+<b>Stack</b> : Typescript, ReactJS, NextJS, Redux Toolkit, Styled Components  
 
- <b>Works</b> : 
+<b>Works</b> :
 
+1. 검색 페이지
+    * API response에 담겨오는 params를 필터에 맞게 변경
+        * 장르순, 국가순, 연령순, 별점순 필터 적용 
+    * Pagination
+        * 영화 포스터 5x2
+        * 다음, 이전 페이지 버튼
+        * 가지고있는 데이터에 맞게 페이지 갯수 적용
+    * 검색 기능 구현   *  검색창에 영화, 감독, 배우로 검색 가능 
+2. 로그인 페이지
+    * 구글 로그인 버튼
+        * Oauth2 구글 url로 이동
+    * 로그인 완료시 메인페이지로 이동 
+3. 헤더, 풋터
+    * 각 아이콘에 맞게 페이지 이동
+        * 로고 클릭 시 메인페이지 이동
+        * 검색버튼 클릭 시 검색페이지 이동
+        * 로그인 버튼 클릭 시 로그인 페이지 이동
+            * 로그인 완료 시 헤더에 로그아웃 아이콘으로 변경
+            * 로그아웃 아이콘 클릭 시 로그인 정보 삭제 후 로그인 아이콘으로 변경
+    * 헤더에 로그인 정보 저장
+    * 풋터에 팀원 깃헙 주소 url 연결
+4. Deployment
+    * 1차 배포 Vercel 
+        * 깃헙 dev 브런치에 연결 후 배포
+    * 2차 배포 AWS S3 
+        * HTTPS 이슈로 vercel에서 AWS S3로 변경
+    * 3차 배포 Vercel
+        * Next.js 정적파일로 build 이슈로 인해 다시 Vercel로 수정
+        * 깃헙 main 브런치에 자동배포 성공
 1. 
 
 
