@@ -196,7 +196,9 @@ const BoxTop = ({ isAuthor, question }: BoxTopProps) => {
   return (
     <S.BoxTop>
       <S.LeftBox>
-        <S.Nickname onClick={() => router.push(`/mypage/${userId}`)}>
+        <S.Nickname
+        // onClick={() => router.push(`/mypage/${question?.questionId}`)}
+        >
           {question?.nickname}
         </S.Nickname>
         <S.Time>
