@@ -42,6 +42,7 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
     const body = {
       answerId: answer.answerId,
       questionId: answer.questionId,
+      memberId: answer.memberId,
       nickname: answer.nickname,
       content: textValue,
       movie: {
@@ -61,6 +62,8 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
     dispatch(
       editAnswerList({
         answerId: answer.answerId,
+        memberId: answer.memberId,
+        questionId: answer.questionId,
         nickname: answer.nickname,
         content: textValue,
         movie: {
@@ -143,7 +146,7 @@ const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
   return (
     <S.BoxTop>
       <S.LeftBox>
-        <Link href={`/mypage/${userId}`}>
+        <Link href={`/mypage/${answer.memberId}}`}>
           <S.Nickname>{answer.nickname}</S.Nickname>
         </Link>
         <S.Time>
@@ -189,7 +192,11 @@ const AnswerBoxBottom = ({ answer }: AnswerBoxBottomProps) => {
     <Link href={`/movies/${movieId}`}>
       <S.BoxBottom>
         <S.SelectedMovieBox>
-          <S.Poster>{answer?.movie?.poster}</S.Poster>
+          <S.Poster>
+            <div>
+              <img src={answer?.movie?.poster} alt="movieposter" />
+            </div>
+          </S.Poster>
           <S.MovieInfo>
             <S.MovieTitle>{answer?.movie?.title}</S.MovieTitle>
             <S.MovieReleaseDate>{answer?.movie?.prodYear}</S.MovieReleaseDate>
