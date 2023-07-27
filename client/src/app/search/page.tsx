@@ -168,21 +168,46 @@ const SearchPage: React.FC = () => {
   };
 
   const handleStartingStarClick = (star: number) => {
-    if (star === startStarAvg) {
+    if (startStarAvg === star) {
       setStartStarAvg(null);
+      fetchData(
+        selectedGenre,
+        selectedCountry,
+        selectedRating,
+        null,
+        endStarAvg,
+        1,
+        searchKeyword,
+      );
     } else {
       setStartStarAvg(star);
+      fetchData(
+        selectedGenre,
+        selectedCountry,
+        selectedRating,
+        star,
+        endStarAvg,
+        1,
+        searchKeyword,
+      );
     }
-    fetchData(
-      selectedGenre,
-      selectedCountry,
-      selectedRating,
-      star,
-      endStarAvg,
-      1,
-      searchKeyword,
-    );
   };
+  // const handleStartingStarClick = (star: number) => {
+  //   if (star === startStarAvg) {
+  //     setStartStarAvg(null);
+  //   } else {
+  //     setStartStarAvg(star);
+  //   }
+  //   fetchData(
+  //     selectedGenre,
+  //     selectedCountry,
+  //     selectedRating,
+  //     star,
+  //     endStarAvg,
+  //     1,
+  //     searchKeyword,
+  //   );
+  // };
 
   const handleEndingStarClick = (star: number) => {
     if (star === endStarAvg) {
