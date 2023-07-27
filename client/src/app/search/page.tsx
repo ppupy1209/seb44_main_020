@@ -60,10 +60,9 @@ const SearchPage: React.FC = () => {
         rating,
         page,
         keyword,
+        startStarAvg,
+        endStarAvg,
       };
-
-      if (startStarAvg !== null) params.startStarAvg = startStarAvg;
-      if (endStarAvg !== null) params.endStarAvg = endStarAvg;
 
       const response = await axios.get<ApiResponse>(url, {
         params,
