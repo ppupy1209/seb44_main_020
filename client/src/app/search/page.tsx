@@ -7,6 +7,10 @@ import NavigationBar from '../../components/Filter/NavigationBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '@/components/Filter/Pagination';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
+
 interface PageInfo {
   currentPage: number;
   pageSize: number;
@@ -27,6 +31,8 @@ interface MovieResponse {
 
 const SearchPage: React.FC = () => {
   const url = `${process.env.NEXT_PUBLIC_API_URL}/movies/search`;
+  const router = useRouter();
+  const loginState = useSelector((state: RootState) => state.login);
   const [filteredData, setFilteredData] = useState<ApiResponse>({
     movies: [],
     pageInfo: { currentPage: 1, pageSize: 8, total: 10 },
@@ -60,9 +66,15 @@ const SearchPage: React.FC = () => {
         rating,
         page,
         keyword,
-        startStarAvg,
-        endStarAvg,
       };
+
+      if (startStarAvg !== null) {
+        params.startStarAvg = startStarAvg;
+      }
+
+      if (endStarAvg !== null) {
+        params.endStarAvg = endStarAvg;
+      }
 
       const response = await axios.get<ApiResponse>(url, {
         params,
@@ -273,7 +285,13 @@ const SearchPage: React.FC = () => {
     },
     (_, i) => i + 1,
   );
-
+  const handleMoviePosterClick = (movieId: string) => {
+    if (!loginState) {
+      alert('로그인 후 이용하세요!');
+    } else {
+      router.push(`/movies/${movieId}`);
+    }
+  };
   return (
     <>
       <S.SearchWrapper>
@@ -320,12 +338,13 @@ const SearchPage: React.FC = () => {
         ) : (
           <S.GridContainer>
             {filteredData.movies.map((item) => (
-              <Link key={item.movieId} href={`/movies/${item.movieId}`}>
-                <S.MovieWrapper key={item.movieId}>
-                  <S.Poster src={item.poster} alt={item.title} />
-                  <S.Title>{item.title}</S.Title>
-                </S.MovieWrapper>
-              </Link>
+              <S.MovieWrapper
+                key={item.movieId}
+                onClick={() => handleMoviePosterClick(item.movieId)}
+              >
+                <S.Poster src={item.poster} alt={item.title} />
+                <S.Title>{item.title}</S.Title>
+              </S.MovieWrapper>
             ))}
           </S.GridContainer>
         )}
