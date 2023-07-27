@@ -47,7 +47,7 @@ export default function MyPage() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/v11/members/${memberId}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/members/${memberId}`)
       .then((res) => {
         setData(res.data);
       })
@@ -60,12 +60,7 @@ export default function MyPage() {
   const handleDelete = useCallback(() => {
     if (window.confirm('삭제하시겠습니까?')) {
       axios
-        .delete(`${process.env.NEXT_PUBLIC_API_URL}/members/${memberId}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('Authorization'),
-          },
-        })
+        .delete(`${process.env.NEXT_PUBLIC_API_URL}/members/${memberId}`)
         .then(() => {
           //로그아웃
           dispatch(setLoginState(false));
