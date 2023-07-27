@@ -53,7 +53,7 @@ export const QuestionBox = ({ question }: QuestionBoxProps) => {
             </S.Comment>
             <S.Time>
               {question?.createdAt
-                ? AnswerDate(new Date(question.createdAt))
+                ? AnswerDate(new Date(`${question.createdAt}z`))
                 : ''}
             </S.Time>
           </S.BoxBottom>
