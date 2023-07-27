@@ -40,16 +40,11 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
   }) => {
     const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers/${answerId}`;
     const body = {
-      answerId: answer.answerId,
-      questionId: answer.questionId,
       memberId: answer.memberId,
-      nickname: answer.nickname,
       content: textValue,
-      movie: {
-        title: selectedMovie?.title,
-        poster: selectedMovie?.poster,
-        prodYear: selectedMovie?.prodYear,
-      },
+      title: selectedMovie?.title,
+      poster: selectedMovie?.poster,
+      prodYear: selectedMovie?.prodYear,
     };
     const response = await axios.patch(source, body, {
       headers: {
@@ -61,10 +56,7 @@ const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
 
     dispatch(
       editAnswerList({
-        answerId: answer.answerId,
-        memberId: answer.memberId,
         questionId: answer.questionId,
-        nickname: answer.nickname,
         content: textValue,
         movie: {
           title: selectedMovie?.title,

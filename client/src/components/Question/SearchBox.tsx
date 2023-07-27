@@ -82,24 +82,22 @@ const SearchBox = ({ onSubmit, defaultValue }: SearchBoxProps) => {
           <div>
             <Link href={`movie/${selectedMovie.movieId}`}>
               <S.SelectedMovieContainer>
-                <div>
+                <S.Poster>
                   <img
                     src={selectedMovie.poster}
                     alt="movieposter"
                     width={'56px'}
                     height={'64px'}
                   />
-                </div>
-                <div>
+                </S.Poster>
+                <S.MovieInfo>
                   <S.SelectedMovieTitle>
                     {selectedMovie.title}
                   </S.SelectedMovieTitle>
-                </div>
-                <div>
                   <S.SelectedMovieProdYear>
                     {selectedMovie.prodYear}
                   </S.SelectedMovieProdYear>
-                </div>
+                </S.MovieInfo>
               </S.SelectedMovieContainer>
             </Link>
             <S.ChangeMovieButton onClick={resetSelectedMovie}>

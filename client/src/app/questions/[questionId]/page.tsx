@@ -242,20 +242,20 @@ const Pagination = ({ totalElements, size }: PaginationProps) => {
   );
 
   return (
-    <div>
+    <S.PaginationBtnContainer>
       {pageNumbers.map((pageNumber) => (
-        <div key={pageNumber}>
-          <button
+        <S.PaginationBtnBox key={pageNumber}>
+          <S.PaginationBtn
             onClick={() => {
               router.push(pathname + '?' + onPaginate(pageNumber));
             }}
             className={page === pageNumber.toString() ? 'active' : ''}
           >
             {pageNumber}
-          </button>
-        </div>
+          </S.PaginationBtn>
+        </S.PaginationBtnBox>
       ))}
-    </div>
+    </S.PaginationBtnContainer>
   );
 };
 
