@@ -43,6 +43,7 @@ public class AnswerService {
         foundAnswer.setContent(answer.getContent());
         foundAnswer.setTitle(answer.getTitle());
         foundAnswer.setPoster(answer.getPoster());
+        foundAnswer.setProdYear(answer.getProdYear());
 
         return answerRepository.save(foundAnswer);
     }
