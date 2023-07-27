@@ -20,6 +20,7 @@ export const Left = styled.div`
 export const Right = styled.div`
   margin: 100px 0;
   width: 50%;
+  height: 100%;
   display: flex;
   justify-content: flex-end;
 `;
@@ -30,6 +31,7 @@ export const Poster = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
+  overflow: hidden;
 `;
 export const TextContainer = styled.div``;
 
