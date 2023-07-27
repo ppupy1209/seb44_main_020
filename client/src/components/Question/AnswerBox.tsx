@@ -143,7 +143,7 @@ const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
         </Link>
         <S.Time>
           {question?.createdAt
-            ? AnswerDate(new Date(`${question.createdAt}`))
+            ? AnswerDate(new Date(`${question.createdAt}z`))
             : ''}
         </S.Time>
       </S.LeftBox>
