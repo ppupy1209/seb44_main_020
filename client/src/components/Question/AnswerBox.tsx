@@ -142,7 +142,9 @@ const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
           <S.Nickname>{answer.nickname}</S.Nickname>
         </Link>
         <S.Time>
-          {question?.createdAt ? AnswerDate(new Date(question.createdAt)) : ''}
+          {question?.createdAt
+            ? AnswerDate(new Date(`${question.createdAt}`))
+            : ''}
         </S.Time>
       </S.LeftBox>
       {isAuthor && (
