@@ -194,7 +194,12 @@ const AnswerBoxBottom = ({ answer }: AnswerBoxBottomProps) => {
         <S.SelectedMovieBox>
           <S.Poster>
             <div>
-              <img src={answer?.movie?.poster} alt="movieposter" />
+              <img
+                src={answer?.movie?.poster}
+                alt="movieposter"
+                width={'56px'}
+                height={'64px'}
+              />
             </div>
           </S.Poster>
           <S.MovieInfo>
