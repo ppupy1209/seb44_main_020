@@ -14,7 +14,7 @@ export const AnswerBox = styled.div`
   border-radius: 12px;
   margin: 1rem;
   padding: 1rem;
-  border: 0.5px solid #8a97ab;
+  border-top: 0.5px solid #8a97ab;
 `;
 
 export const BoxTop = styled.div`
@@ -77,24 +77,23 @@ export const ContentBox = styled.div`
 `;
 
 export const BoxBottom = styled.div`
-  margin: 16px 8px 0px 8px;
+  margin: 16px 8px 0px 0px;
 `;
 
 export const SelectedMovieBox = styled.div`
   display: flex;
   background-color: rgba(255, 255, 255, 0.5);
-  border-radius: 8px;
-  width: 50%;
+  border-radius: 4px;
+  width: 32%;
   padding: 0.5rem;
   gap: 12px;
   cursor: pointer;
+  border-left: 10px solid #111321;
 `;
 
 export const Poster = styled.div`
   display: flex;
-  background-color: rgba(255, 255, 255, 0.5);
   height: 64px;
-  width: 32%;
 `;
 
 export const MovieInfo = styled.div`
@@ -106,9 +105,11 @@ export const MovieInfo = styled.div`
 `;
 
 export const MovieTitle = styled.p`
+  margin-top: 0.25rem;
   font-weight: 700;
+  color: black;
 `;
 
 export const MovieReleaseDate = styled.p`
-  color: #1f305f;
+  color: #5d5d5d;
 `;
