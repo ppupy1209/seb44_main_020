@@ -294,7 +294,7 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 <img src="https://img.shields.io/badge/JWT-000000?style=flat-square&logo=jsonwebtokens&logoColor=white" height="30" />
 <img src="https://img.shields.io/badge/OAuth2.0-2C2255?style=flat-square&logo=google&logoColor=white" height="30" />
 <img src="https://img.shields.io/badge/QueryDSL-00BFFF?style=flat-square&logo=qualcomm&logoColor=white" height="30" />
-<img src="https://img.shields.io/badge/Tomcat-FF8800?style=flat-square&logo=apachetomcat&logoColor=white" height="30" />
+
 
 
 
