@@ -54,16 +54,19 @@ const SearchPage: React.FC = () => {
     keyword: string | null,
   ) => {
     try {
+      const params: any = {
+        genre,
+        country,
+        rating,
+        page,
+        keyword,
+      };
+
+      if (startStarAvg !== null) params.startStarAvg = startStarAvg;
+      if (endStarAvg !== null) params.endStarAvg = endStarAvg;
+
       const response = await axios.get<ApiResponse>(url, {
-        params: {
-          genre,
-          country,
-          rating,
-          startStarAvg: startStarAvg !== null ? startStarAvg : undefined,
-          endStarAvg: endStarAvg !== null ? endStarAvg : undefined,
-          page,
-          keyword,
-        },
+        params,
       });
       setFilteredData(response.data);
     } catch (error) {
