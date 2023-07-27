@@ -95,10 +95,9 @@ export default function MovieDetail() {
   const genre = data?.genre.map((item) => item.name);
 
   function changeDateFormat(date: string) {
-    const year = date.slice(0, 2);
-    const month = date.slice(2, 4);
-    const day = date.slice(4, 6);
-    const formattedDate = `20${year}.${month}.${day}`;
+    const year = date.slice(0, 4);
+    const month = date.slice(4, 6);
+    const formattedDate = `${year}.${month}`;
     return formattedDate;
   }
 
