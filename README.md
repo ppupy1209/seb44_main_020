@@ -210,9 +210,9 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
  <b>Position</b> : Frontend
 
- <b>Stack</b> : Frontend
+ <b>Stack</b> :  Typescript, NextJs, ReactJs, Redux toolkit, Styled Component
 
- <b>Works</b> : Typescript, NextJs, ReactJs, Redux toolkit, Styled Component
+ <b>Works</b> :
 
 1. 페이지 UI 구성 및 피그마 사용을 통한 프로토타입 구현 
     * 영화 상세 페이지 초기 디자인
