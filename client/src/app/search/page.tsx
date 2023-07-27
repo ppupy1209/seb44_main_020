@@ -7,7 +7,7 @@ import NavigationBar from '../../components/Filter/NavigationBar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Pagination from '@/components/Filter/Pagination';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/redux/store';
 
