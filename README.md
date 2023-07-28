@@ -331,8 +331,9 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
  <b>Works</b> : 
 
-1. Member
+1. Member CRUD
 	* 로그인 후 DB에 멤버 정보 저장
+	* 마이페이지에서 회원 탈퇴 가능	 
 
 2. JWT 토큰
 	* JWT ACCESS TOKEN 발행
