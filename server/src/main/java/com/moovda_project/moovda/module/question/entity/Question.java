@@ -45,5 +45,8 @@ public class Question extends Auditable {
         this.answerCount = answerCount + 1;
     }
 
+    public void minusAnswerCount(int answerCount) {
+        this.answerCount = answerCount - 1;
+    }
 
 }

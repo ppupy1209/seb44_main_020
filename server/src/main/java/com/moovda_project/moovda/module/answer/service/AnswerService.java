@@ -52,9 +52,11 @@ public class AnswerService {
     public void deleteAnswer(long answerId, long authenticationMemberId) {
         // TODO : 본인 검증 로직 추가
         Answer findAnswerId = findVerifiedAnswer(answerId);
+        Question question = findAnswerId.getQuestion();
 
         checkValidatedMember(authenticationMemberId,findAnswerId);
 
+        question.minusAnswerCount(question.getAnswerCount());
         answerRepository.delete(findAnswerId);
     }
 
