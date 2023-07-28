@@ -284,10 +284,16 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
  <b>Works</b> : 
 
+ <b>Position</b> : Backend
+
+ <b>Stack</b> : Spring Boot, Spring Data JPA, EC2, RDS, MySQL, QueryDSL
+
+ <b>Works</b> : 
+
 1. Movie
 
     * OPEN API 이용하여 영화 데이터 DB 저장
-    * 영화 데이터 이용하여 영화 상세 페이지 구현
+    * 영화 상세 페이지 구현
     * 장르, 나라, 연령, 별점 필터를 이용한 영화 검색 기능 구현(QueryDSL)
     * 메인 페이지 구현, GET 요청시 랜덤으로 영화 10개 응답    
 
@@ -300,17 +306,19 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
    * 보고 싶은 영화 기능 구현
    * 코멘트 작성 시 본 영화에 추가
-   * Mypage에서 볼 영화, 본 영화 리스트 기능 구현
+   * My page 볼 영화, 본 영화 리스트 구현
 
 4. Deployment
 
-   * AWS EC2, RDS(MySQL) 세팅
-   * 로드밸런서를 이용하여 Scale-out 적용 <[Go To Notion | Record](https://heathered-creek-b2a.notion.site/AWS-Load-Balancer-d1ae72550d6a4248971d141fe56e2a64?pvs=4)>
+   * AWS EC2(Ubuntu), RDS(MySQL) 세팅
+   * Load Balancer, ROUTE 53, ACM을 이용하여 HTTPS 요청 허용
+   * Load Balancer를 이용하여 Scale-out 적용 <[Go To Notion | Record](https://heathered-creek-b2a.notion.site/AWS-Load-Balancer-d1ae72550d6a4248971d141fe56e2a64?pvs=4)>
 
 5. Documentation
    
     * Git Wiki 작성 <[Go To Wiki | Record](https://github.com/codestates-seb/seb44_main_020/wiki)>
     * README 작성
+
 
 </details>
 <br>
