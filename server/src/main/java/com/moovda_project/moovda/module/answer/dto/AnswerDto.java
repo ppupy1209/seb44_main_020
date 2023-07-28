@@ -34,6 +34,7 @@ public class AnswerDto {
         private String poster;
         private String prodYear;
 
+
         public void addAnswerId(long answerId) {
             this.answerId = answerId;
         }
