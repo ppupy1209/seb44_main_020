@@ -41,7 +41,7 @@ public class MovieApiController {
             if(i==3) urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("조엘 코엔", "UTF-8"));
             if(i==4) urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("아리 에스터", "UTF-8"));
             if(i==5) urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("샬롯 웰스", "UTF-8"));
-            if(i==6) urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("제인 캠피온", "UTF-8"));
+//            if(i==6) urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("제인 캠피온", "UTF-8"));
 
             if(i==7) urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("크리스토퍼 놀란", "UTF-8"));
             if(i==8) urlBuilder.append("&" + URLEncoder.encode("director", "UTF-8") + "=" + URLEncoder.encode("샘 맨데스", "UTF-8"));
