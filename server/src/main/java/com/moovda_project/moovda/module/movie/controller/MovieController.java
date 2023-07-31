@@ -2,11 +2,16 @@ package com.moovda_project.moovda.module.movie.controller;
 
 import com.moovda_project.moovda.global.dto.SingleResponseDto;
 import com.moovda_project.moovda.global.utils.MemberIdExtractor;
+import com.moovda_project.moovda.module.movie.dto.MovieFilterResponseDto;
 import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.mapper.MovieMapper;
 import com.moovda_project.moovda.module.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -36,10 +41,10 @@ public class MovieController {
     @GetMapping("/search")
     public ResponseEntity searchMovie(MovieSearchCondition condition,
                                       @Positive @RequestParam int page) {
-          List<Movie> movies = movieService.filterMovie(condition);
+        Pageable pageable = PageRequest.of(page-1,10);
+        Page<MovieSearchDto> movieSearchDtos = movieService.filterMovie(condition,pageable);
 
-          return new ResponseEntity<>(mapper.moviesToPagedMovieFilterResponseDto(movies,page,10), HttpStatus.OK);
-
+        return new ResponseEntity<>(new MovieFilterResponseDto<>(movieSearchDtos.getContent(),movieSearchDtos),HttpStatus.OK);
     }
 
 

@@ -10,17 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MovieSearchDto {
     private Long movieId;
-    private String genre;
-    private String country;
-    private String rating;
+    private String title;
+    private String poster;
+    private String prodYear;
     private Double starAvg;
 
     @QueryProjection
-    public MovieSearchDto(Long movieId, String genre, String country, String rating, Double starAvg) {
+    public MovieSearchDto(Long movieId, String title, String poster, String prodYear, Double starAvg) {
         this.movieId = movieId;
-        this.genre = genre;
-        this.country = country;
-        this.rating = rating;
+        this.title = title;
+        this.poster = poster;
+        this.prodYear = prodYear;
         this.starAvg = starAvg;
     }
 }

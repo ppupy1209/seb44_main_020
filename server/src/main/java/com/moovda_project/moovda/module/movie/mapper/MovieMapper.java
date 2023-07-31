@@ -54,45 +54,6 @@ public interface MovieMapper {
           return movieResponseDto;
       }
 
-      default PagedMovieFilterResponseDto moviesToPagedMovieFilterResponseDto(List<Movie> movies, int page, int pageSize) {
-
-          // 페이지네이션 시작
-          List<MovieFilterResponseDto> movieFilterResponseDtos = moviesToMovieFilterResponseDtos(movies);
-          int totalMovies = movieFilterResponseDtos.size();
-          int startIndex = (page - 1) * pageSize;
-          int endIndex = Math.min(startIndex + pageSize, totalMovies);
-          List<MovieFilterResponseDto> pageMovies = movieFilterResponseDtos.subList(startIndex,endIndex);
-          // 페이지네이션 끝
-
-          PageDto pageInfo = PageDto.builder()
-                  .currentPage(page)
-                  .total(totalMovies)
-                  .pageSize(pageSize)
-                  .build();
-
-
-          PagedMovieFilterResponseDto pagedMovieFilterResponseDto = PagedMovieFilterResponseDto.builder()
-                  .movies(pageMovies)
-                  .pageInfo(pageInfo)
-                  .build();
-
-
-          return pagedMovieFilterResponseDto;
-      }
-
-      private List<MovieFilterResponseDto> moviesToMovieFilterResponseDtos(List<Movie> movies) {
-          List<MovieFilterResponseDto> movieFilterResponseDtos = movies.stream()
-                  .map(movie -> MovieFilterResponseDto.builder()
-                          .movieId(movie.getMovieId())
-                          .title(movie.getTitle())
-                          .poster(movie.getPoster())
-                          .prodYear(movie.getOpeningDate())
-                          .starAvg(movie.getStarAvg())
-                          .build())
-                  .collect(Collectors.toList());
-
-          return movieFilterResponseDtos;
-      }
 
       default List<GenreResponseDto> movieGenresToGenreResponseDto(List<MovieGenre> movieGenres) {
           List<GenreResponseDto> genreResponseDtos = movieGenres.stream()
