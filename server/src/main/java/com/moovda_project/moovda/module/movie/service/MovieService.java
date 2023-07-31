@@ -13,6 +13,8 @@ import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.movie.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,15 +63,8 @@ public class MovieService {
         return movieRepository.save(findMovie);
     }
 
-    public List<Movie> filterMovie(MovieSearchCondition condition) {
-        List<MovieSearchDto> movieSearchDtos = movieRepository.search(condition);
-
-        Set<Long> movieIds = new HashSet<>();
-        List<Movie> filteredMovies = new ArrayList<>();
-
-        removeSameMovie(movieSearchDtos, movieIds, filteredMovies); // 중복 영화 제거
-
-        return filteredMovies;
+    public Page<MovieSearchDto> filterMovie(MovieSearchCondition condition, Pageable pageable) {
+       return movieRepository.search(condition,pageable);
     }
 
     public List<Movie> mainMovie(int count) {
@@ -91,16 +86,6 @@ public class MovieService {
         }
 
         return randomMovies;
-    }
-
-    private void removeSameMovie(List<MovieSearchDto> movieSearchDtos, Set<Long> movieIds, List<Movie> filteredMovies) {
-        for (MovieSearchDto movieSearchDto : movieSearchDtos) {
-            if (!movieIds.contains(movieSearchDto.getMovieId())) {
-                movieIds.add(movieSearchDto.getMovieId());
-                Movie movie = findVerifiedMovie(movieSearchDto.getMovieId());
-                filteredMovies.add(movie);
-            }
-        }
     }
 
     public Movie findVerifiedMovie(long movieId) {

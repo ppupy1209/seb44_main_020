@@ -1,9 +1,6 @@
 package com.moovda_project.moovda.module.movie.dto;
 
-
 import lombok.*;
-
-
 
 @NoArgsConstructor
 @Getter
