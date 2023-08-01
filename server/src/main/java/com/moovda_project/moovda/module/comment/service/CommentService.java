@@ -12,6 +12,8 @@ import com.moovda_project.moovda.module.watch.repository.ToWatchRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
 import com.moovda_project.moovda.module.watch.service.WatchedService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -151,5 +153,9 @@ public class CommentService {
          if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
              toWatchRepository.deleteByMemberAndMovie(member,movie);
          }
+    }
+
+    public Page<Comment> findCommentsByMovie(Movie movie, Pageable pageable) {
+        return commentRepository.findByMovie(movie,pageable);
     }
 }

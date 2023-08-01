@@ -11,6 +11,7 @@ import com.moovda_project.moovda.module.movie.entity.Movie;
 import com.moovda_project.moovda.module.genre.entity.MovieGenre;
 import com.moovda_project.moovda.module.staff.entity.MovieStaff;
 import org.mapstruct.Mapper;
+import org.springframework.data.domain.Page;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -19,22 +20,13 @@ import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
-      default MovieResponseDto movieToMovieResponseDto(Movie movie,int page,int pageSize) {
-
-          // 페이지네이션 시작
-          List<CommentResponseDto> comments = commentToCommentResponseDto(movie.getComments());
-          int totalComments = comments.size();
-          int startIndex = (page - 1) * pageSize;
-          int endIndex = Math.min(startIndex + pageSize, totalComments);
-          List<CommentResponseDto> pagedComments = comments.subList(startIndex, endIndex);
-          // 페이지네이션 끝
+      default MovieResponseDto movieToMovieResponseDto(Movie movie, Page<Comment> commentPage) {
 
           PageDto pageDto = PageDto.builder()
-                  .currentPage(page)
-                  .pageSize(pageSize)
-                  .total(totalComments)
+                  .currentPage(commentPage.getNumber()+1)
+                  .pageSize(commentPage.getSize())
+                  .total(commentPage.getTotalElements())
                   .build();
-
 
           MovieResponseDto movieResponseDto = MovieResponseDto.builder()
                   .movieId(movie.getMovieId())
@@ -46,7 +38,7 @@ public interface MovieMapper {
                   .starAvg(movie.getStarAvg())
                   .genre(movieGenresToGenreResponseDto(movie.getMovieGenres()))
                   .staff(movieStaffToStaffResponseDto(movie.getMovieStaffs()))
-                  .comments(pagedComments)
+                  .comments(commentToCommentResponseDto(commentPage.getContent()))
                   .pageInfo(pageDto)
                   .openingDate(movie.getOpeningDate())
                   .build();
