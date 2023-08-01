@@ -23,11 +23,9 @@ public class Comment extends Auditable {
     @Setter
     @Column(name = "content", nullable = false)
     private String content;
-
     @Setter
     @Column(name = "star", nullable = false)
     private double star;
-
     @Setter
     @Transient
     private boolean likeState;
@@ -50,11 +48,9 @@ public class Comment extends Auditable {
         this.member = member;
         this.likes = new HashSet<>();
     }
-
     public Comment(Long commentId, String content, double star) {
         this.commentId = commentId;
         this.content = content;
         this.star = star;
     }
-
 }
