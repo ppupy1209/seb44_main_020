@@ -24,9 +24,5 @@ public interface CommentMapper {
 
         return comment;
     }
-     default Comment commentPatchDtoToComment(CommentPatchDto commentPatchDto) {
-         Comment comment = new Comment(commentPatchDto.getCommentId(), commentPatchDto.getContent(), commentPatchDto.getStar());
-
-         return comment;
-     }
+   Comment commentPatchDtoToComment(CommentPatchDto commentPatchDto) ;
 }
