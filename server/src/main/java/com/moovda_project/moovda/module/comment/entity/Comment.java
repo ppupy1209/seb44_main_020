@@ -20,11 +20,15 @@ public class Comment extends Auditable {
     @Column(name = "comment_id",nullable = false,updatable = false)
     private Long commentId;
 
+    @Setter
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Setter
     @Column(name = "star", nullable = false)
     private double star;
+
+    @Setter
     @Transient
     private boolean likeState;
     @ManyToOne(fetch = FetchType.LAZY)
@@ -53,12 +57,4 @@ public class Comment extends Auditable {
         this.star = star;
     }
 
-    public void updateComment(String content,Double star) {
-        this.content = content;
-        this.star = star;
-    }
-
-    public void setLikeState(boolean likeState) {
-        this.likeState = likeState;
-    }
 }

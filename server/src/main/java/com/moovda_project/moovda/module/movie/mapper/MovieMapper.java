@@ -21,12 +21,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
       default MovieResponseDto movieToMovieResponseDto(Movie movie, Page<Comment> commentPage) {
-
-          PageDto pageDto = PageDto.builder()
-                  .currentPage(commentPage.getNumber()+1)
-                  .pageSize(commentPage.getSize())
-                  .total(commentPage.getTotalElements())
-                  .build();
+          PageDto pageDto = getPageDto(commentPage);
 
           MovieResponseDto movieResponseDto = MovieResponseDto.builder()
                   .movieId(movie.getMovieId())
@@ -45,9 +40,7 @@ public interface MovieMapper {
 
           return movieResponseDto;
       }
-
-
-      default List<GenreResponseDto> movieGenresToGenreResponseDto(List<MovieGenre> movieGenres) {
+    default List<GenreResponseDto> movieGenresToGenreResponseDto(List<MovieGenre> movieGenres) {
           List<GenreResponseDto> genreResponseDtos = movieGenres.stream()
                   .map(movieGenre -> GenreResponseDto.builder()
                           .name(movieGenre.getGenre().getName())
@@ -89,8 +82,6 @@ public interface MovieMapper {
 
           return result;
       }
-
-
       default List<MovieMainResponseDto> moviesToMovieMainResponseDto(List<Movie> movies) {
           List<MovieMainResponseDto> movieMainResponseDtos = movies.stream()
                   .map(movie -> MovieMainResponseDto.builder()
@@ -101,6 +92,15 @@ public interface MovieMapper {
 
           return movieMainResponseDtos;
       }
+
+    private PageDto getPageDto(Page<Comment> commentPage) {
+        PageDto pageDto = PageDto.builder()
+                .currentPage(commentPage.getNumber()+1)
+                .pageSize(commentPage.getSize())
+                .total(commentPage.getTotalElements())
+                .build();
+        return pageDto;
+    }
 
 
 }

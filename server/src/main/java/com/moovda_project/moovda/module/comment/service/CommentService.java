@@ -53,7 +53,11 @@ public class CommentService {
 
        checkValidatedMember(memberId,findComment);  // 인증된 멤버인지 확인
 
-       findComment.updateComment(comment.getContent(),comment.getStar());
+//       findComment.updateComment(comment.getContent(),comment.getStar());
+        Optional.ofNullable(comment.getContent())
+                .ifPresent(content -> findComment.setContent(content));
+        Optional.ofNullable(comment.getStar())
+                .ifPresent(star -> findComment.setStar(star));
 
        Comment updatedComment = commentRepository.save(findComment);
 
