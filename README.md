@@ -284,12 +284,6 @@ MoovDa에서는 영화 제목, 감독, 배우, 장르 등 다양한 정보를 �
 
  <b>Works</b> : 
 
- <b>Position</b> : Backend
-
- <b>Stack</b> : Spring Boot, Spring Data JPA, EC2, RDS, MySQL, QueryDSL
-
- <b>Works</b> : 
-
 1. Movie
 
     * OPEN API 이용하여 영화 데이터 DB 저장
