@@ -2,6 +2,8 @@ package com.moovda_project.moovda.module.movie.controller;
 
 import com.moovda_project.moovda.global.dto.SingleResponseDto;
 import com.moovda_project.moovda.global.utils.MemberIdExtractor;
+import com.moovda_project.moovda.module.comment.entity.Comment;
+import com.moovda_project.moovda.module.comment.service.CommentService;
 import com.moovda_project.moovda.module.movie.dto.MovieFilterResponseDto;
 import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
 import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
@@ -27,6 +29,7 @@ import java.util.List;
 public class MovieController {
      private final MovieService movieService;
      private final MovieMapper mapper;
+     private final CommentService commentService;
 
     @GetMapping("{movie_id}")
     public ResponseEntity getMovie(@PathVariable("movie_id") @Positive long movieId,
@@ -35,7 +38,11 @@ public class MovieController {
 
         Movie movie = movieService.findMovie(movieId,memberId);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie,page,6)), HttpStatus.OK);
+        Pageable pageable = PageRequest.of(page-1,6);
+
+        Page<Comment> commentPage = commentService.findCommentsByMovie(movie,pageable);
+
+        return new ResponseEntity<>(new SingleResponseDto<>(mapper.movieToMovieResponseDto(movie,commentPage)), HttpStatus.OK);
     }
 
     @GetMapping("/search")
