@@ -25,7 +25,7 @@ public class Comment extends Auditable {
     private String content;
     @Setter
     @Column(name = "star", nullable = false)
-    private double star;
+    private Double star;
     @Setter
     @Transient
     private boolean likeState;
