@@ -5,14 +5,15 @@ import com.moovda_project.moovda.module.like.entity.Like;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import lombok.*;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 @Entity
+@Builder
 @Table(name = "comments")
 public class Comment extends Auditable {
     @Id
@@ -39,18 +40,4 @@ public class Comment extends Auditable {
 
     @OneToMany(mappedBy = "comment",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     Set<Like> likes = new HashSet<>();
-
-    @Builder
-    public Comment(String content, double star, Movie movie, Member member) {
-        this.content = content;
-        this.star = star;
-        this.movie = movie;
-        this.member = member;
-        this.likes = new HashSet<>();
-    }
-    public Comment(Long commentId, String content, Double star) {
-        this.commentId = commentId;
-        this.content = content;
-        this.star = star;
-    }
 }

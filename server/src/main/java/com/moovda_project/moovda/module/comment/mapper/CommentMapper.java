@@ -7,26 +7,30 @@ import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
 import org.mapstruct.Mapper;
 
+import java.util.HashSet;
+
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
     default Comment commentPostDtoToComment(CommentPostDto commentPostDto,long movieId, long memberId) {
 
-        Movie movie = new Movie(movieId);
-        Member member = new Member(memberId);
-
         Comment comment = Comment.builder().
                 content(commentPostDto.getContent()).
                 star(commentPostDto.getStar()).
-                movie(movie).
-                member(member).
+                movie(new Movie(movieId)).
+                member(new Member(memberId)).
+                likes(new HashSet<>()).
                 build();
 
         return comment;
     }
    default Comment commentPatchDtoToComment(CommentPatchDto commentPatchDto) {
-        Comment comment = new Comment(commentPatchDto.getCommentId(), commentPatchDto.getContent(), commentPatchDto.getStar());
+       Comment comment = Comment.builder()
+               .commentId(commentPatchDto.getCommentId())
+               .content(commentPatchDto.getContent())
+               .star(commentPatchDto.getStar())
+               .build();
 
-        return comment;
+       return comment;
    }
 }
