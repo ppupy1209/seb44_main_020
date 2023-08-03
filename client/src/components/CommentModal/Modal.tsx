@@ -26,10 +26,9 @@ export function CommentModal() {
     dispatch(close());
     dispatch(getContent(''));
   };
-  console.log(selectedStar);
 
   const handleAddComent = useCallback(() => {
-    if (selectedStar !== 0 && selectedStar !== null && selectedStar !== null) {
+    if (selectedStar !== 0 && selectedStar !== null) {
       if (
         newComment?.length &&
         newComment.length >= 10 &&
@@ -91,7 +90,7 @@ export function CommentModal() {
     } else {
       alert('코멘트는 10글자 이상 40글자 이하로 작성해야 합니다.');
     }
-  }, [commentID, newComment, selectStar]);
+  }, [commentID, newComment, selectedStar]);
 
   return (
     <S.ModalBackdrop>
