@@ -64,7 +64,7 @@ public class CommentService {
 
        updateStarAvg(movie);  // 평균 별점 업데이트
 
-       updateWatched(updatedComment.getMovie(),updatedComment.getMember(),updatedComment);
+       updateWatched(updatedComment.getMovie(),updatedComment.getMember(),updatedComment); // 본 영화 업데이트
 
        return updatedComment;
     }
@@ -105,7 +105,7 @@ public class CommentService {
 
              roundedStar = Double.parseDouble(String.format("%.1f", averageStar)); // 소수점 둘째자리에서 반올림
         }  else {
-             roundedStar = 0.0;
+             roundedStar = 0.0; // 코멘트 삭제 시 코멘트 수가 0이면 0.0으로 초기화
         }
 
             movie.setStarAvg(roundedStar);
