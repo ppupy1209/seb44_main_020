@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
       default MovieResponseDto movieToMovieResponseDto(Movie movie, Page<Comment> commentPage) {
-          PageDto pageDto = getPageDto(commentPage);
+
 
           MovieResponseDto movieResponseDto = MovieResponseDto.builder()
                   .movieId(movie.getMovieId())
@@ -34,7 +34,7 @@ public interface MovieMapper {
                   .genre(movieGenresToGenreResponseDto(movie.getMovieGenres()))
                   .staff(movieStaffToStaffResponseDto(movie.getMovieStaffs()))
                   .comments(commentToCommentResponseDto(commentPage.getContent()))
-                  .pageInfo(pageDto)
+                  .pageInfo(getPageDto(commentPage))
                   .openingDate(movie.getOpeningDate())
                   .build();
 
