@@ -48,7 +48,7 @@ public class Comment extends Auditable {
         this.member = member;
         this.likes = new HashSet<>();
     }
-    public Comment(Long commentId, String content, double star) {
+    public Comment(Long commentId, String content, Double star) {
         this.commentId = commentId;
         this.content = content;
         this.star = star;
