@@ -12,6 +12,8 @@ import com.moovda_project.moovda.module.watch.repository.ToWatchRepository;
 import com.moovda_project.moovda.module.movie.service.MovieService;
 import com.moovda_project.moovda.module.watch.service.WatchedService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,17 +33,17 @@ public class CommentService {
     public Comment createComment(Comment comment) {
 
         Member member = memberService.findVerifiedMember(comment.getMember().getMemberId());
-        Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
+        Movie movie = movieService.findVerifiedMovie(comment.getMovie().getMovieId());
 
-        existsCommentByMemberAndMovie(movie,member);   // 이미 코멘트를 작성했으면, 작성 못해야 함.
+        checkExistsCommentByMemberAndMovie(movie,member);   // 이미 코멘트를 작성했으면, 작성 못해야 함.
 
-        isSavedToWatch(member,movie);  // 볼 영화 목록에 있으면, 볼 영화 목록에서 삭제
+        checkExistsToWatchByMemberAndMovie(member,movie);  // 볼 영화 목록에 있으면, 볼 영화 목록에서 삭제
 
         Comment createdComment = commentRepository.save(comment);
 
         updateStarAvg(movie);   // 영화 평균 별점 업데이트
 
-        addWatched(movie,member);  // 본 영화 목록에 추가
+        addWatched(movie,member,createdComment);  // 본 영화 목록에 추가
 
         return createdComment;
     }
@@ -51,13 +53,18 @@ public class CommentService {
 
        checkValidatedMember(memberId,findComment);  // 인증된 멤버인지 확인
 
-       findComment.setContent(comment.getContent());
-       findComment.setStar(comment.getStar());
+        Optional.ofNullable(comment.getContent())
+                .ifPresent(content -> findComment.setContent(content));
+        Optional.ofNullable(comment.getStar())
+                .ifPresent(star -> findComment.setStar(star));
 
        Comment updatedComment = commentRepository.save(findComment);
 
-       Movie movie = movieService.findMovie(findComment.getMovie().getMovieId());
+       Movie movie = movieService.findVerifiedMovie(findComment.getMovie().getMovieId());
+
        updateStarAvg(movie);  // 평균 별점 업데이트
+
+       updateWatched(updatedComment.getMovie(),updatedComment.getMember(),updatedComment); // 본 영화 업데이트
 
        return updatedComment;
     }
@@ -65,18 +72,19 @@ public class CommentService {
 
     public void deleteComment(long commentId,long memberId) {
 
-        Comment comment = findVerifiedComment(commentId);
+        Comment comment = findVerifiedComment(commentId); // 인증된 코멘트인지 확인
 
-        checkValidatedMember(memberId,comment);
+        checkValidatedMember(memberId,comment); // 인증된 멤버인지 확인
 
         deleteWatched(commentId);   // 본 영화 목록에서 삭제
 
         commentRepository.delete(comment);
 
-        Movie movie = movieService.findMovie(comment.getMovie().getMovieId());
+        Movie movie = movieService.findVerifiedMovie(comment.getMovie().getMovieId());
+
         movie.removeComments(comment);
 
-         updateStarAvg(movie);  // 평균 별점 업데이트
+        updateStarAvg(movie);  // 평균 별점 업데이트
     }
 
 
@@ -88,15 +96,22 @@ public class CommentService {
     }
 
     private void updateStarAvg(Movie movie) {
-        double totalStar = calculateTotalStar(movie);
+        double totalStar = calculateTotalStar(movie); // 총 별점 합
+        double roundedStar;
 
-        double averageStar = totalStar / movie.getComments().size();
+        if(movie.getComments().size()!=0) {
 
-        double roundedStar = Double.parseDouble(String.format("%.1f", averageStar));
+            double averageStar = totalStar / movie.getComments().size(); // 별점 합 / 코멘트 개수
 
-        movie.setStarAvg(roundedStar);
+             roundedStar = Double.parseDouble(String.format("%.1f", averageStar)); // 소수점 둘째자리에서 반올림
+        }  else {
+             roundedStar = 0.0; // 코멘트 삭제 시 코멘트 수가 0이면 0.0으로 초기화
+        }
 
-        movieService.updateMovie(movie);
+            movie.setStarAvg(roundedStar);
+
+            movieService.updateMovie(movie);
+
     }
 
     private double calculateTotalStar(Movie movie) {
@@ -108,12 +123,17 @@ public class CommentService {
         return sum;
     }
 
-    private void addWatched(Movie movie, Member member) {
-        Watched watched = new Watched();
-        watched.setMovie(movie);
-        watched.setMember(member);
+    private void addWatched(Movie movie, Member member,Comment comment) {
+        Watched watched = new Watched(comment.getStar(),movie,member);
 
         watchedService.createWatched(watched);
+    }
+
+    private void updateWatched(Movie movie,Member member,Comment comment) {
+      Watched watched =  watchedService.findByMemberAndMovie(member,movie);
+
+      watched.setStar(comment.getStar());
+      watchedService.createWatched(watched);
     }
 
     private void deleteWatched(long watchedId) {
@@ -126,15 +146,19 @@ public class CommentService {
         }
     }
 
-    private void existsCommentByMemberAndMovie(Movie movie, Member member) {
+    private void checkExistsCommentByMemberAndMovie(Movie movie, Member member) {
         if(commentRepository.existsByMemberAndMovie(member,movie)) {
             throw new BusinessLogicException(ExceptionCode.COMMENT_EXISTS);
         }
     }
 
-    private void isSavedToWatch(Member member, Movie movie) {
+    private void checkExistsToWatchByMemberAndMovie(Member member, Movie movie) {
          if(toWatchRepository.findByMemberAndMovie(member,movie).isPresent()) {
              toWatchRepository.deleteByMemberAndMovie(member,movie);
          }
+    }
+
+    public Page<Comment> findCommentsByMovie(Movie movie, Pageable pageable) {
+        return commentRepository.findByMovie(movie,pageable);
     }
 }

@@ -2,13 +2,14 @@ package com.moovda_project.moovda.module.member.entity;
 
 import com.moovda_project.moovda.global.audit.Auditable;
 
+import com.moovda_project.moovda.module.answer.entity.Answer;
 import com.moovda_project.moovda.module.comment.entity.Comment;
+import com.moovda_project.moovda.module.question.entity.Question;
 import com.moovda_project.moovda.module.watch.entity.ToWatch;
 import com.moovda_project.moovda.module.watch.entity.Watched;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -20,6 +21,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Builder
 @Table(name = "members")
 public class Member extends Auditable {
     @Id
@@ -29,19 +31,31 @@ public class Member extends Auditable {
     @Column(nullable = false, updatable = false, unique = true)
     private String email;
 
-    @Column(length = 100, nullable = false)
-    private String password;
+    @Column(nullable = false)
+    private String nickname;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
-//    @Column(nullable = false)
-//    private String nickname;
+    @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<Answer> answers  = new ArrayList<>();
+
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<Question> questions  = new ArrayList<>();
 
     @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    private List<Comment> comments  = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<ToWatch> toWatchList = new ArrayList<>();
 
+
+    @Builder.Default
     @OneToMany(mappedBy = "member",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private List<Watched> watchedList = new ArrayList<>();
 
 
@@ -49,6 +63,10 @@ public class Member extends Auditable {
 //        this.nickname = nickname;
 //    }
 
+
+    public Member(Long memberId) {
+        this.memberId = memberId;
+    }
 
     public void addToWatchList(ToWatch toWatch) {
         this.toWatchList.add(toWatch);

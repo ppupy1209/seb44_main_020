@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,14 +30,14 @@ public class QuestionService {
     // TODO : 작성한 회원이 존재하는 회원인지 확인
 
     public Question createQuestion(Question question) {
-        // memberService.findVerifiedMember(question.getMember().getMemberId());
+        memberService.findVerifiedMember(question.getMember().getMemberId());
         return questionRepository.save(question);
     }
 
     /** 질문 수정 **/
     public Question updateQuestion(Question question, long authenticationMemberId) {
         Question findQuestionId = findVerifiedQuestion(question.getQuestionId());
-        // TODO : 작성한 회원만 수정 가능
+
 
         checkValidatedMember(authenticationMemberId,findQuestionId);
 
@@ -46,10 +47,12 @@ public class QuestionService {
         return questionRepository.save(findQuestionId);
     }
 
-    /** 질문 조회 **/
+    /** 질문 조회
+     * Transactional로 인해 save를 안해도 views 증가**/
     public Question findQuestion(long questionId){
 
         Question findQuestion = findVerifiedQuestion(questionId);
+
 
         // 조회수 +1 증가
         findQuestion.addView(findQuestion.getViews());
@@ -59,8 +62,9 @@ public class QuestionService {
 
     /** 전체 질문 조회 **/
     public Page<Question> findQuestions(int page) {
-        // 페이지 당 데이터 수 10개
-        return questionRepository.findAll(PageRequest.of(page,10));
+        // 페이지 당 데이터 수 10개, 질문 역순 정렬
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdAt");
+        return questionRepository.findAll(PageRequest.of(page,10, sort));
     }
 
     /** 질문 삭제 **/

@@ -1,6 +1,5 @@
 package com.moovda_project.moovda.module.member.controller;
 
-import com.moovda_project.moovda.global.dto.SingleResponseDto;
 import com.moovda_project.moovda.module.member.dto.MemberDto;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.member.mapper.MemberMapper;
@@ -17,11 +16,10 @@ import javax.validation.constraints.Positive;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/v11/members")
+@RequestMapping("/members")
 @Validated
 @Slf4j
 public class MemberController {
-    private final static String MEMBER_DEFAULT_URL = "/v11/members";
 
     private final MemberService memberService;
 
@@ -32,20 +30,28 @@ public class MemberController {
         this.mapper = mapper;
     }
 
-    @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
-        Member member = mapper.memberPostToMember(requestBody);
-
-        Member createdMember = memberService.createMember(member);
-        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
-
-        return ResponseEntity.created(location).build();
-    }
+//    @PostMapping
+//    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post requestBody) {
+//        Member member = mapper.memberPostToMember(requestBody);
+//
+//        Member createdMember = memberService.createMember(member);
+//        URI location = UriCreator.createUri(MEMBER_DEFAULT_URL, createdMember.getMemberId());
+//
+//        return ResponseEntity.created(location).build();
+//    }
 
     @GetMapping("/{member_id}")
     public ResponseEntity getMember(@PathVariable("member_id") @Positive long memberId) {
         Member member = memberService.findMember(memberId);
 
         return new ResponseEntity<>(mapper.memberToMemberResponseDto(member), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{member-id}")
+    public ResponseEntity deleteMember(
+            @PathVariable("member-id") @Positive long memberId) {
+        memberService.deleteMember(memberId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -1,8 +1,8 @@
 package com.moovda_project.moovda.module.movie.entity;
 
 import com.moovda_project.moovda.module.comment.entity.Comment;
-import com.moovda_project.moovda.module.movie.entity.genre.MovieGenre;
-import com.moovda_project.moovda.module.movie.entity.staff.MovieStaff;
+import com.moovda_project.moovda.module.genre.entity.MovieGenre;
+import com.moovda_project.moovda.module.staff.entity.MovieStaff;
 import lombok.*;
 
 import javax.persistence.*;
@@ -53,6 +53,14 @@ public class Movie {
     @OneToMany(mappedBy = "movie",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Comment> comments = new ArrayList<>();
 
+    public Movie(Long movieId) {
+        this.movieId = movieId;
+    }
+
+    public void setStarAvg(Double starAvg) {
+        this.starAvg = starAvg;
+    }
+
     public void addMovieGenres(MovieGenre movieGenre) {
         this.movieGenres.add(movieGenre);
         if(movieGenre.getMovie()!=this) {
@@ -67,12 +75,6 @@ public class Movie {
         }
     }
 
-    public void addComments(Comment comment) {
-        this.comments.add(comment);
-        if(comment.getMovie()!=this) {
-            comment.setMovie(this);
-        }
-    }
 
     public void removeComments(Comment comment) {
         this.comments.remove(comment);

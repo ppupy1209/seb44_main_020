@@ -10,14 +10,15 @@ export const Container = styled.div<{ width?: string }>`
   display: flex;
   flex-direction: column;
   width: ${(props) => props.theme.width};
-  height: auto;
   gap: 5px;
   cursor: pointer;
   position: relative;
 `;
 
 export const PosterImg = styled.img`
-  border-radius: 20px;
+  border-radius: 10px;
+  min-height:${(props) => props.theme.height};
+  height: auto;
 `;
 
 export const Title = styled.div<{posterTitleGap?:string}>`

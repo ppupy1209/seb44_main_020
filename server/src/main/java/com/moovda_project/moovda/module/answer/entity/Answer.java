@@ -14,6 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
+@Table(name = "answers")
 public class Answer extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +23,18 @@ public class Answer extends Auditable {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String poster;
+
+    @Column(nullable = false)
+    private String prodYear;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @ManyToOne
-    @JoinColumn(name = "movie_id")
-    private Movie movie;
 
     @ManyToOne
     @JoinColumn(name = "question_id")
@@ -40,6 +46,11 @@ public class Answer extends Auditable {
             this.question.getAnswers().add(this);
         }
     }
+
+    public void addMember(Member member) {
+        this.member = member;
+    }
+
 /*
     public void addMember(Member member) {
         this.member = member;

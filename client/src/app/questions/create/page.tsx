@@ -1,25 +1,37 @@
 'use client';
 
-import { WebEditor } from '@/components/Question/Webeditor';
 import * as S from '@/app/questions/create/page.styled';
-import { useId, useState } from 'react';
+import { RootState } from '@/redux/store';
+import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useId, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const QuestionCreatePage = () => {
   const router = useRouter();
   const [titleValue, setTitleValue] = useState<string>('');
   const [contentValue, setContentValue] = useState<string>('');
+  const userId = useSelector((state: RootState) => state.auth.memberId);
 
-  const onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const onSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
     if (titleValue.length < 5 || titleValue.length > 30) {
-      alert('제목은 5자 이상, 30자 이하로 입력해주세요.');
+      alert('제목은 5자 이상, 30자 이하로 입력해 주세요.');
       return;
     }
     if (contentValue.length < 10) {
-      alert('내용은 10자 이상 입력해주세요.');
+      alert('내용은 10자 이상 입력해 주세요.');
       return;
     }
-    router.push('/questions/:questionId');
+
+    const source = `${process.env.NEXT_PUBLIC_API_URL}/questions`;
+    const body = { memberId: userId, title: titleValue, content: contentValue };
+    const response = await axios.post(source, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
+      },
+    });
+    if (response.status === 201) router.push(`/questions`);
   };
 
   return (
@@ -33,7 +45,18 @@ const QuestionCreatePage = () => {
               <S.ContentTitle>
                 원하는 영화에 대한 설명을 최대한 자세히 작성해주세요.
               </S.ContentTitle>
-              <WebEditor value={contentValue} setValue={setContentValue} />
+              <S.ContentDescriptionDiv>
+                <S.ContentDescription>
+                  ❗️ 질문 내용은 10자 이상 작성해주세요.
+                </S.ContentDescription>
+              </S.ContentDescriptionDiv>
+              <S.AskTextArea
+                value={contentValue}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                  setContentValue(e.target.value)
+                }
+                placeholder="예: 등골이 오싹해질 만한 공포 영화를 추천해 주세요. 컨저링 시리즈는 다 봤고, 쏘우는 제 취향이 아니었습니다."
+              />
             </S.Content>
             <S.ButtonBox>
               <S.Button onClick={onSubmit}>질문하기</S.Button>
@@ -81,13 +104,18 @@ const SearchBox = ({ value, setValue }: SearchBoxProps) => {
     <S.Search>
       <label htmlFor={titleId}>
         <S.SearchTitle>어떤 영화를 추천받고 싶은지 입력해주세요.</S.SearchTitle>
+        <S.ContentDescriptionDiv>
+          <S.ContentDescription>
+            ❗️ 질문 제목은 5자 이상 30자 이하로 작성해주세요.
+          </S.ContentDescription>
+        </S.ContentDescriptionDiv>
       </label>
       <S.SearchInput
         type="text"
         id={titleId}
         value={value}
         onChange={onChangeSearchTitle}
-        placeholder="예: 추석에 온 가족이 같이 볼 수 있는 영화 추천해주세요"
+        placeholder="예: 추석에 온 가족이 같이 볼 수 있는 영화 추천해 주세요."
       />
     </S.Search>
   );

@@ -1,23 +1,20 @@
 'use client'
 import styled from 'styled-components';
 
-interface MovieListProps {
-    hasContent?: boolean;
-  }
-  
 export const Wrapper=styled.div`
-margin:20px 90px;`;
+margin:0px 90px;`;
 
 export const PageTitle=styled.div`
 font-size: 15px;
 color:#ffffff;
 `;
 export const Container=styled.div`
-margin: 30px 0;
+margin-top: 30px ;
 background-color:#0F204E;
 border-radius:20px;
 display:flex;
-flex-direction:column;`;
+flex-direction:column;
+`;
 
 export const Nickname=styled.div`
 font-size:xx-large;
@@ -36,6 +33,7 @@ margin: 0 auto;`;
 
 export const Section=styled.div`
 margin-bottom:30px ;
+min-height: 200px;
 `;
 
 export const SectionTitle=styled.div`
@@ -89,7 +87,7 @@ cursor: pointer;
 }
 `;
 
-export const MovieList=styled.div<MovieListProps>`
+export const MovieList=styled.div`
 min-height: '200px';
 display:flex;
 gap: 30px;
@@ -98,3 +96,11 @@ white-space:nowrap;
 width: 100%;
 `;
 
+export const EmptyText = styled.div`
+width: 100%;
+height: 100px;
+display: flex;
+align-items:center;
+justify-content: center;
+color: #B3BFD7;
+`

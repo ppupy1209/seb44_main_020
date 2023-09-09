@@ -8,7 +8,7 @@ import './slick-theme.css';
 import {dragOn, dragOff} from '@/redux/features/dragSlice'
 
 interface CarouselProps {
-  props: JSX.Element[];
+  props?: JSX.Element[];
 }
 export default function MainCarousel({ props }: CarouselProps) {
 

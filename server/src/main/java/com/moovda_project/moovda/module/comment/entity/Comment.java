@@ -4,30 +4,32 @@ import com.moovda_project.moovda.global.audit.Auditable;
 import com.moovda_project.moovda.module.like.entity.Like;
 import com.moovda_project.moovda.module.member.entity.Member;
 import com.moovda_project.moovda.module.movie.entity.Movie;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
-@Setter
 @Entity
+@Builder
 @Table(name = "comments")
 public class Comment extends Auditable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "comment_id")
+    @Column(name = "comment_id",nullable = false,updatable = false)
     private Long commentId;
 
+    @Setter
     @Column(name = "content", nullable = false)
     private String content;
-
+    @Setter
     @Column(name = "star", nullable = false)
-    private double star;
-
+    private Double star;
+    @Setter
+    @Transient
+    private boolean likeState;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "movie_id")
     private Movie movie;
@@ -38,11 +40,4 @@ public class Comment extends Auditable {
 
     @OneToMany(mappedBy = "comment",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     Set<Like> likes = new HashSet<>();
-
-    public void addLike(Like like) {
-        this.likes.add(like);
-        if(like.getComment()!=this) {
-            like.setComment(this);
-        }
-    }
 }

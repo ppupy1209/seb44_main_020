@@ -1,29 +1,35 @@
 'use client';
-import { signIn } from 'next-auth/react';
 import * as S from './page.styled';
-import { StyledWrapper } from '../../../styles/style';
 import LoginLogo from '@/assets/LoginLogo.svg';
 import GoogleLogo from '@/assets/GoogleLogo.svg';
+import { useRouter } from 'next/navigation';
+
 const LoginPage = () => {
-  const handleSignIn = () => {
-    signIn('google');
+  const router = useRouter();
+  const LoginRequestHandlerGoogle = () => {
+    window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorization/google`;
   };
+
   return (
-    <StyledWrapper>
-      <S.StyledSection>
-        <S.StyledLogo>
-          <LoginLogo />
-        </S.StyledLogo>
-        <S.StyledMessage>
-          MoovDa에 오신 걸<br></br>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;환영합니다.
-        </S.StyledMessage>
-        <S.StyledLoginBtn onClick={handleSignIn}>
-          <GoogleLogo />
-          <S.StyledButtonText>구글계정으로 로그인하기</S.StyledButtonText>
-        </S.StyledLoginBtn>
-      </S.StyledSection>
-    </StyledWrapper>
+    <>
+      <div style={{ overflowY: 'auto', height: '100vh' }}>
+        <S.StyledSection>
+          <S.StyledLogo>
+            <LoginLogo />
+          </S.StyledLogo>
+          <S.StyledMessage>
+            MoovDa에 오신 걸<br></br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;환영합니다.
+          </S.StyledMessage>
+          <S.StyledLoginBtn>
+            <GoogleLogo />
+            <S.StyledButtonText onClick={LoginRequestHandlerGoogle}>
+              구글계정으로 로그인하기
+            </S.StyledButtonText>
+          </S.StyledLoginBtn>
+        </S.StyledSection>
+      </div>
+    </>
   );
 };
 

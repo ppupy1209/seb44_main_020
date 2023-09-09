@@ -2,15 +2,20 @@
 
 import styled from 'styled-components';
 
+export const StyledBody = styled.div`
+`;
 export const StyledHeader = styled.header`
   width: 100%;
-  margin-top: 5px;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
+  padding-top: 10px;
   border-bottom: 1px solid #466093;
-  position: sticky;
   display: flex;
+  position: fixed;
+  top: 0;
   align-items: center;
   justify-content: space-between;
+  z-index: 2;
+  background-color: #01123d;
 `;
 export const StyledLogo = styled.div`
   margin: 0 40px;

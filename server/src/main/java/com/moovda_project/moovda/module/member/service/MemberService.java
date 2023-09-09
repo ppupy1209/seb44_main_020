@@ -13,17 +13,11 @@ import java.util.Optional;
 public class MemberService {
     private final MemberRepository memberRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public Member createMember(Member member) {
-
-        String encryptedPassword = passwordEncoder.encode(member.getPassword());
-        member.setPassword(encryptedPassword);
 
         Member savedMember = memberRepository.save(member);
         return savedMember;
@@ -34,6 +28,9 @@ public class MemberService {
         return findVerifiedMember(memberId);
     }
 
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email);
+    }
     public Member findVerifiedMember(long memberId) {
         Optional<Member> optionalMember = memberRepository.findById(memberId);
 
@@ -41,4 +38,12 @@ public class MemberService {
 
         return member;
     }
+
+    public void deleteMember(long memberId) {
+        Member member = findVerifiedMember(memberId);
+
+        memberRepository.delete(member);
+    }
+
+
 }

@@ -1,22 +1,32 @@
 spring:
-  #  h2:
-  #    console:
-  #      enabled: true
-  #      path: /h2
-  #  datasource:
-  #    url: jdbc:h2:mem:test
+  #    h2:
+  #      console:
+  #        enabled: true
+  #        path: /h2
+  #    datasource:
+  #      url: jdbc:h2:mem:test
   datasource:
     url: jdbc:mysql://${AWS_RDS_ENDPOINT}/test?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
     username: admin
     password: ${MYSQL_SECRET}
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-    hikari:
-      connection-timeout: 3000
-      validation-timeout: 3000
-      minimum-idle: 5
-      max-lifetime: 240000
-      maximum-pool-size: 20
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: ${GOOGLE_CLIENT_ID}
+            clientSecret: ${GOOGLE_SECRET}
+            redirect-uri: ${GOOGLE_REDIRECT_URI}
+            scope:
+              - email
+              - profile
+  hikari:
+    connection-timeout: 3000
+    validation-timeout: 3000
+    minimum-idle: 5
+    max-lifetime: 240000
+    maximum-pool-size: 20
 
   jpa:
     #    defer-datasource-initialization: true
@@ -47,16 +57,7 @@ sql:
   init:
     data-locations: classpath*:db/h2/data.sql
 
-security:
-  oauth2:
-    client:
-      registration:
-        google:
-          clientId: ${GOOGLE_CLIENT_ID}
-          clientSecret: ${GOOGLE_SECRET}
-          scope:
-            - email
-            - profile
+
 
 #logging:
 #  level:
@@ -81,3 +82,6 @@ jwt:
 
 api:
   key: ${API_KEY}
+
+config:
+  domain: ${CONFIG_DOMAIN}

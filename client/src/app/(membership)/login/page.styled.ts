@@ -41,9 +41,10 @@ export const StyledLoginBtn = styled.button`
   align-items: center;
   justify-content: center;
   display: flex;
+  cursor: pointer;
 `;
 
-export const StyledButtonText = styled.div`
+export const StyledButtonText = styled.a`
   font-size: 14px;
 `;
 export const StyledSignupBtn = styled.button`

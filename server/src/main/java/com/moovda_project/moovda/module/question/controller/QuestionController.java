@@ -1,8 +1,8 @@
 package com.moovda_project.moovda.module.question.controller;
 
 
+import com.moovda_project.moovda.global.dto.MultiResponseDto;
 import com.moovda_project.moovda.global.utils.MemberIdExtractor;
-import com.moovda_project.moovda.module.question.dto.MultiResponseDto;
 import com.moovda_project.moovda.module.question.dto.QuestionDto;
 import com.moovda_project.moovda.module.question.entity.Question;
 import com.moovda_project.moovda.module.question.service.QuestionService;
@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.net.URI;
 import java.util.List;
@@ -37,7 +38,7 @@ public class QuestionController {
     /** 질문 등록 **/
 
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody QuestionDto.Post requestBody) {
+    public ResponseEntity postQuestion(@Valid @RequestBody QuestionDto.Post requestBody) {
 
         Question createdQuestion = questionService.createQuestion(questionMapper.questionPostDtoToQuestion(requestBody));
 
@@ -49,26 +50,29 @@ public class QuestionController {
     /** 질문 수정 **/
     @PatchMapping("/{question_id}")
     public ResponseEntity patchQuestion(@PathVariable("question_id") @Positive long questionId,
-                                        @RequestBody QuestionDto.Patch requestBody) {
+                                        @Valid @RequestBody QuestionDto.Patch requestBody) {
         // TODO : token으로 어떤 회원인지 알아야 함
         long authenticatedMemberId = MemberIdExtractor.extractMemberId();
 
         requestBody.addQuestionId(questionId);
         requestBody.addAuthenticatedMemberId(authenticatedMemberId);
 
-        Question question = questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(requestBody),authenticatedMemberId);
+        questionService.updateQuestion(questionMapper.questionPatchDtoToQuestion(requestBody),authenticatedMemberId);
 
         return ResponseEntity.ok().build();
     }
 
     /** 개별 질문 조회 **/
+
     @GetMapping("/{question_id}")
-    public ResponseEntity getQuestion(@Positive @PathVariable("question_id") long questionId){
+    public ResponseEntity getQuestion(@Positive @PathVariable("question_id") long questionId,
+                                      @Positive @RequestParam int page){
 
         Question findQuestion = questionService.findQuestion(questionId);
 
-        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(findQuestion),HttpStatus.OK);
+        return new ResponseEntity<>(questionMapper.questionToQuestionResponseDto(findQuestion,page,10),HttpStatus.OK);
     }
+
 
 
     /** 전체 질문 목록 조회 **/

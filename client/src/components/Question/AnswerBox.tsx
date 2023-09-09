@@ -1,52 +1,158 @@
-// TODO: api 경로 필요
-
 'use client';
 
+import { QuestionDetailResponse } from '@/app/questions/[questionId]/page';
 import * as S from '@/components/Question/AnswerBox.styled';
+import {
+  AnswerType,
+  deleteAnswerList,
+  editAnswerList,
+} from '@/redux/features/answerListSlice';
+import { RootState } from '@/redux/store';
+import axios from 'axios';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { SearchMovieList } from './Modal';
+import SearchBox from './SearchBox';
 
-const AnswerBox = () => {
+interface AnswerBoxProps {
+  answer: AnswerType;
+  question: QuestionDetailResponse | null;
+}
+
+const AnswerBox = ({ answer, question }: AnswerBoxProps) => {
+  const [isEditing, setIsEditing] = useState<Boolean>(false);
+  const dispatch = useDispatch();
+  const { questionId } = useParams();
+  const answerId = answer.answerId;
+
+  const onEditClick = () => {
+    setIsEditing((prev) => !prev);
+  };
+
+  const onSubmit = async ({
+    selectedMovie,
+    textValue,
+  }: {
+    selectedMovie?: SearchMovieList;
+    textValue: string;
+  }) => {
+    const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers/${answerId}`;
+    const body = {
+      memberId: answer.memberId,
+      content: textValue,
+      title: selectedMovie?.title,
+      poster: selectedMovie?.poster,
+      prodYear: selectedMovie?.prodYear,
+    };
+    const response = await axios.patch(source, body, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
+      },
+    });
+    setIsEditing(false);
+
+    dispatch(
+      editAnswerList({
+        questionId: answer.questionId,
+        content: textValue,
+        movie: {
+          title: selectedMovie?.title,
+          poster: selectedMovie?.poster,
+          prodYear: selectedMovie?.prodYear,
+        },
+      }),
+    );
+  };
+
   return (
     <S.AnswerBoxGroup>
       <S.AnswerBox>
-        <AnswerBoxTop />
+        <AnswerBoxTop
+          onEditClick={onEditClick}
+          answer={answer}
+          question={question}
+        />
         <S.AnswerBoxMid>
-          <S.ContentBox>
-            <div>내용</div>
-          </S.ContentBox>
+          {isEditing ? (
+            <SearchBox
+              onSubmit={onSubmit}
+              defaultValue={{
+                movieId: '',
+                content: answer.content,
+                title: answer.movie?.title,
+                poster: answer.movie?.poster,
+                prodYear: answer.movie?.prodYear,
+                pageInfo: {
+                  currentPage: 0,
+                  pageSize: 0,
+                  total: 0,
+                },
+              }}
+            />
+          ) : (
+            <S.ContentBox>
+              <div>{answer.content}</div>
+              <AnswerBoxBottom answer={answer} />
+            </S.ContentBox>
+          )}
         </S.AnswerBoxMid>
-        <AnswerBoxBottom />
       </S.AnswerBox>
     </S.AnswerBoxGroup>
   );
 };
 
-const AnswerBoxTop = () => {
+interface AnswerBoxTopProps {
+  onEditClick: () => void;
+  answer: AnswerType;
+  question: QuestionDetailResponse | null;
+}
+
+const AnswerBoxTop = ({ onEditClick, answer, question }: AnswerBoxTopProps) => {
+  const dispatch = useDispatch();
+  const answerId = answer.answerId;
+  const { questionId } = useParams();
+  const userId = useSelector((state: RootState) => state.auth.memberId);
+  const [isAuthor, setIsAuthor] = useState<boolean>(false);
+
+  const handleDeleteAnswer = async () => {
+    dispatch(deleteAnswerList(answer));
+    const source = `${process.env.NEXT_PUBLIC_API_URL}/questions/${questionId}/answers/${answerId}`;
+    await axios.delete(source, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('Authorization'),
+      },
+    });
+    console.log('답변이 삭제되었습니다.');
+  };
+
+  useEffect(() => {
+    if (userId === answer.memberId) {
+      setIsAuthor(true);
+    }
+  }, []);
+
   return (
     <S.BoxTop>
       <S.LeftBox>
-        {/* // TODO: 회원 === 글작성자 -> 본인 mypage || 회원 != 글작성자 -> 글작성자 mypage */}
-        <Link href={'/mypage'}>
-          <S.Nickname>닉네임</S.Nickname>
-        </Link>
-        <S.Time>{AnswerDate(new Date())}</S.Time>
+        {/* <Link href={`/mypage/${answer.nickname}}`}> */}
+        <S.Nickname>{answer.nickname}</S.Nickname>
+        {/* </Link> */}
+        <S.Time>
+          {question?.createdAt
+            ? AnswerDate(new Date(`${question.createdAt}z`))
+            : ''}
+        </S.Time>
       </S.LeftBox>
-      <S.RightBox>
-        <S.EditBtn
-          onClick={() => {
-            // TODO: if(작성자 === 수정하려는 사람){수정가능}else 수정 불가능
-          }}
-        >
-          수정
-        </S.EditBtn>
-        <S.DeleteBtn
-          onClick={() => {
-            // TODO: if(작성자 === 삭제하려는 사람){삭제가능}else 삭제 불가능
-          }}
-        >
-          삭제
-        </S.DeleteBtn>
-      </S.RightBox>
+      {isAuthor && (
+        <S.RightBox>
+          <S.EditBtn onClick={onEditClick}>수정</S.EditBtn>
+          <S.DeleteBtn onClick={handleDeleteAnswer}>삭제</S.DeleteBtn>
+        </S.RightBox>
+      )}
     </S.BoxTop>
   );
 };
@@ -70,16 +176,29 @@ const AnswerDate = (createdAt: Date): string => {
   return `${Math.floor(years)}년 전`;
 };
 
-const AnswerBoxBottom = () => {
+interface AnswerBoxBottomProps {
+  answer: AnswerType;
+}
+
+const AnswerBoxBottom = ({ answer }: AnswerBoxBottomProps) => {
+  const { movieId } = useParams();
   return (
-    <Link href={'/movie/:movieId'}>
-      {/* //TODO: movie 클릭시 해당 movie홈페이지로 이동 */}
+    <Link href={`/movies/${movieId}`}>
       <S.BoxBottom>
         <S.SelectedMovieBox>
-          <S.Poster>포스터</S.Poster>
+          <S.Poster>
+            <div>
+              <img
+                src={answer?.movie?.poster}
+                alt="movieposter"
+                width={'56px'}
+                height={'64px'}
+              />
+            </div>
+          </S.Poster>
           <S.MovieInfo>
-            <S.MovieTitle>제목</S.MovieTitle>
-            <S.MovieReleaseDate>개봉년도</S.MovieReleaseDate>
+            <S.MovieTitle>{answer?.movie?.title}</S.MovieTitle>
+            <S.MovieReleaseDate>{answer?.movie?.prodYear}</S.MovieReleaseDate>
           </S.MovieInfo>
         </S.SelectedMovieBox>
       </S.BoxBottom>

@@ -1,24 +1,33 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Content } from 'next/font/google';
 // import { RootState } from '../store/store';
 
-export const loginSlice = createSlice({
+interface LoginState {
+  userInfo: {
+    nickname: string | null;
+    memberId: string | null;
+  };
+}
+
+export const authSlice = createSlice({
   name: 'login',
   initialState: {
-    user: null,
-    token: null,
+    nickname: null,
+    memberId: null,
   },
+
   reducers: {
-    setUser(state, action) {
-      state.user = action.payload;
+    setMemberId(state, action) {
+      state.memberId = action.payload;
     },
-    setToken(state, action) {
-      state.token = action.payload;
+    setNickname(state, action) {
+      state.nickname = action.payload;
     },
   },
 });
 
-export const { setUser, setToken } = loginSlice.actions;
+export default authSlice.reducer; // reducer 해주면 리턴이 됨
+export const { setMemberId, setNickname } = authSlice.actions;
 
-export default loginSlice.reducer; // reducer 해주면 리턴이 됨
 // export const selectCurrentUser = (state: RootState) => state.auth;
 // export const selectCurrentToken = (state: RootState) => state.auth;

@@ -1,11 +1,8 @@
 package com.moovda_project.moovda.module.answer.dto;
 
-import com.moovda_project.moovda.module.movie.entity.Movie;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
@@ -16,32 +13,33 @@ public class AnswerDto {
     @NoArgsConstructor
     public static class Post {
         private long memberId;
-
         private long questionId;
-
+        @Size(min = 10, message = "답변 내용은 10자 이상이어야합니다.")
         private String content;
-
-        private Movie movie;
+        private String title;
+        private String poster;
+        private String prodYear;
     }
-
     @Getter
     @Setter
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Patch {
         private long answerId;
-
         private long authenticatedMemberId;
-
         private long questionId;
-
+        @Size(min = 10, message = "답변 내용은 10자 이상이어야합니다.")
         private String content;
+        private String title;
+        private String poster;
+        private String prodYear;
 
-        private Movie movie;
 
         public void addAnswerId(long answerId) {
             this.answerId = answerId;
         }
+
+        public void addQuestionId(long questionId) {this.questionId = questionId;}
 
         public void addAuthenticatedMemberId(long authenticatedMemberId) {
             this.authenticatedMemberId = authenticatedMemberId;
@@ -50,6 +48,7 @@ public class AnswerDto {
 
     @Getter
     @Setter
+    @Builder
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Response {
@@ -61,12 +60,21 @@ public class AnswerDto {
 
         private String content;
 
-        private Movie movie;
+        private AnswerMovie movie;
 
         private long memberId;
 
         private LocalDateTime createdAt;
+    }
 
-        private LocalDateTime modifiedAt;
+    @Getter
+    @Setter
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class AnswerMovie {
+        private String title;
+        private String poster;
+        private String prodYear;
     }
 }

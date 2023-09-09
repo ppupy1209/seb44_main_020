@@ -1,20 +1,19 @@
 package com.moovda_project.moovda.module.comment.dto;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-
-@Setter
 @Getter
+@Builder
 public class CommentResponseDto {
-
-    //    String nickname;
     Long memberId;
     Long commentId;
+    String nickname;
     String content;
     Double star;
     Integer likeCount;
+    boolean likeState;
     LocalDateTime createdAt;
 }

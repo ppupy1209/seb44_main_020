@@ -1,20 +1,24 @@
 package com.moovda_project.moovda.module.movie.repository;
 
-import com.moovda_project.moovda.module.movie.dto.search.MovieSearchDto;
-import com.moovda_project.moovda.module.movie.dto.search.QMovieSearchDto;
+import com.moovda_project.moovda.module.genre.entity.QGenre;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchDto;
+import com.moovda_project.moovda.module.movie.dto.QMovieSearchDto;
 import com.moovda_project.moovda.module.movie.entity.QMovie;
-import com.moovda_project.moovda.module.movie.entity.genre.QGenre;
-import com.moovda_project.moovda.module.movie.dto.search.MovieSearchCondition;
+import com.moovda_project.moovda.module.movie.dto.MovieSearchCondition;
+import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
+import static com.moovda_project.moovda.module.genre.entity.QGenre.*;
+import static com.moovda_project.moovda.module.genre.entity.QMovieGenre.*;
 import static com.moovda_project.moovda.module.movie.entity.QMovie.*;
-import static com.moovda_project.moovda.module.movie.entity.genre.QGenre.*;
-import static com.moovda_project.moovda.module.movie.entity.genre.QMovieGenre.*;
 import static org.thymeleaf.util.StringUtils.*;
 
 public class MovieRepositoryImpl implements MovieRepositoryCustom {
@@ -26,13 +30,13 @@ public class MovieRepositoryImpl implements MovieRepositoryCustom {
     }
 
     @Override
-    public List<MovieSearchDto> search(MovieSearchCondition condition) {
-        return queryFactory
-                .select(new QMovieSearchDto(
+    public Page<MovieSearchDto> search(MovieSearchCondition condition, Pageable pageable) {
+        QueryResults<MovieSearchDto> results = queryFactory
+                .selectDistinct(new QMovieSearchDto(
                         movie.movieId,
-                        genre.name,
-                        movie.country,
-                        movie.rating,
+                        movie.title,
+                        movie.poster,
+                        movie.openingDate,
                         movie.starAvg
                 ))
                 .from(movie)
@@ -45,9 +49,14 @@ public class MovieRepositoryImpl implements MovieRepositoryCustom {
                         starAvgBetween(condition.getStartStarAvg(), condition.getEndStarAvg()),
                         searchKeyWordLike(condition.getKeyword())
                 )
-                .fetch();
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetchResults();
 
+        List<MovieSearchDto> content = results.getResults();
+        long total = results.getTotal();
 
+        return new PageImpl<>(content,pageable,total);
     }
 
     private BooleanExpression genreNameEq(String genre) {
